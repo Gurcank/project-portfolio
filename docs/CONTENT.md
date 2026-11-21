@@ -652,6 +652,11 @@ EN (~140 words):
 | 404 metin | Sayfa taşınmış ya da hiç olmamış. | The page moved or never existed. |
 | 404 buton | Rafa dön | Back to the shelf |
 | Footer | © 2026 Gürcan Karadağ · İstanbul ile Łódź arasında bir yerde yapıldı. · Krediler | © 2026 Gürcan Karadağ · Made somewhere between Istanbul and Łódź. · Credits |
+| İçeriğe geç linki (D1'de onaylandı) | İçeriğe geç | Skip to content |
+| Pano reddi (D1'de onaylandı) | Kopyalanamadı; adresi seçip kopyala. | Couldn't copy; select the address instead. |
+| Dil düğmesi erişilebilir adı (D1'de onaylandı; hedef dilde yazılır) | Switch to English | Türkçeye geç |
+| Meta açıklama (D1'de onaylandı) | Gürcan Karadağ, Product Manager adayı. Dağınık bilgiyi dokunulabilir ürünlere çeviriyorum. Şubat 2027'den itibaren İstanbul'da müsait. | Gürcan Karadağ, aspiring Product Manager. I turn scattered information into tangible products. Available in Istanbul from Feb 2027. |
+| Sayfa başlığı (D1; isim + §4 mono etiketindeki rol) | Gürcan Karadağ · Product Manager adayı | Gürcan Karadağ · Aspiring Product Manager |
 
 Kurallar: Buton metni fiille başlar. ATAMap overlay'inde esprili mikro metin kullanılmaz (404 ve walkman metinleri ATAMap overlay'inde görünmez).
 
@@ -712,5 +717,5 @@ Pullar dekordur (`aria-hidden`); adlar yalnız görsel etiket.
 | Okuma süreleri | D2 | Kelime sayısından build'de otomatik hesaplanır (ARCHITECTURE §3); bu dosyadaki elle yazılmış süreler karşılaştırma için kalır. |
 | Şarkı yılları | Kullanıcı · D7 | Walkman sonucu "{Ad} ({yıl})" ama 7 şarkının yılı yok. Claude kaynaklı önerir, kullanıcı onaylar. |
 | Kenar notu metinleri | Kullanıcı · D4 | INS-13 notlarının metni yazılmadı. Claude önerir, kullanıcı onaylar (ATAMap'e not yok). |
-| Eksik mikro metinler | D1 | "İçeriğe geç" linki, pano erişimi reddedilince gösterilecek metin, dil düğmesinin erişilebilir adı. D1'de önerilip onayla §8'e eklenir. |
+| ~~Eksik mikro metinler~~ | Kapandı (D1) | Önerildi, onaylandı, §8'e eklendi. |
 | Sayılar | S-son | Commit, olay, ders sayıları 2026-11-21 itibarıyla; yayından önce tazelenir. |

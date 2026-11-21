@@ -7,14 +7,14 @@
     "node": "24.x"
   },
   "scripts": {
-    "dev": "velite build && next dev",
-    "build": "velite build && next build",
+    "dev": "velite build --strict && next dev",
+    "build": "velite build --strict && next build",
     "start": "next start",
-    "content": "velite build",
+    "content": "velite build --strict",
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "velite build && tsc --noEmit",
+    "typecheck": "velite build --strict && tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "check:tokens": "tsx scripts/check-tokens.ts",

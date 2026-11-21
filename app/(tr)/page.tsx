@@ -1,5 +1,5 @@
-import { TokenPreview } from "@/components/home/TokenPreview";
+import { HomePage } from "@/components/home/HomePage";
 
 export default function TurkishHomePage() {
-  return <TokenPreview locale="tr" />;
+  return <HomePage locale="tr" />;
 }

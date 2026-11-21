@@ -1,0 +1,9 @@
+# Language-independent contact data (ARCHITECTURE §3). Email and LinkedIn from the CV; GitHub from the CV's repo links.
+name: Gürcan Karadağ
+email: karadagurcan@gmail.com
+linkedin: https://www.linkedin.com/in/gurcankaradag
+github: https://github.com/Gurcank
+# Paths under public/. A missing locale hides that language's CV button; a path without a file fails the build.
+# Empty until a public version of the CV exists (the current one has a phone number and a teammate's link).
+# Add e.g. `tr: /cv/gurcan-karadag-cv-tr.pdf` once the file is in public/cv/.
+cv: {}

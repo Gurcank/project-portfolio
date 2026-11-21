@@ -1,0 +1,37 @@
+# UI copy, Turkish. Source of truth: docs/CONTENT.md (§4, §5, §8). Wording changes need approval.
+meta:
+  title: Gürcan Karadağ · Product Manager adayı
+  description: Gürcan Karadağ, Product Manager adayı. Dağınık bilgiyi dokunulabilir ürünlere çeviriyorum. Şubat 2027'den itibaren İstanbul'da müsait.
+
+nav:
+  contact: İletişim
+
+hero:
+  role: Dağınık bilgiyi *dokunulabilir* ürünlere çeviriyorum.
+  label: PRODUCT MANAGER ADAYI · İSTANBUL · ● ŞUBAT 2027'DEN İTİBAREN MÜSAİT
+  primaryCta: Bana yaz
+
+sections:
+  contact: Bir *mesaj* uzağındayım
+
+microcopy:
+  skipToContent: İçeriğe geç
+  languageSwitch:
+    label: EN
+    accessibleName: Switch to English
+  contact:
+    copyEmail: E-postayı kopyala
+    copied: Kopyalandı
+    copyFailed: Kopyalanamadı; adresi seçip kopyala.
+    linkedin: LinkedIn
+    github: GitHub
+    downloadCv: CV'yi indir (PDF)
+
+notFound:
+  title: Bu kaset rafta yok.
+  body: Sayfa taşınmış ya da hiç olmamış.
+  cta: Rafa dön
+
+footer:
+  copyright: © 2026 Gürcan Karadağ
+  madeIn: İstanbul ile Łódź arasında bir yerde yapıldı.

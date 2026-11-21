@@ -1,55 +1,52 @@
 # PROGRESS
 
-## Durum: S5 bitti (2026-11-21)
+## Durum: S6 · D1 branch'e push'landı, preview onayı bekliyor (2026-11-21)
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (hâlâ S5) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/d1-first-30-seconds`.
 
 ### Ne bitti
 
-- S1 Keşif → `docs/SPEC.md`. S2 İlham → `docs/INSPIRATION.md` + SPEC §8. S3 İçerik → `docs/CONTENT.md` (TR onaylı, EN kontrol bekliyor). S4 Mimari → `docs/ARCHITECTURE.md` (19 ADR) + `docs/ROADMAP.md`.
-- S5 Kurulum (Faz 3):
-  - Next 16.4.6 projesi: `app/(tr)` (`/`, `lang="tr"`) ve `app/(en)/en` (`/en`, `lang="en"`) root layout'ları, iki dilli `global-not-found.tsx` (`experimental.globalNotFound`), hepsi statik.
-  - Git: `docs/sources/` ilk commit'ten önce `.gitignore`'da. Kanıt: `git check-ignore -v` → `.gitignore:2`; `git ls-files | grep sources` → 0 dosya; GitHub API `docs/sources` → 404. `.gitattributes` ile repoda LF.
-  - `styles/tokens.css`: SPEC §8 paleti (`--color-*: initial`), 7 kaset rengi + yazı eşleşmeleri, akışkan tip ölçeği (gövde 17→18 px, oran 1.25→1.333, `text-display` clamp), 4 px boşluk tabanı, gutter 16/32/64, radius, shadow, easing + süreler (reduced-motion ve `data-motion="paused"` sıfırlar), z-index katmanları.
-  - `npm run check:tokens` (+ Vitest testi): ham hex/rgb/px, arbitrary değer ve ölçek dışı boşluk build kapısı.
-  - Fontlar `next/font/google` (Archivo `wdth` preload; Fraunces italic, Geist Mono, Caveat preload kapalı). Velite iskeleti (`site` şeması; `profile` şeması tanımlı, D1'de kayıt). `ExperienceBoundary`, `lib/i18n.ts`, `lib/utils.ts` (`cn`), `components.json` (shadcn).
-  - Script'ler: `dev`, `build`, `lint`, `format`, `format:check`, `typecheck`, `test`, `test:e2e`, `check:tokens`, `screenshots`. `.claude/launch.json` (`prod`, `dev`).
-  - Testler: Vitest 9/9 (i18n, check:tokens); Playwright 11/11 (lang, iki dilli 404 status, axe serious/critical 0, 375/768/1280'de yatay taşma yok).
-  - Proje `CLAUDE.md` (110 satır).
-  - Geçici sayfa: "Merhaba" + token önizlemesi (palet, kaset sırtları, tip ölçeği, boşluk). D1'de hero ile değişir.
+- S1 Keşif → `SPEC.md` · S2 İlham → `INSPIRATION.md` · S3 İçerik → `CONTENT.md` · S4 Mimari → `ARCHITECTURE.md` + `ROADMAP.md` · S5 Kurulum (iskelet, token'lar, `check:tokens`, fontlar, Velite, testler, ilk deploy).
+- **S6 · D1 · İlk 30 saniye** (branch'te, yerelde doğrulandı):
+  - `SiteHeader` (isim → `#top`, "İletişim", dil düğmesi), "İçeriğe geç" linki, `LanguageSwitch` (JS ile hash'i taşır: `/#contact` → `/en#contact`; JS'siz düz link).
+  - `Hero`: mono etiket + ince çizgi (INS-17; ● dekor, `aria-hidden`), dev isim (LCP, metin), rol cümlesi tek italik vurguyla, "Bana yaz" → `#contact`. "İşlere bak" D2'ye kadar yok.
+  - `Contact`: dev mailto e-posta, `CopyEmailButton` (tek client parça; "Kopyalandı" `role="status"`; pano reddinde adres seçilir + uyarı), LinkedIn, GitHub (`lang="en"`, TR büyük harfte "LİNKEDİN" olmasın diye), CV indir (`profile.yaml` → `cv` boş olduğu için şu an iki dilde de düğme yok).
+  - `SiteFooter` ("Krediler" D5'e kadar yok). 404 metni artık `content/`'ten.
+  - SEO: `metadataBase` (`VERCEL_PROJECT_PRODUCTION_URL`; domain gelince kod değişmez), description, canonical, hreflang, OG (iki dil; renkler build'de `tokens.css`'ten okunur, fontlar Google'dan subset), `sitemap.xml`, `robots.txt`, favicon (`app/icon.tsx`, kaset).
+  - Umami: `NEXT_PUBLIC_UMAMI_WEBSITE_ID` varsa script yüklenir; `data-umami-event` attribute'ları hazır (`contact_email_click` mailto/copy, `contact_linkedin_click`, `cv_download`).
+  - İçerik: `content/profile.yaml` (e-posta ve LinkedIn CV'den), `content/site/{tr,en}.yaml`. **CV yayımlanmadı** (kullanıcı kararı): mevcut CV'de telefon numarası ve ekip arkadaşının GitHub kullanıcı adı var. Yereldeki `public/cv/gurcan-karadag-cv-tr.pdf` kopyası commit'lenmedi.
+  - CONTENT §8'e onaylanan 4 mikro metin + sayfa başlığı eklendi; §10'daki "Eksik mikro metinler" kapandı.
+  - Geçici `TokenPreview.tsx` silindi.
+- `/break-ui`: worst-case fixture `tests/fixtures/worst-case.ts`; yalnız `next dev`'de açılan sayfa `localhost:3000/dev/break-ui?data=worst|demo|no-cv` (`*.dev.tsx` + `pageExtensions`, production build'de yok). Bulunan 4 sorun düzeltildi: 320'de isim taşması (`wrap-anywhere`), nav ≤ 16 karakter, İletişim başlığı ≤ 40, CONTENT §0 kelime bütçeleri şemada (buton ≤ 3, hata ≤ 15).
 
-### S5'te doğrulananlar
+### S6'da doğrulananlar (yerel)
 
-- TypeScript 6.0.3 + Velite 0.4.0 + Next 16.4.6 birlikte build alıyor (yerel ve Vercel).
-- Vercel Node 24.x ile build ediyor (`engines.node`).
-- **JS bütçesinin bazı (canlı, mobil Lighthouse 13.6.0):** 6 dosya, **137,8 KB** transfer (447 KB sıkıştırılmamış). Her dilim bunun üstüne eklediği JS'i raporlar.
-- Canlı mobil Lighthouse: Performans 96 · Erişilebilirlik 100 · Best practices 96 · SEO 73. LCP 2,2 sn · CLS 0 · TBT 90 ms. Fontlar 8 dosya / 399 KB (önizleme dört aileyi birden kullanıyor).
+- `format:check`, `lint`, `typecheck`, `check:tokens` (33 dosya), `test` (18/18), `build` (hepsi statik), `test:e2e` (34/34; D1 kabul testleri, axe serious/critical 0, 320/375/768/1280'de yatay taşma yok).
+- Bozuk içerik artık build'i düşürüyor: EN dosyası eksik, vurgusuz başlık, olmayan CV yolu → exit 1.
+- Ekran görüntüleri 375/768/1280 (TR + EN), `artifacts/`.
 
-### Plandan sapmalar (ARCHITECTURE güncellendi)
+### Plandan sapmalar ve bulgular
 
-- **ESLint 10 → 9.39.5:** eslint-config-next 16.4.6 içindeki react / jsx-a11y / import eklentileri ESLint 10'u desteklemiyor; Next şablonu da `^9`. npm "no longer supported" uyarısı veriyor (risk §11).
-- **Tailwind `@tailwindcss/turbopack` loader** (Next 16.4.6 şablonu), `@tailwindcss/postcss` değil.
-- **shadcn init çalıştırılmadı:** `globals.css`'i kendi renkleriyle ezerdi; `components.json` elle. İlk `npx shadcn add` D2'de (Dialog) denenir.
-- `npm audit`: Velite'in sharp 0.34.5'i 2 high bulgu; yalnız build'de, kendi görsellerimiz (risk §11).
+- **Velite şema hatası S5'ten beri build'i düşürmüyordu** (yalnız uyarı, exit 0). CLI'nin `strict` varsayılanı config'i eziyor; bütün script'lerde `velite build --strict`. Dev watcher bilerek strict değil.
+- **`site` şeması dilimle büyüyor:** ARCHITECTURE §3'teki tam `SiteCopy` yerine her dilim yalnız kendi alanlarını ekliyor (D1: meta, nav.contact, hero, sections.contact, microcopy, notFound, footer).
+- `next.config.ts` artık `phase` fonksiyonu (`PHASE_DEVELOPMENT_SERVER`); `process.argv` kontrolü güvenilir değildi.
+- 404 butonu "Back to the shelf" 4 kelime, CONTENT §0'daki buton bütçesini (≤ 3) aşıyor; şemada bu alan bütçeden muaf tutuldu. Metin değişikliği kullanıcı kararı.
+- Sayfa başlığı ("Gürcan Karadağ · Product Manager adayı") onaylı parçalardan birleştirildi.
 
-### Sıradaki adım: S6 — D1 · İlk 30 saniye
+### Sıradaki adım
 
-- `docs/PROMPTS.md` → S6+ prompt'u; kapsam `docs/ROADMAP.md` → "S6 · D1".
-- D1'e devredilen bulgular (canlı Lighthouse):
-  - `meta description` yok; `hreflang` ve `canonical` geçersiz, çünkü `metadataBase` yok ve URL'ler göreli → D1'de `metadataBase` (şimdilik vercel.app adresi; domain S16'da).
-  - `/favicon.ico` 404 → D1'de `app/icon.svg`.
-  - Font ağırlığı: hero yalnız Archivo kullanınca yeniden ölç; Caveat/Fraunces ilk ekranda yoksa indirilmemeli.
-  - `content/profile.yaml` + `profile` koleksiyonunu Velite'e kaydet; `content/site/{tr,en}.yaml`.
-  - Geçici `components/home/TokenPreview.tsx` kaldırılır.
-- Vercel önizlemeleri (branch deploy) SSO korumalı: yalnız Vercel hesabıyla açılır; production alias herkese açık.
+1. Vercel preview'da Lighthouse mobil (LCP/CLS, D1'in eklediği JS; baz 137,8 KB) → kullanıcı onayı → `main`.
+2. Yayımlanabilir CV gelince: dosyayı `public/cv/`'ye koy, `profile.yaml` → `cv.tr`; düğme ve e2e testi kendiliğinden açılır.
+3. Sonra S7 · D2 · Kaset rafı + overlay (`ROADMAP.md`).
 
 ### Açık sorular (kullanıcıdan)
 
 | Ne                                                                  | Gerektiği dilim                       |
 | ------------------------------------------------------------------- | ------------------------------------- |
-| Umami Cloud hesabı ve Website ID                                    | D1                                    |
-| EN CV PDF'i                                                         | D1 (gelene kadar EN'de düğme gizli)   |
-| `profile.yaml` için e-posta, LinkedIn, GitHub adresleri (onaylı)    | D1                                    |
+| Yayımlanabilir TR CV (telefonsuz, Novera linksiz)                   | geldiğinde (D1 CV'siz çıkıyor)        |
+| Umami Cloud hesabı ve Website ID (Vercel env'e)                     | D1 (kodsuz eklenir)                   |
+| EN CV PDF'i                                                         | gelince `profile.yaml` → `cv.en`      |
 | IDDDergi canlı adresi; Novera repo linki gösterilsin mi             | D2                                    |
 | EN case study metinlerinin kontrolü                                 | D2 production'dan önce                |
 | 2–3 kişisel fotoğraf; Atatürk portresi seçimi; kenar notu metinleri | D4                                    |
@@ -58,8 +55,8 @@
 
 ### Not
 
-- GitHub profil README'sindeki LinkedIn linki eski URL'ye gidiyor (`/in/gürcan-karadağ-a349a5294`); CV'deki `/in/gurcankaradag`. Sitenin kapsamında değil, elle düzeltilecek.
-- ATAMap'in stack'i Preact + Vite (React değil); CONTENT'te doğru yazıldı.
-- AI görsellerinin telif durumu doğrulanamadı; karar buna dayanmıyor: koruma iddia edilmez, kaynak kredilerde yazılır.
-- Yerel ölçümde Kaspersky her sayfaya ~925 KB script/CSS enjekte ediyor; yerel Lighthouse'ta `--blocked-url-patterns="*kaspersky-labs.com*"` kullan.
-- Git Bash'te yol argümanlarına `MSYS_NO_PATHCONV=1` gerekiyor (CLAUDE.md'de yazılı).
+- Vercel önizlemeleri (branch deploy) SSO korumalı: yalnız Vercel hesabıyla açılır; production alias herkese açık.
+- GitHub profil README'sindeki LinkedIn linki eski URL'ye gidiyor; CV'deki `/in/gurcankaradag` kullanıldı. Elle düzeltilecek.
+- Yerel Lighthouse'ta Kaspersky enjeksiyonu için `--blocked-url-patterns="*kaspersky-labs.com*"`.
+- Git Bash'te yol argümanlarına `MSYS_NO_PATHCONV=1`.
+- Mevcut e2e taşma testi metnin kutudan taşmasını yakalamıyordu; artık `scrollWidth` de kontrol ediliyor.

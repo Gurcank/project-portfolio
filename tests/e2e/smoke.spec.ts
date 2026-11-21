@@ -35,18 +35,25 @@ test.describe("accessibility", () => {
 });
 
 test.describe("layout", () => {
-  for (const width of [375, 768, 1280]) {
+  // 320 = WCAG 1.4.10 reflow width
+  for (const width of [320, 375, 768, 1280]) {
     for (const path of ["/", "/en"]) {
       test(`${path} has no horizontal overflow at ${width}px`, async ({ page }) => {
         await page.setViewportSize({ width, height: 900 });
         await page.goto(path);
-        const overflowing = await page.evaluate(() => {
+        const { boxes, scrollWidth, viewport } = await page.evaluate(() => {
           const viewport = document.documentElement.clientWidth;
-          return [...document.querySelectorAll("body *")]
-            .filter((el) => el.getBoundingClientRect().right > viewport + 0.5)
-            .map((el) => el.outerHTML.slice(0, 80));
+          return {
+            viewport,
+            // Text spilling out of a box doesn't move the box itself, so scrollWidth catches it
+            scrollWidth: document.documentElement.scrollWidth,
+            boxes: [...document.querySelectorAll("body *")]
+              .filter((el) => el.getBoundingClientRect().right > viewport + 0.5)
+              .map((el) => el.outerHTML.slice(0, 80)),
+          };
         });
-        expect(overflowing).toEqual([]);
+        expect(boxes).toEqual([]);
+        expect(scrollWidth).toBeLessThanOrEqual(viewport);
       });
     }
   }
