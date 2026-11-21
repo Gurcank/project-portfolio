@@ -102,7 +102,7 @@ Pixel dekor aynı paleti kullanır; Gemini ya da paket çıktıları bu palete i
 | Etiket, süre, künye | **Geist Mono** | Net bilgi satırı (rol · şehir · müsaitlik) ve okuma süreleri. |
 | Kenar notları (isteğe bağlı) | **Caveat** | Yalnızca el yazısı notlarda; geç yüklenir. |
 
-Dördü de SIL OFL ve Google Fonts'ta latin-ext subset'li (ğ, ş, ı, İ dahil); doğrulama §9'da. Yalnızca display ağırlığı preload edilir.
+Dördü de SIL OFL ve Google Fonts'ta latin-ext subset'li (ğ, ş, ı, İ dahil); doğrulama §9'da. İlk ekranda kullanılan fontlar (Archivo, Fraunces Italic, Geist Mono) preload edilir; Caveat geç yüklenir (D1'de ölçülerek değişti, ARCHITECTURE ADR-15).
 
 Tip ölçeği: akışkan; gövde 17–18 px; oran mobilde 1.25, masaüstünde 1.333; dev başlık condensed ve `clamp()` ile ekran genişliğine göre. Büyük harfli mono etiketlerde `lang="tr"` (i/İ dönüşümü).
 
@@ -158,7 +158,7 @@ Elle çizim yok. Kaynaklar: (1) kod ve tipografi, programla üretilen pixel/SVG;
 | Kaset görselleri (7 proje) | Kod (SVG/CSS) + proje ekran görüntüsü | Bizim | 7 | Kaset oranı (sırt + kapak) | SVG; kapak görseli proje görselleriyle aynı dosya |
 | Kişisel fotoğraflar (Hakkımda kenarları) | Kendi fotoğraflarım | Bizim | 2–3 (kullanıcı sağlayacak) | Serbest | AVIF/WebP, tek görsel ≤ 80 KB |
 | AI ile üretilen görseller (gerekirse) | Gemini | Google sahiplik talep etmiyor; telif koruması doğrulanamadı, iddia edilmez; kredilerde belirtilir (ADR-08) | Az sayıda | Serbest | Ortak palete indirgenmiş; AVIF/WebP |
-| Fontlar | Google Fonts: Archivo, Fraunces, Geist Mono, Caveat | SIL OFL (doğrulandı) | 4 aile | — | latin + latin-ext subset; yalnızca display preload; Caveat lazy |
+| Fontlar | Google Fonts: Archivo, Fraunces, Geist Mono, Caveat | SIL OFL (doğrulandı) | 4 aile | — | latin + latin-ext subset; ilk ekran fontları preload; Caveat lazy |
 | Atatürk portresi | Kamu malı fotoğraf (Wikimedia Commons vb.) | Her fotoğrafın lisansı ayrıca doğrulanır; FSEK md. 27: fotoğrafçının ölümünden itibaren 70 yıl | 1 | 3:4 | WebP/AVIF ≤ 60 KB |
 | Türk bayrağı | Kendi çizimimiz (SVG), 2893 sayılı Kanun ekindeki oranlar | Kamu sembolü | 1 | 3:2 | SVG |
 | Proje görselleri | Kendi projelerimin ekran görüntüleri | Bizim | 7 × n (n, D2'de ekran görüntüleri alınırken) | 16:10 | AVIF/WebP, responsive srcset |

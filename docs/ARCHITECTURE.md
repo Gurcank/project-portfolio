@@ -225,9 +225,9 @@ Atatürk portresi (doğrulanmış kamu malı fotoğraf) ve bayrak (2893 oranlar�
 
 **Alternatifler.** `next/font/google` (build'de indirip self-host) · Google Fonts CSS linki · `next/font/local`.
 
-**Sonuç.** `next/font/google`. Archivo: `axes: ['wdth']`, `subsets: ['latin', 'latin-ext']`, preload açık. Fraunces: `style: 'italic'`, preload kapalı. Geist Mono ve Caveat: preload kapalı; Caveat yalnız kenar notlarında kullanılır. Font CSS değişkenleri (`variable`) token'lara bağlanır.
+**Sonuç.** `next/font/google`. Archivo: `axes: ['wdth']`, `subsets: ['latin', 'latin-ext']`, preload açık. Fraunces (`style: 'italic'`) ve Geist Mono: preload açık (D1'de değişti, aşağıya bkz.). Caveat: preload kapalı; yalnız kenar notlarında kullanılır. Font CSS değişkenleri (`variable`) token'lara bağlanır.
 
-**Ödünleşim.** Hero'daki italik kelime ve mono etiket ilk boyamada fallback fontla görünüp sonra değişebilir; `adjustFontFallback` kaymayı azaltır, CLS Faz 7'de ölçülür. Google Fonts CSS linkine göre build'de ağ gerekir.
+**Ödünleşim.** İlk planda yalnız Archivo preload ediliyordu. D1'de ölçüldü: hero'daki italik kelime ve mono etiket geç gelince hero yeniden akıyor, mobil Lighthouse CLS 0,177 çıkıyordu (`adjustFontFallback` yetmedi). İlk ekranda kullanılan iki font da preload'a alındı: CLS 0,001 (5/5 koşu, devtools throttling), LCP değişmedi; bedeli +1 font dosyası / +40 KB. Google Fonts CSS linkine göre build'de ağ gerekir.
 
 **Kaynak.** [next/font: axes, preload, style, subsets](https://github.com/vercel/next.js/blob/v16.4.5/docs/01-app/03-api-reference/02-components/font.mdx) · Font lisansları: SPEC §9.
 

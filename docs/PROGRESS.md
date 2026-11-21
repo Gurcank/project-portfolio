@@ -1,9 +1,9 @@
 # PROGRESS
 
-## Durum: S6 · D1 branch'e push'landı, preview onayı bekliyor (2026-11-21)
+## Durum: S6 · D1 canlıda; CLS düzeltmesi `fix/d1-font-cls` branch'inde, merge onayı bekliyor (2026-11-21)
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (hâlâ S5) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d1-first-30-seconds`.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D1, commit `88d1911`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/d1-first-30-seconds` → `main`'e fast-forward merge edildi. Düzeltme: `fix/d1-font-cls`.
 
 ### Ne bitti
 
@@ -26,6 +26,15 @@
 - Bozuk içerik artık build'i düşürüyor: EN dosyası eksik, vurgusuz başlık, olmayan CV yolu → exit 1.
 - Ekran görüntüleri 375/768/1280 (TR + EN), `artifacts/`.
 
+### Production'da doğrulananlar
+
+- `/`, `/en`, `/sitemap.xml`, `/robots.txt` 200; rastgele URL 404; `/dev/break-ui` production'da 404. Canonical, hreflang, sitemap ve OG görseli production adresinde (preview'da OG preview adresini kullanıyordu; production'da düzeldi).
+- **Lighthouse 13.6.0 mobil, 2 koşu:** Performans 98 / 91 · Erişilebilirlik 100 · Best practices 100 · SEO 100 (S5: 73 → 100). LCP 1,9 / 1,8 sn (S5: 2,2) · TBT 90 / 60 ms.
+- **JS:** 9 dosya, **142,4 KB** transfer (455 KB sıkıştırılmamış). S5 bazına göre **+4,6 KB** (dil düğmesi + kopyalama düğmesi).
+- **Fontlar:** 5 dosya / 256 KB (S5: 8 / 399 KB). Caveat artık indirilmiyor.
+- **CLS: 0 / 0,176. İkinci koşu bütçeyi (< 0,1) aşıyor.** Lighthouse'a göre neden: preload'suz Fraunces Italic ve Geist Mono geç gelip yerine geçince hero yeniden akıyor, İletişim bölümü aşağı kayıyor. ADR-15'te öngörülen ödünleşim gerçekleşti.
+- **CLS düzeltmesi (`fix/d1-font-cls`):** Fraunces Italic ve Geist Mono da preload ediliyor. Yerel production build, Lighthouse 13.6.0 mobil, `--throttling-method=devtools` (gerçek ağ gecikmesi, geç fontlar yerelde de görünür): önce CLS **0,177** (3/3 koşu), sonra **0,001** (5/5 koşu). LCP 1,8–1,9 sn, değişmedi; performans 88 → 95. Bedel: fontlar 5 → 6 dosya, 255 → 295 KB. ADR-15 ve SPEC §8/§9 güncellendi.
+
 ### Plandan sapmalar ve bulgular
 
 - **Velite şema hatası S5'ten beri build'i düşürmüyordu** (yalnız uyarı, exit 0). CLI'nin `strict` varsayılanı config'i eziyor; bütün script'lerde `velite build --strict`. Dev watcher bilerek strict değil.
@@ -36,7 +45,7 @@
 
 ### Sıradaki adım
 
-1. Vercel preview'da Lighthouse mobil (LCP/CLS, D1'in eklediği JS; baz 137,8 KB) → kullanıcı onayı → `main`.
+1. `fix/d1-font-cls` → kullanıcı onayı → `main`; sonra production'da mobil Lighthouse ile CLS'yi tekrar ölç.
 2. Yayımlanabilir CV gelince: dosyayı `public/cv/`'ye koy, `profile.yaml` → `cv.tr`; düğme ve e2e testi kendiliğinden açılır.
 3. Sonra S7 · D2 · Kaset rafı + overlay (`ROADMAP.md`).
 
