@@ -1,0 +1,34 @@
+# Personal data (CV, LinkedIn, Letterboxd export) — must never reach the repo
+docs/sources/
+
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Generated content and media
+.velite/
+public/static/
+artifacts/
+
+# Tests
+test-results/
+playwright-report/
+coverage/
+
+# Env and deploy
+.env*
+!.env.example
+.vercel/
+
+# Local Claude settings
+.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+*.tsbuildinfo

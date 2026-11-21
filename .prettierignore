@@ -1,0 +1,8 @@
+docs/
+.velite/
+.next/
+public/static/
+artifacts/
+test-results/
+playwright-report/
+package-lock.json

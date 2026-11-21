@@ -1,0 +1,34 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@layer base {
+  html {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    min-height: 100dvh;
+  }
+
+  /* Smooth anchor scrolling only when the user hasn't asked for less motion (ADR-06) */
+  @media (prefers-reduced-motion: no-preference) {
+    html:not([data-motion="paused"]) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-accent);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-paper);
+  }
+}
