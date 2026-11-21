@@ -4,14 +4,17 @@ meta:
   description: Gürcan Karadağ, aspiring Product Manager. I turn scattered information into tangible products. Available in Istanbul from Feb 2027.
 
 nav:
+  work: Work
   contact: Contact
 
 hero:
   role: I turn scattered information into *tangible* products.
   label: ASPIRING PRODUCT MANAGER · ISTANBUL · ● AVAILABLE FROM FEB 2027
   primaryCta: Get in touch
+  secondaryCta: See the work
 
 sections:
+  work: Seven *tapes* on my shelf
   contact: One *message* away
 
 microcopy:
@@ -26,6 +29,23 @@ microcopy:
     linkedin: LinkedIn
     github: GitHub
     downloadCv: Download CV (PDF)
+  cassette:
+    open: "Open the {project} case study"
+  overlay:
+    sideA: Side A
+    sideB: Side B
+    close: Close (Esc)
+    readTime: "{time} read"
+    live: Live site
+    source: Source code
+    next: "Next tape: {project}"
+    back: Back to the shelf
+    credits:
+      role: Role
+      year: Year
+      team: Team
+    tracklist: Tracklist
+    liner: Liner notes
 
 notFound:
   title: This tape isn't on the shelf.

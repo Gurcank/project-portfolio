@@ -1,0 +1,11 @@
+# Language-independent data (ARCHITECTURE §3). Text lives in tr.md / en.md, moved verbatim from CONTENT.md §2–3.
+catalog: GK-04
+order: 4
+featured: false
+color: burgundy
+year: 2026
+# SPEC §6: no humour, no margin notes, no playful microcopy in this tape
+respectful: true
+links:
+  live: https://project-atamap.vercel.app
+  source: https://github.com/Gurcank/project_ATAMap

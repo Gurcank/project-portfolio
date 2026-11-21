@@ -1,0 +1,10 @@
+# Language-independent data (ARCHITECTURE §3). Text lives in tr.md / en.md, moved verbatim from CONTENT.md §2–3.
+catalog: GK-07
+order: 7
+featured: false
+color: rose
+year: 2026
+respectful: false
+links:
+  # live: not shown until the URL is confirmed (CONTENT §10)
+  source: https://github.com/Gurcank/project_IDDDergi

@@ -1,71 +1,65 @@
 # PROGRESS
 
-## Durum: S6 · D1 bitti ve canlıda (2026-11-21)
+## Durum: S7 · D2 kodu bitti, branch'te; commit + preview + onay bekliyor (2026-11-21)
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (D1 + CLS düzeltmesi, commit `3e16628`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch'ler:** `slice/d1-first-30-seconds` ve `fix/d1-font-cls` → ikisi de `main`'e fast-forward merge edildi.
+**Branch:** `slice/d2-cassette-shelf` (henüz commit yok).
 
 ### Ne bitti
 
 - S1 Keşif → `SPEC.md` · S2 İlham → `INSPIRATION.md` · S3 İçerik → `CONTENT.md` · S4 Mimari → `ARCHITECTURE.md` + `ROADMAP.md` · S5 Kurulum (iskelet, token'lar, `check:tokens`, fontlar, Velite, testler, ilk deploy).
-- **S6 · D1 · İlk 30 saniye** (branch'te, yerelde doğrulandı):
-  - `SiteHeader` (isim → `#top`, "İletişim", dil düğmesi), "İçeriğe geç" linki, `LanguageSwitch` (JS ile hash'i taşır: `/#contact` → `/en#contact`; JS'siz düz link).
-  - `Hero`: mono etiket + ince çizgi (INS-17; ● dekor, `aria-hidden`), dev isim (LCP, metin), rol cümlesi tek italik vurguyla, "Bana yaz" → `#contact`. "İşlere bak" D2'ye kadar yok.
-  - `Contact`: dev mailto e-posta, `CopyEmailButton` (tek client parça; "Kopyalandı" `role="status"`; pano reddinde adres seçilir + uyarı), LinkedIn, GitHub (`lang="en"`, TR büyük harfte "LİNKEDİN" olmasın diye), CV indir (`profile.yaml` → `cv` boş olduğu için şu an iki dilde de düğme yok).
-  - `SiteFooter` ("Krediler" D5'e kadar yok). 404 metni artık `content/`'ten.
-  - SEO: `metadataBase` (`VERCEL_PROJECT_PRODUCTION_URL`; domain gelince kod değişmez), description, canonical, hreflang, OG (iki dil; renkler build'de `tokens.css`'ten okunur, fontlar Google'dan subset), `sitemap.xml`, `robots.txt`, favicon (`app/icon.tsx`, kaset).
-  - Umami: `NEXT_PUBLIC_UMAMI_WEBSITE_ID` varsa script yüklenir; `data-umami-event` attribute'ları hazır (`contact_email_click` mailto/copy, `contact_linkedin_click`, `cv_download`).
-  - İçerik: `content/profile.yaml` (e-posta ve LinkedIn CV'den), `content/site/{tr,en}.yaml`. **CV yayımlanmadı** (kullanıcı kararı): mevcut CV'de telefon numarası ve ekip arkadaşının GitHub kullanıcı adı var. Yereldeki `public/cv/gurcan-karadag-cv-tr.pdf` kopyası commit'lenmedi.
-  - CONTENT §8'e onaylanan 4 mikro metin + sayfa başlığı eklendi; §10'daki "Eksik mikro metinler" kapandı.
-  - Geçici `TokenPreview.tsx` silindi.
-- `/break-ui`: worst-case fixture `tests/fixtures/worst-case.ts`; yalnız `next dev`'de açılan sayfa `localhost:3000/dev/break-ui?data=worst|demo|no-cv` (`*.dev.tsx` + `pageExtensions`, production build'de yok). Bulunan 4 sorun düzeltildi: 320'de isim taşması (`wrap-anywhere`), nav ≤ 16 karakter, İletişim başlığı ≤ 40, CONTENT §0 kelime bütçeleri şemada (buton ≤ 3, hata ≤ 15).
+- **S6 · D1 · İlk 30 saniye (canlıda):** header + dil düğmesi (hash'i taşır), skip link, Hero (mono etiket, dev isim, rol), İletişim (mailto, kopyala, LinkedIn, GitHub; CV yayımlanmadı), footer, içerikten 404, SEO temeli (metadataBase, hreflang, OG, sitemap, robots, favicon), Umami (env ile). Velite `--strict`. İlk ekran fontları preload (CLS 0). Ayrıntı: git geçmişi `88d1911`, `3e16628`, `e622d0f`.
+- **S7 · D2 · Kaset rafı + overlay (branch'te, yerelde doğrulandı):**
+  - İçerik: `content/projects/<slug>/{project.yaml,tr.md,en.md}` × 7. Metin CONTENT §2–3'ten birebir taşındı (254 satır/alan otomatik karşılaştırıldı; liner notes'ta TR / EN çiftleri dillere ayrıldı). Parçalar `## A1 · …` başlıklarıyla.
+  - Şema (`velite.config.ts`): `projects` + `caseStudies`; parçalar tam A1–B3 sırasıyla, problem ≤ 90, sonuç ≤ 60, künye "ROL · YIL · EKİP", tek öne çıkan, benzersiz slug/katalog/sıra, her projede TR + EN. `lib/content/tracks.ts` parçalara böler, okuma süresini hesaplar (TR 180 / EN 200 kelime/dk, 0:05'e yuvarlı).
+  - Raf (`sections/Shelf.tsx`, `cassette/shelf.css`): ≥ lg'de 7 sırt + tek kapak kartı (varsayılan öne çıkan; hover yalnız gerçek imleçte, klavye odağı her zaman); < lg'de etiket kartları, bilgi hep görünür. Tipografik kapak `cassette/CassetteCover.tsx`. Sırtta uzun başlık "…" ile kısalır.
+  - Overlay (`case-study/CaseStudyOverlay.tsx`, client): Radix Dialog (radix-ui 1.8.1), hash = rota (ADR-11). Sayfadan açılış `pushState` + derinlik sayacı → Geri tuşu ve "Kapat" tek adımda sayfaya döner; paylaşılan `/#slug` → kapatınca `replaceState`. Açılışta odak başlıkta, kapanışta kasete döner. Başlık, Rol/Yıl/Ekip, okuma süresi, linkler (yoksa gizli), A/B tracklist (buton; hash'i bozmaz), parçalar, liner notes, "Sıradaki kaset", "Rafa dön". `case_study_open` event'i (`shelf` / `hash` / `next`).
+  - Markdown sunucuda (react-markdown 10.1.0); B1 karar etiketleri mono büyük harf. Stil tek sarmalayıcı sınıfta (`markdown/case-study.css`).
+  - Animasyon (`/animate`): kapak kartı opacity 150 ms (gerçek imleçte); overlay CSS keyframe ile belirme + 24 px kayma, açılış 250 ms / kapanış 150 ms, `--ease-out`. Reduced motion'da 0 ms.
+  - Hero'da "İşlere bak", nav'da "Seçili işler" (≥ md), bölüm başlığı "Rafımdaki *yedi* kaset".
+  - `/break-ui`: worst-case rafı (40 karakter başlık, bölünemeyen tek kelime, iki harfli başlık, linksiz proje). Bulunan 4 sorun düzeltildi: kart ve kapak başlığında taşma (`wrap-anywhere`), sırtta uzun başlık (tek satır + "…"), lg–xl arasında kartın raftan taşması (sırt 448 → 512 px). Bütün durumlar 320–1280 px'te taşmasız.
+  - CONTENT §8'e 3 onaylı mikro metin; §10 güncel (Novera linki kapandı, okuma süreleri kapandı, ekran görüntüleri ertelendi).
 
-### S6'da doğrulananlar (yerel)
+### S7'de doğrulananlar (yerel)
 
-- `format:check`, `lint`, `typecheck`, `check:tokens` (33 dosya), `test` (18/18), `build` (hepsi statik), `test:e2e` (34/34; D1 kabul testleri, axe serious/critical 0, 320/375/768/1280'de yatay taşma yok).
-- Bozuk içerik artık build'i düşürüyor: EN dosyası eksik, vurgusuz başlık, olmayan CV yolu → exit 1.
-- Ekran görüntüleri 375/768/1280 (TR + EN), `artifacts/`.
-
-### Production'da doğrulananlar
-
-- `/`, `/en`, `/sitemap.xml`, `/robots.txt` 200; rastgele URL 404; `/dev/break-ui` production'da 404. Canonical, hreflang, sitemap ve OG görseli production adresinde (preview'da OG preview adresini kullanıyordu; production'da düzeldi).
-- **Lighthouse 13.6.0 mobil, 2 koşu:** Performans 98 / 91 · Erişilebilirlik 100 · Best practices 100 · SEO 100 (S5: 73 → 100). LCP 1,9 / 1,8 sn (S5: 2,2) · TBT 90 / 60 ms.
-- **JS:** 9 dosya, **142,4 KB** transfer (455 KB sıkıştırılmamış). S5 bazına göre **+4,6 KB** (dil düğmesi + kopyalama düğmesi).
-- **Fontlar:** 5 dosya / 256 KB (S5: 8 / 399 KB). Caveat artık indirilmiyor.
-- **CLS: 0 / 0,176. İkinci koşu bütçeyi (< 0,1) aşıyor.** Lighthouse'a göre neden: preload'suz Fraunces Italic ve Geist Mono geç gelip yerine geçince hero yeniden akıyor, İletişim bölümü aşağı kayıyor. ADR-15'te öngörülen ödünleşim gerçekleşti.
-- **CLS düzeltmesi (`fix/d1-font-cls`):** Fraunces Italic ve Geist Mono da preload ediliyor. Yerel production build, Lighthouse 13.6.0 mobil, `--throttling-method=devtools` (gerçek ağ gecikmesi, geç fontlar yerelde de görünür): önce CLS **0,177** (3/3 koşu), sonra **0,001** (5/5 koşu). LCP 1,8–1,9 sn, değişmedi; performans 88 → 95. Bedel: fontlar 5 → 6 dosya, 255 → 295 KB. ADR-15 ve SPEC §8/§9 güncellendi.
-- **Düzeltmeden sonra production, Lighthouse 13.6.0 mobil, 5 koşu:** CLS **0** (5/5) · LCP 1,7–2,0 sn · TBT 50–100 ms · Performans 97–99 · Erişilebilirlik / Best practices / SEO 100 · JS 142,4 KB · fontlar 296 KB. **D1'in yeni bazı budur.**
+- `format:check`, `lint`, `typecheck`, `check:tokens` (45 dosya), `test` (31/31), `build` (hepsi statik), `test:e2e` (48/48: D2 kabul testleri, açık overlay'de axe serious/critical 0, reduced motion, 320–1280'de taşma yok).
+- Ekran görüntüleri: `artifacts/home-*.png`, `en-*.png`, `overlay-atamap-*.png`, `overlay-en-erasmusmap-*.png`, `overlay-b1-1280.png`.
+- **Ağırlık (yerel, D1 ile aynı yöntem):** JS 138,7 → 152,9 KB (**+14 KB**; Radix Dialog + overlay). HTML gzip 5,3 → 21,2 KB (**+16 KB**): 7 case study sayfa verisinde geliyor, overlay ağ beklemeden açılsın diye (ADR-11'in bedeli).
+- **Yerel Lighthouse (devtools throttling, 3 koşu):** CLS 0 / 0 / 0,079 · LCP 2,5–3,0 sn. Bu ölçümde HTML sıkıştırılmadan sayıldı (148 KB), gecikme abartılı; gerçek değer production'da ölçülecek.
+- Okuma süreleri: hesaplanan ile CONTENT'teki elle yazılmış değerler arasında en büyük sapma 10 sn.
 
 ### Plandan sapmalar ve bulgular
 
-- **Velite şema hatası S5'ten beri build'i düşürmüyordu** (yalnız uyarı, exit 0). CLI'nin `strict` varsayılanı config'i eziyor; bütün script'lerde `velite build --strict`. Dev watcher bilerek strict değil.
-- **`site` şeması dilimle büyüyor:** ARCHITECTURE §3'teki tam `SiteCopy` yerine her dilim yalnız kendi alanlarını ekliyor (D1: meta, nav.contact, hero, sections.contact, microcopy, notFound, footer).
-- `next.config.ts` artık `phase` fonksiyonu (`PHASE_DEVELOPMENT_SERVER`); `process.argv` kontrolü güvenilir değildi.
-- 404 butonu "Back to the shelf" 4 kelime, CONTENT §0'daki buton bütçesini (≤ 3) aşıyor; şemada bu alan bütçeden muaf tutuldu. Metin değişikliği kullanıcı kararı.
-- Sayfa başlığı ("Gürcan Karadağ · Product Manager adayı") onaylı parçalardan birleştirildi.
+- **Motion bu dilimde kurulmadı:** overlay animasyonu CSS keyframe + Radix `data-state` ile; JS yok, reduced motion token'larla otomatik. Motion D3'te (`layoutId`) gelir.
+- **Kaset erişilebilir adı** "GK-04 ATAMap case study'sini aç": görünen sırt metni adın parçası olmalı (WCAG 2.5.3, axe serious). Ad, linkin içeriği + gizli şablon parçalarından oluşuyor (`aria-label` yok).
+- **Künye:** overlay'deki Rol / Yıl / Ekip, kart künyesinden ("ROL · YIL · EKİP") geliyor; CONTENT'teki "Künye:" satırının EN karşılığı yoktu.
+- **Ekran görüntüsü script'i:** tam sayfa çekim CSS geçişlerini yeniden başlatıyordu; `animations: "disabled"` eklendi.
+- Kapaklar tipografik; proje ekran görüntüleri ayrı küçük bir dilime ertelendi.
+- 404 ve overlay'deki "Back to the shelf" 4 kelime (CONTENT §0 buton bütçesi 3); şemada bu iki alan muaf.
 
 ### Sıradaki adım
 
-1. **S7 · D2 · Kaset rafı + overlay** (`ROADMAP.md`). İlk adım: Radix Dialog + Motion çıkış animasyonu denemesi (ADR-05 riski). Kullanıcıdan: IDDDergi adresi, Novera repo linki kararı, EN case study kontrolü.
-2. Yayımlanabilir CV gelince: dosyayı `public/cv/`'ye koy, `profile.yaml` → `cv.tr`; düğme ve e2e testi kendiliğinden açılır.
+1. D2 commit → push → Vercel preview → kullanıcı onayı → `main`; sonra production'da mobil Lighthouse (LCP, CLS, JS). LCP kötüleşirse ilk aday: case study gövdelerini overlay açılınca yüklemek.
+2. **EN case study metinleri production'dan önce kullanıcı tarafından okunmalı** (CONTENT §10).
+3. Sonra S8 · D3 · Kaset çalar (Motion, `layoutId`, makaralar).
 
 ### Açık sorular (kullanıcıdan)
 
-| Ne                                                                  | Gerektiği dilim                       |
-| ------------------------------------------------------------------- | ------------------------------------- |
-| Yayımlanabilir TR CV (telefonsuz, Novera linksiz)                   | geldiğinde (D1 CV'siz çıkıyor)        |
-| Umami Cloud hesabı ve Website ID (Vercel env'e)                     | D1 (kodsuz eklenir)                   |
-| EN CV PDF'i                                                         | gelince `profile.yaml` → `cv.en`      |
-| IDDDergi canlı adresi; Novera repo linki gösterilsin mi             | D2                                    |
-| EN case study metinlerinin kontrolü                                 | D2 production'dan önce                |
-| 2–3 kişisel fotoğraf; Atatürk portresi seçimi; kenar notu metinleri | D4                                    |
-| 7 şarkının yılı                                                     | D7                                    |
-| 30 sn testi için bir kişi; domain                                   | S16                                   |
+| Ne                                                                  | Gerektiği dilim                  |
+| ------------------------------------------------------------------- | -------------------------------- |
+| EN case study metinlerinin kontrolü                                 | D2 production'dan önce           |
+| IDDDergi canlı adresi                                               | gelince `project.yaml` → `links.live` |
+| Yayımlanabilir TR CV (telefonsuz, Novera linksiz)                   | geldiğinde                       |
+| Umami Cloud hesabı ve Website ID (Vercel env'e)                     | kodsuz eklenir                   |
+| EN CV PDF'i                                                         | gelince `profile.yaml` → `cv.en` |
+| 2–3 kişisel fotoğraf; Atatürk portresi seçimi; kenar notu metinleri | D4                               |
+| 7 şarkının yılı                                                     | D7                               |
+| 30 sn testi için bir kişi; domain                                   | S16                              |
 
 ### Not
 
 - Vercel önizlemeleri (branch deploy) SSO korumalı: yalnız Vercel hesabıyla açılır; production alias herkese açık.
 - GitHub profil README'sindeki LinkedIn linki eski URL'ye gidiyor; CV'deki `/in/gurcankaradag` kullanıldı. Elle düzeltilecek.
-- Yerel Lighthouse'ta Kaspersky enjeksiyonu için `--blocked-url-patterns="*kaspersky-labs.com*"`.
+- Yerel Lighthouse'ta Kaspersky enjeksiyonu için `--blocked-url-patterns="*kaspersky-labs.com*"`; yerel ölçümde HTML sıkıştırılmadan sayılabiliyor, ağırlık karşılaştırmasını gzip/brotli boyutuyla yap.
 - Git Bash'te yol argümanlarına `MSYS_NO_PATHCONV=1`.
-- Mevcut e2e taşma testi metnin kutudan taşmasını yakalamıyordu; artık `scrollWidth` de kontrol ediliyor.
+- `/break-ui` sayfası: `npm run dev` → `localhost:3000/dev/break-ui?data=worst|demo|no-cv`.

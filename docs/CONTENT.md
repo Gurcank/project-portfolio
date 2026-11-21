@@ -637,6 +637,7 @@ EN (~140 words):
 | Dil geçişi | EN | TR |
 | Kaset imleç pill'i (dekoratif) | ▶ Aç | ▶ Play |
 | Kaset butonu (erişilebilir ad) | {Proje} case study'sini aç | Open the {Project} case study |
+| ↳ D2 uygulaması | {Proje} yerine sırtta görünen "{katalog} {Proje}" okunur: "GK-04 ATAMap case study'sini aç" (WCAG 2.5.3: görünen metin erişilebilir adın parçası olmalı) | "Open the GK-04 ATAMap case study" |
 | Overlay | A yüzü · B yüzü · Kapat (Esc) · {m:ss} okuma | Side A · Side B · Close (Esc) · {m:ss} read |
 | Overlay linkleri | Canlı site · Kaynak kod | Live site · Source code |
 | Overlay sonu | Sıradaki kaset: {Proje} · Rafa dön | Next tape: {Project} · Back to the shelf |
@@ -657,6 +658,9 @@ EN (~140 words):
 | Dil düğmesi erişilebilir adı (D1'de onaylandı; hedef dilde yazılır) | Switch to English | Türkçeye geç |
 | Meta açıklama (D1'de onaylandı) | Gürcan Karadağ, Product Manager adayı. Dağınık bilgiyi dokunulabilir ürünlere çeviriyorum. Şubat 2027'den itibaren İstanbul'da müsait. | Gürcan Karadağ, aspiring Product Manager. I turn scattered information into tangible products. Available in Istanbul from Feb 2027. |
 | Sayfa başlığı (D1; isim + §4 mono etiketindeki rol) | Gürcan Karadağ · Product Manager adayı | Gürcan Karadağ · Aspiring Product Manager |
+| Overlay künye etiketleri (D2'de onaylandı) | Rol · Yıl · Ekip | Role · Year · Team |
+| Tracklist adı, ekran okuyucu (D2'de onaylandı) | Parça listesi | Tracklist |
+| Liner notes başlığı (D2'de onaylandı; TR sayfada `lang="en"`) | Liner notes | Liner notes |
 
 Kurallar: Buton metni fiille başlar. ATAMap overlay'inde esprili mikro metin kullanılmaz (404 ve walkman metinleri ATAMap overlay'inde görünmez).
 
@@ -707,14 +711,15 @@ Pullar dekordur (`aria-hidden`); adlar yalnız görsel etiket.
 
 | Madde | Kimde | Not |
 |---|---|---|
-| IDDDergi canlı adresi | Kullanıcı | "Dernek sitesinde canlı" denildi; URL verilmedi. Verilmezse linksiz kalır. |
-| Novera repo linki | Kullanıcı | Repo URL'i ekip arkadaşının kullanıcı adını içeriyor (`github.com/BerkayToluc/...`); ad yazılmasın kuralıyla çelişir. Linki gösterelim mi? |
+| IDDDergi canlı adresi | Kullanıcı | "Dernek sitesinde canlı" denildi; URL verilmedi. D2 linksiz çıktı; adres gelince `content/projects/idddergi/project.yaml` → `links.live`. |
+| ~~Novera repo linki~~ | Kapandı (D2) | Gösterilmiyor (ekip arkadaşının kullanıcı adı URL'de); yalnız canlı site linki var. |
 | EN metinlerin kontrolü | Kullanıcı | Case study EN'leri bu dosyada yazıldı, kullanıcı henüz okumadı. |
 | EN CV PDF'i | Kullanıcı | İngilizce CV hazırlanmalı (≤ 200 KB). |
 | ~~Barış Manço albümü~~ | Kapandı (S4) | *Sözüm Meclisten Dışarı*, 1981, Türküola, stüdyo albümü. Kaynak: [tr.wikipedia](https://tr.wikipedia.org/wiki/S%C3%B6z%C3%BCm_Meclisten_D%C4%B1%C5%9Far%C4%B1) (resmî diskografi değil). |
 | Kişisel fotoğraflar (Hakkımda kenarları, 2–3) | Kullanıcı | SPEC §9; henüz yok. Gerektiği dilim: D4. Yoksa Hakkımda tek sütun. |
-| Proje ekran görüntüleri | D2 | Canlı sitelerden `scripts/capture-project-screens.ts` ile 1280×800 alınır; kullanıcı onaylar (ARCHITECTURE ADR-12). |
-| Okuma süreleri | D2 | Kelime sayısından build'de otomatik hesaplanır (ARCHITECTURE §3); bu dosyadaki elle yazılmış süreler karşılaştırma için kalır. |
+| Proje ekran görüntüleri | Sonra (D2'den ertelendi) | D2 tipografik kapakla çıktı. Canlı sitelerden `scripts/capture-project-screens.ts` ile 1280×800 alınır; kullanıcı onaylar (ARCHITECTURE ADR-12). |
+| ~~Okuma süreleri~~ | Kapandı (D2) | Build'de hesaplanıyor. Bu dosyadaki elle yazılmış değerlerden sapma en fazla 0:10 (Markdown işaretleri kelime sayılmıyor); site hesaplananı gösterir. |
+| Liner notes (D2) | Not | CONTENT'te tek satırda "Veri / Data" gibi TR / EN çiftleri vardı; her dil kendi tarafını aldı, metin değişmedi (`content/projects/*/{tr,en}.md` → `liner`). |
 | Şarkı yılları | Kullanıcı · D7 | Walkman sonucu "{Ad} ({yıl})" ama 7 şarkının yılı yok. Claude kaynaklı önerir, kullanıcı onaylar. |
 | Kenar notu metinleri | Kullanıcı · D4 | INS-13 notlarının metni yazılmadı. Claude önerir, kullanıcı onaylar (ATAMap'e not yok). |
 | ~~Eksik mikro metinler~~ | Kapandı (D1) | Önerildi, onaylandı, §8'e eklendi. |

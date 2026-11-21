@@ -1,0 +1,10 @@
+# Language-independent data (ARCHITECTURE §3). Text lives in tr.md / en.md, moved verbatim from CONTENT.md §2–3.
+catalog: GK-05
+order: 5
+featured: false
+color: petrol
+year: 2026
+respectful: false
+links:
+  live: https://iklimkrizi.vercel.app
+  source: https://github.com/Gurcank/project_IDD

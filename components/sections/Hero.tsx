@@ -46,13 +46,21 @@ export function Hero({ name, copy }: HeroProps) {
         <Emphasis text={copy.role} />
       </p>
 
-      <a
-        href="#contact"
-        className="mt-8 inline-flex min-h-12 items-center gap-3 rounded-sm bg-ink px-6 font-mono text-label tracking-wide text-paper uppercase transition-colors duration-(--duration-fast) hover:bg-accent md:mt-12"
-      >
-        {copy.primaryCta}
-        <span aria-hidden="true">↓</span>
-      </a>
+      <div className="mt-8 flex flex-wrap gap-3 md:mt-12">
+        <a
+          href="#contact"
+          className="inline-flex min-h-12 items-center gap-3 rounded-sm bg-ink px-6 font-mono text-label tracking-wide text-paper uppercase transition-colors duration-(--duration-fast) hover:bg-accent"
+        >
+          {copy.primaryCta}
+          <span aria-hidden="true">↓</span>
+        </a>
+        <a
+          href="#work"
+          className="inline-flex min-h-12 items-center gap-3 rounded-sm border border-ink px-6 font-mono text-label tracking-wide uppercase transition-colors duration-(--duration-fast) hover:bg-ink hover:text-paper"
+        >
+          {copy.secondaryCta}
+        </a>
+      </div>
     </section>
   );
 }

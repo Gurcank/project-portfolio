@@ -1,0 +1,49 @@
+/*
+ * Case study body styles live on one wrapper class instead of per-element utilities: every case study
+ * travels in the page payload (ADR-11), and repeating the same class strings on ~300 elements tripled it.
+ */
+.case-study-md > * + * {
+  margin-top: calc(var(--spacing) * 4);
+}
+
+.case-study-md ul,
+.case-study-md ol {
+  display: flex;
+  flex-direction: column;
+  padding-left: calc(var(--spacing) * 6);
+}
+
+.case-study-md ul {
+  gap: calc(var(--spacing) * 2);
+  list-style: disc;
+}
+
+.case-study-md ol {
+  gap: calc(var(--spacing) * 4);
+  list-style: decimal;
+}
+
+.case-study-md li {
+  padding-left: calc(var(--spacing) * 1);
+}
+
+.case-study-md strong {
+  font-weight: var(--font-weight-bold);
+}
+
+.case-study-md a {
+  text-decoration: underline;
+  text-underline-offset: calc(var(--spacing) * 1);
+}
+
+/* B1's "Seçtim:" / "Chose:" labels (CONTENT §1) */
+.case-study-md .decision-label {
+  margin-right: calc(var(--spacing) * 1);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-style: normal;
+  letter-spacing: var(--tracking-wide);
+  /* Uppercase mono labels follow the page lang, so Turkish gets "SEÇTİM", not "SEÇTIM" */
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}

@@ -23,7 +23,9 @@ async function main() {
         await page.goto(new URL(path, baseUrl).href, { waitUntil: "networkidle" });
         const slug = path === "/" ? "home" : path.replace(/^\/|\/$/g, "").replaceAll("/", "-");
         const file = `artifacts/${slug}-${width}.png`;
-        await page.screenshot({ path: file, fullPage: true });
+        // Full-page capture resizes the viewport, which restarts CSS transitions (the shelf's cards
+        // showed mid-fade, all at once); finishing them first shows the page as a visitor sees it
+        await page.screenshot({ path: file, fullPage: true, animations: "disabled" });
         console.log(`✓ ${file}`);
         await page.close();
       }

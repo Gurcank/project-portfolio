@@ -1,0 +1,112 @@
+/*
+ * Desktop shelf (lg breakpoint and up): seven spines standing on a board, one cover card beside them.
+ * Below lg the same markup is a plain list of label cards with everything visible (INS-02),
+ * so nothing here is needed to read the content: it only decides which card shows on desktop.
+ */
+
+/* Spines read bottom to top, like a tape case standing on a shelf */
+.shelf-spine-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* Mobile: the whole label card is the link target (stretched link), focus ring drawn on the card */
+@media (width < 64rem) {
+  .shelf-spine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  .shelf-spine:focus-visible {
+    outline: none;
+  }
+
+  .shelf-item:has(.shelf-spine:focus-visible) {
+    outline: var(--focus-ring-width) solid var(--color-accent);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+@media (width >= 64rem) {
+  .shelf-list {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    /* Taller between lg and xl: the card is narrowest there, so its text wraps into more lines */
+    min-height: calc(var(--spacing) * 128);
+    padding-right: 50%;
+  }
+
+  /* Padding instead of gap: the pointer never falls between two spines, so the card doesn't flicker.
+     Each item draws its piece of the board, so the board runs under the tapes only, not under the card. */
+  .shelf-item {
+    position: static;
+    padding-right: calc(var(--spacing) * 2);
+    border-bottom: calc(var(--spacing) * 1) solid var(--color-ink);
+  }
+
+  .shelf-spine {
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  /* A spine holds ~25 characters: longer titles end in "…" (the full title is on the card and in the
+     link's accessible name). Here, not in utilities, because lg:not-sr-only resets white-space. */
+  .shelf-spine-name {
+    min-height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .shelf-card {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(50% - var(--spacing) * 8);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-fast) ease;
+  }
+
+  /* Keyboard focus always reveals its card; hover is gated to real pointers (touch fakes hover on tap) */
+  .shelf-item:focus-within .shelf-card {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .shelf-item:focus-within .shelf-spine {
+    transform: translateY(calc(var(--spacing) * -2));
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .shelf-item:hover .shelf-card {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .shelf-item:hover .shelf-spine {
+      transform: translateY(calc(var(--spacing) * -2));
+    }
+
+    /* The pointer wins over a stale keyboard focus elsewhere on the shelf */
+    .shelf-list:has(.shelf-item:hover) .shelf-item:not(:hover) .shelf-card {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  @media (width >= 80rem) {
+    .shelf-list {
+      min-height: calc(var(--spacing) * 112);
+    }
+  }
+
+  /* Nothing hovered or focused: the featured tape speaks for the shelf, so the 30-second reader sees one card */
+  .shelf-list:not(:has(.shelf-item:hover, .shelf-item:focus-within))
+    .shelf-item[data-featured]
+    .shelf-card {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

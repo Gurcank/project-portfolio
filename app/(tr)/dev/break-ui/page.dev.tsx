@@ -1,6 +1,6 @@
 import { HomeView } from "@/components/home/HomePage";
-import { getCvHref, getProfile, getSiteCopy } from "@/lib/content";
-import { worstCopy, worstProfile } from "@/tests/fixtures/worst-case";
+import { getCvHref, getProfile, getProjects, getSiteCopy } from "@/lib/content";
+import { worstCopy, worstProfile, worstProjects } from "@/tests/fixtures/worst-case";
 
 /*
  * Dev-only stress page for /break-ui. The `.dev.tsx` extension is registered only under `next dev`
@@ -29,6 +29,7 @@ export default async function BreakUiPage({
         locale="tr"
         copy={isWorst ? worstCopy : getSiteCopy("tr")}
         profile={isWorst ? worstProfile : getProfile()}
+        projects={isWorst ? worstProjects(getProjects("tr")) : getProjects("tr")}
         cvHref={state === "no-cv" ? undefined : getCvHref("tr")}
       />
       <nav

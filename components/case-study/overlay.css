@@ -1,0 +1,27 @@
+/*
+ * Overlay open/close (/animate): occasional, purpose = spatial consistency (the tape plays over the shelf
+ * and goes back to it). Radix sets data-state and waits for the closing animation before unmounting.
+ * Durations come from tokens, which drop to 0ms under reduced motion and "pause motion" (D7).
+ */
+@keyframes case-study-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--spacing) * 6));
+  }
+}
+
+@keyframes case-study-out {
+  to {
+    opacity: 0;
+    transform: translateY(calc(var(--spacing) * 6));
+  }
+}
+
+.case-study-panel[data-state="open"] {
+  animation: case-study-in var(--duration-base) var(--ease-out);
+}
+
+/* Leaves the way it came, a little faster: the reader has already decided to go back */
+.case-study-panel[data-state="closed"] {
+  animation: case-study-out var(--duration-fast) var(--ease-out);
+}

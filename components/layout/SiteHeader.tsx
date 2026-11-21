@@ -8,9 +8,12 @@ type SiteHeaderProps = {
   copy: Pick<SiteCopy, "nav" | "microcopy">;
 };
 
+const navLinkClass =
+  "min-h-12 items-center px-3 font-mono text-label uppercase underline-offset-4 hover:underline";
+
 /*
  * Only sections that exist are linked (ROADMAP: a missing section is never in nav).
- * In D1 that is Contact alone, so mobile and desktop share one row: a single CTA + language (INS-02).
+ * Below md the row keeps a single CTA + language (INS-02); "Work" is one tap away via the hero button.
  */
 export function SiteHeader({ locale, name, copy }: SiteHeaderProps) {
   return (
@@ -19,10 +22,10 @@ export function SiteHeader({ locale, name, copy }: SiteHeaderProps) {
         {name}
       </a>
       <nav className="flex items-center gap-2">
-        <a
-          href="#contact"
-          className="inline-flex min-h-12 items-center px-3 font-mono text-label uppercase underline-offset-4 hover:underline"
-        >
+        <a href="#work" className={`hidden md:inline-flex ${navLinkClass}`}>
+          {copy.nav.work}
+        </a>
+        <a href="#contact" className={`inline-flex ${navLinkClass}`}>
           {copy.nav.contact}
         </a>
         <LanguageSwitch

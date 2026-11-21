@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 import { defineCollection, defineConfig, s } from "velite";
 
+import { parseTracks } from "./lib/content/tracks";
 import { isLocale, locales } from "./lib/i18n";
 import { countWords, hasSingleEmphasis, stripEmphasis } from "./lib/text";
 
@@ -25,6 +26,11 @@ const words = (max: number) =>
   s.string().refine((value) => countWords(value) <= max, `more than ${max} words (CONTENT §0)`);
 const button = words(3);
 const message = words(15);
+const navItem = button.pipe(s.string().max(16));
+
+// Templates such as "{project} case study'sini aç": the placeholder is filled in by the component
+const withPlaceholder = (name: string) =>
+  s.string().refine((value) => value.includes(`{${name}}`), `needs the {${name}} placeholder`);
 
 // A CV path that points at nothing would render a broken download link
 const publicFile = s
@@ -53,14 +59,15 @@ const site = defineCollection({
       path: s.path(),
       meta: s.object({ title: s.string().max(60), description: s.string().max(160) }),
       // 16: name + nav item + language button still share one row at 320px (/break-ui)
-      nav: s.object({ contact: button.pipe(s.string().max(16)) }),
+      nav: s.object({ work: navItem, contact: navItem }),
       hero: s.object({
         role: emphasized(60),
         label: s.string().max(80),
         primaryCta: button.pipe(s.string().max(24)),
+        secondaryCta: button.pipe(s.string().max(24)),
       }),
-      // 40: keeps the contact heading to three lines at 375px (/break-ui)
-      sections: s.object({ contact: emphasized(40) }),
+      // 40: keeps a section heading to three lines at 375px (/break-ui)
+      sections: s.object({ work: emphasized(40), contact: emphasized(40) }),
       microcopy: s.object({
         skipToContent: button,
         languageSwitch: s.object({ label: s.string().length(2), accessibleName: button }),
@@ -71,6 +78,21 @@ const site = defineCollection({
           linkedin: button,
           github: button,
           downloadCv: button,
+        }),
+        cassette: s.object({ open: withPlaceholder("project") }),
+        overlay: s.object({
+          sideA: button,
+          sideB: button,
+          close: button,
+          readTime: withPlaceholder("time"),
+          live: button,
+          source: button,
+          next: withPlaceholder("project"),
+          // no word budget: the approved "Back to the shelf" is four words
+          back: s.string().max(24),
+          credits: s.object({ role: button, year: button, team: button }),
+          tracklist: button,
+          liner: button,
         }),
       }),
       // cta has no word budget: the approved "Back to the shelf" is four words
@@ -87,6 +109,126 @@ const site = defineCollection({
     }),
 });
 
+const projectSlugs = [
+  "erasmusmap",
+  "novera-mobility",
+  "seeyournextstep",
+  "atamap",
+  "iklim-krizi",
+  "nature-sport-handbook",
+  "idddergi",
+] as const;
+const cassetteColors = [
+  "mustard",
+  "terracotta",
+  "midnight",
+  "burgundy",
+  "petrol",
+  "olive",
+  "rose",
+] as const;
+
+const projects = defineCollection({
+  name: "Project",
+  pattern: "projects/*/project.yaml",
+  schema: s
+    .object({
+      path: s.path(),
+      catalog: s.string().regex(/^GK-\d{2}$/, "catalog numbers look like GK-01"),
+      order: s.number().int().min(1).max(7),
+      featured: s.boolean(),
+      color: s.enum(cassetteColors),
+      year: s.number().int().min(2000).max(2100),
+      // SPEC §6: no humour, margin notes or playful microcopy for this tape
+      respectful: s.boolean(),
+      // A missing link is simply not shown (CONTENT §10)
+      links: s.object({ live: s.string().url().optional(), source: s.string().url().optional() }),
+    })
+    .transform(({ path, ...rest }, { addIssue }) => {
+      const slug = path.split("/")[1] ?? "";
+      const known = projectSlugs.find((candidate) => candidate === slug);
+      if (!known) addIssue({ code: "custom", message: `unknown project folder "${slug}"` });
+      return { ...rest, slug: known ?? projectSlugs[0] };
+    }),
+});
+
+const caseStudies = defineCollection({
+  name: "CaseStudy",
+  pattern: "projects/*/{tr,en}.md",
+  schema: s
+    .object({
+      path: s.path(),
+      title: s.string().max(40),
+      subtitle: emphasized(70),
+      // CONTENT §0 budgets; credits is "ROLE · YEAR · TEAM", shown as three labelled parts
+      card: s.object({
+        problem: s.string().max(90),
+        credits: s
+          .string()
+          .max(60)
+          .refine((value) => value.split(" · ").length === 3, "credits need ROLE · YEAR · TEAM"),
+        result: s.string().max(60),
+      }),
+      liner: s.string().max(300),
+      body: s.raw(),
+    })
+    .transform(({ path, body, ...rest }, { addIssue }) => {
+      const [, slug = "", locale = ""] = path.split("/");
+      const fallback = {
+        ...rest,
+        slug,
+        locale: "tr" as const,
+        tracks: [],
+        words: 0,
+        readingTime: "0:00",
+      };
+      if (!isLocale(locale)) {
+        addIssue({ code: "custom", message: `${path}.md is not a supported locale` });
+        return fallback;
+      }
+      try {
+        return { ...rest, slug, locale, ...parseTracks(body, locale) };
+      } catch (error) {
+        addIssue({ code: "custom", message: `${path}.md: ${(error as Error).message}` });
+        return { ...fallback, locale };
+      }
+    }),
+});
+
+/** Cross-file rules a single schema can't see (ARCHITECTURE §3). Throwing stops the build. */
+function checkProjectIntegrity(
+  projectList: { slug: string; catalog: string; order: number; featured: boolean }[],
+  studies: { slug: string; locale: string }[],
+) {
+  const problems: string[] = [];
+  const duplicates = (values: (string | number)[]) =>
+    values.filter((value, index) => values.indexOf(value) !== index);
+
+  if (projectList.length !== projectSlugs.length) {
+    problems.push(`expected ${projectSlugs.length} projects, found ${projectList.length}`);
+  }
+  for (const [field, values] of [
+    ["slug", projectList.map((p) => p.slug)],
+    ["catalog", projectList.map((p) => p.catalog)],
+    ["order", projectList.map((p) => p.order)],
+  ] as const) {
+    const repeated = duplicates([...values]);
+    if (repeated.length > 0) problems.push(`duplicate ${field}: ${repeated.join(", ")}`);
+  }
+  const featuredCount = projectList.filter((p) => p.featured).length;
+  if (featuredCount !== 1)
+    problems.push(`exactly one featured project expected, found ${featuredCount}`);
+
+  for (const project of projectList) {
+    for (const locale of locales) {
+      if (!studies.some((study) => study.slug === project.slug && study.locale === locale)) {
+        problems.push(`content/projects/${project.slug}/${locale}.md is missing`);
+      }
+    }
+  }
+  if (problems.length > 0) throw new Error(`content/projects:\n  ${problems.join("\n  ")}`);
+}
+
 export default defineConfig({
   root: "content",
   output: {
@@ -98,12 +240,13 @@ export default defineConfig({
   },
   // Schema errors only fail the build because package.json runs `velite build --strict`:
   // the CLI's own default (false) overrides a `strict` set here.
-  collections: { profile, site },
+  collections: { profile, site, projects, caseStudies },
   // TR and EN always ship together: a missing language file fails the build (CLAUDE.md)
-  prepare: ({ site }) => {
+  prepare: ({ site, projects, caseStudies }) => {
     const missing = locales.filter((locale) => !site.some((copy) => copy.locale === locale));
     if (missing.length > 0) {
       throw new Error(`content/site: missing ${missing.map((l) => `${l}.yaml`).join(", ")}`);
     }
+    checkProjectIntegrity(projects, caseStudies);
   },
 });

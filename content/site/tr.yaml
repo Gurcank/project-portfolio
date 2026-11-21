@@ -4,14 +4,17 @@ meta:
   description: Gürcan Karadağ, Product Manager adayı. Dağınık bilgiyi dokunulabilir ürünlere çeviriyorum. Şubat 2027'den itibaren İstanbul'da müsait.
 
 nav:
+  work: Seçili işler
   contact: İletişim
 
 hero:
   role: Dağınık bilgiyi *dokunulabilir* ürünlere çeviriyorum.
   label: PRODUCT MANAGER ADAYI · İSTANBUL · ● ŞUBAT 2027'DEN İTİBAREN MÜSAİT
   primaryCta: Bana yaz
+  secondaryCta: İşlere bak
 
 sections:
+  work: Rafımdaki *yedi* kaset
   contact: Bir *mesaj* uzağındayım
 
 microcopy:
@@ -26,6 +29,23 @@ microcopy:
     linkedin: LinkedIn
     github: GitHub
     downloadCv: CV'yi indir (PDF)
+  cassette:
+    open: "{project} case study'sini aç"
+  overlay:
+    sideA: A yüzü
+    sideB: B yüzü
+    close: Kapat (Esc)
+    readTime: "{time} okuma"
+    live: Canlı site
+    source: Kaynak kod
+    next: "Sıradaki kaset: {project}"
+    back: Rafa dön
+    credits:
+      role: Rol
+      year: Yıl
+      team: Ekip
+    tracklist: Parça listesi
+    liner: Liner notes
 
 notFound:
   title: Bu kaset rafta yok.
