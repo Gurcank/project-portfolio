@@ -1,7 +1,10 @@
 import { cassetteSurface } from "@/components/cassette/cassette-colors";
+import { CoverReels } from "@/components/cassette/CoverReels";
+import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import type { Project } from "@/lib/content";
 
 type CassetteCoverProps = {
+  slug: string;
   catalog: string;
   title: string;
   color: Project["color"];
@@ -12,7 +15,7 @@ type CassetteCoverProps = {
  * drawn in code: shell in the project colour, a paper label with the title, two reels in a window.
  * Decorative: the same title and catalog number are real text next to it, so it is hidden from assistive tech.
  */
-export function CassetteCover({ catalog, title, color }: CassetteCoverProps) {
+export function CassetteCover({ slug, catalog, title, color }: CassetteCoverProps) {
   return (
     <div
       aria-hidden="true"
@@ -24,13 +27,9 @@ export function CassetteCover({ catalog, title, color }: CassetteCoverProps) {
           {title}
         </span>
       </div>
-      <svg viewBox="0 0 100 24" className="w-full" focusable="false">
-        <rect x="18" y="2" width="64" height="20" rx="10" className="fill-ink" />
-        <circle cx="30" cy="12" r="7" className="fill-paper" />
-        <circle cx="70" cy="12" r="7" className="fill-paper" />
-        <circle cx="30" cy="12" r="2.5" className="fill-ink" />
-        <circle cx="70" cy="12" r="2.5" className="fill-ink" />
-      </svg>
+      <ExperienceBoundary name="cover-reels">
+        <CoverReels slug={slug} />
+      </ExperienceBoundary>
     </div>
   );
 }

@@ -37,11 +37,13 @@ export function Tracklist({ slug, label, sides }: TracklistProps) {
                 <button
                   type="button"
                   onClick={() => jumpTo(track.id)}
-                  className="flex min-h-12 w-full items-baseline gap-3 border-b border-line py-2 text-left transition-colors duration-(--duration-fast) hover:text-accent"
+                  className="tape-track flex min-h-12 w-full items-baseline gap-3 border-b border-line px-2 py-2 text-left"
                 >
                   <span className="font-mono text-label">{track.id}</span>
                   <span className="flex-1">{track.title}</span>
-                  <span className="font-mono text-label text-ink-muted">{track.readingTime}</span>
+                  <span className="tape-track-time font-mono text-label text-ink-muted">
+                    {track.readingTime}
+                  </span>
                 </button>
               </li>
             ))}

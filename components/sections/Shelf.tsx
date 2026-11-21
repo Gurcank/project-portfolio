@@ -64,6 +64,7 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
                     the card is narrower between lg and xl, so the cover shrinks more there */}
                 <div className="mb-6 hidden w-3/5 lg:block xl:w-4/5">
                   <CassetteCover
+                    slug={project.slug}
                     catalog={project.catalog}
                     title={project.study.title}
                     color={project.color}

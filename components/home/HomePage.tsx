@@ -1,5 +1,6 @@
 import { CaseStudyOverlay, type OverlayStudy } from "@/components/case-study/CaseStudyOverlay";
 import { CaseStudyPanel } from "@/components/case-study/CaseStudyPanel";
+import { MotionProvider } from "@/components/experience/MotionProvider";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { Contact } from "@/components/sections/Contact";
@@ -46,7 +47,8 @@ export function HomeView({ locale, copy, profile, projects, cvHref }: HomeViewPr
   const overlayLabels = copy.microcopy.overlay;
 
   return (
-    <>
+    // The shelf covers and the overlay share one Motion context: their reels fly between them
+    <MotionProvider>
       <a
         href="#main"
         className="sr-only z-(--z-overlay) rounded-sm bg-ink px-4 py-3 text-paper focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
@@ -79,7 +81,7 @@ export function HomeView({ locale, copy, profile, projects, cvHref }: HomeViewPr
           ]),
         )}
       />
-    </>
+    </MotionProvider>
   );
 }
 

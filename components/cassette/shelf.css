@@ -46,8 +46,12 @@
     border-bottom: calc(var(--spacing) * 1) solid var(--color-ink);
   }
 
+  /* D3: the tape lifts off the board and casts a shadow, the cover slides out from the spine side.
+     Interaction feedback only (/animate): fast enough to follow the pointer along the shelf. */
   .shelf-spine {
-    transition: transform var(--duration-fast) var(--ease-out);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
   }
 
   /* A spine holds ~25 characters: longer titles end in "…" (the full title is on the card and in the
@@ -65,33 +69,41 @@
     right: 0;
     width: calc(50% - var(--spacing) * 8);
     opacity: 0;
+    transform: translateX(calc(var(--spacing) * -4));
     pointer-events: none;
-    transition: opacity var(--duration-fast) ease;
+    transition:
+      opacity var(--duration-fast) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
   }
 
   /* Keyboard focus always reveals its card; hover is gated to real pointers (touch fakes hover on tap) */
   .shelf-item:focus-within .shelf-card {
     opacity: 1;
+    transform: none;
     pointer-events: auto;
   }
 
   .shelf-item:focus-within .shelf-spine {
-    transform: translateY(calc(var(--spacing) * -2));
+    transform: translateY(calc(var(--spacing) * -3));
+    box-shadow: var(--shadow-lift);
   }
 
   @media (hover: hover) and (pointer: fine) {
     .shelf-item:hover .shelf-card {
       opacity: 1;
+      transform: none;
       pointer-events: auto;
     }
 
     .shelf-item:hover .shelf-spine {
-      transform: translateY(calc(var(--spacing) * -2));
+      transform: translateY(calc(var(--spacing) * -3));
+      box-shadow: var(--shadow-lift);
     }
 
     /* The pointer wins over a stale keyboard focus elsewhere on the shelf */
     .shelf-list:has(.shelf-item:hover) .shelf-item:not(:hover) .shelf-card {
       opacity: 0;
+      transform: translateX(calc(var(--spacing) * -4));
       pointer-events: none;
     }
   }
@@ -107,6 +119,7 @@
     .shelf-item[data-featured]
     .shelf-card {
     opacity: 1;
+    transform: none;
     pointer-events: auto;
   }
 }

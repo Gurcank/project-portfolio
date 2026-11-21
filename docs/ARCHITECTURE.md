@@ -117,6 +117,12 @@ Her karar: **Bağlam / Alternatifler / Sonuç / Ödünleşim / Kaynak.**
 
 **Ödünleşim.** GSAP'in timeline ergonomisinden vazgeçiyoruz; intro gibi sıralı sahnelerde Motion'ın `animate()` dizileri yeterli. Lenis olmadan tekerlekle kaydırma o "tereyağı" hissini vermez; karşılığında erişilebilirlik, overlay içindeki iç içe scroll ve iOS davranışı sorunsuz kalır.
 
+**D3'te uygulandığı hali (2026-11-21).**
+- `domMax` (layout animasyonu bunda) hydration'dan sonra async iner (`components/experience/motion-features.ts`). Ölçüm, D2'ye karşı aynı yöntemle: ilk yük **+22 KB** (Motion çekirdeği, `useScroll`, motion value'lar), sonradan **+33 KB** (`domMax`). Dokümandaki "~5 KB" yalnız `LazyMotion` + `m` içindir.
+- Süre ve easing token'lardan okunur (`lib/motion-tokens.ts`). Reduced motion ve "hareketi durdur" token'ları 0 ms yaptığı için Motion da onlara uyar.
+- Paylaşılan geçiş (`layoutId`) iki koşulla çalışıyor; ikisi de denemede bulundu: (1) `layoutId` bir HTML elemanında olmalı; SVG'ye projeksiyon uygulanmıyor, bu yüzden makaralar bir `m.div` içinde. (2) Motion yalnız **aynı commit'te** bir kopya id'yi bırakıp diğeri aldığında uçuruyor. Radix portal içeriği route değişiminden bir commit sonra mount olduğu için el değiştirme küçük bir store'la yapılır (`lib/case-study-route.ts` → `setPlayerSlug`). Sabit konumlu panelde `layoutRoot` gerekir.
+- Reduced motion'da el değiştirme hiç yapılmaz: 0 ms'lik layout animasyonu bile ilk karesini kapak boyutunda çiziyordu.
+
 **Kaynak.** [LazyMotion (~5 KB / ~43 KB)](https://motion.dev/docs/react-lazy-motion) · [reducedMotion](https://motion.dev/docs/react-motion-config) · [Motion erişilebilirlik](https://motion.dev/docs/react-accessibility) · [useScroll container](https://motion.dev/docs/react-use-scroll) · [GSAP pricing](https://gsap.com/pricing) · [GSAP lisansı](https://gsap.com/licensing)
 
 ### ADR-07 · 3D/WebGL: yok

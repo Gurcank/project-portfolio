@@ -25,3 +25,89 @@
 .case-study-panel[data-state="closed"] {
   animation: case-study-out var(--duration-fast) var(--ease-out);
 }
+
+/* From lg the reels fly between the shelf and the player bar (D3): they carry the spatial link, so the
+   panel only fades. A moving panel would also move the reels' landing spot mid-flight. */
+@keyframes case-study-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (width >= 64rem) {
+  .case-study-panel[data-state="open"] {
+    animation-name: case-study-fade;
+  }
+
+  .case-study-panel[data-state="closed"] {
+    animation: case-study-fade var(--duration-fast) var(--ease-out) reverse;
+  }
+}
+
+/*
+ * The playing tape's colour is the overlay's accent (SPEC §8). Used only as a surface with its AA text
+ * pair, never as text on paper: mustard, olive and rose don't reach 4.5:1 there.
+ */
+.case-study-panel[data-tape-color="mustard"] {
+  --tape: var(--color-cassette-mustard);
+  --on-tape: var(--color-on-cassette-mustard);
+}
+.case-study-panel[data-tape-color="terracotta"] {
+  --tape: var(--color-cassette-terracotta);
+  --on-tape: var(--color-on-cassette-terracotta);
+}
+.case-study-panel[data-tape-color="midnight"] {
+  --tape: var(--color-cassette-midnight);
+  --on-tape: var(--color-on-cassette-midnight);
+}
+.case-study-panel[data-tape-color="burgundy"] {
+  --tape: var(--color-cassette-burgundy);
+  --on-tape: var(--color-on-cassette-burgundy);
+}
+.case-study-panel[data-tape-color="petrol"] {
+  --tape: var(--color-cassette-petrol);
+  --on-tape: var(--color-on-cassette-petrol);
+}
+.case-study-panel[data-tape-color="olive"] {
+  --tape: var(--color-cassette-olive);
+  --on-tape: var(--color-on-cassette-olive);
+}
+.case-study-panel[data-tape-color="rose"] {
+  --tape: var(--color-cassette-rose);
+  --on-tape: var(--color-on-cassette-rose);
+}
+
+.case-study-panel ::selection {
+  background-color: var(--tape);
+  color: var(--on-tape);
+}
+
+/* Track number on each heading: the label on a tape's track list */
+.tape-chip {
+  border-radius: var(--radius-sm);
+  padding-inline: calc(var(--spacing) * 2);
+  background-color: var(--tape);
+  color: var(--on-tape);
+}
+
+.tape-track {
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tape-track:hover {
+    background-color: var(--tape);
+    color: var(--on-tape);
+  }
+
+  /* The muted duration would fail on dark tapes; on the highlight it takes the pair colour too */
+  .tape-track:hover .tape-track-time {
+    color: inherit;
+  }
+}
+
+.tape-rule {
+  border-top: calc(var(--spacing) * 1) solid var(--tape);
+}

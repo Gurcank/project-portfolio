@@ -1,9 +1,28 @@
 # PROGRESS
 
-## Durum: S7 · D2 canlıda (2026-11-21)
+## Durum: S8 · D3 yerelde bitti, commit ve preview onay bekliyor (2026-11-21)
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (D2, commit `e8a4b96`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d2-cassette-shelf` → `main`'e fast-forward merge edildi.
+**Branch:** `slice/d3-cassette-player` (henüz commit yok). D2: `slice/d2-cassette-shelf` → `main`'e fast-forward merge edildi.
+
+### S8 · D3 · Kaset çalar (yerelde)
+
+- **Motion 14.14.0** (exact pin). `MotionProvider`: `LazyMotion` (strict, `domMax` hydration'dan sonra async) + `MotionConfig reducedMotion="user"`. Süre ve easing `lib/motion-tokens.ts` ile token'lardan okunur.
+- **Makaralar** (`cassette/CassetteReels.tsx`): bant miktarı alan korunarak hesaplanır (sol makara boşalır, sağ dolar); göbek dişleri dönüşü gösterir (okuma boyunca 3 tur). Kapakta "çalınmamış" hal, overlay şeridinde `useScroll({ container })` ile okuma ilerlemesi. Dekor, `aria-hidden`. Mobilde de şeritte var.
+- **Raftan çalara uçuş:** ≥ 1024 px'te, rafta tıklanan (ya da klavyeyle Enter'lanan) kasetin makara penceresi `layoutId` ile şeride uçar (450 ms, `--ease-out`); kapanınca, panel kaydırılmış olsa bile kapağa döner. Paylaşılan link ve "Sıradaki kaset" uçuşsuz açılır. ≥ 1024 px'te panel yalnız belirir; altında D2'deki kayma sürer.
+- **Vurgu rengi:** overlay'de kaset rengi yalnız yüzey olarak (metin eşiyle): parça numarası etiketi, tracklist hover'ı, liner notes ayracı, metin seçimi. Metin hep mürekkep; hardal / zeytin / gül kurusu kâğıt üstünde metin olamaz.
+- **Hover:** sırt 12 px kalkar ve gölge alır; kapak kartı sırt tarafından 16 px kayarak gelir (yalnız gerçek imleçte; klavye odağında aynı).
+- **Hata:** makaralar iki yerde de `ExperienceBoundary` içinde; hata verirse overlay ve kapak makarasız çalışır.
+- **Reduced motion:** uçuş yok, makaralar dönmez, bant miktarı kaydırmayı izlemeye devam eder (onaylı sapma: sayısal gösterge yok).
+
+### S8'de doğrulananlar (yerel)
+
+- `format:check`, `lint`, `typecheck`, `test` (35/35; +4 `motion-tokens`), `check:tokens` (53 dosya), `build` (hepsi statik), `test:e2e` (56/56; D3: uçuş açılış/kapanış, paylaşılan linkte uçuş yok, hover kalkma, bant ilerlemesi, mobil makara, reduced motion, 7 rengin hepsinde chip rengi + axe serious/critical 0). D3 testleri 5 tekrarda 40/40.
+- Klavye: Tab → kaset, Enter → uçuş + odak başlıkta, Esc → odak kasete döner.
+- Ekran görüntüleri: `artifacts/home-*.png`, `en-*.png`, `overlay-atamap-*.png`, `overlay-en-erasmusmap-*.png` (375 / 768 / 1280), `artifacts/d3/` (hover, uçuş, okuma, makara yakın çekimleri).
+- **Ağırlık (yerel, D2 ile aynı yöntem, `main` ayrı derlendi):** JS 152,9 → 207,8 KB (**+55 KB**: ilk yük +22, hydration sonrası async +33). HTML gzip 21,2 → 22,2 KB.
+- **Yerel Lighthouse 13.6.0 (devtools throttling, 3'er koşu, aynı makine):** `main` LCP 2,83–2,88 sn → D3 2,88–2,93 sn · CLS 0 / 0 · TBT 125–133 ms her ikisinde. HTML yine sıkıştırılmadan sayıldı, mutlak değerler şişkin.
+- **Etkileşim (4× CPU, Event Timing):** açılış tıklaması `main` 56–64 ms → D3 80–96 ms; ilk açılış 112–128 → 144–152 ms (bütçe < 200). Açılışta en uzun kare `main` 33 ms → D3 50–67 ms. **Kaydırma 61 fps, uzun kare yok** (iki sürümde de).
 
 ### Ne bitti
 
@@ -45,8 +64,9 @@
 
 ### Sıradaki adım
 
-1. **LCP'yi temiz bir ölçümle doğrula** (PageSpeed Insights ya da Kaspersky'siz bir makine). 2,0 sn'nin üstünde kalırsa: case study gövdelerini overlay açılınca yükle (HTML ~6 KB'a iner; bedeli overlay açılışında bir istek, ADR-11 güncellenir).
-2. S8 · D3 · Kaset çalar (Motion, `layoutId`, makaralar).
+1. **D3:** commit → push → Vercel preview → kullanıcı onayı → `main`. Production'da Lighthouse mobil 5 koşu (D2: LCP 2,3–2,4 sn, JS 157,3 KB) ve uçuşun gerçek tarayıcıda göz kontrolü.
+2. **LCP'yi temiz bir ölçümle doğrula** (PageSpeed Insights ya da Kaspersky'siz bir makine). D3 ilk yüke +22 KB JS ekledi; 2,0 sn'nin üstünde kalırsa: case study gövdelerini overlay açılınca yükle (HTML ~6 KB'a iner; bedeli overlay açılışında bir istek, ADR-11 güncellenir).
+3. S9 · D4 · İlkeler + Hakkımda (kullanıcıdan: 2–3 fotoğraf, portre seçimi, kenar notları).
 
 ### Açık sorular (kullanıcıdan)
 

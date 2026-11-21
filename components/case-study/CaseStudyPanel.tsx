@@ -44,8 +44,13 @@ export function CaseStudyPanel({ project, labels }: CaseStudyPanelProps) {
                     tabIndex={-1}
                     className="flex scroll-mt-24 items-baseline justify-between gap-4 text-h3 font-black font-stretch-condensed focus:outline-none"
                   >
-                    <span>
-                      {track.id} · {track.title}
+                    <span className="flex items-baseline gap-3">
+                      <span className="tape-chip font-mono text-label font-regular tracking-wide">
+                        {track.id}
+                      </span>
+                      {/* The dot is for listeners only: the chip already separates number and title */}
+                      <span className="sr-only"> · </span>
+                      {track.title}
                     </span>
                     <span className="font-mono text-label font-regular tracking-wide text-ink-muted">
                       {track.readingTime}
@@ -59,7 +64,7 @@ export function CaseStudyPanel({ project, labels }: CaseStudyPanelProps) {
           </div>
         ))}
 
-        <section aria-labelledby={`${slug}-liner`} className="border-t border-line pt-8">
+        <section aria-labelledby={`${slug}-liner`} className="tape-rule pt-8">
           <h3
             id={`${slug}-liner`}
             lang="en"
