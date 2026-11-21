@@ -1,11 +1,11 @@
 # PROGRESS
 
-## Durum: S8 · D3 yerelde bitti, commit ve preview onay bekliyor (2026-11-21)
+## Durum: S8 · D3 canlıda (2026-11-21)
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D2, commit `e8a4b96`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d3-cassette-player` (henüz commit yok). D2: `slice/d2-cassette-shelf` → `main`'e fast-forward merge edildi.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D3, commit `3479845`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/d3-cassette-player` → preview onaylandı → `main`'e fast-forward merge edildi.
 
-### S8 · D3 · Kaset çalar (yerelde)
+### S8 · D3 · Kaset çalar (canlıda)
 
 - **Motion 14.14.0** (exact pin). `MotionProvider`: `LazyMotion` (strict, `domMax` hydration'dan sonra async) + `MotionConfig reducedMotion="user"`. Süre ve easing `lib/motion-tokens.ts` ile token'lardan okunur.
 - **Makaralar** (`cassette/CassetteReels.tsx`): bant miktarı alan korunarak hesaplanır (sol makara boşalır, sağ dolar); göbek dişleri dönüşü gösterir (okuma boyunca 3 tur). Kapakta "çalınmamış" hal, overlay şeridinde `useScroll({ container })` ile okuma ilerlemesi. Dekor, `aria-hidden`. Mobilde de şeritte var.
@@ -23,6 +23,13 @@
 - **Ağırlık (yerel, D2 ile aynı yöntem, `main` ayrı derlendi):** JS 152,9 → 207,8 KB (**+55 KB**: ilk yük +22, hydration sonrası async +33). HTML gzip 21,2 → 22,2 KB.
 - **Yerel Lighthouse 13.6.0 (devtools throttling, 3'er koşu, aynı makine):** `main` LCP 2,83–2,88 sn → D3 2,88–2,93 sn · CLS 0 / 0 · TBT 125–133 ms her ikisinde. HTML yine sıkıştırılmadan sayıldı, mutlak değerler şişkin.
 - **Etkileşim (4× CPU, Event Timing):** açılış tıklaması `main` 56–64 ms → D3 80–96 ms; ilk açılış 112–128 → 144–152 ms (bütçe < 200). Açılışta en uzun kare `main` 33 ms → D3 50–67 ms. **Kaydırma 61 fps, uzun kare yok** (iki sürümde de).
+
+### Production'da doğrulananlar (D3)
+
+- `/`, `/en`, `/sitemap.xml` 200; rastgele URL 404. HTML brotli 22,2 KB (D2: 21,9).
+- Headless: kasete tıkla → `#atamap`, makaralar 403 → 128 px uçar; Esc → adres temizlenir, odak kasete döner; `/en#erasmusmap` açılır, chip hardal; konsolda hata yok.
+- **Lighthouse 13.6.0 mobil, 5 koşu:** Performans 93–95 · Erişilebilirlik / Best practices / SEO 100 · **CLS 0** (5/5) · TBT 61–139 ms · **LCP 2,36–2,45 sn** (D2: 2,3–2,4). JS 215,3 KB (D2: 157,3; **+58 KB**, async `domMax` da ölçüme giriyor).
+- **LCP bütçenin (< 2,5 sn) içinde ama en kötü koşu 2,45 sn.** D4'e eklenecek her JS bu payı yer; bir sonraki adım LCP'yi temiz ölçmek ve gerekirse case study gövdelerini overlay açılınca yüklemek. Preview kullanıcı onayıyla merge edildi; uçuş Safari / Firefox'ta denenmedi.
 
 ### Ne bitti
 
@@ -64,9 +71,8 @@
 
 ### Sıradaki adım
 
-1. **D3:** commit → push → Vercel preview → kullanıcı onayı → `main`. Production'da Lighthouse mobil 5 koşu (D2: LCP 2,3–2,4 sn, JS 157,3 KB) ve uçuşun gerçek tarayıcıda göz kontrolü.
-2. **LCP'yi temiz bir ölçümle doğrula** (PageSpeed Insights ya da Kaspersky'siz bir makine). D3 ilk yüke +22 KB JS ekledi; 2,0 sn'nin üstünde kalırsa: case study gövdelerini overlay açılınca yükle (HTML ~6 KB'a iner; bedeli overlay açılışında bir istek, ADR-11 güncellenir).
-3. S9 · D4 · İlkeler + Hakkımda (kullanıcıdan: 2–3 fotoğraf, portre seçimi, kenar notları).
+1. **LCP'yi temiz bir ölçümle doğrula** (PageSpeed Insights ya da Kaspersky'siz bir makine). Bu makinede D3 sonrası 2,36–2,45 sn; 2,0 sn'nin üstünde kalırsa: case study gövdelerini overlay açılınca yükle (HTML ~6 KB'a iner; bedeli overlay açılışında bir istek, ADR-11 güncellenir). D4'ten önce yapılmalı.
+2. S9 · D4 · İlkeler + Hakkımda (kullanıcıdan: 2–3 fotoğraf, portre seçimi, kenar notları).
 
 ### Açık sorular (kullanıcıdan)
 
