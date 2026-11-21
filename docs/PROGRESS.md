@@ -1,9 +1,9 @@
 # PROGRESS
 
-## Durum: S6 · D1 canlıda; CLS düzeltmesi `fix/d1-font-cls` branch'inde, merge onayı bekliyor (2026-11-21)
+## Durum: S6 · D1 bitti ve canlıda (2026-11-21)
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D1, commit `88d1911`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d1-first-30-seconds` → `main`'e fast-forward merge edildi. Düzeltme: `fix/d1-font-cls`.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D1 + CLS düzeltmesi, commit `3e16628`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch'ler:** `slice/d1-first-30-seconds` ve `fix/d1-font-cls` → ikisi de `main`'e fast-forward merge edildi.
 
 ### Ne bitti
 
@@ -34,6 +34,7 @@
 - **Fontlar:** 5 dosya / 256 KB (S5: 8 / 399 KB). Caveat artık indirilmiyor.
 - **CLS: 0 / 0,176. İkinci koşu bütçeyi (< 0,1) aşıyor.** Lighthouse'a göre neden: preload'suz Fraunces Italic ve Geist Mono geç gelip yerine geçince hero yeniden akıyor, İletişim bölümü aşağı kayıyor. ADR-15'te öngörülen ödünleşim gerçekleşti.
 - **CLS düzeltmesi (`fix/d1-font-cls`):** Fraunces Italic ve Geist Mono da preload ediliyor. Yerel production build, Lighthouse 13.6.0 mobil, `--throttling-method=devtools` (gerçek ağ gecikmesi, geç fontlar yerelde de görünür): önce CLS **0,177** (3/3 koşu), sonra **0,001** (5/5 koşu). LCP 1,8–1,9 sn, değişmedi; performans 88 → 95. Bedel: fontlar 5 → 6 dosya, 255 → 295 KB. ADR-15 ve SPEC §8/§9 güncellendi.
+- **Düzeltmeden sonra production, Lighthouse 13.6.0 mobil, 5 koşu:** CLS **0** (5/5) · LCP 1,7–2,0 sn · TBT 50–100 ms · Performans 97–99 · Erişilebilirlik / Best practices / SEO 100 · JS 142,4 KB · fontlar 296 KB. **D1'in yeni bazı budur.**
 
 ### Plandan sapmalar ve bulgular
 
@@ -45,9 +46,8 @@
 
 ### Sıradaki adım
 
-1. `fix/d1-font-cls` → kullanıcı onayı → `main`; sonra production'da mobil Lighthouse ile CLS'yi tekrar ölç.
+1. **S7 · D2 · Kaset rafı + overlay** (`ROADMAP.md`). İlk adım: Radix Dialog + Motion çıkış animasyonu denemesi (ADR-05 riski). Kullanıcıdan: IDDDergi adresi, Novera repo linki kararı, EN case study kontrolü.
 2. Yayımlanabilir CV gelince: dosyayı `public/cv/`'ye koy, `profile.yaml` → `cv.tr`; düğme ve e2e testi kendiliğinden açılır.
-3. Sonra S7 · D2 · Kaset rafı + overlay (`ROADMAP.md`).
 
 ### Açık sorular (kullanıcıdan)
 
