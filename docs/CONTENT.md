@@ -713,7 +713,7 @@ Pullar dekordur (`aria-hidden`); adlar yalnız görsel etiket.
 |---|---|---|
 | IDDDergi canlı adresi | Kullanıcı | "Dernek sitesinde canlı" denildi; URL verilmedi. D2 linksiz çıktı; adres gelince `content/projects/idddergi/project.yaml` → `links.live`. |
 | ~~Novera repo linki~~ | Kapandı (D2) | Gösterilmiyor (ekip arkadaşının kullanıcı adı URL'de); yalnız canlı site linki var. |
-| EN metinlerin kontrolü | Kullanıcı | Case study EN'leri bu dosyada yazıldı, kullanıcı henüz okumadı. |
+| ~~EN metinlerin kontrolü~~ | Kapandı (D2) | Kullanıcı D2 preview'unda okudu ve merge onayı verdi (2026-11-21). |
 | EN CV PDF'i | Kullanıcı | İngilizce CV hazırlanmalı (≤ 200 KB). |
 | ~~Barış Manço albümü~~ | Kapandı (S4) | *Sözüm Meclisten Dışarı*, 1981, Türküola, stüdyo albümü. Kaynak: [tr.wikipedia](https://tr.wikipedia.org/wiki/S%C3%B6z%C3%BCm_Meclisten_D%C4%B1%C5%9Far%C4%B1) (resmî diskografi değil). |
 | Kişisel fotoğraflar (Hakkımda kenarları, 2–3) | Kullanıcı | SPEC §9; henüz yok. Gerektiği dilim: D4. Yoksa Hakkımda tek sütun. |
