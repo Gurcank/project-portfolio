@@ -28,8 +28,10 @@
 
 - `/`, `/en`, `/sitemap.xml` 200; rastgele URL 404. HTML brotli 22,2 KB (D2: 21,9).
 - Headless: kasete tıkla → `#atamap`, makaralar 403 → 128 px uçar; Esc → adres temizlenir, odak kasete döner; `/en#erasmusmap` açılır, chip hardal; konsolda hata yok.
-- **Lighthouse 13.6.0 mobil, 5 koşu:** Performans 93–95 · Erişilebilirlik / Best practices / SEO 100 · **CLS 0** (5/5) · TBT 61–139 ms · **LCP 2,36–2,45 sn** (D2: 2,3–2,4). JS 215,3 KB (D2: 157,3; **+58 KB**, async `domMax` da ölçüme giriyor).
-- **LCP bütçenin (< 2,5 sn) içinde ama en kötü koşu 2,45 sn.** D4'e eklenecek her JS bu payı yer; bir sonraki adım LCP'yi temiz ölçmek ve gerekirse case study gövdelerini overlay açılınca yüklemek. Preview kullanıcı onayıyla merge edildi; uçuş Safari / Firefox'ta denenmedi.
+- **PageSpeed Insights (temiz ölçüm, Google sunucusu, Avrupa, 2026-11-21 21:11):** mobil (Moto G Power, Slow 4G) **Performans 98 · LCP 1,7 sn · FCP 1,7 sn · CLS 0 · TBT 20 ms** · Speed Index 2,8 sn; masaüstü 100, LCP 0,3 sn. Tek koşu: ikinci koşu ve API, PSI'nin anahtarsız günlük kotasına takıldı (429).
+- **Sonuç:** LCP 2,0 sn eşiğinin altında; case study gövdelerini sonradan yükleme optimizasyonu **gerekmiyor** (ADR-11 olduğu gibi). Aşağıdaki yerel sayılar Kaspersky yüzünden ≈ 0,7 sn şişkin.
+- **Yerel Lighthouse 13.6.0 mobil, 5 koşu (Kaspersky arada):** Performans 93–95 · Erişilebilirlik / Best practices / SEO 100 · **CLS 0** (5/5) · TBT 61–139 ms · **LCP 2,36–2,45 sn** (D2: 2,3–2,4). JS 215,3 KB (D2: 157,3; **+58 KB**, async `domMax` da ölçüme giriyor).
+- Preview kullanıcı onayıyla merge edildi; uçuş Safari / Firefox'ta denenmedi.
 
 ### Ne bitti
 
@@ -71,8 +73,7 @@
 
 ### Sıradaki adım
 
-1. **LCP'yi temiz bir ölçümle doğrula** (PageSpeed Insights ya da Kaspersky'siz bir makine). Bu makinede D3 sonrası 2,36–2,45 sn; 2,0 sn'nin üstünde kalırsa: case study gövdelerini overlay açılınca yükle (HTML ~6 KB'a iner; bedeli overlay açılışında bir istek, ADR-11 güncellenir). D4'ten önce yapılmalı.
-2. S9 · D4 · İlkeler + Hakkımda (kullanıcıdan: 2–3 fotoğraf, portre seçimi, kenar notları).
+1. S9 · D4 · İlkeler + Hakkımda (kullanıcıdan: 2–3 fotoğraf, portre seçimi, kenar notları). LCP payı: PSI'de 1,7 sn, bütçe 2,5; dilim sonunda yine PSI ile ölç.
 
 ### Açık sorular (kullanıcıdan)
 
@@ -91,5 +92,6 @@
 - Vercel önizlemeleri (branch deploy) SSO korumalı: yalnız Vercel hesabıyla açılır; production alias herkese açık.
 - GitHub profil README'sindeki LinkedIn linki eski URL'ye gidiyor; CV'deki `/in/gurcankaradag` kullanıldı. Elle düzeltilecek.
 - Yerel Lighthouse'ta Kaspersky enjeksiyonu için `--blocked-url-patterns="*kaspersky-labs.com*"`; yerel ölçümde HTML sıkıştırılmadan sayılabiliyor, ağırlık karşılaştırmasını gzip/brotli boyutuyla yap.
+- **Kaspersky HTTPS'i araya giriyor (2026-11-21 doğrulandı):** sitenin sertifikası bu makinede "Kaspersky Anti-Virus Personal Root Certificate" imzalı geliyor. Yerel LCP mutlak değer olarak kullanılmaz (PSI'den ≈ 0,7 sn yüksek); karar ölçümü PageSpeed Insights ile (pagespeed.web.dev arayüzü; anahtarsız API günlük kotaya takılabiliyor). Yerel ölçüm yalnız aynı makinede iki build'i karşılaştırmak için.
 - Git Bash'te yol argümanlarına `MSYS_NO_PATHCONV=1`.
 - `/break-ui` sayfası: `npm run dev` → `localhost:3000/dev/break-ui?data=worst|demo|no-cv`.
