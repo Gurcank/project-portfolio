@@ -663,8 +663,8 @@ EN (~140 words):
 | Liner notes başlığı (D2'de onaylandı; TR sayfada `lang="en"`) | Liner notes | Liner notes |
 | Kenar notları, Hakkımda (D4'te onaylandı; ATAMap'e not yok) | SeeYourNextStep yanında: ilk kullanıcısı bendim ↑ · ErasmusMap yanında: 1602 şehir; hepsini gezmedim (henüz) · son cümleden sonra: ikisi aynı anda olmuyor, denedim | I was its first user ↑ · 1,602 cities. Haven't visited them all (yet) · Can't do both at once. I tried. |
 | Atatürk portresi altyazısı ve `alt` metni (D4'te onaylandı) | Mustafa Kemal Atatürk, 1922. Fotoğraf: Agence Meurisse · Kaynak: Bibliothèque nationale de France | Mustafa Kemal Atatürk, 1922. Photo: Agence Meurisse · Source: Bibliothèque nationale de France |
-| Hedeflerim başlığı (D4; TR §6'dan, **EN önerildi, onay bekliyor**) | Hedeflerim | Goals |
-| Bayrağın erişilebilir adı (D4; **önerildi, onay bekliyor**) | Türk bayrağı | Turkish flag |
+| Hedeflerim başlığı (D4; TR §6'dan, EN preview'da listelendi, merge onayıyla kabul edildi) | Hedeflerim | Goals |
+| Bayrağın erişilebilir adı (D4; preview'da listelendi, merge onayıyla kabul edildi) | Türk bayrağı | Turkish flag |
 
 Kurallar: Buton metni fiille başlar. ATAMap overlay'inde esprili mikro metin kullanılmaz (404 ve walkman metinleri ATAMap overlay'inde görünmez).
 

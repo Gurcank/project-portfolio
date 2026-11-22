@@ -1,11 +1,11 @@
 # PROGRESS
 
-## Durum: S9 · D4 yerelde bitti; commit ve preview bekliyor (2026-11-22)
+## Durum: S9 · D4 canlıda (2026-11-22)
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D3, commit `3479845`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d4-principles-about` (henüz commit yok). D3: `slice/d3-cassette-player` → `main`'e merge edildi.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D4, commit `21f39ed`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/d4-principles-about` → preview onaylandı → `main`'e fast-forward merge edildi.
 
-### S9 · D4 · İlkeler + Hakkımda (yerelde)
+### S9 · D4 · İlkeler + Hakkımda (canlıda)
 
 - **İçerik** CONTENT §5–6'dan birebir: `content/principles.yaml` (5 ilke + bağlı kaset), `site/{tr,en}.yaml` → `principlesOpening`, `about` (hikâye, 3 kenar notu, künye, Hedeflerim, portre altyazısı, bayrak adı), nav `İlkeler` / `Hakkımda`.
 - **Şema ve bütünlük:** koşul ≤ 70, eylem ≤ 120 karakter; Hakkımda ≤ 120, Hedeflerim ≤ 60 kelime; tam 5 ilke, benzersiz sıra. Chip sözdizimi `[Etiket](#slug)` (`lib/content/story.ts`). Bozuk chip, var olmayan kasete chip, hikâyede olmayan chip'e not ve **ATAMap'e not build'i düşürür** (`lib/content/integrity.ts`, Vitest).
@@ -20,6 +20,12 @@
 - `format:check`, `lint`, `typecheck`, `test` (43/43; +8 hikâye/bütünlük), `check:tokens` (62 dosya), `build`, `test:e2e` (69/69; D4: portre adı ve 3:2 bayrak, 5 ilke chip'i doğru kaseti açar ve odak geri döner, hikâye chip'leri, notlar gerçek metin + ATAMap'te not yok, masaüstünde not chip hizasında, mobilde metin içinde, saygı bileşenlerinde hareket yok, kırık görsel yok, nav, axe serious/critical 0, EN). D2 testleri artık raf (`#work`) içinde arıyor: aynı ada sahip chip'ler var.
 - `/break-ui?data=worst` (şema sınırında metinler): 320 / 375 / 768 / 1280'de taşma yok.
 - Ekran görüntüleri: `artifacts/home-*.png`, `en-*.png` (375 / 768 / 1280), `artifacts/d4/` (bölümler, worst-case).
+
+### Production'da doğrulananlar (D4)
+
+- `/`, `/en`, `/sitemap.xml` 200; rastgele URL 404. HTML brotli 25,9 KB (D3: 22,2; yeni iki bölümün metni).
+- Headless: İlkeler'deki ATAMap chip'i `#atamap`'i açar, Esc → odak chip'e döner; portre yüklenir (alt metni doğru), bayrak ve 3 kenar notu yerinde; `/en` başlık ve "Turkish flag" doğru; konsolda hata yok.
+- **PageSpeed Insights (2026-11-22 12:27):** mobil **Performans 100 · LCP 0,9 sn · FCP 0,9 sn · CLS 0 · TBT 10 ms** · Speed Index 0,9 sn; masaüstü 100, LCP 0,3 sn. Tek koşu. D3'teki 1,7 sn'den düşük olması büyük olasılıkla koşu farkı (sıcak CDN), D4'ün hızlandırdığı anlamına gelmez; bütçenin (2,5 sn) çok altında.
 
 ### S8 · D3 · Kaset çalar (canlıda)
 
@@ -89,8 +95,7 @@
 
 ### Sıradaki adım
 
-1. **D4:** commit → preview → onay → `main`. Sonra PSI ile LCP (D3: 1,7 sn).
-2. S10 · D5 · Bu site nasıl yapıldı + Krediler (credits.yaml burada tamamlanır).
+1. S10 · D5 · Bu site nasıl yapıldı + Krediler (credits.yaml burada tamamlanır).
 
 ### Açık sorular (kullanıcıdan)
 
@@ -100,7 +105,7 @@
 | Yayımlanabilir TR CV (telefonsuz, Novera linksiz)                   | geldiğinde                       |
 | Umami Cloud hesabı ve Website ID (Vercel env'e)                     | kodsuz eklenir                   |
 | EN CV PDF'i                                                         | gelince `profile.yaml` → `cv.en` |
-| EN "Goals" ve "Türk bayrağı / Turkish flag" onayı; 2–3 kişisel fotoğraf | D4 (fotoğraflar sonra) |
+| 2–3 kişisel fotoğraf | sonra (küçük dilim) |
 | 7 şarkının yılı                                                     | D7                               |
 | 30 sn testi için bir kişi; domain                                   | S16                              |
 
