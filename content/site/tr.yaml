@@ -1,10 +1,12 @@
-# UI copy, Turkish. Source of truth: docs/CONTENT.md (§4, §5, §8). Wording changes need approval.
+# UI copy, Turkish. Source of truth: docs/CONTENT.md (§4, §5, §6, §8). Wording changes need approval.
 meta:
   title: Gürcan Karadağ · Product Manager adayı
   description: Gürcan Karadağ, Product Manager adayı. Dağınık bilgiyi dokunulabilir ürünlere çeviriyorum. Şubat 2027'den itibaren İstanbul'da müsait.
 
 nav:
   work: Seçili işler
+  principles: İlkeler
+  about: Hakkımda
   contact: İletişim
 
 hero:
@@ -15,7 +17,37 @@ hero:
 
 sections:
   work: Rafımdaki *yedi* kaset
+  principles: Nasıl *karar* veririm
+  about: Hakkımda
   contact: Bir *mesaj* uzağındayım
+
+principlesOpening: Ne yaptığımdan çok, nasıl karar verdiğim anlatır beni.
+
+about:
+  # Chips open the case study: [Label](#slug). Margin notes sit after a chip (or at the end); never on ATAMap.
+  story: >-
+    Ben Gürcan. İstanbul Okan Üniversitesi'nde Bilişim Sistemleri ve Teknolojileri son sınıftayım; bu dönem
+    Erasmus+ ile Łódź'dayım. Ürün tarafına bir soruyla geldim: hangi rol bana uygun? Cevabı bulmak için yedi
+    rolün yolunu çizdim [SeeYourNextStep](#seeyournextstep) ve Product Manager'da karar kıldım. O günden beri
+    dağınık bilgiyi dokunulabilir ürünlere çeviriyorum: Erasmus şehirleri için bir harita
+    [ErasmusMap](#erasmusmap), Atatürk'ün yolculuğu için bir başkası [ATAMap](#atamap), bir iklim belgeseli
+    [İklim Krizi](#iklim-krizi). Tasarlıyor ve kodluyorum, çünkü bir ürünü uçtan uca anlamanın en kısa yolu
+    bu. Yürüyüşte değilsem muhtemelen film izliyorumdur.
+  notes:
+    - after: seeyournextstep
+      text: ilk kullanıcısı bendim ↑
+    - after: erasmusmap
+      text: 1602 şehir; hepsini gezmedim (henüz)
+    - after: end
+      text: ikisi aynı anda olmuyor, denedim
+  credentials: OKAN ÜNİVERSİTESİ · BİLİŞİM SİSTEMLERİ VE TEKNOLOJİLERİ · MEZUNİYET HAZİRAN 2027 · ERASMUS+ ŁÓDŹ, EKİM 2026 – ŞUBAT 2027
+  goalsHeading: Hedeflerim
+  goals: >-
+    Şubat 2027'den itibaren İstanbul'da tam zamanlı, uzun dönem bir Product stajı arıyorum; yaz boyunca
+    kesintisiz devam edebilirim. Bir ürün ekibinde kullanıcıyla konuşmayı, önceliklendirmeyi ve karar vermeyi
+    gerçek sonuçlarla öğrenmek istiyorum. Uzun vadede hedefim, kullanıcısı olan bir ürünün PM'i olmak.
+  portraitCaption: "Mustafa Kemal Atatürk, 1922. Fotoğraf: Agence Meurisse · Kaynak: Bibliothèque nationale de France"
+  flagLabel: Türk bayrağı
 
 microcopy:
   skipToContent: İçeriğe geç

@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 import { defineCollection, defineConfig, s } from "velite";
 
+import { checkAboutLinks, checkPrinciples } from "./lib/content/integrity";
+import { hasMalformedChip, storyPlainText } from "./lib/content/story";
 import { parseTracks } from "./lib/content/tracks";
 import { isLocale, locales } from "./lib/i18n";
 import { countWords, hasSingleEmphasis, stripEmphasis } from "./lib/text";
@@ -59,7 +61,7 @@ const site = defineCollection({
       path: s.path(),
       meta: s.object({ title: s.string().max(60), description: s.string().max(160) }),
       // 16: name + nav item + language button still share one row at 320px (/break-ui)
-      nav: s.object({ work: navItem, contact: navItem }),
+      nav: s.object({ work: navItem, principles: navItem, about: navItem, contact: navItem }),
       hero: s.object({
         role: emphasized(60),
         label: s.string().max(80),
@@ -67,7 +69,33 @@ const site = defineCollection({
         secondaryCta: button.pipe(s.string().max(24)),
       }),
       // 40: keeps a section heading to three lines at 375px (/break-ui)
-      sections: s.object({ work: emphasized(40), contact: emphasized(40) }),
+      sections: s.object({
+        work: emphasized(40),
+        principles: emphasized(40),
+        // "Hakkımda" / "About": the one heading CONTENT §5 gives no accent word
+        about: s.string().max(40),
+        contact: emphasized(40),
+      }),
+      // INS-18 one-sentence screen: one line on desktop, three at most on a phone
+      principlesOpening: s.string().max(90),
+      about: s.object({
+        // CONTENT §0: ≤ 120 words as read (chip labels count, link syntax doesn't)
+        story: s
+          .string()
+          .refine((value) => !hasMalformedChip(value), "broken chip: write [Label](#slug)")
+          .refine(
+            (value) => countWords(storyPlainText(value)) <= 120,
+            "more than 120 words (CONTENT §0)",
+          ),
+        // A handwritten aside after a chip (its slug) or after the last sentence ("end");
+        // which slugs are allowed is a cross-file rule, checked in prepare
+        notes: s.array(s.object({ after: s.string(), text: s.string().max(60) })).max(3),
+        credentials: s.string().max(160),
+        goalsHeading: button,
+        goals: words(60),
+        portraitCaption: s.string().max(120),
+        flagLabel: button,
+      }),
       microcopy: s.object({
         skipToContent: button,
         languageSwitch: s.object({ label: s.string().length(2), accessibleName: button }),
@@ -195,6 +223,37 @@ const caseStudies = defineCollection({
     }),
 });
 
+const l10n = (max: number) => s.object({ tr: s.string().max(max), en: s.string().max(max) });
+
+// content/principles.yaml is one list: each item is a principle (CONTENT §5 budgets)
+const principles = defineCollection({
+  name: "Principle",
+  pattern: "principles.yaml",
+  schema: s.object({
+    order: s.number().int().min(1),
+    project: s.enum(projectSlugs),
+    condition: l10n(70),
+    action: l10n(120),
+  }),
+});
+
+// Atatürk portrait: null until a verified public-domain file is in place, and then it needs its source
+const respect = defineCollection({
+  name: "Respect",
+  pattern: "respect.yaml",
+  single: true,
+  schema: s.object({
+    portrait: s
+      .object({
+        image: s.image(),
+        // Where the photo was verified (archive record), and the rights statement found there
+        source: s.string().url(),
+        rights: s.string().min(1),
+      })
+      .nullable(),
+  }),
+});
+
 /** Cross-file rules a single schema can't see (ARCHITECTURE §3). Throwing stops the build. */
 function checkProjectIntegrity(
   projectList: { slug: string; catalog: string; order: number; featured: boolean }[],
@@ -240,13 +299,15 @@ export default defineConfig({
   },
   // Schema errors only fail the build because package.json runs `velite build --strict`:
   // the CLI's own default (false) overrides a `strict` set here.
-  collections: { profile, site, projects, caseStudies },
+  collections: { profile, site, projects, caseStudies, principles, respect },
   // TR and EN always ship together: a missing language file fails the build (CLAUDE.md)
-  prepare: ({ site, projects, caseStudies }) => {
+  prepare: ({ site, projects, caseStudies, principles }) => {
     const missing = locales.filter((locale) => !site.some((copy) => copy.locale === locale));
     if (missing.length > 0) {
       throw new Error(`content/site: missing ${missing.map((l) => `${l}.yaml`).join(", ")}`);
     }
     checkProjectIntegrity(projects, caseStudies);
+    checkPrinciples(principles);
+    checkAboutLinks(site, projects);
   },
 });

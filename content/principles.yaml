@@ -1,0 +1,42 @@
+# Product principles: "When this happens → I do this", each tied to the tape that taught it.
+# Source of truth: docs/CONTENT.md §5. Wording changes need approval.
+- order: 1
+  project: novera-mobility
+  condition:
+    tr: Temel sağlam değilken yeni özellik istendiğinde
+    en: When new features are asked for on a shaky base
+  action:
+    tr: önce temeli onarırım; çatlağın üstüne kat çıkılmaz.
+    en: I fix the base first. You don't build on cracks.
+- order: 2
+  project: atamap
+  condition:
+    tr: Güven ürünün kendisi olduğunda
+    en: When trust is the product
+  action:
+    tr: kaynağını gösteremediğimi yayımlamam, kapsam küçülse bile.
+    en: I don't ship what I can't source, even if scope shrinks.
+- order: 3
+  project: erasmusmap
+  condition:
+    tr: Kullanıcıdan bir şey istediğimde
+    en: When I need something from users
+  action:
+    tr: önce ona kendisi için bir sebep veririm.
+    en: I first give them a reason of their own.
+- order: 4
+  project: iklim-krizi
+  condition:
+    tr: İstek "bir şey yap" kadar açık olduğunda
+    en: When the brief is just "make something"
+  action:
+    tr: önce problemi tanımlarım.
+    en: I define the problem first.
+- order: 5
+  project: idddergi
+  condition:
+    tr: İstek bir çözüm gibi geldiğinde
+    en: When a request arrives as a solution
+  action:
+    tr: arkasındaki ihtiyacı sorarım. "PDF'i koy" değil, "dergiyi okut".
+    en: I ask for the need behind it. Not "upload the PDF" but "get the magazine read".

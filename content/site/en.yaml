@@ -1,10 +1,12 @@
-# UI copy, English. Source of truth: docs/CONTENT.md (§4, §5, §8). Wording changes need approval.
+# UI copy, English. Source of truth: docs/CONTENT.md (§4, §5, §6, §8). Wording changes need approval.
 meta:
   title: Gürcan Karadağ · Aspiring Product Manager
   description: Gürcan Karadağ, aspiring Product Manager. I turn scattered information into tangible products. Available in Istanbul from Feb 2027.
 
 nav:
   work: Work
+  principles: Principles
+  about: About
   contact: Contact
 
 hero:
@@ -15,7 +17,37 @@ hero:
 
 sections:
   work: Seven *tapes* on my shelf
+  principles: How I *decide*
+  about: About
   contact: One *message* away
+
+principlesOpening: How I decide says more than what I built.
+
+about:
+  # Chips open the case study: [Label](#slug). Margin notes sit after a chip (or at the end); never on ATAMap.
+  story: >-
+    I'm Gürcan, a final-year Information Systems student at Istanbul Okan University, currently on Erasmus+
+    in Łódź. I came to product with a question: which role fits me? To answer it, I mapped the path of seven
+    roles [SeeYourNextStep](#seeyournextstep) and landed on Product Manager. Since then I've been turning
+    scattered information into tangible products: a map for Erasmus cities [ErasmusMap](#erasmusmap), another
+    for Atatürk's journeys [ATAMap](#atamap), a climate documentary [İklim Krizi](#iklim-krizi). I design and
+    code because it's the shortest way to understand a product end to end. If I'm not hiking, I'm probably
+    watching a film.
+  notes:
+    - after: seeyournextstep
+      text: I was its first user ↑
+    - after: erasmusmap
+      text: 1,602 cities. Haven't visited them all (yet)
+    - after: end
+      text: Can't do both at once. I tried.
+  credentials: OKAN UNIVERSITY · INFORMATION SYSTEMS · GRADUATING JUNE 2027 · ERASMUS+ ŁÓDŹ, OCT 2026 – FEB 2027
+  goalsHeading: Goals
+  goals: >-
+    From February 2027 I'm looking for a full-time, long-term product internship in Istanbul, and I can
+    continue through the summer. I want to learn user conversations, prioritisation and decision-making
+    against real outcomes. Longer term: PM of a product people actually use.
+  portraitCaption: "Mustafa Kemal Atatürk, 1922. Photo: Agence Meurisse · Source: Bibliothèque nationale de France"
+  flagLabel: Turkish flag
 
 microcopy:
   skipToContent: Skip to content

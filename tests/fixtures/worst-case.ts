@@ -55,7 +55,12 @@ export const worstCopy: SiteCopy = {
   locale: "tr",
   meta: { title: "Gürcan Karadağ · Product Manager adayı", description: "—" },
   // ≤ 16 characters, ≤ 3 words
-  nav: { work: "Seçtiğim işlerim", contact: "Benimle iletişim" },
+  nav: {
+    work: "Seçtiğim işlerim",
+    principles: "Karar ilkelerim",
+    about: "Benim hakkımda",
+    contact: "Benimle iletişim",
+  },
   hero: {
     // 57 visible characters, limit 60
     role: "Karmaşık süreçleri *anlaşılabilir* ürünlere dönüştürüyorum.",
@@ -68,7 +73,37 @@ export const worstCopy: SiteCopy = {
   // 36 and 38 visible characters, limit 40
   sections: {
     work: "Odamın rafında duran *yedi* eski kaset",
+    principles: "Zor anlarda nasıl *karar* veriyorum",
+    about: "Kısaca ben, nereden gelip nereye",
     contact: "Yeni bir fırsat için *mesaj* atman yeter",
+  },
+  // 89 characters, limit 90
+  principlesOpening:
+    "Ne yaptığımdan çok, belirsizlik içinde nasıl karar verdiğim ve neden vazgeçtiğim anlatır.",
+  about: {
+    // ~118 words as read (limit 120); four chips, one of them two words with a dotless ı
+    story:
+      "Ben Gürcan. İstanbul Okan Üniversitesi'nde Bilişim Sistemleri ve Teknolojileri son sınıftayım; bu dönem Erasmus+ ile Łódź'dayım ve dönüşte mezun olacağım. Ürün tarafına bir soruyla geldim: hangi rol gerçekten bana uygun, hangisi yalnızca kulağa hoş geliyor? Cevabı bulmak için yedi rolün yolunu adım adım çizdim [SeeYourNextStep](#seeyournextstep) ve sonunda Product Manager'da karar kıldım. O günden beri dağınık, eksik ve çelişkili bilgiyi dokunulabilir ürünlere çeviriyorum: Erasmus şehirleri için bir harita [ErasmusMap](#erasmusmap), Atatürk'ün yolculuğu için bir başkası [ATAMap](#atamap), iklim krizini anlatan bir belgesel [İklim Krizi](#iklim-krizi). Tasarlıyor ve kodluyorum, çünkü bir ürünü uçtan uca anlamanın en kısa ve en dürüst yolu bu. Yürüyüşte değilsem muhtemelen film izliyorumdur.",
+    // 60 characters each (limit 60)
+    notes: [
+      {
+        after: "seeyournextstep",
+        text: "ilk kullanıcısı bendim, ikinci kullanıcısı da annemdi ↑ ↑",
+      },
+      { after: "erasmusmap", text: "1602 şehir; hepsini gezmedim, gezeceğim de demiyorum (henüz)" },
+      { after: "end", text: "ikisi aynı anda olmuyor, denedim; yokuşta film izlenmiyor :)" },
+    ],
+    // 158 characters, limit 160; one unbreakable segment
+    credentials:
+      "OKAN ÜNİVERSİTESİ · BİLİŞİM SİSTEMLERİ VE TEKNOLOJİLERİ · MEZUNİYET HAZİRAN 2027 · ERASMUS+ ŁÓDŹ, EKİM 2026 – ŞUBAT 2027 · GÜZ DÖNEMİ",
+    goalsHeading: "Kısaca hedeflerim",
+    // 59 words, limit 60
+    goals:
+      "Şubat 2027'den itibaren İstanbul'da tam zamanlı, uzun dönem bir Product stajı arıyorum; yaz boyunca kesintisiz devam edebilirim ve gerekirse hibrit çalışmaya da açığım. Bir ürün ekibinde kullanıcıyla konuşmayı, önceliklendirmeyi, ödünleşimleri yazmayı ve karar vermeyi gerçek sonuçlarla öğrenmek istiyorum. Uzun vadede hedefim, gerçekten kullanıcısı olan ve her gün açılan bir ürünün PM'i olmak.",
+    // 119 characters, limit 120
+    portraitCaption:
+      "Mustafa Kemal Atatürk, 1922. Fotoğraf: Agence Meurisse · Kaynak: Bibliothèque nationale de France (Gallica, 2158 A)",
+    flagLabel: "Türkiye Cumhuriyeti bayrağı",
   },
   microcopy: {
     // buttons and labels: ≤ 3 words each

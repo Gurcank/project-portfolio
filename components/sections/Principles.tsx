@@ -1,0 +1,60 @@
+import "@/components/sections/principles.css";
+import { CassetteChip } from "@/components/cassette/CassetteChip";
+import { Emphasis } from "@/components/markdown/Emphasis";
+import type { PrincipleView } from "@/lib/content";
+
+type PrinciplesProps = {
+  heading: string;
+  opening: string;
+  principles: PrincipleView[];
+  openLabel: string;
+};
+
+/*
+ * "How I decide" (SPEC §8, INS-14 / INS-18): one sentence gets a screen of its own, then five
+ * "when this happens → I do this" rules, each with the tape that taught it. The rules have no
+ * ranking, so they are a plain list, not a numbered one.
+ */
+export function Principles({ heading, opening, principles, openLabel }: PrinciplesProps) {
+  return (
+    <section id="principles" aria-labelledby="principles-heading" className="border-t border-line">
+      <div className="mx-auto max-w-page px-(--gutter)">
+        {/* A full screen only from lg: on a phone it would push the principles a screen away (INS-02) */}
+        <div className="flex items-center py-32 lg:min-h-svh">
+          <p className="principles-opening text-h1 font-black font-stretch-condensed lg:w-3/4">
+            {opening}
+          </p>
+        </div>
+
+        <div className="pb-24 md:pb-32">
+          <h2 id="principles-heading" className="text-h1 font-black font-stretch-condensed">
+            <Emphasis text={heading} />
+          </h2>
+          <ul className="mt-12 border-t border-line md:mt-16">
+            {principles.map((principle) => (
+              <li
+                key={principle.order}
+                className="grid gap-4 border-b border-line py-8 lg:grid-cols-12 lg:gap-8"
+              >
+                <p className="text-h3 font-black font-stretch-condensed lg:col-span-5">
+                  {principle.condition}
+                  {/* No-break space: the arrow never ends up alone on the next line */}
+                  <span aria-hidden="true">{" →"}</span>
+                </p>
+                <div className="flex flex-col items-start gap-4 lg:col-span-6 lg:col-start-7">
+                  <p className="max-w-prose text-lead">{principle.action}</p>
+                  <CassetteChip
+                    slug={principle.project.slug}
+                    color={principle.project.color}
+                    label={`${principle.project.catalog} ${principle.project.title}`}
+                    openLabel={openLabel}
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}

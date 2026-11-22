@@ -1,8 +1,10 @@
 // The only entry point to generated content: swapping Velite for another tool touches this folder alone (ADR-09).
 import {
   caseStudies,
+  principles,
   profile,
   projects,
+  respect,
   site,
   type CaseStudy,
   type Profile,
@@ -14,6 +16,7 @@ import type { Locale } from "@/lib/i18n";
 
 export type { CaseStudy, Profile, Project, SiteCopy };
 export type { Track, TrackId } from "./tracks";
+export { parseStory, type StorySegment } from "./story";
 
 /** A project with its case study in one language and the tape that follows it on the shelf. */
 export type ProjectView = Project & { study: CaseStudy; next: Project["slug"] };
@@ -46,4 +49,40 @@ export function getProjects(locale: Locale): ProjectView[] {
     const next = ordered[(index + 1) % ordered.length] ?? project;
     return { ...project, study, next: next.slug };
   });
+}
+
+/** A principle in one language, with the tape it links to (CONTENT §5). */
+export type PrincipleView = {
+  order: number;
+  condition: string;
+  action: string;
+  project: Pick<ProjectView, "slug" | "catalog" | "color"> & { title: string };
+};
+
+export function getPrinciples(locale: Locale): PrincipleView[] {
+  const tapes = getProjects(locale);
+  return [...principles]
+    .sort((a, b) => a.order - b.order)
+    .map((principle) => {
+      const tape = tapes.find((project) => project.slug === principle.project);
+      if (!tape) throw new Error(`content/principles.yaml: unknown tape ${principle.project}`);
+      return {
+        order: principle.order,
+        condition: principle.condition[locale],
+        action: principle.action[locale],
+        project: {
+          slug: tape.slug,
+          catalog: tape.catalog,
+          color: tape.color,
+          title: tape.study.title,
+        },
+      };
+    });
+}
+
+export type Portrait = NonNullable<(typeof respect)["portrait"]>;
+
+/** The Atatürk portrait, or undefined while no verified file is in place (then nothing renders). */
+export function getPortrait(): Portrait | undefined {
+  return respect.portrait ?? undefined;
 }

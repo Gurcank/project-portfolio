@@ -36,6 +36,11 @@
   --color-on-cassette-olive: #1e1b17; /* 4.6:1 */
   --color-on-cassette-rose: #1e1b17; /* 6.3:1 */
 
+  /* Turkish flag (components/respect only). Law 2893 fixes the shape, not a colour value: this is the red
+   * public bodies use in practice. Never reused elsewhere, so the site accent stays clearly apart. */
+  --color-flag-red: #e30a17;
+  --color-flag-white: #ffffff;
+
   /* ── Typography ────────────────────────────────────────
    * Font CSS variables come from next/font (lib/fonts.ts).
    */

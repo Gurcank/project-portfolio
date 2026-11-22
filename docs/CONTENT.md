@@ -661,6 +661,10 @@ EN (~140 words):
 | Overlay künye etiketleri (D2'de onaylandı) | Rol · Yıl · Ekip | Role · Year · Team |
 | Tracklist adı, ekran okuyucu (D2'de onaylandı) | Parça listesi | Tracklist |
 | Liner notes başlığı (D2'de onaylandı; TR sayfada `lang="en"`) | Liner notes | Liner notes |
+| Kenar notları, Hakkımda (D4'te onaylandı; ATAMap'e not yok) | SeeYourNextStep yanında: ilk kullanıcısı bendim ↑ · ErasmusMap yanında: 1602 şehir; hepsini gezmedim (henüz) · son cümleden sonra: ikisi aynı anda olmuyor, denedim | I was its first user ↑ · 1,602 cities. Haven't visited them all (yet) · Can't do both at once. I tried. |
+| Atatürk portresi altyazısı ve `alt` metni (D4'te onaylandı) | Mustafa Kemal Atatürk, 1922. Fotoğraf: Agence Meurisse · Kaynak: Bibliothèque nationale de France | Mustafa Kemal Atatürk, 1922. Photo: Agence Meurisse · Source: Bibliothèque nationale de France |
+| Hedeflerim başlığı (D4; TR §6'dan, **EN önerildi, onay bekliyor**) | Hedeflerim | Goals |
+| Bayrağın erişilebilir adı (D4; **önerildi, onay bekliyor**) | Türk bayrağı | Turkish flag |
 
 Kurallar: Buton metni fiille başlar. ATAMap overlay'inde esprili mikro metin kullanılmaz (404 ve walkman metinleri ATAMap overlay'inde görünmez).
 
@@ -716,11 +720,12 @@ Pullar dekordur (`aria-hidden`); adlar yalnız görsel etiket.
 | ~~EN metinlerin kontrolü~~ | Kapandı (D2) | Kullanıcı D2 preview'unda okudu ve merge onayı verdi (2026-11-21). |
 | EN CV PDF'i | Kullanıcı | İngilizce CV hazırlanmalı (≤ 200 KB). |
 | ~~Barış Manço albümü~~ | Kapandı (S4) | *Sözüm Meclisten Dışarı*, 1981, Türküola, stüdyo albümü. Kaynak: [tr.wikipedia](https://tr.wikipedia.org/wiki/S%C3%B6z%C3%BCm_Meclisten_D%C4%B1%C5%9Far%C4%B1) (resmî diskografi değil). |
-| Kişisel fotoğraflar (Hakkımda kenarları, 2–3) | Kullanıcı | SPEC §9; henüz yok. Gerektiği dilim: D4. Yoksa Hakkımda tek sütun. |
+| Kişisel fotoğraflar (Hakkımda kenarları, 2–3) | Kullanıcı · sonra | SPEC §9; henüz yok. D4 fotoğrafsız çıktı (kullanıcı kararı, 2026-11-22): Hakkımda tek sütun + kenar notları. Gelince küçük bir dilimle eklenir. |
+| ~~Atatürk portresi~~ | Kapandı (D4) | Agence Meurisse, 1922, BnF, Meurisse 2158 A. Commons'ta kamu malı (PD-France, PD-1996, PD-US expired); Europeana/BnF: NoC-OKLR, ticari olmayan kullanım kaynak belirtilerek serbest. Dosya Commons'taki BnF taramasının 1280 px kopyası; yalnız plaka numaralarını dışarıda bırakmak için 3:4 kırpıldı (600×800 WebP, 55 KB). Kaynak: `content/respect.yaml`. |
 | Proje ekran görüntüleri | Sonra (D2'den ertelendi) | D2 tipografik kapakla çıktı. Canlı sitelerden `scripts/capture-project-screens.ts` ile 1280×800 alınır; kullanıcı onaylar (ARCHITECTURE ADR-12). |
 | ~~Okuma süreleri~~ | Kapandı (D2) | Build'de hesaplanıyor. Bu dosyadaki elle yazılmış değerlerden sapma en fazla 0:10 (Markdown işaretleri kelime sayılmıyor); site hesaplananı gösterir. |
 | Liner notes (D2) | Not | CONTENT'te tek satırda "Veri / Data" gibi TR / EN çiftleri vardı; her dil kendi tarafını aldı, metin değişmedi (`content/projects/*/{tr,en}.md` → `liner`). |
 | Şarkı yılları | Kullanıcı · D7 | Walkman sonucu "{Ad} ({yıl})" ama 7 şarkının yılı yok. Claude kaynaklı önerir, kullanıcı onaylar. |
-| Kenar notu metinleri | Kullanıcı · D4 | INS-13 notlarının metni yazılmadı. Claude önerir, kullanıcı onaylar (ATAMap'e not yok). |
+| ~~Kenar notu metinleri~~ | Kapandı (D4) | Üç not önerildi ve onaylandı; §8'de. |
 | ~~Eksik mikro metinler~~ | Kapandı (D1) | Önerildi, onaylandı, §8'e eklendi. |
 | Sayılar | S-son | Commit, olay, ders sayıları 2026-11-21 itibarıyla; yayından önce tazelenir. |

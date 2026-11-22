@@ -1,5 +1,12 @@
 import { HomeView } from "@/components/home/HomePage";
-import { getCvHref, getProfile, getProjects, getSiteCopy } from "@/lib/content";
+import {
+  getCvHref,
+  getPortrait,
+  getPrinciples,
+  getProfile,
+  getProjects,
+  getSiteCopy,
+} from "@/lib/content";
 import { worstCopy, worstProfile, worstProjects } from "@/tests/fixtures/worst-case";
 
 /*
@@ -31,6 +38,8 @@ export default async function BreakUiPage({
         profile={isWorst ? worstProfile : getProfile()}
         projects={isWorst ? worstProjects(getProjects("tr")) : getProjects("tr")}
         cvHref={state === "no-cv" ? undefined : getCvHref("tr")}
+        principles={getPrinciples("tr")}
+        portrait={getPortrait()}
       />
       <nav
         aria-label="Test data"

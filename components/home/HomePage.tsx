@@ -3,14 +3,20 @@ import { CaseStudyPanel } from "@/components/case-study/CaseStudyPanel";
 import { MotionProvider } from "@/components/experience/MotionProvider";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { Hero } from "@/components/sections/Hero";
+import { Principles } from "@/components/sections/Principles";
 import { Shelf } from "@/components/sections/Shelf";
 import {
   getCvHref,
+  getPortrait,
+  getPrinciples,
   getProfile,
   getProjects,
   getSiteCopy,
+  type Portrait,
+  type PrincipleView,
   type Profile,
   type ProjectView,
   type SiteCopy,
@@ -23,6 +29,8 @@ type HomeViewProps = {
   profile: Profile;
   projects: ProjectView[];
   cvHref?: string;
+  principles: PrincipleView[];
+  portrait?: Portrait;
 };
 
 /** Header data the client overlay needs; the heavy track text stays in server-rendered panels. */
@@ -43,7 +51,15 @@ function toOverlayStudy(project: ProjectView, projects: ProjectView[]): OverlayS
 }
 
 /** Orders the sections and hands each one only the copy it renders (client islands get no dictionary). */
-export function HomeView({ locale, copy, profile, projects, cvHref }: HomeViewProps) {
+export function HomeView({
+  locale,
+  copy,
+  profile,
+  projects,
+  cvHref,
+  principles,
+  portrait,
+}: HomeViewProps) {
   const overlayLabels = copy.microcopy.overlay;
 
   return (
@@ -62,6 +78,19 @@ export function HomeView({ locale, copy, profile, projects, cvHref }: HomeViewPr
           heading={copy.sections.work}
           projects={projects}
           openLabel={copy.microcopy.cassette.open}
+        />
+        <Principles
+          heading={copy.sections.principles}
+          opening={copy.principlesOpening}
+          principles={principles}
+          openLabel={copy.microcopy.cassette.open}
+        />
+        <About
+          heading={copy.sections.about}
+          about={copy.about}
+          projects={projects}
+          openLabel={copy.microcopy.cassette.open}
+          portrait={portrait}
         />
         <Contact
           profile={profile}
@@ -94,6 +123,8 @@ export function HomePage({ locale }: { locale: Locale }) {
       profile={getProfile()}
       projects={getProjects(locale)}
       cvHref={getCvHref(locale)}
+      principles={getPrinciples(locale)}
+      portrait={getPortrait()}
     />
   );
 }

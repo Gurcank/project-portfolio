@@ -1,0 +1,28 @@
+/*
+ * Handwritten margin notes (INS-13): a second, warmer voice beside the story. They are real text inside
+ * the paragraph, right after the chip they talk about, so they read in order for everyone.
+ * Below lg they sit on their own line under that sentence; from lg they move into the left margin and
+ * stay level with their line (an absolutely positioned box keeps the vertical spot it had in the text).
+ */
+.margin-note {
+  display: block;
+  margin-block: calc(var(--spacing) * 2);
+  font-family: var(--font-hand);
+  font-size: var(--text-lead);
+  line-height: var(--leading-tight);
+  color: var(--color-accent);
+}
+
+@media (width >= 64rem) {
+  .margin-note {
+    /* Inline before positioning: the box then keeps the line it sits on, not the line after it */
+    display: inline;
+    position: absolute;
+    right: calc(100% + var(--spacing) * 8);
+    width: calc(var(--spacing) * 48);
+    margin-block: 0;
+    text-align: right;
+    /* A slight tilt is what makes it read as a note in the margin rather than a pull quote */
+    rotate: -2deg;
+  }
+}

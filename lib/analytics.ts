@@ -14,8 +14,9 @@ export const umamiScriptUrl = "https://cloud.umami.is/script.js";
 /** Undefined until the user creates the Umami site and sets the env var on Vercel. */
 export const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || undefined;
 
-/** How a case study was opened: a tape on the shelf, a shared/typed link, or "next tape" in the overlay. */
-export type CaseStudySource = "shelf" | "hash" | "next";
+/** How a case study was opened: a tape on the shelf, a project chip (principles, About), a shared/typed
+ *  link, or "next tape" in the overlay. */
+export type CaseStudySource = "shelf" | "chip" | "hash" | "next";
 
 type UmamiWindow = Window & { umami?: { track: (event: string, data?: object) => void } };
 

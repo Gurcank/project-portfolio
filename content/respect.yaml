@@ -1,0 +1,13 @@
+# Atatürk portrait (SPEC §6, §9): a verified public-domain photograph only, never AI-generated, never
+# animated, never retouched beyond cropping. Set portrait to null and nothing renders (no placeholder).
+#
+# "Mustapha Kemal généralissime des armées Kémalistes (gros plan)", Agence Meurisse, Paris, 1922.
+# Bibliothèque nationale de France, Meurisse 2158 A. Verified 2026-11-22: Commons lists it as public
+# domain (PD-France, PD-1996, PD-US expired); Europeana/BnF state "No Copyright – Other Known Legal
+# Restrictions" (non-commercial reuse free with the source credited). File: the 1280 px Commons
+# rendition of the BnF scan, cropped to 3:4 to drop the plate's handwritten numbers; nothing else changed.
+# Commons: https://commons.wikimedia.org/wiki/File:Mustapha_Kemal_g%C3%A9n%C3%A9ralissime_des_arm%C3%A9es_K%C3%A9malistes_(gros_plan)_-_btv1b9053984d.jpg
+portrait:
+  image: ./site/media/ataturk-1922-meurisse.webp
+  source: https://gallica.bnf.fr/ark:/12148/btv1b9053984d
+  rights: "Public domain · Source: Bibliothèque nationale de France"

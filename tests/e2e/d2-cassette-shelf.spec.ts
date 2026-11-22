@@ -10,7 +10,7 @@ test.describe("opening and closing a tape", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: "ATAMap case study'sini aç" }).click();
+    await page.locator("#work").getByRole("link", { name: "ATAMap case study'sini aç" }).click();
     await expect(page).toHaveURL(/#atamap$/);
     await expect(dialog(page).getByRole("heading", { name: "ATAMap", level: 2 })).toBeVisible();
 
@@ -22,7 +22,10 @@ test.describe("opening and closing a tape", () => {
 
   test("browser Back closes the overlay", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: "ErasmusMap case study'sini aç" }).click();
+    await page
+      .locator("#work")
+      .getByRole("link", { name: "ErasmusMap case study'sini aç" })
+      .click();
     await expect(dialog(page)).toBeVisible();
     await page.goBack();
     await expect(dialog(page)).toHaveCount(0);
@@ -45,7 +48,10 @@ test.describe("opening and closing a tape", () => {
 
   test("Next tape switches in place; closing returns to the page in one step", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: "ErasmusMap case study'sini aç" }).click();
+    await page
+      .locator("#work")
+      .getByRole("link", { name: "ErasmusMap case study'sini aç" })
+      .click();
     await dialog(page)
       .getByRole("link", { name: /Sıradaki kaset: Novera Mobility/ })
       .click();
@@ -108,7 +114,10 @@ test.describe("overlay content", () => {
   test("with reduced motion the overlay content is there at once", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
-    await page.getByRole("link", { name: "SeeYourNextStep case study'sini aç" }).click();
+    await page
+      .locator("#work")
+      .getByRole("link", { name: "SeeYourNextStep case study'sini aç" })
+      .click();
     const opacity = await dialog(page).evaluate((element) => getComputedStyle(element).opacity);
     expect(opacity).toBe("1");
   });

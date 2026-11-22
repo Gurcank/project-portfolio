@@ -56,6 +56,8 @@ export function CaseStudyOverlay({ studies, panels, labels }: CaseStudyOverlayPr
   const study = studies.find((item) => item.slug === shown);
 
   const panelRef = useRef<HTMLDivElement>(null);
+  // The page link that opened the tape (a shelf tape or a chip), so closing returns focus to it
+  const openerRef = useRef<HTMLAnchorElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   // Links marked data-case-source open a tape through pushState, carrying the depth and the source
@@ -69,6 +71,8 @@ export function CaseStudyOverlay({ studies, panels, labels }: CaseStudyOverlayPr
       if (!slug) return;
       event.preventDefault();
       const source = (link.dataset.caseSource as CaseStudySource) ?? "shelf";
+      // "Next tape" lives inside the dialog and disappears with it: keep the page link that opened it
+      if (!link.closest("[role=dialog]")) openerRef.current = link;
       markOpenSource(source === "shelf");
       const state = { ...(window.history.state ?? {}), [DEPTH_KEY]: currentDepth() + 1 };
       window.history.pushState(state, "", `#${slug}`);
@@ -119,7 +123,11 @@ export function CaseStudyOverlay({ studies, panels, labels }: CaseStudyOverlayPr
 
   function returnFocusToTape(event: Event) {
     event.preventDefault();
-    if (shown) document.getElementById(`cassette-${shown}`)?.focus();
+    const opener = openerRef.current;
+    openerRef.current = null;
+    // A chip in Principles or About opens the same tape as the shelf: focus goes back where the reader was
+    if (opener?.isConnected && opener.hash === `#${shown}`) opener.focus();
+    else if (shown) document.getElementById(`cassette-${shown}`)?.focus();
   }
 
   return (
