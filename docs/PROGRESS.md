@@ -1,11 +1,11 @@
 # PROGRESS
 
-## Durum: S11 · D6 yerelde bitti; commit ve preview bekliyor (2026-11-22)
+## Durum: S11 · D6 canlıda (2026-11-22)
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D5, commit `9531f5f`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d6-navigation-layer` (henüz commit yok). D5: `slice/d5-colophon-credits` → `main`'e merge edildi.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D6, commit `d1aacfc`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/d6-navigation-layer` → preview onaylandı → `main`'e fast-forward merge edildi.
 
-### S11 · D6 · Gezinme katmanı (yerelde)
+### S11 · D6 · Gezinme katmanı (canlıda)
 
 - **Aktif bölüm** (`lib/active-section.ts`): tek IntersectionObserver, ekranın %40'ındaki çizgiyi kesen bölüm; gösterge ve ton aynı kaynağı okur.
 - **Bölüm göstergesi** (`experience/SectionIndicator.tsx`): sol altta "Şu an: {bölüm}" (CONTENT §8). Hero'da gizli (ilk ekranın üstüne bir şey binmez), sonra belirir. `aria-live` yok. Uzun etiket "…" ile kısalır, ekran eksi iki kenar boşluğundan geniş olmaz. Footer'a alt boşluk eklendi; sayfa sonunda İletişim linklerini örtmez.
@@ -14,6 +14,8 @@
 - **Overlay'de "şu an okunan parça"** (`case-study/TrackIndicator.tsx`): kaset renginde hap, panelin kendi kaydırmasından; `aria-hidden` (başlıklar ve tracklist aynı bilgiyi verir).
 - Üç katman da `ExperienceBoundary` içinde; çökerse header nav çalışır. Yeni metin yok.
 - **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (47/47), `check:tokens` (68 dosya), `build`, `test:e2e` (86/86; D6: hero'da gizli + doğru bölüm adı, live region yok, 375'te CTA ve İletişim örtülmez, klavyeyle aç / Esc / odak dönüşü, menüden 5 bölüm ve 7 kaset, reduced motion'da animasyonsuz, axe 0, ton her karede AA, overlay'de B1). `/break-ui?data=worst`: 320–1280'de taşma yok (iki taşma bulundu ve düzeltildi: uzun hap, bölünemeyen kaset adı). Ekran görüntüleri `artifacts/d6/`, `artifacts/home-*`, `en-*`.
+- **Production (D6):** `/`, `/en`, `/sitemap.xml` 200; rastgele URL 404. HTML brotli 28,4 KB (D5: 25,9). Hero'da gösterge yok; İlkeler'de "ŞU AN: İLKELER" ve ton `rgb(238, 240, 230)`; menü klavyeyle açılır, odak "İlkeler"de; menüden ErasmusMap açılır, overlay'de "ŞU AN: B2 · SONUÇ"; konsolda hata yok.
+- **PageSpeed Insights (2026-11-22 17:48):** mobil **99 · LCP 1,0 sn · FCP 1,0 sn · CLS 0 · TBT 100 ms** · Speed Index 2,1 sn; masaüstü 100, LCP 0,3 sn. İlk deneme PSI'de "Unable to resolve" verdi (site o sırada 200 dönüyordu), ikincisi ölçtü. **İzlenecek: TBT 100 ms** (D4–D5'te 10–20 ms). Bütçe içinde ama D6'nın istemci kodunun (Radix Popover, gözlemciler) bedeli olabilir; tek koşu, kesin değil. D7 maskot ve walkman ekleyecek: D7 sonunda TBT tekrarlı ölçülmeli, gerekirse göstergeyi ve menüyü `next/dynamic` ile hero geçildikten sonra yükle.
 
 ### S10 · D5 · Bu site nasıl yapıldı + Krediler (canlıda)
 
@@ -115,8 +117,7 @@
 
 ### Sıradaki adım
 
-1. **D6:** commit → preview → onay → `main` → PSI.
-2. S12 · D7 · Pixel motoru + maskot + walkman + "hareketi durdur" (kullanıcıdan: 7 şarkının yılı).
+1. S12 · D7 · Pixel motoru + maskot + walkman + "hareketi durdur" (kullanıcıdan: 7 şarkının yılı).
 
 ### Açık sorular (kullanıcıdan)
 
