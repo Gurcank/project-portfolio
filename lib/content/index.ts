@@ -1,6 +1,7 @@
 // The only entry point to generated content: swapping Velite for another tool touches this folder alone (ADR-09).
 import {
   caseStudies,
+  credits,
   principles,
   profile,
   projects,
@@ -85,4 +86,36 @@ export type Portrait = NonNullable<(typeof respect)["portrait"]>;
 /** The Atatürk portrait, or undefined while no verified file is in place (then nothing renders). */
 export function getPortrait(): Portrait | undefined {
   return respect.portrait ?? undefined;
+}
+
+const creditOrder = ["font", "photo", "asset", "ai", "data"] as const;
+export type CreditKind = (typeof creditOrder)[number];
+
+/** One credit in one language. */
+export type CreditView = {
+  name: string;
+  author?: string;
+  source: string;
+  license?: string;
+  licenseUrl?: string;
+  usedFor: string;
+};
+
+/** Credits grouped by kind in a fixed order; kinds with no entry are left out (ROADMAP D5). */
+export function getCreditGroups(locale: Locale): { kind: CreditKind; items: CreditView[] }[] {
+  return creditOrder
+    .map((kind) => ({
+      kind,
+      items: credits
+        .filter((credit) => credit.kind === kind)
+        .map(({ name, author, source, license, licenseUrl, usedFor }) => ({
+          name,
+          author,
+          source,
+          license,
+          licenseUrl,
+          usedFor: usedFor[locale],
+        })),
+    }))
+    .filter((group) => group.items.length > 0);
 }

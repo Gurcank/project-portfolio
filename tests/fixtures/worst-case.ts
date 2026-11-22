@@ -59,6 +59,7 @@ export const worstCopy: SiteCopy = {
     work: "Seçtiğim işlerim",
     principles: "Karar ilkelerim",
     about: "Benim hakkımda",
+    colophon: "Site nasıl yapıldı",
     contact: "Benimle iletişim",
   },
   hero: {
@@ -75,7 +76,23 @@ export const worstCopy: SiteCopy = {
     work: "Odamın rafında duran *yedi* eski kaset",
     principles: "Zor anlarda nasıl *karar* veriyorum",
     about: "Kısaca ben, nereden gelip nereye",
+    // 40 characters, limit 40
+    colophon: "Bu site adım adım nasıl ve neden yapıldı",
     contact: "Yeni bir fırsat için *mesaj* atman yeter",
+  },
+  // ~245 words (limit 250): one long paragraph, the colophon's worst case
+  colophon:
+    "Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi. Bu site de bir ürün gibi yapıldı ve her adımı yazılı bir kararla ilerledi..",
+  credits: {
+    heading: "Kaynaklar ve krediler",
+    // three words each, the longest Turkish labels a group could plausibly get
+    groups: {
+      font: "Kullanılan yazı tipleri",
+      photo: "Arşiv fotoğrafları (kamu)",
+      ai: "Yapay zekâ araçları",
+      asset: "Hazır görsel paketleri",
+      data: "Veri kaynakları listesi",
+    },
   },
   // 89 characters, limit 90
   principlesOpening:
@@ -138,5 +155,6 @@ export const worstCopy: SiteCopy = {
     copyright: "© 2026 Gürcan Yıldırımoğulları",
     // 79 characters, limit 80
     madeIn: "İstanbul ile Łódź arasında, çoğunlukla gece yarısından sonra bir yerde yapıldı.",
+    credits: "Bütün krediler",
   },
 };

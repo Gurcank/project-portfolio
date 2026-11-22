@@ -1,9 +1,16 @@
 # PROGRESS
 
-## Durum: S9 · D4 canlıda (2026-11-22)
+## Durum: S10 · D5 yerelde bitti; commit ve preview bekliyor (2026-11-22)
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (D4, commit `21f39ed`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d4-principles-about` → preview onaylandı → `main`'e fast-forward merge edildi.
+**Branch:** `slice/d5-colophon-credits` (henüz commit yok). D4: `slice/d4-principles-about` → `main`'e merge edildi.
+
+### S10 · D5 · Bu site nasıl yapıldı + Krediler (yerelde)
+
+- **Colophon** (`sections/Colophon.tsx`): CONTENT §7 metni birebir ("pixel nesneler" cümlesi kullanıcı onayıyla korundu; S-son'da yeniden okunacak). Nav'da "Site" (≥ md), footer'da "Krediler" → `#credits`.
+- **Krediler** (`content/credits.yaml`, ARCHITECTURE §3 modeli): 4 font (SIL OFL 1.1; tasarımcılar google/fonts `METADATA.pb`'den, linkler 200 döndü), Atatürk portresi (Agence Meurisse, BnF, kamu malı; kaynak `respect.yaml` ile aynı), Claude (Anthropic). Türe göre gruplu, boş grup gösterilmez; her kaynak ve lisans gerçek link, `rel="noopener noreferrer"`. Bayrak listede yok (kendi çizimimiz, kaynağı kanun).
+- **Build kuralı** (`checkCredits`): portre varsa aynı kaynaklı fotoğraf kredisi, `lib/fonts.ts`'teki 4 fontun her biri ve kullanılan her türün iki dilde etiketi şart; yoksa build düşer.
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (47/47; +4 kredi), `check:tokens` (63 dosya), `build`, `test:e2e` (76/76; D5: TR/EN metin, gruplar boş değil, fontlar + portre kredili ve portreyle aynı kayıt, dış linklerde `rel`, footer linki krediye iner, nav, axe 0). `/break-ui?data=worst`: 320–1280'de taşma yok; worst-case nav etiketleri 768'de iki-üç satıra kırılıyor (gerçek etiketler tek satır). Ekran görüntüleri `artifacts/d5/`, `artifacts/home-*`, `en-*`.
 
 ### S9 · D4 · İlkeler + Hakkımda (canlıda)
 
@@ -95,7 +102,8 @@
 
 ### Sıradaki adım
 
-1. S10 · D5 · Bu site nasıl yapıldı + Krediler (credits.yaml burada tamamlanır).
+1. **D5:** commit → preview → onay → `main` → PSI.
+2. S11 · D6 · Gezinme katmanı (bölüm göstergesi + J-card içindekiler, zemin tonu, overlay'de "şu an okunan parça").
 
 ### Açık sorular (kullanıcıdan)
 

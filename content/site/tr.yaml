@@ -1,4 +1,4 @@
-# UI copy, Turkish. Source of truth: docs/CONTENT.md (§4, §5, §6, §8). Wording changes need approval.
+# UI copy, Turkish. Source of truth: docs/CONTENT.md (§4, §5, §6, §7, §8). Wording changes need approval.
 meta:
   title: Gürcan Karadağ · Product Manager adayı
   description: Gürcan Karadağ, Product Manager adayı. Dağınık bilgiyi dokunulabilir ürünlere çeviriyorum. Şubat 2027'den itibaren İstanbul'da müsait.
@@ -7,6 +7,7 @@ nav:
   work: Seçili işler
   principles: İlkeler
   about: Hakkımda
+  colophon: Site
   contact: İletişim
 
 hero:
@@ -19,7 +20,24 @@ sections:
   work: Rafımdaki *yedi* kaset
   principles: Nasıl *karar* veririm
   about: Hakkımda
+  colophon: Bu site nasıl yapıldı
   contact: Bir *mesaj* uzağındayım
+
+colophon: >-
+  Bu site de bir ürün gibi yapıldı. Önce bir SPEC yazdım: kim bakacak, 30 saniyede ne görmeli, başarıyı
+  nasıl ölçeceğim. Sonra 9 portfolyo sitesini inceleyip 29 fikri bir havuza koydum ve tek bir konsepte
+  indirdim: odamdaki raf, rafta yedi kaset. Kod, tasarım ve metin, Claude ile birlikte çalıştığım fazlı bir
+  akışta ilerledi. Her faz bir dokümanla bitti, her karar gerekçesiyle yazıldı. Vazgeçtiklerim de karar:
+  telifli film posteri ve albüm kapağı kullanmadım; illüstre bir oda sahnesi yerine koddan üretilen pixel
+  nesneler seçtim; kilim temasını turistik durma riski yüzünden bıraktım. Kullandığım her font, fotoğraf ve
+  görselin kaynağı aşağıda.
+
+credits:
+  heading: Krediler
+  groups:
+    font: Fontlar
+    photo: Fotoğraf
+    ai: Yapay zekâ
 
 principlesOpening: Ne yaptığımdan çok, nasıl karar verdiğim anlatır beni.
 
@@ -87,3 +105,4 @@ notFound:
 footer:
   copyright: © 2026 Gürcan Karadağ
   madeIn: İstanbul ile Łódź arasında bir yerde yapıldı.
+  credits: Krediler

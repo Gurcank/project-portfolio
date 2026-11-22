@@ -4,11 +4,13 @@ import { MotionProvider } from "@/components/experience/MotionProvider";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { About } from "@/components/sections/About";
+import { Colophon } from "@/components/sections/Colophon";
 import { Contact } from "@/components/sections/Contact";
 import { Hero } from "@/components/sections/Hero";
 import { Principles } from "@/components/sections/Principles";
 import { Shelf } from "@/components/sections/Shelf";
 import {
+  getCreditGroups,
   getCvHref,
   getPortrait,
   getPrinciples,
@@ -31,6 +33,7 @@ type HomeViewProps = {
   cvHref?: string;
   principles: PrincipleView[];
   portrait?: Portrait;
+  creditGroups: ReturnType<typeof getCreditGroups>;
 };
 
 /** Header data the client overlay needs; the heavy track text stays in server-rendered panels. */
@@ -59,6 +62,7 @@ export function HomeView({
   cvHref,
   principles,
   portrait,
+  creditGroups,
 }: HomeViewProps) {
   const overlayLabels = copy.microcopy.overlay;
 
@@ -91,6 +95,12 @@ export function HomeView({
           projects={projects}
           openLabel={copy.microcopy.cassette.open}
           portrait={portrait}
+        />
+        <Colophon
+          heading={copy.sections.colophon}
+          text={copy.colophon}
+          credits={copy.credits}
+          groups={creditGroups}
         />
         <Contact
           profile={profile}
@@ -125,6 +135,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       cvHref={getCvHref(locale)}
       principles={getPrinciples(locale)}
       portrait={getPortrait()}
+      creditGroups={getCreditGroups(locale)}
     />
   );
 }

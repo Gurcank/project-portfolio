@@ -36,3 +36,36 @@ export function checkPrinciples(list: { order: number; project: string }[]) {
     throw new Error("content/principles.yaml: duplicate order");
   }
 }
+
+/**
+ * SPEC §14.5: every image and font the site shows is credited. A portrait without a matching photo
+ * credit, a font without an entry, or a kind of credit with no group label in either language fails.
+ */
+export function checkCredits({
+  credits,
+  site,
+  portraitSource,
+  fonts,
+}: {
+  credits: { kind: string; name: string; source: string }[];
+  site: { locale: string; credits: { groups: Partial<Record<string, string>> } }[];
+  portraitSource?: string;
+  fonts: string[];
+}) {
+  const problems: string[] = [];
+  if (portraitSource && !credits.some((c) => c.kind === "photo" && c.source === portraitSource)) {
+    problems.push(`credits.yaml: no photo credit for the portrait (${portraitSource})`);
+  }
+  for (const font of fonts) {
+    if (!credits.some((c) => c.kind === "font" && c.name === font)) {
+      problems.push(`credits.yaml: font "${font}" has no credit`);
+    }
+  }
+  for (const kind of new Set(credits.map((c) => c.kind))) {
+    for (const { locale, credits: copy } of site) {
+      if (!copy.groups[kind])
+        problems.push(`site/${locale}.yaml: no label for credit group "${kind}"`);
+    }
+  }
+  if (problems.length > 0) throw new Error(`content/credits:\n  ${problems.join("\n  ")}`);
+}

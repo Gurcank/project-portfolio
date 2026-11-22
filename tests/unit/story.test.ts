@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { checkAboutLinks, checkPrinciples } from "@/lib/content/integrity";
+import { checkAboutLinks, checkCredits, checkPrinciples } from "@/lib/content/integrity";
 import { hasMalformedChip, parseStory, storyChipSlugs, storyPlainText } from "@/lib/content/story";
 
 const tapes = [
@@ -73,6 +73,45 @@ describe("checkPrinciples", () => {
     expect(() => checkPrinciples(five.slice(0, 4))).toThrow(/expected 5/);
     expect(() => checkPrinciples([...five.slice(0, 4), { order: 1, project: "atamap" }])).toThrow(
       /duplicate order/,
+    );
+  });
+});
+
+describe("checkCredits", () => {
+  const site = [
+    { locale: "tr", credits: { groups: { font: "Fontlar", photo: "Fotoğraf" } } },
+    { locale: "en", credits: { groups: { font: "Fonts", photo: "Photo" } } },
+  ];
+  const portrait = "https://gallica.bnf.fr/ark:/12148/btv1b9053984d";
+  const font = {
+    kind: "font",
+    name: "Archivo",
+    source: "https://fonts.google.com/specimen/Archivo",
+  };
+  const photo = { kind: "photo", name: "Portrait", source: portrait };
+
+  it("accepts credited fonts and a credited portrait", () => {
+    expect(() =>
+      checkCredits({ credits: [font, photo], site, portraitSource: portrait, fonts: ["Archivo"] }),
+    ).not.toThrow();
+  });
+
+  it("fails when the portrait has no matching photo credit", () => {
+    expect(() =>
+      checkCredits({ credits: [font], site, portraitSource: portrait, fonts: ["Archivo"] }),
+    ).toThrow(/no photo credit for the portrait/);
+  });
+
+  it("fails when a loaded font is not credited", () => {
+    expect(() => checkCredits({ credits: [font], site, fonts: ["Archivo", "Caveat"] })).toThrow(
+      /font "Caveat" has no credit/,
+    );
+  });
+
+  it("fails when a kind of credit has no group label", () => {
+    const ai = { kind: "ai", name: "Claude", source: "https://www.anthropic.com/claude" };
+    expect(() => checkCredits({ credits: [font, ai], site, fonts: ["Archivo"] })).toThrow(
+      /no label for credit group "ai"/,
     );
   });
 });

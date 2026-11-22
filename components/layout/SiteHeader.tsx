@@ -22,7 +22,7 @@ export function SiteHeader({ locale, name, copy }: SiteHeaderProps) {
         {name}
       </a>
       <nav className="flex items-center gap-2">
-        {(["work", "principles", "about"] as const).map((section) => (
+        {(["work", "principles", "about", "colophon"] as const).map((section) => (
           <a key={section} href={`#${section}`} className={`hidden md:inline-flex ${navLinkClass}`}>
             {copy.nav[section]}
           </a>

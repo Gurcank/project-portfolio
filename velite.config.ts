@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 import { defineCollection, defineConfig, s } from "velite";
 
-import { checkAboutLinks, checkPrinciples } from "./lib/content/integrity";
+import { checkAboutLinks, checkCredits, checkPrinciples } from "./lib/content/integrity";
 import { hasMalformedChip, storyPlainText } from "./lib/content/story";
 import { parseTracks } from "./lib/content/tracks";
 import { isLocale, locales } from "./lib/i18n";
@@ -53,6 +53,10 @@ const profile = defineCollection({
   }),
 });
 
+const creditKinds = ["font", "photo", "asset", "ai", "data"] as const;
+// Every family lib/fonts.ts loads must be credited (SPEC §14.5)
+const fontNames = ["Archivo", "Fraunces", "Geist Mono", "Caveat"];
+
 const site = defineCollection({
   name: "SiteCopy",
   pattern: "site/*.yaml",
@@ -61,7 +65,13 @@ const site = defineCollection({
       path: s.path(),
       meta: s.object({ title: s.string().max(60), description: s.string().max(160) }),
       // 16: name + nav item + language button still share one row at 320px (/break-ui)
-      nav: s.object({ work: navItem, principles: navItem, about: navItem, contact: navItem }),
+      nav: s.object({
+        work: navItem,
+        principles: navItem,
+        about: navItem,
+        colophon: navItem,
+        contact: navItem,
+      }),
       hero: s.object({
         role: emphasized(60),
         label: s.string().max(80),
@@ -74,10 +84,19 @@ const site = defineCollection({
         principles: emphasized(40),
         // "Hakkımda" / "About": the one heading CONTENT §5 gives no accent word
         about: s.string().max(40),
+        // "Bu site nasıl yapıldı" / "How this site was made": no accent word in CONTENT §5 either
+        colophon: s.string().max(40),
         contact: emphasized(40),
       }),
       // INS-18 one-sentence screen: one line on desktop, three at most on a phone
       principlesOpening: s.string().max(90),
+      // CONTENT §0: ≤ 250 words
+      colophon: words(250),
+      credits: s.object({
+        heading: button,
+        // A label per kind of credit; a kind used in credits.yaml without a label fails in prepare
+        groups: s.record(s.enum(creditKinds), button),
+      }),
       about: s.object({
         // CONTENT §0: ≤ 120 words as read (chip labels count, link syntax doesn't)
         story: s
@@ -125,7 +144,11 @@ const site = defineCollection({
       }),
       // cta has no word budget: the approved "Back to the shelf" is four words
       notFound: s.object({ title: message, body: message, cta: s.string().max(24) }),
-      footer: s.object({ copyright: s.string().max(60), madeIn: s.string().max(80) }),
+      footer: s.object({
+        copyright: s.string().max(60),
+        madeIn: s.string().max(80),
+        credits: button,
+      }),
     })
     .transform(({ path, ...rest }, { addIssue }) => {
       const locale = path.replace(/^site\//, "");
@@ -238,6 +261,21 @@ const principles = defineCollection({
 });
 
 // Atatürk portrait: null until a verified public-domain file is in place, and then it needs its source
+// content/credits.yaml (ARCHITECTURE §3): one list, grouped by kind on the page
+const credits = defineCollection({
+  name: "Credit",
+  pattern: "credits.yaml",
+  schema: s.object({
+    kind: s.enum(creditKinds),
+    name: s.string().max(60),
+    author: s.string().max(120).optional(),
+    source: s.string().url(),
+    license: s.string().max(40).optional(),
+    licenseUrl: s.string().url().optional(),
+    usedFor: l10n(80),
+  }),
+});
+
 const respect = defineCollection({
   name: "Respect",
   pattern: "respect.yaml",
@@ -299,9 +337,9 @@ export default defineConfig({
   },
   // Schema errors only fail the build because package.json runs `velite build --strict`:
   // the CLI's own default (false) overrides a `strict` set here.
-  collections: { profile, site, projects, caseStudies, principles, respect },
+  collections: { profile, site, projects, caseStudies, principles, respect, credits },
   // TR and EN always ship together: a missing language file fails the build (CLAUDE.md)
-  prepare: ({ site, projects, caseStudies, principles }) => {
+  prepare: ({ site, projects, caseStudies, principles, respect, credits }) => {
     const missing = locales.filter((locale) => !site.some((copy) => copy.locale === locale));
     if (missing.length > 0) {
       throw new Error(`content/site: missing ${missing.map((l) => `${l}.yaml`).join(", ")}`);
@@ -309,5 +347,6 @@ export default defineConfig({
     checkProjectIntegrity(projects, caseStudies);
     checkPrinciples(principles);
     checkAboutLinks(site, projects);
+    checkCredits({ credits, site, portraitSource: respect.portrait?.source, fonts: fontNames });
   },
 });

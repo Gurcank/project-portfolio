@@ -621,7 +621,7 @@ EN:
 
 ## 7. Bu site nasıl yapıldı
 
-> Yayından önce gerçek akışa göre güncellenir (S-son). Krediler listesi (fontlar, Atatürk fotoğrafı kaynağı, asset paketleri, AI görselleri) `content/credits.yaml`'da tutulur ve D5'te bu bölümün altında gösterilir (ROADMAP).
+> Yayından önce gerçek akışa göre güncellenir (S-son). **D5 notu:** "koddan üretilen pixel nesneler" bir kararı anlatıyor; nesneler D7–D8'de gelecek, metin bu yüzden S-son'da yeniden okunmalı (kullanıcı birebir taşımayı onayladı, 2026-11-22). Krediler listesi (fontlar, Atatürk fotoğrafı kaynağı, asset paketleri, AI görselleri) `content/credits.yaml`'da tutulur ve D5'te bu bölümün altında gösterilir (ROADMAP).
 
 TR (~140 kelime):
 > Bu site de bir ürün gibi yapıldı. Önce bir SPEC yazdım: kim bakacak, 30 saniyede ne görmeli, başarıyı nasıl ölçeceğim. Sonra 9 portfolyo sitesini inceleyip 29 fikri bir havuza koydum ve tek bir konsepte indirdim: odamdaki raf, rafta yedi kaset. Kod, tasarım ve metin, Claude ile birlikte çalıştığım fazlı bir akışta ilerledi. Her faz bir dokümanla bitti, her karar gerekçesiyle yazıldı. Vazgeçtiklerim de karar: telifli film posteri ve albüm kapağı kullanmadım; illüstre bir oda sahnesi yerine koddan üretilen pixel nesneler seçtim; kilim temasını turistik durma riski yüzünden bıraktım. Kullandığım her font, fotoğraf ve görselin kaynağı aşağıda.
@@ -665,6 +665,8 @@ EN (~140 words):
 | Atatürk portresi altyazısı ve `alt` metni (D4'te onaylandı) | Mustafa Kemal Atatürk, 1922. Fotoğraf: Agence Meurisse · Kaynak: Bibliothèque nationale de France | Mustafa Kemal Atatürk, 1922. Photo: Agence Meurisse · Source: Bibliothèque nationale de France |
 | Hedeflerim başlığı (D4; TR §6'dan, EN preview'da listelendi, merge onayıyla kabul edildi) | Hedeflerim | Goals |
 | Bayrağın erişilebilir adı (D4; preview'da listelendi, merge onayıyla kabul edildi) | Türk bayrağı | Turkish flag |
+| Krediler grup etiketleri (D5'te onaylandı) | Fontlar · Fotoğraf · Yapay zekâ | Fonts · Photo · AI |
+| Kredi kullanım yerleri (D5'te onaylandı) | Archivo: Başlıklar, gövde, kaset sırtları · Fraunces: Başlıktaki italik vurgu · Geist Mono: Etiketler ve süreler · Caveat: Kenar notları · Portre: Hakkımda'daki Atatürk portresi · Claude: Kod, tasarım ve metinde birlikte çalıştığım asistan | Headings, body, tape spines · Italic accent in headings · Labels and durations · Margin notes · Atatürk portrait in About · The assistant I worked with on code, design and copy |
 
 Kurallar: Buton metni fiille başlar. ATAMap overlay'inde esprili mikro metin kullanılmaz (404 ve walkman metinleri ATAMap overlay'inde görünmez).
 

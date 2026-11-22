@@ -1,6 +1,5 @@
 import type { SiteCopy } from "@/lib/content";
 
-// "Credits" joins this line in D5, when the credits section exists to link to.
 export function SiteFooter({ copy }: { copy: SiteCopy["footer"] }) {
   return (
     <footer className="border-t border-line">
@@ -10,6 +9,12 @@ export function SiteFooter({ copy }: { copy: SiteCopy["footer"] }) {
           ·
         </span>
         <span>{copy.madeIn}</span>
+        <span aria-hidden="true" className="hidden md:inline">
+          ·
+        </span>
+        <a href="#credits" className="self-start underline underline-offset-4 hover:no-underline">
+          {copy.credits}
+        </a>
       </p>
     </footer>
   );

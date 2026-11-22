@@ -1,5 +1,6 @@
 import { HomeView } from "@/components/home/HomePage";
 import {
+  getCreditGroups,
   getCvHref,
   getPortrait,
   getPrinciples,
@@ -40,6 +41,7 @@ export default async function BreakUiPage({
         cvHref={state === "no-cv" ? undefined : getCvHref("tr")}
         principles={getPrinciples("tr")}
         portrait={getPortrait()}
+        creditGroups={getCreditGroups("tr")}
       />
       <nav
         aria-label="Test data"

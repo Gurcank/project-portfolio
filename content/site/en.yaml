@@ -1,4 +1,4 @@
-# UI copy, English. Source of truth: docs/CONTENT.md (§4, §5, §6, §8). Wording changes need approval.
+# UI copy, English. Source of truth: docs/CONTENT.md (§4, §5, §6, §7, §8). Wording changes need approval.
 meta:
   title: Gürcan Karadağ · Aspiring Product Manager
   description: Gürcan Karadağ, aspiring Product Manager. I turn scattered information into tangible products. Available in Istanbul from Feb 2027.
@@ -7,6 +7,7 @@ nav:
   work: Work
   principles: Principles
   about: About
+  colophon: Site
   contact: Contact
 
 hero:
@@ -19,7 +20,23 @@ sections:
   work: Seven *tapes* on my shelf
   principles: How I *decide*
   about: About
+  colophon: How this site was made
   contact: One *message* away
+
+colophon: >-
+  This site was built like a product. I started with a spec: who visits, what they should see in 30
+  seconds, how I'd measure success. Then I studied 9 portfolio sites, pooled 29 ideas and narrowed them to
+  one concept: a shelf in my room holding seven tapes. Code, design and copy moved through a phased workflow
+  with Claude; each phase ended in a document, each decision came with a reason. What I dropped counts too:
+  no copyrighted posters or album covers, code-generated pixel objects instead of an illustrated room, no
+  kilim theme, which risked looking touristy. Every font, photo and image is credited below.
+
+credits:
+  heading: Credits
+  groups:
+    font: Fonts
+    photo: Photo
+    ai: AI
 
 principlesOpening: How I decide says more than what I built.
 
@@ -87,3 +104,4 @@ notFound:
 footer:
   copyright: © 2026 Gürcan Karadağ
   madeIn: Made somewhere between Istanbul and Łódź.
+  credits: Credits
