@@ -128,6 +128,8 @@ export async function renderOgImage(locale: Locale) {
         ))}
       </div>
     </div>,
-    { ...ogSize, fonts },
+    // An empty list makes Satori fail the build ("No fonts are loaded"); leaving the option out uses
+    // the bundled default font, so a Google Fonts outage during a deploy costs looks, not the deploy
+    { ...ogSize, ...(fonts.length > 0 && { fonts }) },
   );
 }
