@@ -1,17 +1,19 @@
 # PROGRESS
 
-## Durum: S10 · D5 yerelde bitti; commit ve preview bekliyor (2026-11-22)
+## Durum: S10 · D5 canlıda (2026-11-22)
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D4, commit `21f39ed`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d5-colophon-credits` (henüz commit yok). D4: `slice/d4-principles-about` → `main`'e merge edildi.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D5, commit `9531f5f`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/d5-colophon-credits` → preview onaylandı → `main`'e fast-forward merge edildi.
 
-### S10 · D5 · Bu site nasıl yapıldı + Krediler (yerelde)
+### S10 · D5 · Bu site nasıl yapıldı + Krediler (canlıda)
 
 - **Colophon** (`sections/Colophon.tsx`): CONTENT §7 metni birebir ("pixel nesneler" cümlesi kullanıcı onayıyla korundu; S-son'da yeniden okunacak). Nav'da "Site" (≥ md), footer'da "Krediler" → `#credits`.
 - **Krediler** (`content/credits.yaml`, ARCHITECTURE §3 modeli): 4 font (SIL OFL 1.1; tasarımcılar google/fonts `METADATA.pb`'den, linkler 200 döndü), Atatürk portresi (Agence Meurisse, BnF, kamu malı; kaynak `respect.yaml` ile aynı), Claude (Anthropic). Türe göre gruplu, boş grup gösterilmez; her kaynak ve lisans gerçek link, `rel="noopener noreferrer"`. Bayrak listede yok (kendi çizimimiz, kaynağı kanun).
 - **Vercel build hatası ve düzeltmesi:** ilk preview (`75d67da`) OG görselinde "No fonts are loaded" ile düştü. Sebep: OG, build sırasında Google Fonts'tan font indiriyor; indirmelerin hepsi başarısız olunca kod boş `fonts: []` gönderiyordu ve Satori varsayılana düşmek yerine build'i kırıyordu (D1'den beri gizli hata; bu sefer ağ tetikledi). Düzeltme `lib/og/render.tsx`: liste boşsa seçenek gönderilmez, paketli varsayılan font kullanılır. Kanıt: indirmeler simüle edilerek kapatıldığında eski kod aynı hatayı veriyor, yenisi 9/9 geçiyor. Kalıcı çözüm adayı: OG fontlarını repoya almak (build dış servise bağımlı kalmaz).
 - **Build kuralı** (`checkCredits`): portre varsa aynı kaynaklı fotoğraf kredisi, `lib/fonts.ts`'teki 4 fontun her biri ve kullanılan her türün iki dilde etiketi şart; yoksa build düşer.
 - **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (47/47; +4 kredi), `check:tokens` (63 dosya), `build`, `test:e2e` (76/76; D5: TR/EN metin, gruplar boş değil, fontlar + portre kredili ve portreyle aynı kayıt, dış linklerde `rel`, footer linki krediye iner, nav, axe 0). `/break-ui?data=worst`: 320–1280'de taşma yok; worst-case nav etiketleri 768'de iki-üç satıra kırılıyor (gerçek etiketler tek satır). Ekran görüntüleri `artifacts/d5/`, `artifacts/home-*`, `en-*`.
+- **Production (D5):** `/`, `/en`, `/sitemap.xml` 200; rastgele URL 404. Krediler 3 grup (Fontlar, Fotoğraf, Yapay zekâ), footer linki `#credits`'e iner, bütün dış linklerde `rel` doğru, nav "Site" → `#colophon`, konsolda hata yok. OG görseli bu build'de özel fontlarla üretildi (Google Fonts erişilebilirdi; `artifacts/d5/og-en.png`).
+- **PageSpeed Insights (2026-11-22 13:51):** mobil **97 · LCP 1,8 sn · FCP 1,8 sn · CLS 0 · TBT 20 ms** · Speed Index 3,4 sn; masaüstü 100, LCP 0,3 sn. Tek koşu (ikinci istek aynı raporu önbellekten döndürdü). Tek koşular arasında oynama büyük: D3 1,7 · D4 0,9 · D5 1,8 sn. Bütçe (2,5 sn) içinde; eğilim için S16'da 5 koşunun medyanı alınmalı.
 
 ### S9 · D4 · İlkeler + Hakkımda (canlıda)
 
@@ -103,8 +105,7 @@
 
 ### Sıradaki adım
 
-1. **D5:** commit → preview → onay → `main` → PSI.
-2. S11 · D6 · Gezinme katmanı (bölüm göstergesi + J-card içindekiler, zemin tonu, overlay'de "şu an okunan parça").
+1. S11 · D6 · Gezinme katmanı (bölüm göstergesi + J-card içindekiler, zemin tonu, overlay'de "şu an okunan parça").
 
 ### Açık sorular (kullanıcıdan)
 
