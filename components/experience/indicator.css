@@ -1,0 +1,39 @@
+/*
+ * Section indicator + J-card (D6, /animate): occasional, purpose = feedback that the menu opened from
+ * the pill it belongs to. Durations come from tokens, so reduced motion and "pause motion" make it instant.
+ */
+@keyframes jcard-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--spacing) * 2));
+  }
+}
+
+@keyframes indicator-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.jcard[data-state="open"] {
+  animation: jcard-in var(--duration-base) var(--ease-out);
+}
+
+/* The pill appears once the hero is behind the reader; a fade, so it doesn't jump into view */
+.section-indicator {
+  /* Never wider than the screen minus both gutters (left-4 and the same on the right) */
+  max-width: calc(100vw - var(--spacing) * 8);
+  animation: indicator-in var(--duration-base) var(--ease-out);
+}
+
+/* The fold of a J-card: the dashed line between its two panels */
+.jcard-fold {
+  border-top: var(--hairline) dashed var(--color-line);
+}
+
+@media (width >= 48rem) {
+  .jcard-fold {
+    border-top: 0;
+    border-left: var(--hairline) dashed var(--color-line);
+  }
+}

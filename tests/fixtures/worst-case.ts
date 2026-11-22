@@ -136,6 +136,7 @@ export const worstCopy: SiteCopy = {
       downloadCv: "Özgeçmişimi indir (PDF)",
     },
     cassette: { open: "{project} kasetinin case study'sini aç" },
+    indicator: { current: "Şu an buradasın: {section}", contents: "Bütün içindekiler listesi" },
     overlay: {
       sideA: "A yüzü",
       sideB: "B yüzü",

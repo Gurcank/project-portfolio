@@ -80,6 +80,9 @@ microcopy:
     downloadCv: Download CV (PDF)
   cassette:
     open: "Open the {project} case study"
+  indicator:
+    current: "Now: {section}"
+    contents: Contents
   overlay:
     sideA: Side A
     sideB: Side B

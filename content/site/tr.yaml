@@ -81,6 +81,9 @@ microcopy:
     downloadCv: CV'yi indir (PDF)
   cassette:
     open: "{project} case study'sini aç"
+  indicator:
+    current: "Şu an: {section}"
+    contents: İçindekiler
   overlay:
     sideA: A yüzü
     sideB: B yüzü

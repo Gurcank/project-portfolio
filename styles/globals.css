@@ -7,6 +7,16 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-text-size-adjust: 100%;
+    /* The tone follows the section being read (ToneController sets data-tone); without JS it stays paper */
+    transition: background-color var(--duration-slow) var(--ease-in-out);
+  }
+
+  html[data-tone="principles"] {
+    background-color: var(--color-tone-sage);
+  }
+
+  html[data-tone="about"] {
+    background-color: var(--color-tone-blush);
   }
 
   body {

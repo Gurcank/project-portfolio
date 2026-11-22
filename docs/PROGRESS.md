@@ -1,9 +1,19 @@
 # PROGRESS
 
-## Durum: S10 · D5 canlıda (2026-11-22)
+## Durum: S11 · D6 yerelde bitti; commit ve preview bekliyor (2026-11-22)
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (D5, commit `9531f5f`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d5-colophon-credits` → preview onaylandı → `main`'e fast-forward merge edildi.
+**Branch:** `slice/d6-navigation-layer` (henüz commit yok). D5: `slice/d5-colophon-credits` → `main`'e merge edildi.
+
+### S11 · D6 · Gezinme katmanı (yerelde)
+
+- **Aktif bölüm** (`lib/active-section.ts`): tek IntersectionObserver, ekranın %40'ındaki çizgiyi kesen bölüm; gösterge ve ton aynı kaynağı okur.
+- **Bölüm göstergesi** (`experience/SectionIndicator.tsx`): sol altta "Şu an: {bölüm}" (CONTENT §8). Hero'da gizli (ilk ekranın üstüne bir şey binmez), sonra belirir. `aria-live` yok. Uzun etiket "…" ile kısalır, ekran eksi iki kenar boşluğundan geniş olmaz. Footer'a alt boşluk eklendi; sayfa sonunda İletişim linklerini örtmez.
+- **J-card içindekiler**: Radix Popover; bölümler + 7 kaset, ≥ md iki panel arasında kesik "katlama" çizgisi, mobilde alt alta. Açılınca odak bulunulan bölümün linkinde (`aria-current="location"`), Esc kapatır, odak düğmeye döner. Panel diyaloğu kendi başlığıyla adlandırıldı (axe yakaladı). Menüden açılan kaset analytics'te `menu`. Yeni token `--container-jcard: 30rem`.
+- **Zemin tonu** (`experience/ToneController.tsx`, `globals.css`): İlkeler adaçayı `#EEF0E6`, Hakkımda pudra `#F7EDE8`; ikisi de kâğıttan açık, bütün metin çiftlerinde kontrast artar (kiremit 4,52 → 4,61). Geçiş `--duration-slow`; e2e her karede kiremit ≥ 4,5 ölçer. JS yoksa kâğıt.
+- **Overlay'de "şu an okunan parça"** (`case-study/TrackIndicator.tsx`): kaset renginde hap, panelin kendi kaydırmasından; `aria-hidden` (başlıklar ve tracklist aynı bilgiyi verir).
+- Üç katman da `ExperienceBoundary` içinde; çökerse header nav çalışır. Yeni metin yok.
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (47/47), `check:tokens` (68 dosya), `build`, `test:e2e` (86/86; D6: hero'da gizli + doğru bölüm adı, live region yok, 375'te CTA ve İletişim örtülmez, klavyeyle aç / Esc / odak dönüşü, menüden 5 bölüm ve 7 kaset, reduced motion'da animasyonsuz, axe 0, ton her karede AA, overlay'de B1). `/break-ui?data=worst`: 320–1280'de taşma yok (iki taşma bulundu ve düzeltildi: uzun hap, bölünemeyen kaset adı). Ekran görüntüleri `artifacts/d6/`, `artifacts/home-*`, `en-*`.
 
 ### S10 · D5 · Bu site nasıl yapıldı + Krediler (canlıda)
 
@@ -105,7 +115,8 @@
 
 ### Sıradaki adım
 
-1. S11 · D6 · Gezinme katmanı (bölüm göstergesi + J-card içindekiler, zemin tonu, overlay'de "şu an okunan parça").
+1. **D6:** commit → preview → onay → `main` → PSI.
+2. S12 · D7 · Pixel motoru + maskot + walkman + "hareketi durdur" (kullanıcıdan: 7 şarkının yılı).
 
 ### Açık sorular (kullanıcıdan)
 

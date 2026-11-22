@@ -3,7 +3,7 @@ import type { SiteCopy } from "@/lib/content";
 export function SiteFooter({ copy }: { copy: SiteCopy["footer"] }) {
   return (
     <footer className="border-t border-line">
-      <p className="mx-auto flex max-w-page flex-col gap-1 px-(--gutter) py-8 text-small text-ink-muted md:flex-row md:gap-3">
+      <p className="mx-auto flex max-w-page flex-col gap-1 px-(--gutter) pt-8 pb-24 text-small text-ink-muted md:flex-row md:gap-3">
         <span>{copy.copyright}</span>
         <span aria-hidden="true" className="hidden md:inline">
           ·

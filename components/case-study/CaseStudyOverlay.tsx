@@ -6,6 +6,7 @@ import { Dialog } from "radix-ui";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 import { TapeProgress } from "@/components/case-study/TapeProgress";
+import { TrackIndicator } from "@/components/case-study/TrackIndicator";
 import { cassetteSurface } from "@/components/cassette/cassette-colors";
 import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { Emphasis } from "@/components/markdown/Emphasis";
@@ -24,12 +25,15 @@ export type OverlayStudy = {
   readingTime: string;
   links: Project["links"];
   next: { slug: string; title: string };
+  tracks: { id: string; title: string }[];
 };
 
 type CaseStudyOverlayProps = {
   studies: OverlayStudy[];
   panels: Record<string, ReactNode>;
   labels: SiteCopy["microcopy"]["overlay"];
+  /** "Şu an: {section}": the page's indicator template, reused for the track being read */
+  nowLabel: string;
 };
 
 // history.state key: how many tape entries we pushed, so closing can step back past all of them
@@ -45,7 +49,7 @@ function currentDepth(): number {
  * Opening from the page pushes a history entry, so Back closes it; a shared `/#atamap` link opens it
  * directly and closing just clears the hash. Radix Dialog supplies the focus trap, Esc and inert background.
  */
-export function CaseStudyOverlay({ studies, panels, labels }: CaseStudyOverlayProps) {
+export function CaseStudyOverlay({ studies, panels, labels, nowLabel }: CaseStudyOverlayProps) {
   const slugs = useMemo(() => studies.map((study) => study.slug), [studies]);
   const hash = useLocationHash();
   const active = projectFromHash(hash, slugs);
@@ -215,6 +219,14 @@ export function CaseStudyOverlay({ studies, panels, labels }: CaseStudyOverlayPr
                   </header>
 
                   <div className="pt-12">{panels[study.slug]}</div>
+                  <ExperienceBoundary name="track-indicator">
+                    <TrackIndicator
+                      slug={study.slug}
+                      tracks={study.tracks}
+                      template={nowLabel}
+                      containerRef={panelRef}
+                    />
+                  </ExperienceBoundary>
 
                   <footer className="mt-24 flex flex-col gap-4 border-t border-line pt-8 md:flex-row md:items-center md:justify-between">
                     <a

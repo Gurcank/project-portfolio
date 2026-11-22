@@ -127,6 +127,8 @@ const site = defineCollection({
           downloadCv: button,
         }),
         cassette: s.object({ open: withPlaceholder("project") }),
+        // INS-07 section indicator and its J-card contents (CONTENT §8)
+        indicator: s.object({ current: withPlaceholder("section"), contents: button }),
         overlay: s.object({
           sideA: button,
           sideB: button,

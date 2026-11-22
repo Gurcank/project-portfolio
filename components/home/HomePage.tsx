@@ -1,6 +1,9 @@
 import { CaseStudyOverlay, type OverlayStudy } from "@/components/case-study/CaseStudyOverlay";
 import { CaseStudyPanel } from "@/components/case-study/CaseStudyPanel";
+import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { MotionProvider } from "@/components/experience/MotionProvider";
+import { SectionIndicator } from "@/components/experience/SectionIndicator";
+import { ToneController } from "@/components/experience/ToneController";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { About } from "@/components/sections/About";
@@ -50,6 +53,7 @@ function toOverlayStudy(project: ProjectView, projects: ProjectView[]): OverlayS
     readingTime: project.study.readingTime,
     links: project.links,
     next: { slug: next.slug, title: next.study.title },
+    tracks: project.study.tracks.map(({ id, title }) => ({ id, title })),
   };
 }
 
@@ -110,7 +114,23 @@ export function HomeView({
         />
       </main>
       <SiteFooter copy={copy.footer} />
+      {/* Extras on top of the nav: if they fail, the header links still work (ROADMAP D6) */}
+      <ExperienceBoundary name="tone">
+        <ToneController />
+      </ExperienceBoundary>
+      <ExperienceBoundary name="section-indicator">
+        <SectionIndicator
+          labels={copy.microcopy.indicator}
+          nav={copy.nav}
+          tapes={projects.map((project) => ({
+            slug: project.slug,
+            catalog: project.catalog,
+            title: project.study.title,
+          }))}
+        />
+      </ExperienceBoundary>
       <CaseStudyOverlay
+        nowLabel={copy.microcopy.indicator.current}
         labels={overlayLabels}
         studies={projects.map((project) => toOverlayStudy(project, projects))}
         panels={Object.fromEntries(

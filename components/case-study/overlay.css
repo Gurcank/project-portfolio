@@ -111,3 +111,9 @@
 .tape-rule {
   border-top: calc(var(--spacing) * 1) solid var(--tape);
 }
+
+/* "Now playing" pill (D6): the tape's colour with its AA text pair */
+.tape-indicator {
+  background-color: var(--tape);
+  color: var(--on-tape);
+}
