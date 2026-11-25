@@ -129,6 +129,17 @@ const site = defineCollection({
         cassette: s.object({ open: withPlaceholder("project") }),
         // INS-07 section indicator and its J-card contents (CONTENT §8)
         indicator: s.object({ current: withPlaceholder("section"), contents: button }),
+        // D7 walkman and pause control (CONTENT §8)
+        walkman: s.object({
+          // "Walkman: suggest a random film or song" — an accessible name, not a button label
+          label: s.string().max(60),
+          result: withPlaceholder("title")
+            .pipe(withPlaceholder("year"))
+            .pipe(withPlaceholder("kind")),
+          kinds: s.object({ film: button, song: button }),
+          empty: message,
+        }),
+        motion: s.object({ pause: button, resume: button }),
         overlay: s.object({
           sideA: button,
           sideB: button,
@@ -278,6 +289,30 @@ const credits = defineCollection({
   }),
 });
 
+// content/taste: names and years only (SPEC §6: no posters, ratings or Letterboxd data)
+const titleLang = s.enum(["tr", "en"]);
+const films = defineCollection({
+  name: "Film",
+  pattern: "taste/films.yaml",
+  schema: s.object({
+    title: s.string().max(80),
+    // "2001–2003" for a trilogy
+    year: s.string().regex(/^\d{4}(–\d{4})?$/, "year looks like 2003 or 2001–2003"),
+    favorite: s.boolean(),
+    lang: titleLang,
+  }),
+});
+const songs = defineCollection({
+  name: "Song",
+  pattern: "taste/songs.yaml",
+  schema: s.object({
+    artist: s.string().max(60),
+    title: s.string().max(80),
+    year: s.number().int().min(1900).max(2100),
+    lang: titleLang,
+  }),
+});
+
 const respect = defineCollection({
   name: "Respect",
   pattern: "respect.yaml",
@@ -339,9 +374,9 @@ export default defineConfig({
   },
   // Schema errors only fail the build because package.json runs `velite build --strict`:
   // the CLI's own default (false) overrides a `strict` set here.
-  collections: { profile, site, projects, caseStudies, principles, respect, credits },
+  collections: { profile, site, projects, caseStudies, principles, respect, credits, films, songs },
   // TR and EN always ship together: a missing language file fails the build (CLAUDE.md)
-  prepare: ({ site, projects, caseStudies, principles, respect, credits }) => {
+  prepare: ({ site, projects, caseStudies, principles, respect, credits, films }) => {
     const missing = locales.filter((locale) => !site.some((copy) => copy.locale === locale));
     if (missing.length > 0) {
       throw new Error(`content/site: missing ${missing.map((l) => `${l}.yaml`).join(", ")}`);
@@ -350,5 +385,9 @@ export default defineConfig({
     checkPrinciples(principles);
     checkAboutLinks(site, projects);
     checkCredits({ credits, site, portraitSource: respect.portrait?.source, fonts: fontNames });
+    // SPEC §6: 14 favourite films (they become VHS spines in D8)
+    const favorites = films.filter((film) => film.favorite).length;
+    if (favorites !== 14)
+      throw new Error(`content/taste/films.yaml: expected 14 favourites, found ${favorites}`);
   },
 });

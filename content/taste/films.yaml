@@ -1,0 +1,118 @@
+# Walkman films (CONTENT §9, taste.md): title as released, year, and whether it is one of the 14 favourites
+# (favourites become VHS spines in D8). Names only: no posters, ratings or Letterboxd data (SPEC §6, §9).
+- title: "Parachute"
+  year: "2023"
+  favorite: true
+  lang: en
+- title: "Breaking Boundaries: The Science of Our Planet"
+  year: "2021"
+  favorite: true
+  lang: en
+- title: "Train Dreams"
+  year: "2025"
+  favorite: true
+  lang: en
+- title: "High and Low"
+  year: "1963"
+  favorite: true
+  lang: en
+- title: "The Lego Movie"
+  year: "2014"
+  favorite: true
+  lang: en
+- title: "What We Do in the Shadows"
+  year: "2014"
+  favorite: true
+  lang: en
+- title: "The Peanut Butter Falcon"
+  year: "2019"
+  favorite: true
+  lang: en
+- title: "Empire Records"
+  year: "1995"
+  favorite: true
+  lang: en
+- title: "It's Kind of a Funny Story"
+  year: "2010"
+  favorite: true
+  lang: en
+- title: "The Boy, the Mole, the Fox and the Horse"
+  year: "2022"
+  favorite: true
+  lang: en
+- title: "Sing Street"
+  year: "2016"
+  favorite: true
+  lang: en
+- title: "Big Fish"
+  year: "2003"
+  favorite: true
+  lang: en
+- title: "Project X"
+  year: "2012"
+  favorite: true
+  lang: en
+- title: "Submarine"
+  year: "2010"
+  favorite: true
+  lang: en
+- title: "Swing Girls"
+  year: "2004"
+  favorite: false
+  lang: en
+- title: "Life Is Beautiful"
+  year: "1997"
+  favorite: false
+  lang: en
+- title: "Mexican Standoff"
+  year: "2023"
+  favorite: false
+  lang: en
+- title: "The Fall Guy"
+  year: "2024"
+  favorite: false
+  lang: en
+- title: "The Fall"
+  year: "2006"
+  favorite: false
+  lang: en
+- title: "Forrest Gump"
+  year: "1994"
+  favorite: false
+  lang: en
+- title: "12 Angry Men"
+  year: "1957"
+  favorite: false
+  lang: en
+- title: "Trick or Treaters"
+  year: "2007"
+  favorite: false
+  lang: en
+- title: "The Lord of the Rings"
+  year: "2001–2003"
+  favorite: false
+  lang: en
+- title: "Cars"
+  year: "2006"
+  favorite: false
+  lang: en
+- title: "The Adventures of Tintin"
+  year: "2011"
+  favorite: false
+  lang: en
+- title: "The Grand Budapest Hotel"
+  year: "2014"
+  favorite: false
+  lang: en
+- title: "Fantastic Mr. Fox"
+  year: "2009"
+  favorite: false
+  lang: en
+- title: "The Secret Life of Walter Mitty"
+  year: "2013"
+  favorite: false
+  lang: en
+- title: "The Pianist"
+  year: "2002"
+  favorite: false
+  lang: en

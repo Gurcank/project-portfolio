@@ -2,8 +2,11 @@ import { CaseStudyOverlay, type OverlayStudy } from "@/components/case-study/Cas
 import { CaseStudyPanel } from "@/components/case-study/CaseStudyPanel";
 import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { MotionProvider } from "@/components/experience/MotionProvider";
+import { MascotLoader } from "@/components/experience/MascotLoader";
+import { MotionToggle } from "@/components/experience/MotionToggle";
 import { SectionIndicator } from "@/components/experience/SectionIndicator";
 import { ToneController } from "@/components/experience/ToneController";
+import { Walkman } from "@/components/experience/Walkman";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { About } from "@/components/sections/About";
@@ -20,6 +23,7 @@ import {
   getProfile,
   getProjects,
   getSiteCopy,
+  getWalkmanItems,
   type Portrait,
   type PrincipleView,
   type Profile,
@@ -37,6 +41,7 @@ type HomeViewProps = {
   principles: PrincipleView[];
   portrait?: Portrait;
   creditGroups: ReturnType<typeof getCreditGroups>;
+  walkmanItems: ReturnType<typeof getWalkmanItems>;
 };
 
 /** Header data the client overlay needs; the heavy track text stays in server-rendered panels. */
@@ -67,7 +72,14 @@ export function HomeView({
   principles,
   portrait,
   creditGroups,
+  walkmanItems,
 }: HomeViewProps) {
+  const walkman = (placement: "fixed" | "inline") => (
+    <ExperienceBoundary name={`walkman-${placement}`}>
+      <Walkman placement={placement} items={walkmanItems} labels={copy.microcopy.walkman} />
+    </ExperienceBoundary>
+  );
+
   const overlayLabels = copy.microcopy.overlay;
 
   return (
@@ -113,7 +125,20 @@ export function HomeView({
           labels={copy.microcopy.contact}
         />
       </main>
-      <SiteFooter copy={copy.footer} />
+      <SiteFooter
+        copy={copy.footer}
+        extras={
+          // The pause control lives here at every width: always reachable, never over the content
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+            <MotionToggle labels={copy.microcopy.motion} />
+            {walkman("inline")}
+          </div>
+        }
+      />
+      {walkman("fixed")}
+      <ExperienceBoundary name="mascot">
+        <MascotLoader />
+      </ExperienceBoundary>
       {/* Extras on top of the nav: if they fail, the header links still work (ROADMAP D6) */}
       <ExperienceBoundary name="tone">
         <ToneController />
@@ -156,6 +181,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       principles={getPrinciples(locale)}
       portrait={getPortrait()}
       creditGroups={getCreditGroups(locale)}
+      walkmanItems={getWalkmanItems()}
     />
   );
 }

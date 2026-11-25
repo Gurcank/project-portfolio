@@ -1,9 +1,22 @@
 # PROGRESS
 
-## Durum: S11 · D6 canlıda (2026-11-22)
+## Durum: S12 · D7 yerelde bitti; commit ve preview bekliyor (2026-11-25)
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (D6, commit `d1aacfc`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d6-navigation-layer` → preview onaylandı → `main`'e fast-forward merge edildi.
+**Branch:** `slice/d7-pixel-mascot-walkman` (henüz commit yok). D6: `slice/d6-navigation-layer` → `main`'e merge edildi.
+
+### S12 · D7 · Pixel motoru + maskot + walkman (yerelde)
+
+- **Veri:** `content/taste/films.yaml` (29 film, 14 favori; build 14'ü kontrol eder), `songs.yaml` (7 şarkı, ilk yayım yılı; kaynak Wikipedia). Başlıkların dili (`lang`) işaretli.
+- **Pixel motoru** (`components/pixel/`): karakter ızgarası → satır satır birleşmiş `<rect>`'ler; renkler yalnız token sınıflarından, palet dışı karakter hata verir (unit test). Sprite'lar: saksı bitkisi (taban + 5 yaprak + çiçek katmanları), walkman (iki makara karesi).
+- **Maskot** (`experience/Mascot.tsx` + `MascotLoader`): okudukça yaprak açar, İletişim'de çiçeklenir; hero'da yok; `aria-hidden`. Reduced motion / "hareketi durdur"da sabit poz (3 yaprak). Kodu `next/dynamic` ile yalnız ≥ xl'de iner (e2e içerikle kanıtlar). 404'te sabit, JS'siz bitki.
+- **Walkman** (`experience/Walkman.tsx`, `lib/walkman.ts`): rastgele film/şarkı, art arda aynısı yok (unit + e2e), sonuç `aria-live="polite"`, İngilizce başlık `lang="en"`. Basınca makaralar kısa an döner (duraklatılmışken dönmez). ≥ xl sağ alt kenar boşluğunda, balon 8 sn sonra kapanır; altında footer'da. Overlay'in altında kalır: ATAMap açıkken görünmez.
+- **Hareketi durdur / başlat** (`MotionToggle`, `lib/experience-store.ts`): her genişlikte footer'da, `aria-pressed`. Tercih `localStorage`'da; `next/script beforeInteractive` satır içi betik ilk boyamadan önce `data-motion="paused"` koyar (lint kuralı App Router öncesine ait, gerekçesiyle susturuldu). Motion `reducedMotion: "always"`; CSS zaten `[data-motion="paused"]`'e uyuyordu. e2e: duraklatınca çalışan animasyon 0, yenileyince korunur.
+- **Plandan sapma:** maskot ve sabit walkman ROADMAP'teki ≥ 1024 yerine **≥ 1280 (xl)**. Sebep: 1024–1279'da kenar boşluğu 32 px, ikisi de sığmıyor ve metnin üstüne biniyordu; SPEC "dekor yalnız kenar boşluklarında" kuralı öncelikli. Aynı sebeple "Hareketi durdur" sabit değil, footer'da.
+- **D6 hatası düzeltildi:** `body`'deki `bg-paper` `html`'deki ton rengini örtüyordu; D6'nın zemin tonu production'da **hiç görünmüyordu** (D6 testi yalnız `html` rengini ölçüyordu). `body` arka planı kaldırıldı; D6 testi artık görünen katmanı da kontrol ediyor (eski kodda düşüyor, yenisinde geçiyor).
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (72/72; +4 walkman, +17 pixel), `check:tokens` (79 dosya), `build`, `test:e2e` (95/95; D7: öneri biçimi ve tekrar yok, overlay altında kalma, footer yerleşimi, duraklat + yenile, maskot büyüme + çiçek + sabit poz, telefonda maskot kodu yok (pozitif kontrollü), 404 bitkisi, axe 0). `/break-ui?data=worst` footer: 320–1280 taşma yok. 1024/1280/1440'ta sabit öğe metne binmiyor.
+- **Performans (yerel, D6'ya karşı):** JS ilk yük +2,5 KB; maskot parçası yalnız ≥ xl'de +1,4 KB. TBT vekili (4× CPU, 5 dönüşümlü koşu, uzun görevlerden): main medyan 107 ms, D7 82 ms; fark gürültü düzeyinde. Yerel Lighthouse bu turda güvenilmezdi (sıkıştırmasız yerel sunucu, eşzamanlı iki sunucu; main kendi içinde TBT 93–581 ms), raporlanmadı.
+- Ekran görüntüleri: `artifacts/d7/`, `artifacts/home-*`, `en-*`.
 
 ### S11 · D6 · Gezinme katmanı (canlıda)
 
@@ -117,7 +130,8 @@
 
 ### Sıradaki adım
 
-1. S12 · D7 · Pixel motoru + maskot + walkman + "hareketi durdur" (kullanıcıdan: 7 şarkının yılı).
+1. **D7:** commit (iki commit: `fix(d6)` + `feat(d7)`) → preview → onay → `main` → PSI (TBT'ye özellikle bak).
+2. S13 · D8 · Oda dekoru (VHS sırtları, plak sırtları, doğa pulları, Hakkımda zemin deseni; yalnız geniş ekranda).
 
 ### Açık sorular (kullanıcıdan)
 

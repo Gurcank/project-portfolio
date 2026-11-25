@@ -83,6 +83,16 @@ microcopy:
   indicator:
     current: "Now: {section}"
     contents: Contents
+  walkman:
+    label: "Walkman: suggest a random film or song"
+    result: "▶ {title} ({year}) · {kind}"
+    kinds:
+      film: film
+      song: song
+    empty: Tape's rewinding. Press again.
+  motion:
+    pause: Pause motion
+    resume: Resume motion
   overlay:
     sideA: Side A
     sideB: Side B

@@ -646,6 +646,7 @@ EN (~140 words):
 | Hareket kontrolü | Hareketi durdur · Hareketi başlat | Pause motion · Resume motion |
 | Walkman (erişilebilir ad) | Walkman: rastgele bir film ya da şarkı öner | Walkman: suggest a random film or song |
 | Walkman sonucu | ▶ {Ad} ({yıl}) · film / şarkı | ▶ {Title} ({year}) · film / song |
+| ↳ D7 uygulaması | Şarkılarda {Ad} = "Sanatçı — Şarkı": "▶ Sade — Smooth Operator (1984) · şarkı" | "▶ Sade — Smooth Operator (1984) · song" |
 | İletişim | E-postayı kopyala · Kopyalandı · LinkedIn · GitHub · CV'yi indir (PDF) | Copy email · Copied · LinkedIn · GitHub · Download CV (PDF) |
 | Boş durum (walkman listesi boş) | Kaset sarıyor. Bir daha bas. | Tape's rewinding. Press again. |
 | Görsel yüklenemedi | Görsel yüklenemedi; anlatı aşağıda. | Image didn't load; the story's below. |
@@ -692,7 +693,9 @@ Parachute (2023) · Breaking Boundaries: The Science of Our Planet (2021) · Tra
 ### Walkman öneri listesi (taste.md)
 **Filmler (29):** yukarıdaki 14 favori + Swing Girls (2004) · Life Is Beautiful (1997) · Mexican Standoff (2023) · The Fall Guy (2024) · The Fall (2006) · Forrest Gump (1994) · 12 Angry Men (1957) · Trick or Treaters (2007) · The Lord of the Rings (2001–2003) · Cars (2006) · The Adventures of Tintin (2011) · The Grand Budapest Hotel (2014) · Fantastic Mr. Fox (2009) · The Secret Life of Walter Mitty (2013) · The Pianist (2002)
 
-**Şarkılar (7):** Barış Manço — Dönence · Duran Duran — Hungry Like the Wolf · Mor ve Ötesi — Bir Derdim Var · Red Hot Chili Peppers — Can't Stop · Sade — Smooth Operator · Michael Jackson — Billie Jean · Bruno Mars — Treasure
+**Şarkılar (7):** Barış Manço — Dönence (1981) · Duran Duran — Hungry Like the Wolf (1982) · Mor ve Ötesi — Bir Derdim Var (2004) · Red Hot Chili Peppers — Can't Stop (2002) · Sade — Smooth Operator (1984) · Michael Jackson — Billie Jean (1982) · Bruno Mars — Treasure (2012)
+
+Yıl kuralı (kullanıcı kararı, 2026-11-25): ilk yayım, yani şarkının ilk çıktığı albümün yılı. Single yılı farklı olanlar: Can't Stop (single 2003), Billie Jean (1983), Treasure (2013). Kaynak: Wikipedia bilgi kutuları (2026-11-25).
 
 Walkman yalnız ad ve yıl gösterir; puan, yorum, Letterboxd verisi yok (SPEC §6).
 
@@ -727,7 +730,7 @@ Pullar dekordur (`aria-hidden`); adlar yalnız görsel etiket.
 | Proje ekran görüntüleri | Sonra (D2'den ertelendi) | D2 tipografik kapakla çıktı. Canlı sitelerden `scripts/capture-project-screens.ts` ile 1280×800 alınır; kullanıcı onaylar (ARCHITECTURE ADR-12). |
 | ~~Okuma süreleri~~ | Kapandı (D2) | Build'de hesaplanıyor. Bu dosyadaki elle yazılmış değerlerden sapma en fazla 0:10 (Markdown işaretleri kelime sayılmıyor); site hesaplananı gösterir. |
 | Liner notes (D2) | Not | CONTENT'te tek satırda "Veri / Data" gibi TR / EN çiftleri vardı; her dil kendi tarafını aldı, metin değişmedi (`content/projects/*/{tr,en}.md` → `liner`). |
-| Şarkı yılları | Kullanıcı · D7 | Walkman sonucu "{Ad} ({yıl})" ama 7 şarkının yılı yok. Claude kaynaklı önerir, kullanıcı onaylar. |
+| ~~Şarkı yılları~~ | Kapandı (D7) | İlk yayım yılı kuralıyla §9'da; kaynak Wikipedia. |
 | ~~Kenar notu metinleri~~ | Kapandı (D4) | Üç not önerildi ve onaylandı; §8'de. |
 | ~~Eksik mikro metinler~~ | Kapandı (D1) | Önerildi, onaylandı, §8'e eklendi. |
 | Sayılar | S-son | Commit, olay, ders sayıları 2026-11-21 itibarıyla; yayından önce tazelenir. |

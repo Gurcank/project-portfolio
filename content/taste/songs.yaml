@@ -1,0 +1,30 @@
+# Walkman songs (CONTENT §9). Year = first release, on the album where the song first appeared
+# (user decision 2026-11-25; checked against Wikipedia infoboxes on that date).
+- artist: "Barış Manço"
+  title: "Dönence"
+  year: 1981
+  lang: tr
+- artist: "Duran Duran"
+  title: "Hungry Like the Wolf"
+  year: 1982
+  lang: en
+- artist: "Mor ve Ötesi"
+  title: "Bir Derdim Var"
+  year: 2004
+  lang: tr
+- artist: "Red Hot Chili Peppers"
+  title: "Can't Stop"
+  year: 2002
+  lang: en
+- artist: "Sade"
+  title: "Smooth Operator"
+  year: 1984
+  lang: en
+- artist: "Michael Jackson"
+  title: "Billie Jean"
+  year: 1982
+  lang: en
+- artist: "Bruno Mars"
+  title: "Treasure"
+  year: 2012
+  lang: en

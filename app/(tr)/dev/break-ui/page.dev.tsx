@@ -7,6 +7,7 @@ import {
   getProfile,
   getProjects,
   getSiteCopy,
+  getWalkmanItems,
 } from "@/lib/content";
 import { worstCopy, worstProfile, worstProjects } from "@/tests/fixtures/worst-case";
 
@@ -42,6 +43,7 @@ export default async function BreakUiPage({
         principles={getPrinciples("tr")}
         portrait={getPortrait()}
         creditGroups={getCreditGroups("tr")}
+        walkmanItems={getWalkmanItems()}
       />
       <nav
         aria-label="Test data"

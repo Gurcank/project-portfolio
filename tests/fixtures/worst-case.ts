@@ -137,6 +137,13 @@ export const worstCopy: SiteCopy = {
     },
     cassette: { open: "{project} kasetinin case study'sini aç" },
     indicator: { current: "Şu an buradasın: {section}", contents: "Bütün içindekiler listesi" },
+    walkman: {
+      label: "Walkman: bu akşam için rastgele bir film ya da şarkı öner",
+      result: "▶ Öneri: {title} ({year}) · {kind}",
+      kinds: { film: "uzun film", song: "şarkı önerisi" },
+      empty: "Kaset şu an başa sarıyor; biraz bekle ve bir daha bas.",
+    },
+    motion: { pause: "Bütün hareketi durdur", resume: "Hareketi yeniden başlat" },
     overlay: {
       sideA: "A yüzü",
       sideB: "B yüzü",

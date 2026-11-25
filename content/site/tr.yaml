@@ -84,6 +84,16 @@ microcopy:
   indicator:
     current: "Şu an: {section}"
     contents: İçindekiler
+  walkman:
+    label: "Walkman: rastgele bir film ya da şarkı öner"
+    result: "▶ {title} ({year}) · {kind}"
+    kinds:
+      film: film
+      song: şarkı
+    empty: Kaset sarıyor. Bir daha bas.
+  motion:
+    pause: Hareketi durdur
+    resume: Hareketi başlat
   overlay:
     sideA: A yüzü
     sideB: B yüzü

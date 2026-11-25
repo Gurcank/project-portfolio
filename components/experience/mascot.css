@@ -1,0 +1,19 @@
+/*
+ * Mascot (D7, /animate): each leaf and the flower open with a short fade and grow from below.
+ * Purpose: the reader notices the plant answering their scroll. Scroll-driven, never on its own.
+ * Durations are tokens, so reduced motion and "pause motion" make every change instant.
+ */
+.mascot-part {
+  opacity: 0;
+  transform: scale(0.6);
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.mascot-part.is-open {
+  opacity: 1;
+  transform: none;
+}

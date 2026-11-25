@@ -2,11 +2,13 @@
 import {
   caseStudies,
   credits,
+  films,
   principles,
   profile,
   projects,
   respect,
   site,
+  songs,
   type CaseStudy,
   type Profile,
   type Project,
@@ -14,6 +16,7 @@ import {
 } from "#content";
 
 import type { Locale } from "@/lib/i18n";
+import type { WalkmanItem } from "@/lib/walkman";
 
 export type { CaseStudy, Profile, Project, SiteCopy };
 export type { Track, TrackId } from "./tracks";
@@ -118,4 +121,17 @@ export function getCreditGroups(locale: Locale): { kind: CreditKind; items: Cred
         })),
     }))
     .filter((group) => group.items.length > 0);
+}
+
+/** Every film and song the walkman can suggest, in one list (names and years only, SPEC §6). */
+export function getWalkmanItems(): WalkmanItem[] {
+  return [
+    ...films.map(({ title, year, lang }) => ({ title, year, kind: "film" as const, lang })),
+    ...songs.map(({ artist, title, year, lang }) => ({
+      title: `${artist} — ${title}`,
+      year: String(year),
+      kind: "song" as const,
+      lang,
+    })),
+  ];
 }

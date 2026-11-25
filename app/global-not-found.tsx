@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import "@/styles/globals.css";
+import { StillPlant } from "@/components/pixel/StillPlant";
 import { getProfile, getSiteCopy } from "@/lib/content";
 import { fontVariables } from "@/lib/fonts";
 import { localePath, type Locale } from "@/lib/i18n";
@@ -38,7 +39,12 @@ export default function GlobalNotFound() {
   return (
     <html lang="tr" className={`${fontVariables} antialiased`}>
       <body className="bg-paper text-ink">
-        <main className="mx-auto grid min-h-dvh max-w-page content-center gap-12 px-(--gutter) py-16">
+        <main className="relative mx-auto grid min-h-dvh max-w-page content-center gap-12 px-(--gutter) py-16">
+          {/* The mascot, still and with two leaves: a lost page, not a sad one. Desktop only (SPEC §8) */}
+          <StillPlant
+            leaves={2}
+            className="absolute right-(--gutter) bottom-16 hidden w-24 lg:block"
+          />
           <p className="font-mono text-label text-accent uppercase">404</p>
           <NotFoundCopy locale="tr" level={1} />
           <NotFoundCopy locale="en" level={2} />
