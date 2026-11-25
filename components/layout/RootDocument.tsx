@@ -15,7 +15,9 @@ type RootDocumentProps = {
 export function RootDocument({ locale, children }: RootDocumentProps) {
   return (
     <html lang={locale} className={`${fontVariables} antialiased`}>
-      <body className="bg-paper text-ink">
+      {/* No background here: <html> carries the paper and the section tone (globals.css); a body
+          background would paint over the tone and hide it */}
+      <body className="text-ink">
         {children}
         {/* Cookie-free analytics (ADR-14); without a website id nothing loads and the page is unaffected */}
         {umamiWebsiteId && (

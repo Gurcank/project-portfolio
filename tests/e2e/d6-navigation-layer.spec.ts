@@ -171,6 +171,17 @@ test.describe("background tone", () => {
     await expect(page.locator("html")).toHaveAttribute("data-tone", "principles");
     expect(new Set(colors).size).toBeGreaterThan(1);
 
+    // The tone must be what the reader sees: nothing between <html> and the eye may paint over it
+    // (D6 shipped with a body background that hid the tone; this catches that)
+    const painted = await page.evaluate(() =>
+      document
+        .elementsFromPoint(innerWidth - 8, innerHeight / 2)
+        .filter((el) => el !== document.documentElement)
+        .map((el) => [el.tagName, getComputedStyle(el).backgroundColor])
+        .filter(([, color]) => color !== "rgba(0, 0, 0, 0)"),
+    );
+    expect(painted).toEqual([]);
+
     const accent = await page.evaluate(() => {
       const probe = document.createElement("span");
       probe.style.color = "var(--color-accent)";
