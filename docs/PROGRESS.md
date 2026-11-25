@@ -1,11 +1,11 @@
 # PROGRESS
 
-## Durum: S12 · D7 yerelde bitti; commit ve preview bekliyor (2026-11-25)
+## Durum: S12 · D7 canlıda (2026-11-25)
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D6, commit `d1aacfc`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d7-pixel-mascot-walkman` (henüz commit yok). D6: `slice/d6-navigation-layer` → `main`'e merge edildi.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D7, commit `5669d86`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/d7-pixel-mascot-walkman` (`6b15917` fix(d6) + `5669d86` feat(d7)) → preview onaylandı → `main`'e fast-forward merge edildi.
 
-### S12 · D7 · Pixel motoru + maskot + walkman (yerelde)
+### S12 · D7 · Pixel motoru + maskot + walkman (canlıda)
 
 - **Veri:** `content/taste/films.yaml` (29 film, 14 favori; build 14'ü kontrol eder), `songs.yaml` (7 şarkı, ilk yayım yılı; kaynak Wikipedia). Başlıkların dili (`lang`) işaretli.
 - **Pixel motoru** (`components/pixel/`): karakter ızgarası → satır satır birleşmiş `<rect>`'ler; renkler yalnız token sınıflarından, palet dışı karakter hata verir (unit test). Sprite'lar: saksı bitkisi (taban + 5 yaprak + çiçek katmanları), walkman (iki makara karesi).
@@ -17,6 +17,8 @@
 - **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (72/72; +4 walkman, +17 pixel), `check:tokens` (79 dosya), `build`, `test:e2e` (95/95; D7: öneri biçimi ve tekrar yok, overlay altında kalma, footer yerleşimi, duraklat + yenile, maskot büyüme + çiçek + sabit poz, telefonda maskot kodu yok (pozitif kontrollü), 404 bitkisi, axe 0). `/break-ui?data=worst` footer: 320–1280 taşma yok. 1024/1280/1440'ta sabit öğe metne binmiyor.
 - **Performans (yerel, D6'ya karşı):** JS ilk yük +2,5 KB; maskot parçası yalnız ≥ xl'de +1,4 KB. TBT vekili (4× CPU, 5 dönüşümlü koşu, uzun görevlerden): main medyan 107 ms, D7 82 ms; fark gürültü düzeyinde. Yerel Lighthouse bu turda güvenilmezdi (sıkıştırmasız yerel sunucu, eşzamanlı iki sunucu; main kendi içinde TBT 93–581 ms), raporlanmadı.
 - Ekran görüntüleri: `artifacts/d7/`, `artifacts/home-*`, `en-*`.
+- **Production (D7):** `/`, `/en`, `/sitemap.xml` 200; rastgele URL 404. HTML brotli 30,2 KB (D6: 28,4). **Ton artık görünüyor:** İlkeler'de `rgb(238, 240, 230)`, üstünü boyayan katman yok. Maskot, walkman ve "hareketi durdur" (yenileyince korunur) çalışıyor; konsolda hata yok.
+- **PageSpeed Insights (2026-11-25 16:23):** mobil **97 · LCP 1,1 sn · FCP 1,1 sn · CLS 0 · TBT 0 ms** · Speed Index 4,4 sn; masaüstü 100, LCP 0,2 sn. Tek koşu. D6'daki TBT 100 ms bu koşuda 0: büyük olasılıkla gürültüydü (yerel TBT vekili de artış göstermedi). **İzlenecek: Speed Index 4,4 sn** (önceki koşular 2,1–3,4); tek koşu, S16'da 5 koşu medyanıyla bakılmalı.
 
 ### S11 · D6 · Gezinme katmanı (canlıda)
 
@@ -130,8 +132,7 @@
 
 ### Sıradaki adım
 
-1. **D7:** commit (iki commit: `fix(d6)` + `feat(d7)`) → preview → onay → `main` → PSI (TBT'ye özellikle bak).
-2. S13 · D8 · Oda dekoru (VHS sırtları, plak sırtları, doğa pulları, Hakkımda zemin deseni; yalnız geniş ekranda).
+1. S13 · D8 · Oda dekoru (VHS sırtları, plak sırtları, doğa pulları, Hakkımda zemin deseni; yalnız geniş ekranda).
 
 ### Açık sorular (kullanıcıdan)
 
