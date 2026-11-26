@@ -1,11 +1,11 @@
 # PROGRESS
 
-## Durum: S15 · D10 yerelde bitti (2026-11-26). Commit, push ve merge'ler sona bırakıldı (kullanıcı kararı)
+## Durum: S15 · D10 canlıda (2026-11-26). Sıradaki: S16 · Kalite ve yayın
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D7, commit `5669d86`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** yığın halinde, yalnız yerel commit'li: `slice/d8-room-decor` (`5b89c4e`, push'lu, preview READY, merge bekliyor) → `slice/d9-hero-desk-cursor` (yerel) → `slice/d10-intro` (yerel). Sonda: push → preview → onay → sırayla merge → PSI.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D10, commit `581e65b`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** D8, D9 ve D10 `main`'e fast-forward ile alındı (2026-11-26); tek production deploy. D10 preview'u (D8+D9'u da içeriyor) önceden READY'di.
 
-### S15 · D10 · Intro (yerelde)
+### S15 · D10 · Intro (canlıda)
 
 - **Metin** (CONTENT §4; şemada `hero.intro`): üç kelime ("Harita. / Belgesel. / El kitabı.", EN "A map. / A documentary. / A handbook."), kapanış "Hepsi birer ürün." / "Each one a product.", geçme ipucu.
 - **Intro** (`components/intro/`): sunucu bileşeni, sıfır JS; tamamen CSS. Kâğıt perde üstünde dönen bant sayacı, kelimeler 500 ms adımla, sonra kapanış; perde 2,45 sn içinde kapanır. Oturum başına bir kez, yalnız ≥ 1024 px; reduced motion veya duraklatılmış hareketle hiç gösterilmez. `aria-hidden`, odaklanabilir öğe yok; içerik altında baştan çizili.
@@ -16,7 +16,13 @@
 - **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (87/87), `check:tokens` (92 dosya), `build`, `test:e2e` (127/127).
 - Ekran görüntüleri: `artifacts/d10/` (intro karesi TR/EN 1280), `artifacts/home-*`, `en-*` (intro bittikten sonraki sayfa). Not: Playwright'ın yeni açılmış tarayıcısındaki ilk sayfa ≈ 1,3 sn hiç boyanmıyor (soğuk başlangıç); animasyon saati ilk boyamada başladığı için intro kısalmıyor.
 
-### S14 · D9 · Hero çalışma masası + özel imleç (yerelde)
+### Production'da doğrulananlar (D8 + D9 + D10, 2026-11-26)
+
+- `/` ve `/en` 200, olmayan yol 404. Canlı HTML'de iki betik `<head>`'de, intro perdesi ve TR kelimeler var.
+- Canlıda intro: 1280'de ilk ziyarette oynuyor, tıklama geçiyor, yenileyince yok; 375'te hiç yok. Ekran görüntüleri canlıdan: `artifacts/home-*`, `en-*`.
+- **PageSpeed Insights (2026-11-26 22:56):** mobil **99 · LCP 1,1 sn · FCP 1,1 sn · CLS 0 · TBT 30 ms** · Speed Index 3,7 sn; masaüstü 100, LCP 0,3 sn, CLS 0,002. Erişilebilirlik, Best Practices, SEO 100. Tek koşu. Speed Index D7'deki 4,4 sn'den düşük ama hâlâ önceki 2,1–3,4 aralığının üstünde; masaüstü CLS 0'dan 0,002'ye çıktı (bütçe 0,1). İkisi de S16'da 5 koşu medyanıyla bakılacak.
+
+### S14 · D9 · Hero çalışma masası + özel imleç (canlıda)
 
 - **Metin** (CONTENT §4, §8; şemada): `hero.desk` (ticket "ID · BAŞLIK · DURUM", bildirim "KAYNAK · MESAJ", imleç etiketi), `cassette.pill` ("▶ Aç" / "▶ Play").
 - **Masa** (`components/hero/`): ticket kartı, "Vercel · Deployment ready" bildirimi, "Claude" etiketli pixel imleç; marka adları yalnız metin (ADR-16). Sahne **bir kez** oynar (bildirim kayar, imleç ticket'a süzülüp dokunur, ≤ 4 sn); süre ve gecikmeler token, duraklatılmışken doğrudan son kare. `aria-hidden`. ≥ lg'de CTA satırının içinde mutlak konumlu: üst kenarı CTA hizasında, isim ve rol satırının altında; yükseklik eklemez, geç gelişi kaydırma yapmaz (CLS). Hero'nun alt boşluğu ≥ lg'de büyütüldü. Kodu yalnız masaüstünde, sayfa yüklenip tarayıcı boşa düşünce iner. Mobil/tablet: sunucuda çizilmiş statik ticket.
@@ -26,7 +32,7 @@
 - **Önce/sonra (yerel, 4× CPU, 5 koşu medyanı):** mobil LCP 396 → 392 ms, tıklama 32 → 32 ms; masaüstü LCP 420 → 404 ms, kaset açma 328 → 336 ms. Kötüleşme yok.
 - Ekran görüntüleri: `artifacts/d9/`, `artifacts/home-*`, `en-*`.
 
-### S13 · D8 · Oda dekoru (yerelde)
+### S13 · D8 · Oda dekoru (canlıda)
 
 - **Veri:** `content/taste/records.yaml` (7 albüm), `stamps.yaml` (7 yer, TR/EN; sprite adı şemada sabit liste). VHS sırtları `films.yaml` favorilerinden.
 - **Dekor** (`experience/DecorLayer.tsx`): 14 VHS sırtı (3-3-3-3-2, Seçili işler / İlkeler / Site / İletişim kenarlarında), 7 plak sırtı (aralıksız 4 + 3), 7 pixel pul (Hakkımda solunda 4, İletişim sağında 3), Hakkımda'da desen. Sırtlarda yalnız temel palet (kaset renkleri projelere ait, SPEC §8); pullar tam palet. Hepsi `aria-hidden`, hover'da yalnız hafif kalkma; reduced motion ve "hareketi durdur"da o da yok.
@@ -165,8 +171,7 @@
 
 ### Sıradaki adım
 
-1. Sonda: D8 + D9 + D10 push → preview → onay → sırayla merge → PSI (her dilimden sonra değil, toplu).
-2. S16 · Kalite ve yayın.
+1. S16 · Kalite ve yayın (5 koşu PSI medyanı, Speed Index ve masaüstü CLS takibi dahil).
 
 ### Açık sorular (kullanıcıdan)
 
