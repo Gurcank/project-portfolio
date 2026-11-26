@@ -1,4 +1,5 @@
 import "@/components/sections/principles.css";
+import { DecorSlot } from "@/components/experience/DecorSlot";
 import { CassetteChip } from "@/components/cassette/CassetteChip";
 import { Emphasis } from "@/components/markdown/Emphasis";
 import type { PrincipleView } from "@/lib/content";
@@ -18,7 +19,9 @@ type PrinciplesProps = {
 export function Principles({ heading, opening, principles, openLabel }: PrinciplesProps) {
   return (
     <section id="principles" aria-labelledby="principles-heading" className="border-t border-line">
-      <div className="mx-auto max-w-page px-(--gutter)">
+      <div className="relative mx-auto max-w-page px-(--gutter)">
+        <DecorSlot name="principles-left" side="left" />
+        <DecorSlot name="principles-right" side="right" at="bottom" />
         {/* A full screen only from lg: on a phone it would push the principles a screen away (INS-02) */}
         <div className="flex items-center py-32 lg:min-h-svh">
           <p className="principles-opening text-h1 font-black font-stretch-condensed lg:w-3/4">

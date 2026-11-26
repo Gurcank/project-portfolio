@@ -2,6 +2,7 @@ import "@/components/sections/about.css";
 import { Fragment } from "react";
 
 import { CassetteChip } from "@/components/cassette/CassetteChip";
+import { DecorSlot, PatternSlot } from "@/components/experience/DecorSlot";
 import { AtaturkPortrait } from "@/components/respect/AtaturkPortrait";
 import { TurkishFlag } from "@/components/respect/TurkishFlag";
 import {
@@ -82,7 +83,9 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
 
   return (
     <section id="about" aria-labelledby="about-heading" className="border-t border-line">
-      <div className="mx-auto grid max-w-page gap-12 px-(--gutter) py-24 md:py-32 lg:grid-cols-12 lg:gap-8">
+      <div className="relative mx-auto grid max-w-page gap-12 px-(--gutter) py-24 md:py-32 lg:grid-cols-12 lg:gap-8">
+        <PatternSlot />
+        <DecorSlot name="about-left" side="left" />
         <h2 id="about-heading" className="text-h1 font-black font-stretch-condensed lg:col-span-12">
           {heading}
         </h2>

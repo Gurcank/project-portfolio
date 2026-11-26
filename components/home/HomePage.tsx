@@ -2,6 +2,7 @@ import { CaseStudyOverlay, type OverlayStudy } from "@/components/case-study/Cas
 import { CaseStudyPanel } from "@/components/case-study/CaseStudyPanel";
 import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { MotionProvider } from "@/components/experience/MotionProvider";
+import { DecorLoader } from "@/components/experience/DecorLoader";
 import { MascotLoader } from "@/components/experience/MascotLoader";
 import { MotionToggle } from "@/components/experience/MotionToggle";
 import { SectionIndicator } from "@/components/experience/SectionIndicator";
@@ -17,6 +18,7 @@ import { Principles } from "@/components/sections/Principles";
 import { Shelf } from "@/components/sections/Shelf";
 import {
   getCreditGroups,
+  getDecor,
   getCvHref,
   getPortrait,
   getPrinciples,
@@ -42,6 +44,7 @@ type HomeViewProps = {
   portrait?: Portrait;
   creditGroups: ReturnType<typeof getCreditGroups>;
   walkmanItems: ReturnType<typeof getWalkmanItems>;
+  decor: ReturnType<typeof getDecor>;
 };
 
 /** Header data the client overlay needs; the heavy track text stays in server-rendered panels. */
@@ -73,6 +76,7 @@ export function HomeView({
   portrait,
   creditGroups,
   walkmanItems,
+  decor,
 }: HomeViewProps) {
   const walkman = (placement: "fixed" | "inline") => (
     <ExperienceBoundary name={`walkman-${placement}`}>
@@ -139,6 +143,9 @@ export function HomeView({
       <ExperienceBoundary name="mascot">
         <MascotLoader />
       </ExperienceBoundary>
+      <ExperienceBoundary name="decor">
+        <DecorLoader {...decor} />
+      </ExperienceBoundary>
       {/* Extras on top of the nav: if they fail, the header links still work (ROADMAP D6) */}
       <ExperienceBoundary name="tone">
         <ToneController />
@@ -182,6 +189,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       portrait={getPortrait()}
       creditGroups={getCreditGroups(locale)}
       walkmanItems={getWalkmanItems()}
+      decor={getDecor(locale)}
     />
   );
 }

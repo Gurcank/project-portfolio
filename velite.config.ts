@@ -313,6 +313,23 @@ const songs = defineCollection({
   }),
 });
 
+const records = defineCollection({
+  name: "Record",
+  pattern: "taste/records.yaml",
+  schema: s.object({ artist: s.string().max(60), album: s.string().max(60), lang: titleLang }),
+});
+// One sprite per place; the list here must match components/pixel/sprites/stamps.ts
+const stampSprites = ["lycian", "dilek", "kaz", "alps", "fethiye", "datca", "blacksea"] as const;
+const stamps = defineCollection({
+  name: "Stamp",
+  pattern: "taste/stamps.yaml",
+  schema: s.object({
+    order: s.number().int().min(1),
+    sprite: s.enum(stampSprites),
+    name: l10n(40),
+  }),
+});
+
 const respect = defineCollection({
   name: "Respect",
   pattern: "respect.yaml",
@@ -374,7 +391,19 @@ export default defineConfig({
   },
   // Schema errors only fail the build because package.json runs `velite build --strict`:
   // the CLI's own default (false) overrides a `strict` set here.
-  collections: { profile, site, projects, caseStudies, principles, respect, credits, films, songs },
+  collections: {
+    profile,
+    site,
+    projects,
+    caseStudies,
+    principles,
+    respect,
+    credits,
+    films,
+    songs,
+    records,
+    stamps,
+  },
   // TR and EN always ship together: a missing language file fails the build (CLAUDE.md)
   prepare: ({ site, projects, caseStudies, principles, respect, credits, films }) => {
     const missing = locales.filter((locale) => !site.some((copy) => copy.locale === locale));

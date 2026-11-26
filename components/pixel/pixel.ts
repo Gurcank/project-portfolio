@@ -9,6 +9,7 @@ export const pixelFill = {
   ink: "fill-ink",
   inkMuted: "fill-ink-muted",
   paper: "fill-paper",
+  pattern: "fill-pattern",
   line: "fill-line",
   accent: "fill-accent",
   mustard: "fill-cassette-mustard",

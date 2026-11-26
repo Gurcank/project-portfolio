@@ -1,9 +1,21 @@
 # PROGRESS
 
-## Durum: S12 · D7 canlıda (2026-11-25)
+## Durum: S13 · D8 yerelde bitti; commit ve preview bekliyor (2026-11-26)
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (D7, commit `5669d86`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d7-pixel-mascot-walkman` (`6b15917` fix(d6) + `5669d86` feat(d7)) → preview onaylandı → `main`'e fast-forward merge edildi.
+**Branch:** `slice/d8-room-decor` (henüz commit yok). D7: `slice/d7-pixel-mascot-walkman` → `main`'e merge edildi.
+
+### S13 · D8 · Oda dekoru (yerelde)
+
+- **Veri:** `content/taste/records.yaml` (7 albüm), `stamps.yaml` (7 yer, TR/EN; sprite adı şemada sabit liste). VHS sırtları `films.yaml` favorilerinden.
+- **Dekor** (`experience/DecorLayer.tsx`): 14 VHS sırtı (3-3-3-3-2, Seçili işler / İlkeler / Site / İletişim kenarlarında), 7 plak sırtı (aralıksız 4 + 3), 7 pixel pul (Hakkımda solunda 4, İletişim sağında 3), Hakkımda'da desen. Sırtlarda yalnız temel palet (kaset renkleri projelere ait, SPEC §8); pullar tam palet. Hepsi `aria-hidden`, hover'da yalnız hafif kalkma; reduced motion ve "hareketi durdur"da o da yok.
+- **Yerleşim:** her bölüm sunucuda boş `DecorSlot` yuvaları taşıyor (kenar boşluğunda, `hidden xl:flex`); dekor oraya portal ile yerleşiyor, konumu bölümün CSS'i belirliyor.
+- **Yükleme** (`DecorLoader`): yalnız ≥ xl ve tarayıcı boşa düşünce (`requestIdleCallback`, Safari'de kısa zaman aşımı). Dekor parçası **4,8 KB (gzip 1,8 KB)**.
+- **Desen:** yeni token `--color-pattern: #FBF5F1`, pudra zeminden açık: kiremit notların kontrastı desen üstünde 4,61 → 4,91. Portre ve bayrak sütununa uzanmıyor. Yeni token `--z-behind: -1` (desen metnin altında).
+- **Plandan sapma:** ROADMAP ≥ 1024 diyordu; D7'deki gerekçeyle ≥ 1280 (kenar boşluğu ancak orada yetiyor). Gruplar plandaki 7'şerlik yerine 3'lük (64 px'e aralıklı en fazla 3 sırt sığıyor); 14. sırt için İletişim'e bir yuva eklendi.
+- **Görsel düzeltmeler (tarayıcıda bulundu):** VHS'te yıl ada biniyordu (yıl üst uca alındı), pul etiketleri ekran kenarından taşıyordu (64 px içinde kırılıyor), desen fazla sıktı (seyrekleştirildi).
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (87/87; +15 pul sprite), `check:tokens` (83 dosya), `build`, `test:e2e` (104/104; D8: 375 ve 768'de dekor kodu yok (pozitif kontrollü), 1280'de < 300 KB, 1024'te yuvalar gizli, 1280 ve 1440'ta metne ve ekran kenarına binen dekor yok, 28 parça yerinde, desen tondan açık ve kiremit ≥ 4,5, desen portre sütununa girmiyor, aria-hidden + axe 0, duraklatınca hover hareketi yok).
+- Ekran görüntüleri: `artifacts/d8/`, `artifacts/home-*`, `en-*`.
 
 ### S12 · D7 · Pixel motoru + maskot + walkman (canlıda)
 
@@ -132,7 +144,8 @@
 
 ### Sıradaki adım
 
-1. S13 · D8 · Oda dekoru (VHS sırtları, plak sırtları, doğa pulları, Hakkımda zemin deseni; yalnız geniş ekranda).
+1. **D8:** commit → preview → onay → `main` → PSI.
+2. S14 · D9 · Hero çalışma masası + özel imleç (LCP ve INP önce/sonra ölçülerek).
 
 ### Açık sorular (kullanıcıdan)
 
@@ -143,7 +156,6 @@
 | Umami Cloud hesabı ve Website ID (Vercel env'e)                     | kodsuz eklenir                   |
 | EN CV PDF'i                                                         | gelince `profile.yaml` → `cv.en` |
 | 2–3 kişisel fotoğraf | sonra (küçük dilim) |
-| 7 şarkının yılı                                                     | D7                               |
 | 30 sn testi için bir kişi; domain                                   | S16                              |
 
 ### Not

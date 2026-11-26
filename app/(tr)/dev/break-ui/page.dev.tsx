@@ -1,6 +1,7 @@
 import { HomeView } from "@/components/home/HomePage";
 import {
   getCreditGroups,
+  getDecor,
   getCvHref,
   getPortrait,
   getPrinciples,
@@ -44,6 +45,7 @@ export default async function BreakUiPage({
         portrait={getPortrait()}
         creditGroups={getCreditGroups("tr")}
         walkmanItems={getWalkmanItems()}
+        decor={getDecor("tr")}
       />
       <nav
         aria-label="Test data"

@@ -1,4 +1,5 @@
 import "@/components/cassette/shelf.css";
+import { DecorSlot } from "@/components/experience/DecorSlot";
 import { cassetteSurface } from "@/components/cassette/cassette-colors";
 import { CassetteCover } from "@/components/cassette/CassetteCover";
 import { Emphasis } from "@/components/markdown/Emphasis";
@@ -21,7 +22,9 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
 
   return (
     <section id="work" aria-labelledby="work-heading" className="border-t border-line">
-      <div className="mx-auto max-w-page px-(--gutter) py-24 md:py-32">
+      <div className="relative mx-auto max-w-page px-(--gutter) py-24 md:py-32">
+        <DecorSlot name="work-left" side="left" />
+        <DecorSlot name="work-right" side="right" />
         <h2 id="work-heading" className="text-h1 font-black font-stretch-condensed">
           <Emphasis text={heading} />
         </h2>

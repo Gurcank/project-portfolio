@@ -1,0 +1,23 @@
+# Nature stamps (CONTENT §9, INS-25): places I walk, as code-drawn pixel landscapes. Decor: the names
+# are a visual label only (aria-hidden). Sprites live in components/pixel/sprites/stamps.ts.
+- order: 1
+  sprite: lycian
+  name: { tr: Likya Yolu, en: Lycian Way }
+- order: 2
+  sprite: dilek
+  name: { tr: "Dilek Yarımadası, Aydın", en: "Dilek Peninsula, Aydın" }
+- order: 3
+  sprite: kaz
+  name: { tr: Kaz Dağları, en: Kaz Mountains }
+- order: 4
+  sprite: alps
+  name: { tr: Alpler, en: The Alps }
+- order: 5
+  sprite: fethiye
+  name: { tr: Fethiye, en: Fethiye }
+- order: 6
+  sprite: datca
+  name: { tr: Datça, en: Datça }
+- order: 7
+  sprite: blacksea
+  name: { tr: Karadeniz, en: Black Sea coast }

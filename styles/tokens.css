@@ -40,6 +40,9 @@
    * text pair gains contrast: accent 4.52 → 4.61, muted 6.07 → 6.19, ink 14.6 → 14.9 (computed). */
   --color-tone-sage: #eef0e6; /* principles: calm, for "how I decide" */
   --color-tone-blush: #f7ede8; /* about: warm, the personal part */
+  /* About's background pattern (D8): lighter than the tone it sits on, so any text over it gains
+   * contrast instead of losing it (the accent margin notes are at 4.61:1 on blush) */
+  --color-pattern: #fbf5f1;
 
   /* Turkish flag (components/respect only). Law 2893 fixes the shape, not a colour value: this is the red
    * public bodies use in practice. Never reused elsewhere, so the site accent stays clearly apart. */
@@ -146,6 +149,7 @@
   --duration-base: 250ms; /* small transitions */
   --duration-slow: 450ms; /* overlay open/close, tape "play" */
 
+  --z-behind: -1; /* background patterns: under the content, over the page background */
   --z-decor: 0;
   --z-content: 10;
   --z-nav: 30;

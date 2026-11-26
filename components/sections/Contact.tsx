@@ -1,3 +1,4 @@
+import { DecorSlot } from "@/components/experience/DecorSlot";
 import { Emphasis } from "@/components/markdown/Emphasis";
 import { CopyEmailButton } from "@/components/sections/CopyEmailButton";
 import { analyticsEvents } from "@/lib/analytics";
@@ -22,7 +23,9 @@ const linkClass =
 export function Contact({ profile, cvHref, heading, labels }: ContactProps) {
   return (
     <section id="contact" aria-labelledby="contact-heading" className="border-t border-line">
-      <div className="mx-auto grid max-w-page gap-8 px-(--gutter) py-24 md:py-32 xl:grid-cols-12 xl:gap-12">
+      <div className="relative mx-auto grid max-w-page gap-8 px-(--gutter) py-24 md:py-32 xl:grid-cols-12 xl:gap-12">
+        <DecorSlot name="contact-left" side="left" />
+        <DecorSlot name="contact-right" side="right" />
         <h2
           id="contact-heading"
           className="text-h1 font-black font-stretch-condensed xl:col-span-5"

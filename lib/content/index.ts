@@ -5,10 +5,12 @@ import {
   films,
   principles,
   profile,
+  records,
   projects,
   respect,
   site,
   songs,
+  stamps,
   type CaseStudy,
   type Profile,
   type Project,
@@ -17,6 +19,7 @@ import {
 
 import type { Locale } from "@/lib/i18n";
 import type { WalkmanItem } from "@/lib/walkman";
+import type { DecorData } from "@/components/experience/DecorLayer";
 
 export type { CaseStudy, Profile, Project, SiteCopy };
 export type { Track, TrackId } from "./tracks";
@@ -134,4 +137,15 @@ export function getWalkmanItems(): WalkmanItem[] {
       lang,
     })),
   ];
+}
+
+/** The room decor (D8): favourite films, records and nature stamps, in one language. */
+export function getDecor(locale: Locale): DecorData {
+  return {
+    films: films.filter((film) => film.favorite).map(({ title, year }) => ({ title, year })),
+    records: records.map(({ artist, album, lang }) => ({ artist, album, lang })),
+    stamps: [...stamps]
+      .sort((a, b) => a.order - b.order)
+      .map(({ sprite, name }) => ({ sprite, name: name[locale] })),
+  };
 }

@@ -1,0 +1,30 @@
+/*
+ * Room decor (D8). Decor never carries information and never sits over content (SPEC §6): every piece
+ * lives in a page gutter, from xl up. Hover is the only motion (/animate: feedback that it's an object),
+ * and "pause motion" or reduced motion removes even that.
+ */
+
+/* Spines read bottom to top, like tapes and records standing on a shelf (same as the cassette shelf) */
+.decor-spine-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.decor-item {
+  pointer-events: auto;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="paused"]) .decor-item:hover {
+    transform: translateY(calc(var(--spacing) * -1)) rotate(-2deg);
+  }
+}
+
+/* Under the content, over the page background: needs its own layer below the text */
+.decor-behind {
+  z-index: var(--z-behind);
+}

@@ -7,6 +7,7 @@ import {
   plantLeaves,
   plantPalette,
 } from "@/components/pixel/sprites/plant";
+import { stampPalette, stampSprites } from "@/components/pixel/sprites/stamps";
 import { walkmanFrames, walkmanPalette } from "@/components/pixel/sprites/walkman";
 
 const sprites: [string, PixelGrid, Record<string, string>][] = [
@@ -22,6 +23,13 @@ const sprites: [string, PixelGrid, Record<string, string>][] = [
     frame,
     walkmanPalette,
   ]),
+  ...Object.entries(stampSprites).map(
+    ([name, grid]): [string, PixelGrid, Record<string, string>] => [
+      `stamp ${name}`,
+      grid,
+      stampPalette,
+    ],
+  ),
 ];
 
 describe("pixelRects", () => {
@@ -53,4 +61,18 @@ describe.each(sprites)("%s", (_, grid, palette) => {
 it("plant layers stack: same size as the base", () => {
   const base = gridSize(plantBase);
   for (const layer of [...plantLeaves, plantFlower]) expect(gridSize(layer)).toEqual(base);
+});
+
+it("every stamp is 16 × 18 and the list matches velite.config.ts", () => {
+  for (const grid of Object.values(stampSprites))
+    expect(gridSize(grid)).toEqual({ width: 16, height: 18 });
+  expect(Object.keys(stampSprites)).toEqual([
+    "lycian",
+    "dilek",
+    "kaz",
+    "alps",
+    "fethiye",
+    "datca",
+    "blacksea",
+  ]);
 });

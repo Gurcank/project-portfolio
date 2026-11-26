@@ -1,0 +1,22 @@
+# Record spines (CONTENT §9, SPEC §6): artist and album in our own type. No covers, ever (SPEC §9).
+- artist: Barış Manço
+  album: Sözüm Meclisten Dışarı
+  lang: tr
+- artist: Duran Duran
+  album: Rio
+  lang: en
+- artist: Mor ve Ötesi
+  album: Dünya Yalan Söylüyor
+  lang: tr
+- artist: Red Hot Chili Peppers
+  album: Californication
+  lang: en
+- artist: Sade
+  album: Diamond Life
+  lang: en
+- artist: Michael Jackson
+  album: Thriller
+  lang: en
+- artist: Bruno Mars
+  album: 24K Magic
+  lang: en
