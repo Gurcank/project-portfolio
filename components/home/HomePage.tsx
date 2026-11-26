@@ -35,6 +35,8 @@ import {
   type SiteCopy,
 } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
+import { serializeJsonLd } from "@/lib/serialize-json-ld";
+import { personJsonLd } from "@/lib/structured-data";
 
 type HomeViewProps = {
   locale: Locale;
@@ -98,7 +100,10 @@ export function HomeView({
         {copy.microcopy.skipToContent}
       </a>
       <SiteHeader locale={locale} name={profile.name} copy={copy} />
-      <main id="main" tabIndex={-1} className="focus:outline-none">
+      {/* overflow-x-clip: the hero desk's cursor glides in from past the right edge; at 1280–1440 px that
+          raised a horizontal scrollbar for ~2 s (the page jumped). clip, not hidden: no scroll container,
+          so vertical scrolling and sticky children are untouched */}
+      <main id="main" tabIndex={-1} className="overflow-x-clip focus:outline-none">
         <Hero name={profile.name} copy={copy.hero} />
         <Shelf
           heading={copy.sections.work}
@@ -187,17 +192,23 @@ export function HomeView({
 /** The real page: reads content/ through lib/content. The dev-only break-ui route feeds HomeView fixtures instead. */
 export function HomePage({ locale }: { locale: Locale }) {
   return (
-    <HomeView
-      locale={locale}
-      copy={getSiteCopy(locale)}
-      profile={getProfile()}
-      projects={getProjects(locale)}
-      cvHref={getCvHref(locale)}
-      principles={getPrinciples(locale)}
-      portrait={getPortrait()}
-      creditGroups={getCreditGroups(locale)}
-      walkmanItems={getWalkmanItems()}
-      decor={getDecor(locale)}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(personJsonLd(locale)) }}
+      />
+      <HomeView
+        locale={locale}
+        copy={getSiteCopy(locale)}
+        profile={getProfile()}
+        projects={getProjects(locale)}
+        cvHref={getCvHref(locale)}
+        principles={getPrinciples(locale)}
+        portrait={getPortrait()}
+        creditGroups={getCreditGroups(locale)}
+        walkmanItems={getWalkmanItems()}
+        decor={getDecor(locale)}
+      />
+    </>
   );
 }

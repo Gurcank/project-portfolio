@@ -1,9 +1,25 @@
 # PROGRESS
 
-## Durum: S15 · D10 canlıda (2026-11-26). Sıradaki: S16 · Kalite ve yayın
+## Durum: S16 · Kalite kapıları, kod tarafı yerelde bitti (2026-11-26). Kalan: kullanıcıdan gelecekler (domain, Umami, 30 sn testi, CV)
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (D10, commit `581e65b`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** D8, D9 ve D10 `main`'e fast-forward ile alındı (2026-11-26); tek production deploy. D10 preview'u (D8+D9'u da içeriyor) önceden READY'di.
+**Branch:** `slice/s16-quality` (yerel commit, push bekliyor). D8–D10 `main`'de ve canlıda.
+
+### S16 · Kalite kapıları + yayın (kod tarafı yerelde)
+
+- **Denetim** (`/web-quality-audit`, canlı site): konsol temiz, source map'ler kapalı (403), robots + sitemap + hreflang + canonical doğru, tek h1, mükerrer id yok. axe WCAG 2.2 AA (target-size dahil) / ve /en'de 375 ve 1280'de temiz; "incomplete" kontrastlar yalnız ok ve sembol karakterleri ile dekor. Tab turu: 1280'de 23, 375'te 19 odaklanabilir öğe, hiçbiri sabit öğelerin altında kalmıyor (2.4.11). Erişilebilirlik ağacı: landmark'lar ve başlık sırası doğru, adsız kontrol yok.
+- **Bulundu ve düzeltildi:**
+  - Case study açıkken ikinci banner/contentinfo landmark'ı (axe moderate): overlay içeriği `<article>` oldu.
+  - **Hero masasının imleci 1280–1440 px'te ≈ 2 sn yatay taşma yapıyordu** (D9): klasik kaydırma çubuklu tarayıcılarda altta çubuk beliriyor, sayfa 15 px zıplıyordu. Masaüstü CLS 0,002'nin kaynağı buydu (Lighthouse trace'indeki LayoutShift: sabit öğeler 15 px yukarı). `<main>`'e `overflow-x-clip`; yerel Lighthouse masaüstü CLS 0,0019 → 0 (3 koşu). Mevcut taşma testi animasyon bittikten sonra ölçtüğü için kaçırmıştı; yeni test 5 sn boyunca her karede ölçüyor.
+  - JSON-LD yoktu: `Person` şeması (ad, adres, meta açıklama, LinkedIn, GitHub), tamamı içerikten. `jobTitle` eklenmedi: rol yalnız büyük harfli etiketin içinde, ayrı alan içerik değişikliği olurdu.
+  - Güvenlik başlıkları (`next.config.ts`): CSP (nonce'suz; statik sayfa nonce alamaz, Next.js CSP rehberi "Without Nonces"), nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options, COOP. HSTS zaten Vercel'den geliyor. Umami için `cloud.umami.is` (betik) ve `gateway.umami.is` (olaylar, script.js'ten okundu).
+  - D10'un Tab testi ≈ 8 koşuda 1 düşüyordu: Chromium ilk boyamadan önceki tuşu bekletebiliyor; test artık ilk boyamayı bekliyor (15/15).
+- **Lisans kontrolü (SPEC §14.5):** 4 font (OFL) ve Atatürk portresi kredilerde; OG görselleri aynı fontları kullanıyor; imleç, sprite'lar, bayrak ve favicon kodla üretiliyor; telifli görsel yok. Geçti.
+- **Sayılar (CONTENT "Sayılar"):** repolardaki commit sayıları içerikle aynı (110 / 142 / 4 / 43 / 17); ATAMap reposuna 18 Kasım'dan beri commit yok, 721 olay / 398 kaynak geçerli. Değişiklik gerekmedi.
+- **PSI 5 koşu ortancası yapılamadı:** anahtarsız API 429, arayüz aynı adresi önbellekten döndürüyor. Yerel Lighthouse 13.6.0 (5'er koşu): mobilde Speed Index her koşuda FCP'ye eşit, yani ilk boyamadan sonra görsel değişim yok; PSI'deki 3,7 sn'nin yerelde karşılığı bulunmadı. Ortanca PSI kotası açılınca alınacak.
+- **SPEC §14 kanıtı:** 1 → d1 + d9 testleri ve ekran görüntüleri · 2 → kullanıcı (LAUNCH-CHECKS §1) · 3 → d2 (hash, Esc, geri) · 4 → şema (eksik çeviri build'i kırar) · 5 → yukarıdaki lisans kontrolü · 6 → event öznitelikleri d1'de test ediliyor, canlı kanıt Umami ID'sini bekliyor · 7 → PSI mobil 99, erişilebilirlik 100, axe 0 · 8 → d3, d7, d8, d10 reduced-motion ve duraklatma testleri.
+- **Senin için:** `docs/LAUNCH-CHECKS.md` (30 sn testi metni, 10 dk ekran okuyucu turu, Umami doğrulaması).
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (88/88), `check:tokens` (94 dosya), `build`, `test:e2e` (132/132; yeni `s16-quality.spec.ts`: başlıklar, CSP ihlali yok (375 ve 1280, tüm katmanlar yüklüyken), JSON-LD, overlay'de tek banner/contentinfo, masa oynarken yatay taşma yok).
 
 ### S15 · D10 · Intro (canlıda)
 
@@ -171,7 +187,9 @@
 
 ### Sıradaki adım
 
-1. S16 · Kalite ve yayın (5 koşu PSI medyanı, Speed Index ve masaüstü CLS takibi dahil).
+1. S16 push → preview → onay → merge.
+2. PSI 5 koşu ortancası (kota açılınca).
+3. Kullanıcıdan: domain, Umami ID, 30 sn testi, ekran okuyucu turu (`docs/LAUNCH-CHECKS.md`), TR CV kararı.
 
 ### Açık sorular (kullanıcıdan)
 

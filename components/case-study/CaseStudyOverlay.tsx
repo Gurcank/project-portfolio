@@ -172,7 +172,9 @@ export function CaseStudyOverlay({ studies, panels, labels, nowLabel }: CaseStud
                   </button>
                 </div>
 
-                <div className="mx-auto max-w-page px-(--gutter) pt-12 pb-24 md:pt-16">
+                {/* <article>, not <div>: it scopes the header and footer below to the case study; otherwise
+                    they count as a second banner and contentinfo landmark next to the site's own */}
+                <article className="mx-auto max-w-page px-(--gutter) pt-12 pb-24 md:pt-16">
                   <header className="flex flex-col gap-6 border-b border-line pb-12">
                     <Dialog.Title
                       ref={titleRef}
@@ -245,7 +247,7 @@ export function CaseStudyOverlay({ studies, panels, labels, nowLabel }: CaseStud
                       {labels.back}
                     </button>
                   </footer>
-                </div>
+                </article>
               </>
             )}
           </m.div>

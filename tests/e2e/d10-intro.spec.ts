@@ -47,6 +47,11 @@ test.describe("intro", () => {
     page,
   }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
+    // Chromium holds back input until the first paint; a key pressed before it can be dropped (1 in ~8
+    // runs). Nobody presses a key before seeing the intro, so the test starts at first paint too.
+    await page.waitForFunction(
+      () => performance.getEntriesByName("first-contentful-paint").length > 0,
+    );
     await page.keyboard.press("Tab");
     // Retrying: under load the key event can land a few ms after press() resolves
     await expect.poll(() => introState(page)).toBe("done");
