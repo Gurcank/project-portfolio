@@ -1,11 +1,11 @@
 # PROGRESS
 
-## Durum: S16 · Kalite kapıları, kod tarafı yerelde bitti (2026-11-26). Kalan: kullanıcıdan gelecekler (domain, Umami, 30 sn testi, CV)
+## Durum: S16 kod tarafı canlıda (2026-11-27). Kalan: PSI ortancası ve kullanıcıdan gelecekler (domain, Umami, 30 sn testi, ekran okuyucu turu, CV)
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (D10, commit `581e65b`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/s16-quality` (yerel commit, push bekliyor). D8–D10 `main`'de ve canlıda.
+**Canlı:** https://project-portfolio-theta-mocha.vercel.app (S16, commit `9f3c8a6`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/s16-quality` `main`'e fast-forward ile alındı (2026-11-27).
 
-### S16 · Kalite kapıları + yayın (kod tarafı yerelde)
+### S16 · Kalite kapıları + yayın (kod tarafı canlıda)
 
 - **Denetim** (`/web-quality-audit`, canlı site): konsol temiz, source map'ler kapalı (403), robots + sitemap + hreflang + canonical doğru, tek h1, mükerrer id yok. axe WCAG 2.2 AA (target-size dahil) / ve /en'de 375 ve 1280'de temiz; "incomplete" kontrastlar yalnız ok ve sembol karakterleri ile dekor. Tab turu: 1280'de 23, 375'te 19 odaklanabilir öğe, hiçbiri sabit öğelerin altında kalmıyor (2.4.11). Erişilebilirlik ağacı: landmark'lar ve başlık sırası doğru, adsız kontrol yok.
 - **Bulundu ve düzeltildi:**
@@ -18,6 +18,9 @@
 - **Sayılar (CONTENT "Sayılar"):** repolardaki commit sayıları içerikle aynı (110 / 142 / 4 / 43 / 17); ATAMap reposuna 18 Kasım'dan beri commit yok, 721 olay / 398 kaynak geçerli. Değişiklik gerekmedi.
 - **PSI 5 koşu ortancası yapılamadı:** anahtarsız API 429, arayüz aynı adresi önbellekten döndürüyor. Yerel Lighthouse 13.6.0 (5'er koşu): mobilde Speed Index her koşuda FCP'ye eşit, yani ilk boyamadan sonra görsel değişim yok; PSI'deki 3,7 sn'nin yerelde karşılığı bulunmadı. Ortanca PSI kotası açılınca alınacak.
 - **SPEC §14 kanıtı:** 1 → d1 + d9 testleri ve ekran görüntüleri · 2 → kullanıcı (LAUNCH-CHECKS §1) · 3 → d2 (hash, Esc, geri) · 4 → şema (eksik çeviri build'i kırar) · 5 → yukarıdaki lisans kontrolü · 6 → event öznitelikleri d1'de test ediliyor, canlı kanıt Umami ID'sini bekliyor · 7 → PSI mobil 99, erişilebilirlik 100, axe 0 · 8 → d3, d7, d8, d10 reduced-motion ve duraklatma testleri.
+- **Preview'da bulundu:** CSP, Vercel'in preview'lara eklediği araç çubuğunu (`vercel.live`) engelliyordu. Belgedeki adresler yalnız `VERCEL_ENV=preview` build'lerinde CSP'ye ekleniyor; production CSP'si değişmedi (`9f3c8a6`). Preview'a erişim için kullanıcı onayıyla 23 saatlik paylaşım linki açıldı (27.11.2026 22:16'da sona eriyor).
+- **Production'da doğrulananlar (2026-11-27):** `/` ve `/en` 200, olmayan yol 404. CSP (sıkı hali), COOP, Permissions-Policy, Referrer-Policy, nosniff, X-Frame-Options ve HSTS geliyor. 375 / 1280 / 1350'de CSP ihlali yok, masa oynarken 5 sn boyunca yatay taşma 0, JSON-LD `Person`, overlay açıkken tek contentinfo. Ekran görüntüleri canlıdan: `artifacts/home-*`, `en-*`.
+- **PSI yapılamadı:** API 429; arayüz analizi 3 dakikada bitirmedi (aynı kota olabilir). Bir sonraki oturumda 5 koşu ortancası.
 - **Senin için:** `docs/LAUNCH-CHECKS.md` (30 sn testi metni, 10 dk ekran okuyucu turu, Umami doğrulaması).
 - **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (88/88), `check:tokens` (94 dosya), `build`, `test:e2e` (132/132; yeni `s16-quality.spec.ts`: başlıklar, CSP ihlali yok (375 ve 1280, tüm katmanlar yüklüyken), JSON-LD, overlay'de tek banner/contentinfo, masa oynarken yatay taşma yok).
 
@@ -187,9 +190,8 @@
 
 ### Sıradaki adım
 
-1. S16 push → preview → onay → merge.
-2. PSI 5 koşu ortancası (kota açılınca).
-3. Kullanıcıdan: domain, Umami ID, 30 sn testi, ekran okuyucu turu (`docs/LAUNCH-CHECKS.md`), TR CV kararı.
+1. PSI 5 koşu ortancası (kota açılınca), mobil Speed Index takibi.
+2. Kullanıcıdan: domain, Umami ID, 30 sn testi, ekran okuyucu turu (`docs/LAUNCH-CHECKS.md`), TR CV kararı.
 
 ### Açık sorular (kullanıcıdan)
 
