@@ -15,6 +15,10 @@ hero:
   label: ASPIRING PRODUCT MANAGER · ISTANBUL · ● AVAILABLE FROM FEB 2027
   primaryCta: Get in touch
   secondaryCta: See the work
+  intro:
+    words: [A map., A documentary., A handbook.]
+    closing: Each one a product.
+    skip: Click anywhere to skip
   desk:
     ticket: GRCN-1 · Find a product intern · In review
     notification: Vercel · Deployment ready

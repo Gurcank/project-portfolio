@@ -15,6 +15,10 @@ hero:
   label: PRODUCT MANAGER ADAYI · İSTANBUL · ● ŞUBAT 2027'DEN İTİBAREN MÜSAİT
   primaryCta: Bana yaz
   secondaryCta: İşlere bak
+  intro:
+    words: [Harita., Belgesel., El kitabı.]
+    closing: Hepsi birer ürün.
+    skip: Geçmek için herhangi bir yere tıkla
   desk:
     ticket: GRCN-1 · Product stajyeri bul · In review
     notification: Vercel · Deployment ready

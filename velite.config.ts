@@ -77,6 +77,12 @@ const site = defineCollection({
         label: s.string().max(80),
         primaryCta: button.pipe(s.string().max(24)),
         secondaryCta: button.pipe(s.string().max(24)),
+        // D10 intro (CONTENT §4): three words, then the closing line; the skip hint is visible text
+        intro: s.object({
+          words: s.array(s.string().max(16)).length(3),
+          closing: s.string().max(30),
+          skip: message,
+        }),
         // D9 work desk (CONTENT §4): decor beside the hero; brand names as plain text only (ADR-16)
         desk: s.object({
           ticket: s

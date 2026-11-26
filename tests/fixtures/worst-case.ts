@@ -70,6 +70,11 @@ export const worstCopy: SiteCopy = {
     // 23 characters (limit 24), 3 words
     primaryCta: "Benimle iletişime geçin",
     secondaryCta: "Bütün işlerime bak",
+    intro: {
+      words: ["Haritalar.", "Belgeseller.", "El kitapları."],
+      closing: "Hepsi gerçekten birer ürün.",
+      skip: "Geçmek için ekranın herhangi bir yerine tıkla ya da bir tuşa bas",
+    },
     // 59 characters, limit 60
     desk: {
       ticket: "GRCN-1024 · Product stajyeri bul ve ekibe al · Code review",

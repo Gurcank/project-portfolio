@@ -13,6 +13,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { About } from "@/components/sections/About";
 import { Colophon } from "@/components/sections/Colophon";
+import { Intro } from "@/components/intro/Intro";
 import { Contact } from "@/components/sections/Contact";
 import { Hero } from "@/components/sections/Hero";
 import { Principles } from "@/components/sections/Principles";
@@ -165,6 +166,9 @@ export function HomeView({
           }))}
         />
       </ExperienceBoundary>
+      {/* Last in the page: it is a fixed curtain, so its place in the DOM doesn't change how it looks,
+          and the hero (the LCP element) is parsed first */}
+      <Intro copy={copy.hero.intro} />
       <CaseStudyOverlay
         nowLabel={copy.microcopy.indicator.current}
         labels={overlayLabels}

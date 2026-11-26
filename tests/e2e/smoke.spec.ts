@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 test.describe("routes", () => {
   test("Turkish home is served at / with lang=tr", async ({ page }) => {

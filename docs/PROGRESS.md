@@ -1,9 +1,20 @@
 # PROGRESS
 
-## Durum: S14 · D9 yerelde bitti (2026-11-26). Commit, push ve merge'ler sona bırakıldı (kullanıcı kararı)
+## Durum: S15 · D10 yerelde bitti (2026-11-26). Commit, push ve merge'ler sona bırakıldı (kullanıcı kararı)
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (D7, commit `5669d86`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** yığın halinde, yalnız yerel commit'li: `slice/d8-room-decor` (`5b89c4e`, push'lu, preview READY, merge bekliyor) → `slice/d9-hero-desk-cursor` (yerel). Sonda: push → preview → onay → sırayla merge → PSI.
+**Branch:** yığın halinde, yalnız yerel commit'li: `slice/d8-room-decor` (`5b89c4e`, push'lu, preview READY, merge bekliyor) → `slice/d9-hero-desk-cursor` (yerel) → `slice/d10-intro` (yerel). Sonda: push → preview → onay → sırayla merge → PSI.
+
+### S15 · D10 · Intro (yerelde)
+
+- **Metin** (CONTENT §4; şemada `hero.intro`): üç kelime ("Harita. / Belgesel. / El kitabı.", EN "A map. / A documentary. / A handbook."), kapanış "Hepsi birer ürün." / "Each one a product.", geçme ipucu.
+- **Intro** (`components/intro/`): sunucu bileşeni, sıfır JS; tamamen CSS. Kâğıt perde üstünde dönen bant sayacı, kelimeler 500 ms adımla, sonra kapanış; perde 2,45 sn içinde kapanır. Oturum başına bir kez, yalnız ≥ 1024 px; reduced motion veya duraklatılmış hareketle hiç gösterilmez. `aria-hidden`, odaklanabilir öğe yok; içerik altında baştan çizili.
+- **Karar betiği** (`lib/intro-preference.ts`): `<head>`'de satır içi; ilk boyamadan önce `data-intro="play|done"` koyar ve tıklama/tuş dinleyicisini bağlar, yani hidrasyondan önce de geçilebilir (ilk denemede dinleyici React effect'indeydi ve erken Tab'ı kaçırıyordu).
+- **Bulgu: `next/script beforeInteractive` App Router'da ilk boyamadan önce çalışmıyor**, Next'in runtime'ı yüklenince çalışıyor (ölçüm: ≈ 1,6 sn geç). D7'deki "ilk boyamadan önce" iddiası bu yüzden yanlıştı; hareket tercihi betiği de düz `<script>`'e taşındı.
+- **Bulgu: betik konumu LCP'yi etkiliyor.** Aynı iki betik `<body>` başında mobil LCP'ye ≈ 100 ms ekledi; `<head>`'de etkisiz. Önce/sonra (aynı makine, D9 worktree'siyle yan yana, 4× CPU, 5 koşu medyanı): mobil LCP D9 356–372 → D10 356–360 ms; masaüstü 376–380 → 392 ms.
+- **Testler:** `tests/e2e/fixtures.ts` diğer tüm spec'lerde intro'yu "görüldü" sayar (axe kontrastı görsel ölçüyor; aria-hidden olsa da yarı saydam kelimelere takılıyordu). `d10-intro.spec.ts`: ilk ziyarette oynar, `intro-out` ≤ 2500 ms'de biter, kelime hızı saniyede < 3, yenileyince tekrar oynamaz, Tab ve tıklama geçer (odak "İçeriğe geç"e), h1 altta çizili, aria-hidden + odaklanabilir yok + axe 0; 375/768'de, reduced motion'da ve duraklatılmışken hiç yok.
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (87/87), `check:tokens` (92 dosya), `build`, `test:e2e` (127/127).
+- Ekran görüntüleri: `artifacts/d10/` (intro karesi TR/EN 1280), `artifacts/home-*`, `en-*` (intro bittikten sonraki sayfa). Not: Playwright'ın yeni açılmış tarayıcısındaki ilk sayfa ≈ 1,3 sn hiç boyanmıyor (soğuk başlangıç); animasyon saati ilk boyamada başladığı için intro kısalmıyor.
 
 ### S14 · D9 · Hero çalışma masası + özel imleç (yerelde)
 
@@ -33,7 +44,7 @@
 - **Pixel motoru** (`components/pixel/`): karakter ızgarası → satır satır birleşmiş `<rect>`'ler; renkler yalnız token sınıflarından, palet dışı karakter hata verir (unit test). Sprite'lar: saksı bitkisi (taban + 5 yaprak + çiçek katmanları), walkman (iki makara karesi).
 - **Maskot** (`experience/Mascot.tsx` + `MascotLoader`): okudukça yaprak açar, İletişim'de çiçeklenir; hero'da yok; `aria-hidden`. Reduced motion / "hareketi durdur"da sabit poz (3 yaprak). Kodu `next/dynamic` ile yalnız ≥ xl'de iner (e2e içerikle kanıtlar). 404'te sabit, JS'siz bitki.
 - **Walkman** (`experience/Walkman.tsx`, `lib/walkman.ts`): rastgele film/şarkı, art arda aynısı yok (unit + e2e), sonuç `aria-live="polite"`, İngilizce başlık `lang="en"`. Basınca makaralar kısa an döner (duraklatılmışken dönmez). ≥ xl sağ alt kenar boşluğunda, balon 8 sn sonra kapanır; altında footer'da. Overlay'in altında kalır: ATAMap açıkken görünmez.
-- **Hareketi durdur / başlat** (`MotionToggle`, `lib/experience-store.ts`): her genişlikte footer'da, `aria-pressed`. Tercih `localStorage`'da; `next/script beforeInteractive` satır içi betik ilk boyamadan önce `data-motion="paused"` koyar (lint kuralı App Router öncesine ait, gerekçesiyle susturuldu). Motion `reducedMotion: "always"`; CSS zaten `[data-motion="paused"]`'e uyuyordu. e2e: duraklatınca çalışan animasyon 0, yenileyince korunur.
+- **Hareketi durdur / başlat** (`MotionToggle`, `lib/experience-store.ts`): her genişlikte footer'da, `aria-pressed`. Tercih `localStorage`'da; `<head>`'deki satır içi betik ilk boyamadan önce `data-motion="paused"` koyar (D10'da düzeltildi: önceki `next/script beforeInteractive` ≈ 1,6 sn geç çalışıyordu). Motion `reducedMotion: "always"`; CSS zaten `[data-motion="paused"]`'e uyuyordu. e2e: duraklatınca çalışan animasyon 0, yenileyince korunur.
 - **Plandan sapma:** maskot ve sabit walkman ROADMAP'teki ≥ 1024 yerine **≥ 1280 (xl)**. Sebep: 1024–1279'da kenar boşluğu 32 px, ikisi de sığmıyor ve metnin üstüne biniyordu; SPEC "dekor yalnız kenar boşluklarında" kuralı öncelikli. Aynı sebeple "Hareketi durdur" sabit değil, footer'da.
 - **D6 hatası düzeltildi:** `body`'deki `bg-paper` `html`'deki ton rengini örtüyordu; D6'nın zemin tonu production'da **hiç görünmüyordu** (D6 testi yalnız `html` rengini ölçüyordu). `body` arka planı kaldırıldı; D6 testi artık görünen katmanı da kontrol ediyor (eski kodda düşüyor, yenisinde geçiyor).
 - **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (72/72; +4 walkman, +17 pixel), `check:tokens` (79 dosya), `build`, `test:e2e` (95/95; D7: öneri biçimi ve tekrar yok, overlay altında kalma, footer yerleşimi, duraklat + yenile, maskot büyüme + çiçek + sabit poz, telefonda maskot kodu yok (pozitif kontrollü), 404 bitkisi, axe 0). `/break-ui?data=worst` footer: 320–1280 taşma yok. 1024/1280/1440'ta sabit öğe metne binmiyor.
@@ -154,8 +165,8 @@
 
 ### Sıradaki adım
 
-1. S15 · D10 · Intro.
-2. Sonda: D8 + D9 + D10 push → preview → onay → sırayla merge → PSI (her dilimden sonra değil, toplu).
+1. Sonda: D8 + D9 + D10 push → preview → onay → sırayla merge → PSI (her dilimden sonra değil, toplu).
+2. S16 · Kalite ve yayın.
 
 ### Açık sorular (kullanıcıdan)
 
