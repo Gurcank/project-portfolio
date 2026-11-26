@@ -2,6 +2,7 @@ import { CaseStudyOverlay, type OverlayStudy } from "@/components/case-study/Cas
 import { CaseStudyPanel } from "@/components/case-study/CaseStudyPanel";
 import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { MotionProvider } from "@/components/experience/MotionProvider";
+import { CassettePillLoader } from "@/components/experience/CassettePillLoader";
 import { DecorLoader } from "@/components/experience/DecorLoader";
 import { MascotLoader } from "@/components/experience/MascotLoader";
 import { MotionToggle } from "@/components/experience/MotionToggle";
@@ -142,6 +143,9 @@ export function HomeView({
       {walkman("fixed")}
       <ExperienceBoundary name="mascot">
         <MascotLoader />
+      </ExperienceBoundary>
+      <ExperienceBoundary name="cassette-pill">
+        <CassettePillLoader label={copy.microcopy.cassette.pill} />
       </ExperienceBoundary>
       <ExperienceBoundary name="decor">
         <DecorLoader {...decor} />

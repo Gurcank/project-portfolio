@@ -15,6 +15,10 @@ hero:
   label: ASPIRING PRODUCT MANAGER · ISTANBUL · ● AVAILABLE FROM FEB 2027
   primaryCta: Get in touch
   secondaryCta: See the work
+  desk:
+    ticket: GRCN-1 · Find a product intern · In review
+    notification: Vercel · Deployment ready
+    cursor: Claude
 
 sections:
   work: Seven *tapes* on my shelf
@@ -80,6 +84,7 @@ microcopy:
     downloadCv: Download CV (PDF)
   cassette:
     open: "Open the {project} case study"
+    pill: ▶ Play
   indicator:
     current: "Now: {section}"
     contents: Contents

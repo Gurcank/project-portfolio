@@ -1,3 +1,6 @@
+import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
+import { DeskTicket } from "@/components/hero/DeskTicket";
+import { HeroDeskLoader } from "@/components/hero/HeroDeskLoader";
 import { Emphasis } from "@/components/markdown/Emphasis";
 import type { SiteCopy } from "@/lib/content";
 import { splitLabel } from "@/lib/text";
@@ -18,7 +21,7 @@ export function Hero({ name, copy }: HeroProps) {
     <section
       id="top"
       aria-labelledby="hero-name"
-      className="mx-auto max-w-page px-(--gutter) pt-12 pb-24 md:pt-24 md:pb-32 xl:pt-32"
+      className="relative mx-auto max-w-page px-(--gutter) pt-12 pb-24 md:pt-24 md:pb-32 lg:pb-48 xl:pt-32"
     >
       <p className="flex items-start gap-3 font-mono text-label tracking-wide text-ink uppercase">
         <span aria-hidden="true" className="mt-2 h-px w-8 shrink-0 bg-ink md:w-16" />
@@ -46,7 +49,14 @@ export function Hero({ name, copy }: HeroProps) {
         <Emphasis text={copy.role} />
       </p>
 
-      <div className="mt-8 flex flex-wrap gap-3 md:mt-12">
+      <div className="relative mt-8 flex flex-wrap gap-3 md:mt-12">
+        {/* Desktop: the moving desk starts level with the CTAs, so it is always below the name and the
+            role line. Absolutely placed: it adds no height, so its late arrival shifts nothing (CLS) */}
+        <div className="absolute top-0 right-0 hidden lg:block">
+          <ExperienceBoundary name="hero-desk">
+            <HeroDeskLoader desk={copy.desk} />
+          </ExperienceBoundary>
+        </div>
         <a
           href="#contact"
           className="inline-flex min-h-12 items-center gap-3 rounded-sm bg-ink px-6 font-mono text-label tracking-wide text-paper uppercase transition-colors duration-(--duration-fast) hover:bg-accent"
@@ -60,6 +70,11 @@ export function Hero({ name, copy }: HeroProps) {
         >
           {copy.secondaryCta}
         </a>
+      </div>
+
+      {/* Phone and tablet: just the ticket, still and server-drawn (SPEC §8), under the CTAs */}
+      <div aria-hidden="true" className="mt-12 lg:hidden">
+        <DeskTicket ticket={copy.desk.ticket} />
       </div>
     </section>
   );

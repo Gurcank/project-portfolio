@@ -32,6 +32,38 @@
     }
   }
 
+  /* Custom cursor (INS-03, D9): a pixel arrow on real pointers only. Text keeps the native I-beam,
+     links and buttons keep the hand, so nothing about how the page works changes. */
+  @media (pointer: fine) {
+    html {
+      cursor:
+        url("/cursor/arrow.svg") 0 0,
+        auto;
+    }
+
+    :where(
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      li,
+      dd,
+      dt,
+      figcaption,
+      blockquote,
+      input,
+      textarea,
+      [contenteditable]
+    ) {
+      cursor: auto;
+    }
+
+    :where(a, button, summary, label[for], [role="button"]) {
+      cursor: pointer;
+    }
+  }
+
   :focus-visible {
     outline: var(--focus-ring-width) solid var(--color-accent);
     outline-offset: var(--focus-ring-offset);

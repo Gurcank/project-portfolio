@@ -15,6 +15,10 @@ hero:
   label: PRODUCT MANAGER ADAYI · İSTANBUL · ● ŞUBAT 2027'DEN İTİBAREN MÜSAİT
   primaryCta: Bana yaz
   secondaryCta: İşlere bak
+  desk:
+    ticket: GRCN-1 · Product stajyeri bul · In review
+    notification: Vercel · Deployment ready
+    cursor: Claude
 
 sections:
   work: Rafımdaki *yedi* kaset
@@ -81,6 +85,7 @@ microcopy:
     downloadCv: CV'yi indir (PDF)
   cassette:
     open: "{project} case study'sini aç"
+    pill: ▶ Aç
   indicator:
     current: "Şu an: {section}"
     contents: İçindekiler

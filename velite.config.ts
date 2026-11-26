@@ -77,6 +77,21 @@ const site = defineCollection({
         label: s.string().max(80),
         primaryCta: button.pipe(s.string().max(24)),
         secondaryCta: button.pipe(s.string().max(24)),
+        // D9 work desk (CONTENT §4): decor beside the hero; brand names as plain text only (ADR-16)
+        desk: s.object({
+          ticket: s
+            .string()
+            .max(60)
+            .refine((value) => value.split(" · ").length === 3, "ticket needs ID · TITLE · STATUS"),
+          notification: s
+            .string()
+            .max(40)
+            .refine(
+              (value) => value.split(" · ").length === 2,
+              "notification needs SOURCE · MESSAGE",
+            ),
+          cursor: s.string().max(16),
+        }),
       }),
       // 40: keeps a section heading to three lines at 375px (/break-ui)
       sections: s.object({
@@ -126,7 +141,8 @@ const site = defineCollection({
           github: button,
           downloadCv: button,
         }),
-        cassette: s.object({ open: withPlaceholder("project") }),
+        // pill: the cursor's decorative "▶ Open" over a tape (CONTENT §8); the link keeps the real name
+        cassette: s.object({ open: withPlaceholder("project"), pill: button }),
         // INS-07 section indicator and its J-card contents (CONTENT §8)
         indicator: s.object({ current: withPlaceholder("section"), contents: button }),
         // D7 walkman and pause control (CONTENT §8)

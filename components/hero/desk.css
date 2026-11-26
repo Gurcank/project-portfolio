@@ -1,0 +1,36 @@
+/*
+ * Work desk (D9, /animate): plays once, ≤ 4 s, then rests. Purpose: show "someone at work" without
+ * competing with the hero text. Every duration and delay is a token, so reduced motion and "pause
+ * motion" jump straight to the final frame.
+ */
+@keyframes desk-notify-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--spacing) * 6));
+  }
+}
+
+@keyframes desk-cursor-move {
+  from {
+    transform: translate(calc(var(--spacing) * 24), calc(var(--spacing) * -16));
+  }
+}
+
+@keyframes desk-click {
+  50% {
+    transform: scale(0.85);
+  }
+}
+
+.desk-notification {
+  animation: desk-notify-in var(--duration-slow) var(--ease-out) calc(var(--duration-slow) * 2) both;
+}
+
+.desk-cursor {
+  animation: desk-cursor-move calc(var(--duration-slow) * 3) var(--ease-in-out)
+    calc(var(--duration-slow) * 3) both;
+}
+
+.desk-cursor-arrow {
+  animation: desk-click var(--duration-fast) var(--ease-out) calc(var(--duration-slow) * 6) both;
+}

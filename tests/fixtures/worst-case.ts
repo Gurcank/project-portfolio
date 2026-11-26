@@ -70,6 +70,12 @@ export const worstCopy: SiteCopy = {
     // 23 characters (limit 24), 3 words
     primaryCta: "Benimle iletişime geçin",
     secondaryCta: "Bütün işlerime bak",
+    // 59 characters, limit 60
+    desk: {
+      ticket: "GRCN-1024 · Product stajyeri bul ve ekibe al · Code review",
+      notification: "Vercel · Production deployment ready",
+      cursor: "Claude Opus",
+    },
   },
   // 36 and 38 visible characters, limit 40
   sections: {
@@ -135,7 +141,7 @@ export const worstCopy: SiteCopy = {
       github: "GitHub",
       downloadCv: "Özgeçmişimi indir (PDF)",
     },
-    cassette: { open: "{project} kasetinin case study'sini aç" },
+    cassette: { open: "{project} kasetinin case study'sini aç", pill: "▶ Hemen aç" },
     indicator: { current: "Şu an buradasın: {section}", contents: "Bütün içindekiler listesi" },
     walkman: {
       label: "Walkman: bu akşam için rastgele bir film ya da şarkı öner",

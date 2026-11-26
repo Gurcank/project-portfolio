@@ -1,9 +1,19 @@
 # PROGRESS
 
-## Durum: S13 · D8 yerelde bitti; commit ve preview bekliyor (2026-11-26)
+## Durum: S14 · D9 yerelde bitti (2026-11-26). Commit, push ve merge'ler sona bırakıldı (kullanıcı kararı)
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (D7, commit `5669d86`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/d8-room-decor` (henüz commit yok). D7: `slice/d7-pixel-mascot-walkman` → `main`'e merge edildi.
+**Branch:** yığın halinde, yalnız yerel commit'li: `slice/d8-room-decor` (`5b89c4e`, push'lu, preview READY, merge bekliyor) → `slice/d9-hero-desk-cursor` (yerel). Sonda: push → preview → onay → sırayla merge → PSI.
+
+### S14 · D9 · Hero çalışma masası + özel imleç (yerelde)
+
+- **Metin** (CONTENT §4, §8; şemada): `hero.desk` (ticket "ID · BAŞLIK · DURUM", bildirim "KAYNAK · MESAJ", imleç etiketi), `cassette.pill` ("▶ Aç" / "▶ Play").
+- **Masa** (`components/hero/`): ticket kartı, "Vercel · Deployment ready" bildirimi, "Claude" etiketli pixel imleç; marka adları yalnız metin (ADR-16). Sahne **bir kez** oynar (bildirim kayar, imleç ticket'a süzülüp dokunur, ≤ 4 sn); süre ve gecikmeler token, duraklatılmışken doğrudan son kare. `aria-hidden`. ≥ lg'de CTA satırının içinde mutlak konumlu: üst kenarı CTA hizasında, isim ve rol satırının altında; yükseklik eklemez, geç gelişi kaydırma yapmaz (CLS). Hero'nun alt boşluğu ≥ lg'de büyütüldü. Kodu yalnız masaüstünde, sayfa yüklenip tarayıcı boşa düşünce iner. Mobil/tablet: sunucuda çizilmiş statik ticket.
+- **Özel imleç:** `public/cursor/arrow.svg` (ızgaradan üretilmiş pixel ok; renkleri mürekkep ve kâğıt ama dosya `public/` altında olduğu için ham hex taşıyor, token denetimi dışında). Yalnız `pointer: fine`; metinde native I-beam, linkte el. Rafta kaset üstünde "▶ Aç" hapı (`CassettePill`, transform ile izler, `aria-hidden`); dokunmatikte yok.
+- **Bulunan ve düzeltilen:** ilk yerleşimde masa ismin "ğ" kuyruğuna ve rol satırına biniyordu (konum masanın yüksekliğine bağlıydı) → CTA satırına alındı.
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (87/87), `check:tokens` (89 dosya), `build`, `test:e2e` (117/117; D9: 375/768/1280'de hero bilgisi ilk ekranda, 1024/1280/1440'ta masa hero metnine binmiyor, bir kez oynayıp duruyor, duraklatılmışken son kare, telefonda masa kodu yok (pozitif kontrollü) ve statik ticket var, aria-hidden + axe 0, imleç CSS'i ve metinde native imleç, kaset üstünde hap, dokunmatikte hap yok).
+- **Önce/sonra (yerel, 4× CPU, 5 koşu medyanı):** mobil LCP 396 → 392 ms, tıklama 32 → 32 ms; masaüstü LCP 420 → 404 ms, kaset açma 328 → 336 ms. Kötüleşme yok.
+- Ekran görüntüleri: `artifacts/d9/`, `artifacts/home-*`, `en-*`.
 
 ### S13 · D8 · Oda dekoru (yerelde)
 
@@ -144,8 +154,8 @@
 
 ### Sıradaki adım
 
-1. **D8:** commit → preview → onay → `main` → PSI.
-2. S14 · D9 · Hero çalışma masası + özel imleç (LCP ve INP önce/sonra ölçülerek).
+1. S15 · D10 · Intro.
+2. Sonda: D8 + D9 + D10 push → preview → onay → sırayla merge → PSI (her dilimden sonra değil, toplu).
 
 ### Açık sorular (kullanıcıdan)
 
