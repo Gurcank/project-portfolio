@@ -18,15 +18,20 @@ function startVeliteWatcher() {
  * (Next.js CSP guide, "Without Nonces"). What it still buys: no third-party script, frame, plugin or
  * form target except Umami's script and its event endpoint (gateway.umami.is, read from script.js).
  * No upgrade-insecure-requests: Vercel already sends HSTS, and it would upgrade local http e2e runs.
+ * Preview deployments only: Vercel injects its toolbar (comments on previews); its hosts are added there
+ * so production stays strict (https://vercel.com/docs/vercel-toolbar/managing-toolbar).
  */
 function securityHeaders(isDevServer: boolean) {
+  const toolbar = process.env.VERCEL_ENV === "preview";
+  const allow = (hosts: string) => (toolbar ? ` ${hosts}` : "");
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline' https://cloud.umami.is${isDevServer ? " 'unsafe-eval'" : ""}`,
-    "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob:",
-    "font-src 'self'",
-    "connect-src 'self' https://gateway.umami.is",
+    `script-src 'self' 'unsafe-inline' https://cloud.umami.is${isDevServer ? " 'unsafe-eval'" : ""}${allow("https://vercel.live")}`,
+    `style-src 'self' 'unsafe-inline'${allow("https://vercel.live")}`,
+    `img-src 'self' data: blob:${allow("https://vercel.live https://vercel.com")}`,
+    `font-src 'self'${allow("https://vercel.live https://assets.vercel.com")}`,
+    `connect-src 'self' https://gateway.umami.is${allow("https://vercel.live wss://ws-us3.pusher.com")}`,
+    ...(toolbar ? ["frame-src https://vercel.live"] : []),
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
