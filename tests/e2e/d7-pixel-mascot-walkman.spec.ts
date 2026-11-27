@@ -1,10 +1,10 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "./fixtures";
 
-// ROADMAP → S12 · D7 acceptance tests
+// ROADMAP → S12 · D7 acceptance tests (V6: the walkman is now a CD player; V5: the plant is now the walker)
 
 const walkman = (page: Page) =>
-  page.getByRole("button", { name: "Walkman: rastgele bir film ya da şarkı öner" });
+  page.getByRole("button", { name: "CD çalar: rastgele bir film ya da şarkı öner" });
 const suggestion = (page: Page) => page.locator('[aria-live="polite"]:visible').first();
 
 async function scrollTo(page: Page, id: string) {
@@ -58,7 +58,7 @@ test.describe("walkman", () => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
     const footer = page.getByRole("contentinfo");
-    await expect(footer.getByRole("button", { name: /Walkman/ })).toBeVisible();
+    await expect(footer.getByRole("button", { name: /CD çalar/ })).toBeVisible();
     await expect(footer.getByRole("button", { name: "Hareketi durdur" })).toBeVisible();
     await expect(page.locator("div.fixed.right-2")).toBeHidden();
   });
@@ -103,42 +103,58 @@ test.describe("pause motion", () => {
   });
 });
 
-test.describe("mascot", () => {
+test.describe("mascot: the walker", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
-  test("not over the hero; opens leaves as you read and flowers in Contact", async ({ page }) => {
+  const walker = (page: Page) => page.locator(".mascot");
+  const top = (page: Page) =>
+    page.locator(".mascot-walker").evaluate((el) => el.getBoundingClientRect().top);
+
+  test("not over the hero; walks down as you read and waves in Contact", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("svg.mascot")).toHaveCount(0);
-    await scrollTo(page, "about");
-    const mascot = page.locator("svg.mascot");
-    await expect(mascot).toBeVisible();
-    await expect(mascot).toHaveAttribute("aria-hidden", "true");
-    const midLeaves = await mascot.locator(".is-open").count();
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await expect.poll(() => mascot.locator(".is-open").count()).toBeGreaterThan(midLeaves);
-    await expect(mascot.locator("g").last()).toHaveClass(/is-open/);
+    await expect(walker(page)).toHaveCount(0);
+    await scrollTo(page, "principles");
+    await expect(walker(page)).toBeVisible();
+    await expect(walker(page)).toHaveAttribute("aria-hidden", "true");
+    await page.waitForTimeout(400);
+    const early = await top(page);
+    await scrollTo(page, "colophon");
+    await expect.poll(() => top(page)).toBeGreaterThan(early);
+    await scrollTo(page, "contact");
+    await expect(walker(page)).toHaveAttribute("data-pose", "wave");
   });
 
-  test("with reduced motion it keeps one still pose", async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: "reduce" });
+  test("gives way to the sitting avatar at the footer camp", async ({ page }) => {
     await page.goto("/");
     await scrollTo(page, "about");
-    const mascot = page.locator("svg.mascot");
-    await expect(mascot.locator(".is-open")).toHaveCount(3);
+    await expect(walker(page)).toBeVisible();
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await expect(walker(page)).toHaveCount(0);
+    await expect(page.locator(".camp-avatar")).toBeVisible();
+  });
+
+  test("with reduced motion it stands still at the foot of the trail", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await scrollTo(page, "principles");
+    await expect(walker(page)).toHaveAttribute("data-pose", "stand");
+    const first = await top(page);
+    await scrollTo(page, "colophon");
     await page.waitForTimeout(300);
-    await expect(mascot.locator(".is-open")).toHaveCount(3);
+    expect(await top(page)).toBe(first);
+    await scrollTo(page, "contact");
+    await expect(walker(page)).toHaveAttribute("data-pose", "stand");
   });
 
   test("its code is never downloaded on a phone", async ({ browser }) => {
-    // Positive control: on a wide screen the mascot's chunk is fetched (so the check below can see it)
+    // Positive control: on a wide screen the walker's chunk is fetched (so the check below can see it)
     const wide = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     const wideBodies = await scriptBodies(wide, async () => {
       await wide.goto("/");
       await scrollTo(wide, "about");
-      await expect(wide.locator("svg.mascot")).toBeVisible();
+      await expect(wide.locator(".mascot")).toBeVisible();
     });
-    expect(wideBodies.some((body) => body.includes("mascot-part"))).toBe(true);
+    expect(wideBodies.some((body) => body.includes("mascot-trail"))).toBe(true);
     await wide.close();
 
     const phone = await browser.newPage({ viewport: { width: 375, height: 812 } });
@@ -147,7 +163,7 @@ test.describe("mascot", () => {
       await phone.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       await phone.waitForLoadState("networkidle");
     });
-    expect(phoneBodies.some((body) => body.includes("mascot-part"))).toBe(false);
+    expect(phoneBodies.some((body) => body.includes("mascot-trail"))).toBe(false);
     await phone.close();
   });
 

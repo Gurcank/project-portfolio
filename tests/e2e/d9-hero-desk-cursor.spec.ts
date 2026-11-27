@@ -130,7 +130,9 @@ test.describe("custom cursor", () => {
     await page.locator("#cassette-atamap").hover();
     const pill = page.getByText("▶ Aç");
     await expect(pill).toHaveCSS("opacity", "1");
-    await expect(pill).toHaveAttribute("aria-hidden", "true");
+    // V7: the pill is one state of the cursor layer, which is decor as a whole
+    await expect(page.locator(".cursor-layer")).toHaveAttribute("aria-hidden", "true");
+    await expect(page.locator(".cursor-layer")).toHaveAttribute("data-cursor", "tape");
   });
 
   test("touch screens never get the pill", async ({ browser }) => {

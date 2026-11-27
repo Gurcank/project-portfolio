@@ -125,7 +125,8 @@ Tip ölçeği: akışkan; gövde 17–18 px; oran mobilde 1.25, masaüstünde 1.
 ### Boşluk ve ızgara
 - Ölçek (4 px taban): 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 192. Gerekçe: 16/32 px pixel sprite'larıyla aynı ızgara; adımlar ~1,5 kat büyüyerek hiyerarşi kurar.
 - Izgara: 4 / 8 / 12 sütun (375 / 768 / 1280). Kenar boşluğu 16 / 32 / 64 px. Okuma satırı en fazla ~70 karakter.
-- Pixel dekor yalnızca ≥ 1024 px'te ve kenar boşluklarında; mobilde yok.
+- Pixel dekor yalnızca ≥ 1024 px'te ve kenar boşluklarında; mobilde yok. **Tek istisna (v2, V3):** hero'daki pixel portre her ekranda görünür; dekor değil, kişiyi temsil ediyor ("ben kimim" cümlelerinin yanında, `aria-hidden`, bilgiyi cümleler taşır).
+- **v2 katmanları (V3–V8, 2026-11-27):** hero'da fotoğraftan çizilen 32 × 28 pixel portre ve iki "ben kimim" cümlesi · başlıklar kaydırmayla hafifçe girer, hero rol cümlesi kelime kelime gelir (intro oynamıyorsa) · ≥ 1024 px'te film greni, ilkelerin arkasında topografik çizgiler ve altında yürüyen pixel kalabalık, işler başlığından çarka kendini çizen ok · bitki maskotunun yerine sol kenarda okudukça aşağı yürüyen küçük avatar (İletişim'de el sallar, footer'da kampa bırakır) · Hakkımda'da Araçlar (logo + ad), üç proje polaroidi (ATAMap asla), walkman yerine CD çalar · bağlama göre 4 halli imleç (halka, yazıda çekilir, bağlantıda büyür, kasette "▶ Aç", footer'da yaprak izi) · footer'da gece manzarası, kamp ateşi, ziyaretçinin saatine göre gökyüzü. Hepsi reduced motion ve "hareketi durdur"da durur.
 
 ### Yerleşim akışı
 1. **Intro** (INS-01, INS-22): ≤ 2,5 sn, oturum başına bir kez, her tıklama/tuş atlatır. Kaset sayacı dönerken "Harita. Belgesel. El kitabı." → "Hepsi birer ürün." İçerik arkada render edilir (LCP beklemez). Mobilde ve reduced-motion'da yok.

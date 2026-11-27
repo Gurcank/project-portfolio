@@ -27,7 +27,7 @@ export function Contact({ profile, heading, labels }: ContactProps) {
         <DecorSlot name="contact-right" side="right" />
         <h2
           id="contact-heading"
-          className="font-display text-h1 font-black font-stretch-condensed xl:col-span-5"
+          className="reveal font-display text-h1 font-black font-stretch-condensed xl:col-span-5"
         >
           <Emphasis text={heading} />
         </h2>

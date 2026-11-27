@@ -1,0 +1,204 @@
+/*
+ * V5 · scroll and backgrounds (/animate). Everything here is decor or an entrance: content is fully
+ * readable without it. Each piece stops for reduced motion and for "pause motion" ([data-motion="paused"]);
+ * browsers without scroll timelines simply show the end state.
+ */
+
+/* ── Section headings: a short entrance as they arrive ───────────────────── */
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--spacing) * 6));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    :root:not([data-motion="paused"]) .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      /* Settled well before the heading reaches the middle of the screen: an entrance, not a reveal */
+      animation-range: entry 0% cover 25%;
+    }
+  }
+}
+
+/* ── Hero role line, word by word ───────────────────────────────────────── */
+
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--spacing) * 2));
+  }
+}
+
+.reveal-word {
+  display: inline-block;
+}
+
+/*
+ * Only when the intro is not playing: on a first desktop visit the intro curtain is already the
+ * entrance, and words fading in behind it would be wasted. The name (the LCP element) never animates.
+ */
+@media (width >= 64rem) and (prefers-reduced-motion: no-preference) {
+  :root[data-intro="done"]:not([data-motion="paused"]) .reveal-word {
+    animation: word-in var(--duration-slow) var(--ease-out) both;
+    animation-delay: calc(var(--word, 0) * var(--duration-fast) * 0.5);
+  }
+}
+
+/* ── Self-drawing arrows ───────────────────────────────────────────────── */
+
+@keyframes arrow-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+.drawn-arrow path {
+  stroke-dasharray: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    :root:not([data-motion="paused"]) .drawn-arrow path {
+      animation: arrow-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 45%;
+    }
+
+    /* The head is drawn after the shaft */
+    :root:not([data-motion="paused"]) .drawn-arrow path + path {
+      animation-range: cover 40% cover 50%;
+    }
+  }
+}
+
+/* ── Film grain over the whole page (sinema), wide screens only ─────────── */
+
+@media (width >= 64rem) {
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-indicator);
+    pointer-events: none;
+    background-image: var(--texture-grain);
+    opacity: var(--grain-opacity);
+  }
+}
+
+/* ── Contour lines behind the principles (yürüyüş: a trail map) ─────────── */
+
+.contours {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .contours {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: var(--z-behind);
+    pointer-events: none;
+    background-image:
+      repeating-radial-gradient(
+        ellipse at 85% 30%,
+        transparent 0 calc(var(--spacing) * 8),
+        var(--color-line) calc(var(--spacing) * 8) calc(var(--spacing) * 8.25)
+      ),
+      repeating-radial-gradient(
+        ellipse at 10% 85%,
+        transparent 0 calc(var(--spacing) * 6),
+        var(--color-line) calc(var(--spacing) * 6) calc(var(--spacing) * 6.25)
+      );
+    /* Lines fade out before the text column, so they never sit under a sentence at full strength */
+    mask-image: linear-gradient(to right, black, transparent 30%, transparent 70%, black);
+    opacity: var(--contour-opacity);
+  }
+}
+
+/* ── The crowd walking along the foot of the principles ───────────────── */
+
+@keyframes crowd-walk {
+  from {
+    transform: translateX(calc(var(--spacing) * -16));
+  }
+  to {
+    transform: translateX(calc(100cqw + var(--spacing) * 16));
+  }
+}
+
+/* Two frames: each sprite is shown for half a step, so exactly one is visible at a time */
+@keyframes crowd-frame-a {
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes crowd-frame-b {
+  0%,
+  49.99% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+
+.crowd {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .crowd {
+    display: block;
+    position: absolute;
+    inset-inline: 0;
+    bottom: calc(var(--spacing) * 6);
+    height: calc(var(--spacing) * 8);
+    overflow: hidden;
+    container-type: inline-size;
+    pointer-events: none;
+  }
+
+  .crowd-walker {
+    position: absolute;
+    bottom: 0;
+    left: var(--start);
+    /* 12 × 16 sprite at exactly 2×, so every pixel stays square */
+    width: calc(var(--spacing) * 6);
+    height: calc(var(--spacing) * 8);
+  }
+
+  .crowd-walker svg {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+  }
+}
+
+/* Still by default: the walkers stand where they are placed, on their first frame. They only walk
+   when motion is welcome */
+.crowd-walker svg + svg {
+  opacity: 0;
+}
+
+@media (width >= 64rem) and (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="paused"]) .crowd-walker {
+    left: 0;
+    animation: crowd-walk var(--pace) linear infinite;
+    animation-delay: var(--delay);
+  }
+
+  :root:not([data-motion="paused"]) .crowd-walker svg:first-child {
+    animation: crowd-frame-a var(--crowd-step) steps(1) infinite;
+  }
+
+  :root:not([data-motion="paused"]) .crowd-walker svg + svg {
+    animation: crowd-frame-b var(--crowd-step) steps(1) infinite;
+  }
+}

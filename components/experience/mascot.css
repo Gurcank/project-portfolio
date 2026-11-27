@@ -1,19 +1,27 @@
 /*
- * Mascot (D7, /animate): each leaf and the flower open with a short fade and grow from below.
- * Purpose: the reader notices the plant answering their scroll. Scroll-driven, never on its own.
- * Durations are tokens, so reduced motion and "pause motion" make every change instant.
+ * The avatar's journey (V5, /animate). A dashed trail runs down the left gutter between the dock's height
+ * and the pause control; the walker stands on it at the reader's progress (--walk, 0 → 1). Purpose: the
+ * reader sees how far through the page they are, carried by a small version of the person. Scroll-driven,
+ * never on its own: the position only changes while the reader scrolls.
  */
-.mascot-part {
-  opacity: 0;
-  transform: scale(0.6);
-  transform-box: fill-box;
-  transform-origin: bottom center;
-  transition:
-    opacity var(--duration-base) var(--ease-out),
-    transform var(--duration-base) var(--ease-out);
+.mascot {
+  height: 100svh;
+  width: calc(var(--spacing) * 8);
 }
 
-.mascot-part.is-open {
-  opacity: 1;
-  transform: none;
+.mascot-trail {
+  position: absolute;
+  top: calc(var(--spacing) * 24);
+  bottom: calc(var(--spacing) * 24);
+  left: calc(var(--spacing) * 3);
+  border-left: var(--focus-ring-width) dashed var(--color-line);
+}
+
+.mascot-walker {
+  position: absolute;
+  left: 0;
+  top: calc(
+    var(--spacing) * 24 + var(--walk, 0) * (100svh - var(--spacing) * 48 - var(--spacing) * 8)
+  );
+  transition: top var(--duration-base) var(--ease-out);
 }

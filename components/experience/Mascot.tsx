@@ -3,30 +3,38 @@
 import "@/components/experience/mascot.css";
 import { useEffect, useState } from "react";
 
-import { PixelLayer } from "@/components/pixel/PixelSprite";
-import { gridSize } from "@/components/pixel/pixel";
+import { PixelSprite } from "@/components/pixel/PixelSprite";
 import {
-  plantBase,
-  plantFlower,
-  plantLeaves,
-  plantPalette,
-} from "@/components/pixel/sprites/plant";
+  walkerPalette,
+  walkerStand,
+  walkerStepA,
+  walkerStepB,
+  walkerWave,
+} from "@/components/pixel/sprites/avatar";
 import { useActiveSection } from "@/lib/active-section";
 import { useMotionPaused } from "@/lib/experience-store";
 import { useMediaQuery } from "@/lib/use-media-query";
 
-// Reduced motion and "pause motion" keep one still pose (SPEC §8): the plant half grown, no flower
-const STILL_LEAVES = 3;
+// Pixels of scroll per step, and how long after the last scroll the walker stops and stands
+const STRIDE = 48;
+const REST_MS = 250;
 
-/** How far down the page the reader is, 0 → 1, updated at most once a frame. */
-function useReadProgress(): number {
-  const [progress, setProgress] = useState(0);
+/** How far down the page the reader is (0 → 1) and whether they are scrolling right now. */
+function useWalk() {
+  const [walk, setWalk] = useState({ progress: 0, step: 0, moving: false });
   useEffect(() => {
     let frame = 0;
+    let rest = 0;
     const measure = () => {
       frame = 0;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
+      setWalk({
+        progress: max > 0 ? Math.min(1, window.scrollY / max) : 0,
+        step: Math.floor(window.scrollY / STRIDE) % 2,
+        moving: true,
+      });
+      window.clearTimeout(rest);
+      rest = window.setTimeout(() => setWalk((now) => ({ ...now, moving: false })), REST_MS);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(measure);
@@ -36,50 +44,60 @@ function useReadProgress(): number {
     return () => {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(frame);
+      window.clearTimeout(rest);
     };
   }, []);
-  return progress;
+  return walk;
+}
+
+/** True once the footer's camp (V8) is on screen: there the sitting avatar takes over from the walker. */
+function useAtCamp() {
+  const [atCamp, setAtCamp] = useState(false);
+  useEffect(() => {
+    const camp = document.querySelector(".nature");
+    if (!camp) return;
+    const observer = new IntersectionObserver(([entry]) => setAtCamp(!!entry?.isIntersecting), {
+      // Almost the whole camp: Contact sits just above it, and the walker waves there first
+      threshold: 0.95,
+    });
+    observer.observe(camp);
+    return () => observer.disconnect();
+  }, []);
+  return atCamp;
 }
 
 /**
- * The mascot (SPEC §8, INS-20 + INS-26): a potted plant above the section indicator that opens a leaf
- * as the page is read and flowers in Contact. Decor, so hidden from assistive tech and never clickable.
- * Loaded only on desktop (MascotLoader), and not over the hero, where the first screen stays clean.
+ * The avatar's journey (V5, INS-20; replaces the D7 plant): a small pixel Gürcan walks down a trail in
+ * the left gutter as the page is read, one step per stretch of scroll, stands when the reader stops and
+ * waves in Contact. In the footer the camp scene takes over (V8). Decor: hidden from assistive tech and
+ * never clickable. Loaded only on wide screens (MascotLoader), and not over the hero.
+ * Reduced motion and "pause motion": it stands still at the foot of the trail.
  */
 export default function Mascot() {
   const section = useActiveSection();
-  const progress = useReadProgress();
+  const { progress, step, moving } = useWalk();
   const paused = useMotionPaused();
   const reduce = useMediaQuery("(prefers-reduced-motion: reduce)");
   const still = paused || reduce;
+  const atCamp = useAtCamp();
 
-  if (section === "top") return null;
-  const { width, height } = gridSize(plantBase);
-  const leaves = still ? STILL_LEAVES : Math.round(progress * plantLeaves.length);
-  const flowering = !still && section === "contact";
+  if (section === "top" || atCamp) return null;
+  const waving = !still && section === "contact";
+  const pose = still || !moving ? walkerStand : step ? walkerStepB : walkerStepA;
 
   return (
-    <svg
-      viewBox={`0 0 ${width} ${height}`}
-      shapeRendering="crispEdges"
+    <div
       aria-hidden="true"
-      focusable="false"
-      className="mascot pointer-events-none fixed bottom-24 left-2 z-(--z-indicator) w-12"
+      data-pose={waving ? "wave" : pose === walkerStand ? "stand" : "step"}
+      className="mascot pointer-events-none fixed top-0 left-2 z-(--z-indicator)"
+      style={{ ["--walk" as string]: still ? 1 : progress }}
     >
-      <PixelLayer grid={plantBase} palette={plantPalette} />
-      {plantLeaves.map((leaf, i) => (
-        <PixelLayer
-          key={i}
-          grid={leaf}
-          palette={plantPalette}
-          className={i < leaves ? "mascot-part is-open" : "mascot-part"}
-        />
-      ))}
-      <PixelLayer
-        grid={plantFlower}
-        palette={plantPalette}
-        className={flowering ? "mascot-part is-open" : "mascot-part"}
+      <span className="mascot-trail" />
+      <PixelSprite
+        grid={waving ? walkerWave : pose}
+        palette={walkerPalette}
+        className="mascot-walker w-6"
       />
-    </svg>
+    </div>
   );
 }

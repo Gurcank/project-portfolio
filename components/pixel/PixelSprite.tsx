@@ -1,4 +1,4 @@
-import { gridSize, pixelRects, type PixelGrid, type PixelPalette } from "@/components/pixel/pixel";
+import { gridSize, pixelPaths, type PixelGrid, type PixelPalette } from "@/components/pixel/pixel";
 
 type PixelLayerProps = {
   grid: PixelGrid;
@@ -6,19 +6,15 @@ type PixelLayerProps = {
   className?: string;
 };
 
-/** One layer of a sprite as <rect>s, for sprites whose parts change separately (the plant's leaves). */
+/**
+ * One layer of a sprite, one path per colour, for sprites whose parts change separately (the plant's
+ * leaves).
+ */
 export function PixelLayer({ grid, palette, className }: PixelLayerProps) {
   return (
     <g className={className}>
-      {pixelRects(grid, palette).map((rect) => (
-        <rect
-          key={`${rect.x}-${rect.y}`}
-          x={rect.x}
-          y={rect.y}
-          width={rect.width}
-          height={1}
-          className={rect.fill}
-        />
+      {pixelPaths(grid, palette).map(({ fill, d }) => (
+        <path key={fill} d={d} className={fill} />
       ))}
     </g>
   );

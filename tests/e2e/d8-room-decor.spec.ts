@@ -127,7 +127,7 @@ test.describe("About pattern", () => {
   test("lighter than the tone, so the accent notes over it stay AA", async ({ page }) => {
     await decorLoaded(page);
     const [pattern, accent, tone] = await page.evaluate(() => {
-      const rect = document.querySelector("#about-decor-pattern rect")!;
+      const rect = document.querySelector("#about-decor-pattern path")!;
       const probe = document.createElement("span");
       probe.style.color = "var(--color-accent)";
       probe.style.backgroundColor = "var(--color-paper)";

@@ -1,7 +1,9 @@
 import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { DeskTicket } from "@/components/hero/DeskTicket";
 import { HeroDeskLoader } from "@/components/hero/HeroDeskLoader";
-import { Emphasis } from "@/components/markdown/Emphasis";
+import { RevealWords } from "@/components/markdown/RevealWords";
+import { PixelSprite } from "@/components/pixel/PixelSprite";
+import { avatarPalette, avatarPortrait } from "@/components/pixel/sprites/avatar";
 import type { SiteCopy } from "@/lib/content";
 import { splitLabel } from "@/lib/text";
 
@@ -46,8 +48,23 @@ export function Hero({ name, copy }: HeroProps) {
       </h1>
 
       <p className="mt-6 max-w-prose text-lead md:mt-8 md:text-h3">
-        <Emphasis text={copy.role} />
+        <RevealWords text={copy.role} />
       </p>
+
+      {/* V3 "who am I": the pixel portrait is the one pixel piece shown on every screen size (SPEC §8),
+          because it stands for the person, not the room. Decorative: the sentences say who it is */}
+      <div className="mt-8 flex max-w-prose items-start gap-4 md:mt-12 md:gap-6">
+        <PixelSprite
+          grid={avatarPortrait}
+          palette={avatarPalette}
+          className="avatar-portrait w-16 shrink-0 md:w-24"
+        />
+        <div className="flex flex-col gap-2 text-body text-ink-muted">
+          {copy.whoami.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
+      </div>
 
       <div className="relative mt-8 flex flex-wrap gap-3 md:mt-12">
         {/* Desktop: the moving desk starts level with the CTAs, so it is always below the name and the

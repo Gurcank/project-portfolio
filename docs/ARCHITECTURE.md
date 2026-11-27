@@ -310,9 +310,13 @@ project-portfolio/
 │  ├─ case-study/    # CaseStudyOverlay (client), Tracklist, Track, Reels, LinerNotes
 │  ├─ markdown/      # Markdown (react-markdown + eşleme), ProjectChip, DecisionLabel
 │  ├─ experience/    # ExperienceProvider, ExperienceBoundary, MotionToggle,
-│  │                 # SectionIndicator, JCardMenu, ToneController, Mascot, Walkman,
-│  │                 # CustomCursor, HeroDesk, Intro, PixelDecor
-│  ├─ pixel/         # PixelSprite + sprites/ (plant, walkman, stamps, vhs, record)
+│  │                 # Dock, ToneController, Mascot (V5: yürüyen avatar), CdPlayer (V6),
+│  │                 # Cursor (V7), HeroDesk, Intro, PixelDecor
+│  ├─ pixel/         # PixelSprite (bir renk = bir path) + sprites/ (avatar, plant, cd-player, stamps…)
+│  ├─ works/         # V4 WorksWheel (çark / şerit / ızgara)
+│  ├─ decor/         # V5 DrawnArrow, PrinciplesCrowd (sunucu bileşeni, yalnız CSS hareket)
+│  ├─ about/         # V6 ToolList (logolar public/tools/*.svg, CSS mask), Polaroids
+│  ├─ footer/        # V8 NatureScene, landscape.ts (build'de üretilen manzara), SkyClock
 │  ├─ respect/       # AtaturkPortrait, TurkishFlag (hareket API'si yok)
 │  └─ ui/            # shadcn kopyaları (dialog, button…)
 ├─ content/

@@ -1,3 +1,5 @@
+import { Polaroids } from "@/components/about/Polaroids";
+import { ToolList } from "@/components/about/ToolList";
 import "@/components/sections/about.css";
 import { Fragment } from "react";
 
@@ -88,7 +90,7 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
         <DecorSlot name="about-left" side="left" />
         <h2
           id="about-heading"
-          className="font-display text-h1 font-black font-stretch-condensed lg:col-span-12"
+          className="reveal font-display text-h1 font-black font-stretch-condensed lg:col-span-12"
         >
           {heading}
         </h2>
@@ -144,6 +146,8 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
               </div>
             ))}
           </dl>
+
+          <ToolList heading={about.tools.heading} items={about.tools.items} />
         </div>
 
         {portrait && (
@@ -152,6 +156,9 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
             <TurkishFlag label={about.flagLabel} className="w-full rounded-sm" />
           </aside>
         )}
+
+        {/* A row of its own under the story, never beside the portrait and flag (SPEC §6) */}
+        <Polaroids projects={projects} />
       </div>
     </section>
   );

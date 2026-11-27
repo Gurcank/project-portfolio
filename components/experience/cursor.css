@@ -1,0 +1,74 @@
+/*
+ * Cursor system (V7, /animate). Purpose: the pointer answers what it is over, so the page feels handled
+ * rather than clicked. The follower is offset by its own half size, so its centre is the pointer's tip.
+ * Shape changes ease with tokens; reduced motion collapses them to instant.
+ */
+.cursor-layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+}
+
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--spacing) * 8);
+  height: calc(var(--spacing) * 8);
+  margin: calc(var(--spacing) * -4) 0 0 calc(var(--spacing) * -4);
+  border: var(--focus-ring-width) solid var(--color-accent);
+  border-radius: var(--radius-full);
+  opacity: 0.6;
+  transition:
+    width var(--duration-base) var(--ease-out),
+    height var(--duration-base) var(--ease-out),
+    margin var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
+}
+
+/* Over text the I-beam does the job: the ring steps aside */
+[data-cursor="text"] .cursor-ring,
+[data-cursor="tape"] .cursor-ring,
+[data-cursor="leaf"] .cursor-ring {
+  opacity: 0;
+}
+
+[data-cursor="link"] .cursor-ring {
+  width: calc(var(--spacing) * 12);
+  height: calc(var(--spacing) * 12);
+  margin: calc(var(--spacing) * -6) 0 0 calc(var(--spacing) * -6);
+  opacity: 1;
+}
+
+.cursor-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 3);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+[data-cursor="tape"] .cursor-pill {
+  opacity: 1;
+}
+
+/* Footer: small square leaves, the trail fades from the pointer back */
+.cursor-leaf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--spacing) * 2);
+  height: calc(var(--spacing) * 2);
+  margin: calc(var(--spacing) * -1) 0 0 calc(var(--spacing) * -1);
+  background-color: var(--color-cassette-olive);
+  opacity: 0;
+}
+
+.cursor-leaf:nth-child(even) {
+  background-color: var(--color-cassette-mustard);
+}

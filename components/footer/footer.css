@@ -1,0 +1,99 @@
+/*
+ * Nature footer (V8, /animate). Two small motions, both with a purpose and both stoppable: the fire
+ * flickers (the camp is lit, someone is there) and a third of the stars twinkle (it is a real night sky).
+ * Reduced motion and "pause motion" leave the fire on its first frame and the stars steady.
+ */
+.nature {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .nature {
+    display: block;
+    position: relative;
+    aspect-ratio: 6 / 1;
+    isolation: isolate;
+  }
+}
+
+/* The glow behind the hills: none at night, warm at dawn and dusk, bright by day */
+.nature::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-behind);
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-in-out);
+}
+
+.nature[data-sky="dawn"]::before {
+  opacity: 1;
+  background: linear-gradient(to top, var(--color-cassette-rose), transparent 70%);
+}
+
+.nature[data-sky="dusk"]::before {
+  opacity: 1;
+  background: linear-gradient(to top, var(--color-cassette-terracotta), transparent 70%);
+}
+
+.nature[data-sky="day"]::before {
+  opacity: 1;
+  background: linear-gradient(to top, var(--color-cassette-midnight), transparent 80%);
+}
+
+.nature-sun,
+.nature-moon,
+.nature-stars {
+  opacity: 0;
+}
+
+.nature[data-sky="day"] .nature-sun,
+.nature[data-sky="dawn"] .nature-sun,
+.nature[data-sky="night"] .nature-moon,
+.nature[data-sky="night"] .nature-stars,
+.nature[data-sky="dusk"] .nature-stars {
+  opacity: 1;
+}
+
+.fire-b {
+  opacity: 0;
+}
+
+@keyframes fire-a {
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fire-b {
+  0%,
+  49.99% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="paused"]) .fire-a {
+    animation: fire-a var(--crowd-step) steps(1) infinite;
+  }
+
+  :root:not([data-motion="paused"]) .fire-b {
+    animation: fire-b var(--crowd-step) steps(1) infinite;
+  }
+
+  :root:not([data-motion="paused"]) .nature[data-sky="night"] .nature-twinkle,
+  :root:not([data-motion="paused"]) .nature[data-sky="dusk"] .nature-twinkle {
+    animation: twinkle calc(var(--crowd-step) * 6) var(--ease-in-out) infinite;
+  }
+}

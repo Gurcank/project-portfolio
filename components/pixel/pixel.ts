@@ -18,6 +18,16 @@ export const pixelFill = {
   midnight: "fill-cassette-midnight",
   rose: "fill-cassette-rose",
   terracotta: "fill-cassette-terracotta",
+  skin: "fill-skin",
+  skinShade: "fill-skin-shade",
+  ridgeFar: "fill-ridge-far",
+  ridgeNear: "fill-ridge-near",
+  forest: "fill-forest",
+  inkNight: "fill-ink-night",
+  timeNight: "fill-time-night",
+  /** The surrounding text colour: one drawing, recoloured per use (the principles crowd) */
+  current: "fill-current",
+  accentNight: "fill-accent-night",
 } as const;
 
 export type PixelFill = (typeof pixelFill)[keyof typeof pixelFill];
@@ -47,4 +57,20 @@ export function pixelRects(grid: PixelGrid, palette: PixelPalette): PixelRect[] 
     }
   });
   return rects;
+}
+
+/**
+ * The same runs as one path per colour: `M x y h w v1 h-w z` per run. A sprite becomes a handful of
+ * elements instead of one <rect> per run, which matters because server-drawn sprites are sent twice
+ * (in the HTML and again in the RSC payload).
+ */
+export function pixelPaths(
+  grid: PixelGrid,
+  palette: PixelPalette,
+): { fill: PixelFill; d: string }[] {
+  const byFill = new Map<PixelFill, string>();
+  for (const { x, y, width, fill } of pixelRects(grid, palette)) {
+    byFill.set(fill, `${byFill.get(fill) ?? ""}M${x} ${y}h${width}v1h-${width}z`);
+  }
+  return [...byFill].map(([fill, d]) => ({ fill, d }));
 }

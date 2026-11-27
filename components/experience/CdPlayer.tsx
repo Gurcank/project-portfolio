@@ -3,14 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 
 import { PixelSprite } from "@/components/pixel/PixelSprite";
-import { walkmanFrames, walkmanPalette } from "@/components/pixel/sprites/walkman";
+import { cdPlayerFrames, cdPlayerPalette } from "@/components/pixel/sprites/cd-player";
 import type { SiteCopy } from "@/lib/content";
 import { useMotionPaused } from "@/lib/experience-store";
 import { fillTemplate } from "@/lib/hash-route";
 import { useMediaQuery } from "@/lib/use-media-query";
 import { pickNext, type WalkmanItem } from "@/lib/walkman";
 
-type WalkmanProps = {
+type CdPlayerProps = {
   items: WalkmanItem[];
   labels: SiteCopy["microcopy"]["walkman"];
   /**
@@ -21,17 +21,18 @@ type WalkmanProps = {
   placement: "fixed" | "inline";
 };
 
-// The reels turn for a moment when it plays: enough to say "pressed", short of a loop
-const SPIN_FRAMES = 6;
+// The disc turns for a moment when it plays (two full turns): enough to say "pressed", short of a loop
+const SPIN_FRAMES = 8;
 const FRAME_MS = 100;
-// The fixed walkman's suggestion floats over the page, so it leaves after a while (already announced)
+// The fixed player's suggestion floats over the page, so it leaves after a while (already announced)
 const BUBBLE_MS = 8000;
 
 /**
- * The walkman (SPEC §6, INS-12): press it for a random film or song from my list, never the same twice
- * in a row. Not decor: a real button with its own name, and the suggestion is announced politely.
+ * The CD player (V6; the D7 walkman before it, SPEC §6, INS-12): press it for a random film or song
+ * from my list, never the same twice in a row. Not decor: a real button with its own name, and the
+ * suggestion is announced politely.
  */
-export function Walkman({ items, labels, placement }: WalkmanProps) {
+export function CdPlayer({ items, labels, placement }: CdPlayerProps) {
   const [index, setIndex] = useState<number | null>(null);
   const [empty, setEmpty] = useState(false);
   const [frame, setFrame] = useState(0);
@@ -62,7 +63,7 @@ export function Walkman({ items, labels, placement }: WalkmanProps) {
     let step = 0;
     spin.current = window.setInterval(() => {
       step += 1;
-      setFrame(step % 2);
+      setFrame(step % cdPlayerFrames.length);
       if (step >= SPIN_FRAMES) window.clearInterval(spin.current);
     }, FRAME_MS);
   }
@@ -80,7 +81,7 @@ export function Walkman({ items, labels, placement }: WalkmanProps) {
           : "flex flex-wrap items-center gap-4 xl:hidden"
       }
     >
-      {/* Polite live region: read once, without interrupting; visually a small label beside the walkman */}
+      {/* Polite live region: read once, without interrupting; visually a small label beside the player */}
       <p
         aria-live="polite"
         className={
@@ -108,7 +109,7 @@ export function Walkman({ items, labels, placement }: WalkmanProps) {
           fixed ? "" : "order-first"
         }`}
       >
-        <PixelSprite grid={walkmanFrames[frame]!} palette={walkmanPalette} className="w-12" />
+        <PixelSprite grid={cdPlayerFrames[frame]!} palette={cdPlayerPalette} className="w-12" />
       </button>
     </div>
   );

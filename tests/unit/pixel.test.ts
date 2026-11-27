@@ -1,6 +1,14 @@
+import { existsSync, readFileSync } from "node:fs";
+
 import { describe, expect, it } from "vitest";
 
-import { gridSize, pixelRects, pixelFill, type PixelGrid } from "@/components/pixel/pixel";
+import {
+  gridSize,
+  pixelFill,
+  pixelPaths,
+  pixelRects,
+  type PixelGrid,
+} from "@/components/pixel/pixel";
 import {
   plantBase,
   plantFlower,
@@ -8,7 +16,18 @@ import {
   plantPalette,
 } from "@/components/pixel/sprites/plant";
 import { stampPalette, stampSprites } from "@/components/pixel/sprites/stamps";
-import { walkmanFrames, walkmanPalette } from "@/components/pixel/sprites/walkman";
+import { toolSlug } from "@/components/about/ToolList";
+import {
+  avatarPalette,
+  avatarPortrait,
+  walkerPalette,
+  walkerSitting,
+  walkerStand,
+  walkerStepA,
+  walkerStepB,
+  walkerWave,
+} from "@/components/pixel/sprites/avatar";
+import { cdPlayerFrames, cdPlayerPalette } from "@/components/pixel/sprites/cd-player";
 
 const sprites: [string, PixelGrid, Record<string, string>][] = [
   ["plant base", plantBase, plantPalette],
@@ -18,11 +37,17 @@ const sprites: [string, PixelGrid, Record<string, string>][] = [
     leaf,
     plantPalette,
   ]),
-  ...walkmanFrames.map((frame, i): [string, PixelGrid, Record<string, string>] => [
-    `walkman ${i + 1}`,
+  ...cdPlayerFrames.map((frame, i): [string, PixelGrid, Record<string, string>] => [
+    `cd player ${i + 1}`,
     frame,
-    walkmanPalette,
+    cdPlayerPalette,
   ]),
+  ["avatar portrait", avatarPortrait, avatarPalette],
+  ["walker stand", walkerStand, walkerPalette],
+  ["walker step A", walkerStepA, walkerPalette],
+  ["walker step B", walkerStepB, walkerPalette],
+  ["walker wave", walkerWave, walkerPalette],
+  ["walker sitting", walkerSitting, walkerPalette],
   ...Object.entries(stampSprites).map(
     ([name, grid]): [string, PixelGrid, Record<string, string>] => [
       `stamp ${name}`,
@@ -38,6 +63,13 @@ describe("pixelRects", () => {
       { x: 0, y: 0, width: 2, fill: "fill-ink" },
       { x: 2, y: 0, width: 1, fill: "fill-paper" },
       { x: 4, y: 0, width: 1, fill: "fill-ink" },
+    ]);
+  });
+
+  it("draws one path per colour from the same runs", () => {
+    expect(pixelPaths(["aab.a", ".a"], { a: pixelFill.ink, b: pixelFill.paper })).toEqual([
+      { fill: "fill-ink", d: "M0 0h2v1h-2zM4 0h1v1h-1zM1 1h1v1h-1z" },
+      { fill: "fill-paper", d: "M2 0h1v1h-1z" },
     ]);
   });
 
@@ -75,4 +107,20 @@ it("every stamp is 16 × 18 and the list matches velite.config.ts", () => {
     "datca",
     "blacksea",
   ]);
+});
+
+it("the walker frames share one size, so swapping them never jumps", () => {
+  for (const grid of [walkerStepA, walkerStepB, walkerWave])
+    expect(gridSize(grid)).toEqual(gridSize(walkerStand));
+  expect(gridSize(walkerStand)).toEqual({ width: 12, height: 16 });
+});
+
+it("every tool named in the content has a logo", () => {
+  for (const locale of ["tr", "en"]) {
+    const yaml = readFileSync(`content/site/${locale}.yaml`, "utf8");
+    const line = /\n {4}items: \[([^\]]+)\]/.exec(yaml.slice(yaml.indexOf("  tools:")))?.[1];
+    expect(line, locale).toBeTruthy();
+    for (const name of line!.split(",").map((item) => item.trim()))
+      expect(existsSync(`public/tools/${toolSlug(name)}.svg`), name).toBe(true);
+  }
 });

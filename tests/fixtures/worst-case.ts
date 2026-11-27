@@ -69,6 +69,11 @@ export const worstCopy: SiteCopy = {
     // 23 characters (limit 24), 3 words
     primaryCta: "Benimle iletişime geçin",
     secondaryCta: "Bütün işlerime bak",
+    // 136 and 132 characters, limit 140
+    whoami: [
+      "Ben Gürcan Karadağ. Şu an Erasmus+ programıyla Łódź'dayım; Şubat 2027'de İstanbul'a dönüp ürün yönetiminde tam zamanlı çalışmak isterim.",
+      "Doğa yürüyüşleri, psikoloji, sinema, retro objeler ve müzik: ürünlere bakışım, kullanıcıyı dinleme alışkanlığım hep buradan geliyor.",
+    ],
     intro: {
       words: ["Haritalar.", "Belgeseller.", "El kitapları."],
       closing: "Hepsi gerçekten birer ürün.",
@@ -139,6 +144,24 @@ export const worstCopy: SiteCopy = {
         { label: "Dil", items: "İngilizce (B2)" },
       ],
     },
+    // 12 tools, the limit
+    tools: {
+      heading: "Kullandığım araçlar",
+      items: [
+        "Jira",
+        "Figma",
+        "Miro",
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Supabase",
+        "Vercel",
+        "Claude",
+        "Jira",
+        "Figma",
+        "Miro",
+      ],
+    },
     // 119 characters, limit 120
     portraitCaption:
       "Mustafa Kemal Atatürk, 1922. Fotoğraf: Agence Meurisse · Kaynak: Bibliothèque nationale de France (Gallica, 2158 A)",
@@ -177,7 +200,7 @@ export const worstCopy: SiteCopy = {
       },
     },
     walkman: {
-      label: "Walkman: bu akşam için rastgele bir film ya da şarkı öner",
+      label: "CD çalar: bu akşam için rastgele bir film ya da şarkı öner",
       result: "▶ Öneri: {title} ({year}) · {kind}",
       kinds: { film: "uzun film", song: "şarkı önerisi" },
       empty: "Kaset şu an başa sarıyor; biraz bekle ve bir daha bas.",

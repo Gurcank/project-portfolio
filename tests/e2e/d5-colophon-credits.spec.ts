@@ -20,7 +20,7 @@ test.describe("colophon and credits", () => {
   test("credits are grouped by kind, and no group is empty", async ({ page }) => {
     await page.goto("/");
     const groups = page.locator("#credits section");
-    await expect(groups.locator("h4")).toHaveText(["Fontlar", "Fotoğraf", "Yapay zekâ"]);
+    await expect(groups.locator("h4")).toHaveText(["Fontlar", "Fotoğraf", "Logolar", "Yapay zekâ"]);
     for (const group of await groups.all()) {
       expect(await group.locator("li").count()).toBeGreaterThan(0);
     }

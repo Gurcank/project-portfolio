@@ -54,7 +54,8 @@ components/
   sections/          Hero, Shelf, Principles, About, Colophon, Contact
   cassette/ case-study/ markdown/
   experience/        client-only layers, each inside ExperienceBoundary
-  pixel/             PixelSprite + sprites/ (string grids → SVG, palette tokens only)
+  pixel/             PixelSprite + sprites/ (string grids → SVG paths, palette tokens only)
+  works/ decor/ about/ footer/   v2 pieces: works wheel, crowd + arrow, tools + polaroids, nature footer
   respect/           Atatürk portrait, Turkish flag — no motion or hover props, ever
   ui/                shadcn copies
 content/             all site data (Velite) — see below
@@ -86,7 +87,7 @@ Generated, never committed: `.velite/`, `public/static/`, `artifacts/`, `.next/`
 
 - TR and EN always ship together; a missing translation fails the build.
 - Uppercase mono labels must sit under the right `lang` (Turkish i/İ). English identifiers inside TR pages get `lang="en"`.
-- Decor is `aria-hidden` and never carries information. Pixel decor only at ≥ 1024px.
+- Decor is `aria-hidden` and never carries information. Pixel decor only at ≥ 1024px (exception: the hero's pixel portrait, V3).
 - Experience layers (mascot, cursor, decor, intro, hero desk) load conditionally and live inside `ExperienceBoundary`; content must work if they fail.
 - Motion respects `prefers-reduced-motion` and `[data-motion="paused"]`; no auto motion > 5s before the pause control exists (D7).
 - ATAMap: no humor, no margin notes, no walkman.

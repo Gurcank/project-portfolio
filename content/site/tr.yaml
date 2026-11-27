@@ -15,6 +15,10 @@ hero:
   label: PRODUCT MANAGER ADAYI · İSTANBUL · ● ŞUBAT 2027'DEN İTİBAREN MÜSAİT
   primaryCta: Bana yaz
   secondaryCta: İşlere bak
+  # V3 (CONTENT §4): beside the pixel avatar
+  whoami:
+    - "Ben Gürcan. Şu an Erasmus+ ile Łódź'dayım; Şubat 2027'de İstanbul'a dönüp ürün yönetiminde çalışmak istiyorum."
+    - "Doğa yürüyüşleri, psikoloji, sinema ve müzik: ürünlere bakışım buradan geliyor."
   intro:
     words: [Harita., Belgesel., El kitabı.]
     closing: Hepsi birer ürün.
@@ -37,14 +41,16 @@ colophon: >-
   indirdim: odamdaki raf, rafta yedi kaset. Kod, tasarım ve metin, Claude ile birlikte çalıştığım fazlı bir
   akışta ilerledi. Her faz bir dokümanla bitti, her karar gerekçesiyle yazıldı. Vazgeçtiklerim de karar:
   telifli film posteri ve albüm kapağı kullanmadım; illüstre bir oda sahnesi yerine koddan üretilen pixel
-  nesneler seçtim; kilim temasını turistik durma riski yüzünden bıraktım. Kullandığım her font, fotoğraf ve
-  görselin kaynağı aşağıda.
+  nesneler seçtim; kilim temasını turistik durma riski yüzünden bıraktım. Sonra siteyi baştan düşündüm:
+  gün ışığından geceye akan renkler, sayfayla dönen bir iş çarkı ve fotoğrafımdan kodla çizilen bir pixel
+  avatar. Kullandığım her font, fotoğraf ve görselin kaynağı aşağıda.
 
 credits:
   heading: Krediler
   groups:
     font: Fontlar
     photo: Fotoğraf
+    asset: Logolar
     ai: Yapay zekâ
 
 principlesOpening: Ne yaptığımdan çok, nasıl karar verdiğim anlatır beni.
@@ -83,6 +89,10 @@ about:
         items: HTML, CSS, JavaScript, TypeScript, React, Next.js, SQL, veritabanı tasarımı
       - label: Dil
         items: İngilizce (B2)
+  # V6 (CONTENT §6): logos from Simple Icons, keyed by these names (components/about/tool-icons.ts)
+  tools:
+    heading: Araçlar
+    items: [Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude]
   portraitCaption: "Mustafa Kemal Atatürk, 1922. Fotoğraf: Agence Meurisse · Kaynak: Bibliothèque nationale de France"
   flagLabel: Türk bayrağı
 
@@ -119,7 +129,7 @@ microcopy:
           note: Erasmus+, Şubat 2027'ye kadar
           timeZone: Europe/Warsaw
   walkman:
-    label: "Walkman: rastgele bir film ya da şarkı öner"
+    label: "CD çalar: rastgele bir film ya da şarkı öner"
     result: "▶ {title} ({year}) · {kind}"
     kinds:
       film: film

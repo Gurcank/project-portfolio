@@ -1,9 +1,20 @@
 # PROGRESS
 
-## Durum: V4 (iş çarkı) canlıda (2026-11-27, `c22afea`). Sıradaki v2 dilimi: V3 ben kimim + pixel avatar (fotoğraf gerekli). Kalan, kullanıcıdan: pixel avatar için fotoğraf, Umami ID, 30 sn testi, ekran okuyucu turu. PSI ölçümü kota açılınca
+## Durum: V3–V9 (kalan v2 dilimleri) yerelde tamam, `slice/v2-rest` dalında, commit onayı bekliyor. Canlıda V4 (`c22afea`). Kalan, kullanıcıdan: Umami ID, 30 sn testi, ekran okuyucu turu, IDDDergi adresi. PSI ölçümü kota açılınca
 
 **Canlı:** https://gurcankaradag.vercel.app (V4, commit `c22afea`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `main` (V4 fast-forward ile merge edildi).
+**Branch:** `slice/v2-rest` (commit edilmedi).
+
+### V3–V9 · Kalan v2 dilimleri (yerelde)
+
+- **Kullanıcı isteği (2026-11-27):** "kalanların tamamını tek seferde yap" + pixel avatar için portre fotoğrafı. Plan ve metin taslakları onaylandı; tek dal, dilim başına commit, tek preview.
+- **V3 · Ben kimim:** `scripts/make-avatar.ts` fotoğrafı ten/gölge/dudak/mürekkep renklerine indirger; çıkan ızgara elle temizlendi (`components/pixel/sprites/avatar.ts`: 32 × 28 portre, 12 × 16 yürüyen üç kare, oturan poz). Fotoğraf repoda yok. Yeni token'lar `--color-skin` #E4B8A0, `--color-skin-shade` #C18A72 (fotoğraftan ölçüldü). Hero'da portre + iki cümle (CONTENT §4); "Bana yaz" 375 × 667 dahil ilk ekranda (d1 geçiyor). Portre her ekranda: pixel dekor kuralına tek istisna (SPEC §8).
+- **V5 · Kaydırma:** `styles/scroll.css`. Bölüm başlıkları `animation-timeline: view()` ile girer (desteklemeyen tarayıcı son hâli görür; Motion yedeği yazılmadı); hero rol cümlesi kelime kelime (yalnız ≥ 1024, intro oynamıyorsa; isim/LCP hareketsiz); ≥ 1024'te film greni (`--texture-grain`, %7), ilkelerin arkasında topografik çizgiler, ilkelerin altında 5 kişilik yürüyen kalabalık (yalnız CSS, `<symbol>`/`<use>` ile tek çizim), işler başlığından çarka kendini çizen ok. Bitki maskotu yerine sol kenarda kesikli patika üzerinde okudukça yürüyen avatar (adım kareleri kaydırmayla, durunca durur, İletişim'de el sallar, footer kampı %95 görününce çekilir). 404'teki bitki aynı.
+- **V6 · Hakkımda:** Araçlar (Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude; Simple Icons 16.38.1, CC0; `public/tools/*.svg`, CSS mask ile metin renginde, `aria-hidden`), üç proje polaroidi (ErasmusMap, Nature & Sport, İklim Krizi; ATAMap asla; ≥ 1024, dekor), walkman → CD çalar (16 × 16 holografik disk, 4 kare dönüş; liste ve davranış aynı, ad "CD çalar: …"). Krediler'e "Logolar" grubu. GitHub grafiği ertelendi (token gerekiyor).
+- **V7 · İmleç:** `Cursor.tsx` (eski "▶ Aç" hapı yerine): yumuşak halka, yazıda çekilir, bağlantıda büyür, kasette/çark kartında "▶ Aç", footer'da yaprak izi. Yalnız ince işaretçi + ≥ 1024; dokunmatikte yok; reduced motion/durdurulmuşta halka ve iz yok, yalnız hap.
+- **V8 · Doğa footer:** `NatureScene` + `landscape.ts` (build'de tohumlu üretim: uzak ve yakın sırt, çam sembolleri, 42 yıldız), kamp ateşi (2 kare titreme), ateşin başında oturan avatar, `SkyClock` ile ziyaretçinin saatine göre gökyüzü (şafak/gündüz/akşam/gece). Yeni token'lar `--color-ridge-far/near`, `--color-forest`. ≥ 1024, `aria-hidden`.
+- **V9 · Kalite:** Colophon'a v2 cümlesi (TR/EN, CONTENT §7; commit öncesi onaya sunuldu). `PixelLayer` artık renk başına tek path (sunucu sprite'ları HTML + RSC'de iki kez gidiyor). Ağırlık: ilk yük JS 235,6 → 236,4 KB gzip (+0,8); ana sayfa HTML gzip 40,8 (canlı V4) → 50,8 KB (+10; çoğu portre, kalabalık sembolleri, manzara, CD çalar). PSI yapılmadı (canlı adres bu dalı göstermiyor, preview korumalı). d9 flake'inin kökü araştırılmadı.
+- **Testler:** `v2-rest.spec.ts` (22 test: V3 portre + cümleler + EN + rol cümlesi tek metin; V5 başlık girişi, kalabalık + reduced motion + durdur, telefonda katman yok; V6 Araçlar 9 logo + mask dosyası, polaroidler ≥ 1024 + ATAMap yok, CD çalar EN, axe; V7 4 hal, reduced motion, dokunmatik; V8 sahne + axe, 4 saat dilimi, durdurulmuşta ateş, telefonda yok). Güncellenen: d1 (şehir/tarih etikette aranıyor), d5 (Logolar grubu), d7 (CD çalar adı; bitki testleri yürüyen avatar testleriyle değişti), d8 (pattern `path`), d9 (hap imleç katmanında), unit (yeni sprite'lar, `pixelPaths`, her aracın logosu var).
 
 ### V4 · İş çarkı (canlıda)
 

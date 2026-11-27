@@ -1,4 +1,5 @@
 import "@/components/sections/principles.css";
+import { PrinciplesCrowd } from "@/components/decor/PrinciplesCrowd";
 import { DecorSlot } from "@/components/experience/DecorSlot";
 import { CassetteChip } from "@/components/cassette/CassetteChip";
 import { Emphasis } from "@/components/markdown/Emphasis";
@@ -19,6 +20,9 @@ type PrinciplesProps = {
 export function Principles({ heading, opening, principles, openLabel }: PrinciplesProps) {
   return (
     <section id="principles" aria-labelledby="principles-heading" data-time="afternoon">
+      {/* V5: trail-map contour lines behind the section and a crowd passing at its foot (decor) */}
+      <div aria-hidden="true" className="contours" />
+      <PrinciplesCrowd />
       <div className="relative mx-auto max-w-page px-(--gutter)">
         <DecorSlot name="principles-left" side="left" />
         <DecorSlot name="principles-right" side="right" at="bottom" />
@@ -32,7 +36,7 @@ export function Principles({ heading, opening, principles, openLabel }: Principl
         <div className="pb-24 md:pb-32">
           <h2
             id="principles-heading"
-            className="font-display text-h1 font-black font-stretch-condensed"
+            className="reveal font-display text-h1 font-black font-stretch-condensed"
           >
             <Emphasis text={heading} />
           </h2>

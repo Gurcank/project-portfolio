@@ -2,6 +2,7 @@ import "@/components/cassette/shelf.css";
 import { DecorSlot } from "@/components/experience/DecorSlot";
 import { cassetteSurface } from "@/components/cassette/cassette-colors";
 import { CassetteCover } from "@/components/cassette/CassetteCover";
+import { DrawnArrow } from "@/components/decor/DrawnArrow";
 import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { Emphasis } from "@/components/markdown/Emphasis";
 import { WorksWheel } from "@/components/works/WorksWheel";
@@ -27,9 +28,14 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
       <div className="relative mx-auto max-w-page px-(--gutter) py-24 md:py-32">
         <DecorSlot name="work-left" side="left" />
         <DecorSlot name="work-right" side="right" />
-        <h2 id="work-heading" className="font-display text-h1 font-black font-stretch-condensed">
+        <h2
+          id="work-heading"
+          className="reveal font-display text-h1 font-black font-stretch-condensed"
+        >
           <Emphasis text={heading} />
         </h2>
+        {/* V5: a pen arrow from the heading down to the wheel, wide screens only */}
+        <DrawnArrow className="absolute top-24 right-(--gutter) hidden w-16 text-accent md:top-32 lg:block" />
 
         {/* V4: the screenshots on a wheel (a strip or a grid where the wheel can't fit or shouldn't
             move); the shelf below stays as the quick list of all seven tapes */}

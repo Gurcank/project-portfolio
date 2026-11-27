@@ -56,7 +56,7 @@ export function Colophon({ heading, text, credits, groups }: ColophonProps) {
         <div className="lg:col-span-6">
           <h2
             id="colophon-heading"
-            className="font-display text-h1 font-black font-stretch-condensed"
+            className="reveal font-display text-h1 font-black font-stretch-condensed"
           >
             {heading}
           </h2>

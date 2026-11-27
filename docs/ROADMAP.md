@@ -162,16 +162,18 @@ Yön dokümanı: https://claude.ai/artifact/YakXZtFUmW8gZFSYhTwTSV · seçimler:
 
 | Dilim | İçerik |
 |---|---|
-| V1 · Kimlik | Gün → gece ton sistemi, yeni fontlar, barış (masada çıkartma) ve yin-yang (gün/gece dikişi) sembolleri |
-| V2 · Dock | Morphing dock nav (masaüstü), mobil menü, İstanbul/Łódź saat düğmesi; yin-yang kaydırma göstergesi |
-| V2b · Kaset ve deck | Gerçekçi kaset çizimi, raf sırtlarında kutu görünümü; overlay başlığı kaset deck'i: kaset uçup takılır, kapak kapanır, PLAY, makaralar döner (kullanıcı isteği 2026-11-27) |
-| V3 · Ben kimim | Intro → kısa "ben kimim" ekranı → ana site; kullanıcının fotoğrafından pixel avatar |
-| V4 · İş çarkı | Ekran görüntüleriyle çark vitrini (sayfa kaydırmasıyla döner: halka → dikey tambur; solda öndeki işin adı, sağda dizin); telefon ve tablette yatay şerit, reduced motion / "hareketi durdur" / script yokken ızgara; raf hızlı liste olarak kalır |
-| V5 · Kaydırma | Bölüm açılışları, arka plan katmanları, kaydırmayı takip eden avatar yolculuğu, ilkelerde yürüyen kalabalık |
-| V6 · Hakkımda | Polaroidler, CD çalar (walkman'in yerine), araç logoları, GitHub katkı grafiği (karara bağlı) |
-| V7 · İmleç | Bağlama göre 4 halli tek imleç sistemi |
-| V8 · Doğa footer | Katmanlı dağ ve orman, kamp ateşi, yıldızlar, yerel saate göre gökyüzü |
+| V1 · Kimlik ✓ | Gün → gece ton sistemi, yeni fontlar, barış (masada çıkartma) ve yin-yang (gün/gece dikişi) sembolleri |
+| V2 · Dock ✓ | Morphing dock nav (masaüstü), mobil menü, İstanbul/Łódź saat düğmesi; yin-yang kaydırma göstergesi |
+| V2b · Kaset ve deck ✓ | Gerçekçi kaset çizimi, raf sırtlarında kutu görünümü; overlay başlığı kaset deck'i: kaset uçup takılır, kapak kapanır, PLAY, makaralar döner (kullanıcı isteği 2026-11-27) |
+| V3 · Ben kimim ✓ | Intro → kısa "ben kimim" ekranı → ana site; kullanıcının fotoğrafından pixel avatar |
+| V4 · İş çarkı ✓ | Ekran görüntüleriyle çark vitrini (sayfa kaydırmasıyla döner: halka → dikey tambur; solda öndeki işin adı, sağda dizin); telefon ve tablette yatay şerit, reduced motion / "hareketi durdur" / script yokken ızgara; raf hızlı liste olarak kalır |
+| V5 · Kaydırma ✓ | Bölüm açılışları, arka plan katmanları, kaydırmayı takip eden avatar yolculuğu, ilkelerde yürüyen kalabalık |
+| V6 · Hakkımda ✓ | Polaroidler, CD çalar (walkman'in yerine), araç logoları, GitHub katkı grafiği (karara bağlı) |
+| V7 · İmleç ✓ | Bağlama göre 4 halli tek imleç sistemi |
+| V8 · Doğa footer ✓ | Katmanlı dağ ve orman, kamp ateşi, yıldızlar, yerel saate göre gökyüzü |
 | V9 · Kalite | PSI ortancası, JS artışı, a11y, ekran okuyucu, 30 sn testi |
+
+V3–V9 tek dalda (`slice/v2-rest`), dilim başına bir commit; kullanıcı kararı 2026-11-27 ("kalanların tamamını tek seferde yap"). V3'te ayrı "ben kimim" ekranı yerine hero'ya yerleşim seçildi (CTA ilk ekranda kalsın), V6'da GitHub grafiği ertelendi (token gerekiyor), V5'te kaydırma açılışları yalnız CSS (scroll timeline desteklemeyen tarayıcı son hâli görür).
 
 Framer ve 21st.dev bileşenlerinde lisans notu yok: kodları kopyalanmaz, davranışları kendi kodumuzla (Motion + token'lar) yazılır.
 

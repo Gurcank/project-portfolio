@@ -15,6 +15,10 @@ hero:
   label: ASPIRING PRODUCT MANAGER · ISTANBUL · ● AVAILABLE FROM FEB 2027
   primaryCta: Get in touch
   secondaryCta: See the work
+  # V3 (CONTENT §4): beside the pixel avatar
+  whoami:
+    - "I'm Gürcan. I'm in Łódź on Erasmus+ until February 2027, then back in Istanbul to work in product management."
+    - "Hiking, psychology, film and music: that's where my eye for products comes from."
   intro:
     words: [A map., A documentary., A handbook.]
     closing: Each one a product.
@@ -37,13 +41,16 @@ colophon: >-
   one concept: a shelf in my room holding seven tapes. Code, design and copy moved through a phased workflow
   with Claude; each phase ended in a document, each decision came with a reason. What I dropped counts too:
   no copyrighted posters or album covers, code-generated pixel objects instead of an illustrated room, no
-  kilim theme, which risked looking touristy. Every font, photo and image is credited below.
+  kilim theme, which risked looking touristy. Then I rethought it: colours that run from daylight to night,
+  a work wheel that turns with the page, and a pixel avatar drawn in code from my photo. Every font, photo
+  and image is credited below.
 
 credits:
   heading: Credits
   groups:
     font: Fonts
     photo: Photo
+    asset: Logos
     ai: AI
 
 principlesOpening: How I decide says more than what I built.
@@ -82,6 +89,10 @@ about:
         items: HTML, CSS, JavaScript, TypeScript, React, Next.js, SQL, database design
       - label: Language
         items: English (B2)
+  # V6 (CONTENT §6): logos from Simple Icons, keyed by these names (components/about/tool-icons.ts)
+  tools:
+    heading: Tools
+    items: [Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude]
   portraitCaption: "Mustafa Kemal Atatürk, 1922. Photo: Agence Meurisse · Source: Bibliothèque nationale de France"
   flagLabel: Turkish flag
 
@@ -118,7 +129,7 @@ microcopy:
           note: Erasmus+, until February 2027
           timeZone: Europe/Warsaw
   walkman:
-    label: "Walkman: suggest a random film or song"
+    label: "CD player: suggest a random film or song"
     result: "▶ {title} ({year}) · {kind}"
     kinds:
       film: film

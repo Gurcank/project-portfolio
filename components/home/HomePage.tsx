@@ -3,12 +3,12 @@ import { CaseStudyPanel } from "@/components/case-study/CaseStudyPanel";
 import { Dock } from "@/components/experience/Dock";
 import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { MotionProvider } from "@/components/experience/MotionProvider";
-import { CassettePillLoader } from "@/components/experience/CassettePillLoader";
 import { DecorLoader } from "@/components/experience/DecorLoader";
+import { CursorLoader } from "@/components/experience/CursorLoader";
 import { MascotLoader } from "@/components/experience/MascotLoader";
 import { MotionToggle } from "@/components/experience/MotionToggle";
 import { ToneController } from "@/components/experience/ToneController";
-import { Walkman } from "@/components/experience/Walkman";
+import { CdPlayer } from "@/components/experience/CdPlayer";
 import { DayNightSeam } from "@/components/home/DayNightSeam";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -81,9 +81,9 @@ export function HomeView({
   walkmanItems,
   decor,
 }: HomeViewProps) {
-  const walkman = (placement: "fixed" | "inline") => (
-    <ExperienceBoundary name={`walkman-${placement}`}>
-      <Walkman placement={placement} items={walkmanItems} labels={copy.microcopy.walkman} />
+  const player = (placement: "fixed" | "inline") => (
+    <ExperienceBoundary name={`cd-player-${placement}`}>
+      <CdPlayer placement={placement} items={walkmanItems} labels={copy.microcopy.walkman} />
     </ExperienceBoundary>
   );
 
@@ -141,16 +141,16 @@ export function HomeView({
           // The pause control lives here at every width: always reachable, never over the content
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <MotionToggle labels={copy.microcopy.motion} />
-            {walkman("inline")}
+            {player("inline")}
           </div>
         }
       />
-      {walkman("fixed")}
+      {player("fixed")}
       <ExperienceBoundary name="mascot">
         <MascotLoader />
       </ExperienceBoundary>
-      <ExperienceBoundary name="cassette-pill">
-        <CassettePillLoader label={copy.microcopy.cassette.pill} />
+      <ExperienceBoundary name="cursor">
+        <CursorLoader label={copy.microcopy.cassette.pill} />
       </ExperienceBoundary>
       <ExperienceBoundary name="decor">
         <DecorLoader {...decor} />

@@ -564,6 +564,8 @@ The viewer is live on the NGO's site. It took 4 days and 4 commits in August 202
 | Mono etiket | `PRODUCT MANAGER ADAYI · İSTANBUL · ● ŞUBAT 2027'DEN İTİBAREN MÜSAİT` | `ASPIRING PRODUCT MANAGER · ISTANBUL · ● AVAILABLE FROM FEB 2027` |
 | Birincil CTA | Bana yaz | Get in touch |
 | İkincil CTA | İşlere bak | See the work |
+| Ben kimim, 1 (V3, avatarın yanında; kullanıcı onayı 2026-11-27) | Ben Gürcan. Şu an Erasmus+ ile Łódź'dayım; Şubat 2027'de İstanbul'a dönüp ürün yönetiminde çalışmak istiyorum. | I'm Gürcan. I'm in Łódź on Erasmus+ until February 2027, then back in Istanbul to work in product management. |
+| Ben kimim, 2 | Doğa yürüyüşleri, psikoloji, sinema ve müzik: ürünlere bakışım buradan geliyor. | Hiking, psychology, film and music: that's where my eye for products comes from. |
 | Çalışma masası: ticket | GRCN-1 · Product stajyeri bul · In review | GRCN-1 · Find a product intern · In review |
 | Çalışma masası: bildirim | Vercel · Deployment ready | Vercel · Deployment ready |
 | Çalışma masası: imleç etiketi | Claude | Claude |
@@ -628,15 +630,19 @@ EN:
 | **Yazılım:** HTML, CSS, JavaScript, TypeScript, React, Next.js, SQL, veritabanı tasarımı | **Software:** HTML, CSS, JavaScript, TypeScript, React, Next.js, SQL, database design |
 | **Dil:** İngilizce (B2) | **Language:** English (B2) |
 
+**Araçlar / Tools** (V6, Beceriler altında, logolu; kullanıcı onayı 2026-11-27): Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude. Logolar Simple Icons'tan (CC0), tek renk.
+
 ## 7. Bu site nasıl yapıldı
 
 > Yayından önce gerçek akışa göre güncellenir (S-son). **D5 notu:** "koddan üretilen pixel nesneler" bir kararı anlatıyor; nesneler D7–D8'de gelecek, metin bu yüzden S-son'da yeniden okunmalı (kullanıcı birebir taşımayı onayladı, 2026-11-22). Krediler listesi (fontlar, Atatürk fotoğrafı kaynağı, asset paketleri, AI görselleri) `content/credits.yaml`'da tutulur ve D5'te bu bölümün altında gösterilir (ROADMAP).
 
 TR (~140 kelime):
-> Bu site de bir ürün gibi yapıldı. Önce bir SPEC yazdım: kim bakacak, 30 saniyede ne görmeli, başarıyı nasıl ölçeceğim. Sonra 9 portfolyo sitesini inceleyip 29 fikri bir havuza koydum ve tek bir konsepte indirdim: odamdaki raf, rafta yedi kaset. Kod, tasarım ve metin, Claude ile birlikte çalıştığım fazlı bir akışta ilerledi. Her faz bir dokümanla bitti, her karar gerekçesiyle yazıldı. Vazgeçtiklerim de karar: telifli film posteri ve albüm kapağı kullanmadım; illüstre bir oda sahnesi yerine koddan üretilen pixel nesneler seçtim; kilim temasını turistik durma riski yüzünden bıraktım. Kullandığım her font, fotoğraf ve görselin kaynağı aşağıda.
+> Bu site de bir ürün gibi yapıldı. Önce bir SPEC yazdım: kim bakacak, 30 saniyede ne görmeli, başarıyı nasıl ölçeceğim. Sonra 9 portfolyo sitesini inceleyip 29 fikri bir havuza koydum ve tek bir konsepte indirdim: odamdaki raf, rafta yedi kaset. Kod, tasarım ve metin, Claude ile birlikte çalıştığım fazlı bir akışta ilerledi. Her faz bir dokümanla bitti, her karar gerekçesiyle yazıldı. Vazgeçtiklerim de karar: telifli film posteri ve albüm kapağı kullanmadım; illüstre bir oda sahnesi yerine koddan üretilen pixel nesneler seçtim; kilim temasını turistik durma riski yüzünden bıraktım. Sonra siteyi baştan düşündüm: gün ışığından geceye akan renkler, sayfayla dönen bir iş çarkı ve fotoğrafımdan kodla çizilen bir pixel avatar. Kullandığım her font, fotoğraf ve görselin kaynağı aşağıda.
+>
+> *v2 cümlesi ("Sonra siteyi baştan düşündüm…") V9'da eklendi; kullanıcının commit öncesi onayına sunuldu (2026-11-27).*
 
 EN (~140 words):
-> This site was built like a product. I started with a spec: who visits, what they should see in 30 seconds, how I'd measure success. Then I studied 9 portfolio sites, pooled 29 ideas and narrowed them to one concept: a shelf in my room holding seven tapes. Code, design and copy moved through a phased workflow with Claude; each phase ended in a document, each decision came with a reason. What I dropped counts too: no copyrighted posters or album covers, code-generated pixel objects instead of an illustrated room, no kilim theme, which risked looking touristy. Every font, photo and image is credited below.
+> This site was built like a product. I started with a spec: who visits, what they should see in 30 seconds, how I'd measure success. Then I studied 9 portfolio sites, pooled 29 ideas and narrowed them to one concept: a shelf in my room holding seven tapes. Code, design and copy moved through a phased workflow with Claude; each phase ended in a document, each decision came with a reason. What I dropped counts too: no copyrighted posters or album covers, code-generated pixel objects instead of an illustrated room, no kilim theme, which risked looking touristy. Then I rethought it: colours that run from daylight to night, a work wheel that turns with the page, and a pixel avatar drawn in code from my photo. Every font, photo and image is credited below.
 
 ## 8. Mikro metinler
 
@@ -658,7 +664,7 @@ EN (~140 words):
 | Saat düğmesinin görünen hali | İST {ss:dd} | IST {hh:mm} |
 | Saat paneli | İki şehrim · İstanbul · evim · Łódź · Erasmus+, Şubat 2027'ye kadar | My two cities · Istanbul · home · Łódź · Erasmus+, until February 2027 |
 | Hareket kontrolü | Hareketi durdur · Hareketi başlat | Pause motion · Resume motion |
-| Walkman (erişilebilir ad) | Walkman: rastgele bir film ya da şarkı öner | Walkman: suggest a random film or song |
+| CD çalar (erişilebilir ad; V6'da walkman'in yerine, kullanıcı onayı 2026-11-27) | CD çalar: rastgele bir film ya da şarkı öner | CD player: suggest a random film or song |
 | Walkman sonucu | ▶ {Ad} ({yıl}) · film / şarkı | ▶ {Title} ({year}) · film / song |
 | ↳ D7 uygulaması | Şarkılarda {Ad} = "Sanatçı — Şarkı": "▶ Sade — Smooth Operator (1984) · şarkı" | "▶ Sade — Smooth Operator (1984) · song" |
 | İletişim | E-postayı kopyala · Kopyalandı · LinkedIn · GitHub | Copy email · Copied · LinkedIn · GitHub |

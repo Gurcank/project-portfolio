@@ -73,6 +73,8 @@ const site = defineCollection({
         label: s.string().max(80),
         primaryCta: button.pipe(s.string().max(24)),
         secondaryCta: button.pipe(s.string().max(24)),
+        // V3 (CONTENT §4): two short sentences beside the pixel avatar
+        whoami: s.array(s.string().max(140)).length(2),
         // D10 intro (CONTENT §4): three words, then the closing line; the skip hint is visible text
         intro: s.object({
           words: s.array(s.string().max(16)).length(3),
@@ -136,6 +138,11 @@ const site = defineCollection({
             .array(s.object({ label: s.string().max(32), items: s.string().max(140) }))
             .min(1)
             .max(6),
+        }),
+        // V6: tool names; each must have a logo in components/about/tool-icons.ts (unit test)
+        tools: s.object({
+          heading: button,
+          items: s.array(s.string().max(20)).min(1).max(12),
         }),
         portraitCaption: s.string().max(120),
         flagLabel: button,

@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
 
+import { NatureScene } from "@/components/footer/NatureScene";
 import type { SiteCopy } from "@/lib/content";
 
 type SiteFooterProps = {
   copy: SiteCopy["footer"];
-  /** Below lg the walkman and the pause-motion control live here (ARCHITECTURE §5) */
+  /** Below lg the CD player and the pause-motion control live here (ARCHITECTURE §5) */
   extras?: ReactNode;
 };
 
@@ -27,6 +28,8 @@ export function SiteFooter({ copy, extras }: SiteFooterProps) {
           </a>
         </p>
       </div>
+      {/* V8: the night landscape closes the page, full width under the text */}
+      <NatureScene />
     </footer>
   );
 }

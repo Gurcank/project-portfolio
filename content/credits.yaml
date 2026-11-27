@@ -55,6 +55,15 @@
   usedFor:
     tr: Hakkımda'daki Atatürk portresi
     en: Atatürk portrait in About
+- kind: asset
+  name: Simple Icons 16.38.1
+  author: Simple Icons contributors
+  source: https://simpleicons.org
+  license: CC0 1.0
+  licenseUrl: https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md
+  usedFor:
+    tr: Hakkımda'daki araç logoları (tek renk)
+    en: Tool logos in About (one colour)
 - kind: ai
   name: Claude
   author: Anthropic

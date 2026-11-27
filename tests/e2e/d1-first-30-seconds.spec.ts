@@ -12,13 +12,15 @@ test.describe("hero: the 30-second test", () => {
         await page.goto(path);
         const viewportHeight = page.viewportSize()?.height ?? 0;
         const hero = page.locator("#top");
+        const label = hero.locator("p").first();
         const city = path === "/" ? "İSTANBUL" : "ISTANBUL";
         const date = path === "/" ? "ŞUBAT 2027" : "FEB 2027";
 
         for (const locator of [
           hero.getByRole("heading", { level: 1 }),
-          hero.getByText(city),
-          hero.getByText(date),
+          // The mono label, not the who-am-I sentences (V3), which also name the city
+          label.getByText(city),
+          label.getByText(date),
           hero.getByRole("link", { name: path === "/" ? "Bana yaz" : "Get in touch" }),
         ]) {
           const box = await locator.boundingBox();
