@@ -85,7 +85,7 @@ Site, sıcak kâğıt renginde bir duvar. İçerik ortada; odamdan pixel nesnele
 - Gerekçe: müzik zevkini en önemli içeriğe bağlar ve İK'ya net bir yapı verir (problem → karar → sonuç). Kaset seçildi çünkü A/B yüzü Türkiye'nin kaset kültürüne ait, sırt formatı §6'daki "sırt" fikriyle uyumlu ve paulfey.me'deki plakçıdan ayrışıyor.
 
 ### Gün → gece (v2)
-Sayfa bir gün gibi akar; her bölüm günün bir saati. Bölüm kendi zeminini boyar ve çalışma renklerini (kâğıt, mürekkep, ikincil, çizgi, vurgu) yeniden tanımlar, böylece zemin ve metin birlikte değişir. JavaScript gerekmez. Geçişlerde 96 px'lik renk bandı var; gün batımı ile akşam arasındaki bandın ortasında yin-yang durur (gün ve gecenin buluşması).
+Sayfa bir gün gibi akar; her bölüm günün bir saati. Bölüm kendi zeminini boyar ve çalışma renklerini (kâğıt, mürekkep, ikincil, çizgi, vurgu) yeniden tanımlar, böylece zemin ve metin birlikte değişir. JavaScript gerekmez. Geçişler dikişin iki yanına yayılan bir bantla olur: önceki bölüm alt boşluğunda orta tona iner, sonraki üst boşluğunda oradan devam eder. Bant 192 px (md'den itibaren 256 px), gün batımı → akşam 256/384 px; hiçbir zaman metnin altına girmez. Renk smoothstep eğrisiyle ve OKLab'ta karışır, uçlarda kenar görünmez. Gün batımı ile akşam arasındaki dikişte yin-yang durur (gün ve gecenin buluşması).
 
 | Saat | Bölüm | Zemin | Mürekkep / ikincil / vurgu kontrastı |
 |---|---|---|---|

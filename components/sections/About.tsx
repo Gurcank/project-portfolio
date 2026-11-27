@@ -83,7 +83,7 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
 
   return (
     <section id="about" aria-labelledby="about-heading" data-time="sunset">
-      <div className="relative mx-auto grid max-w-page gap-12 px-(--gutter) py-24 md:py-32 lg:grid-cols-12 lg:gap-8">
+      <div className="relative mx-auto grid max-w-page gap-12 px-(--gutter) pt-24 pb-32 md:pt-32 md:pb-48 lg:grid-cols-12 lg:gap-8">
         <PatternSlot />
         <DecorSlot name="about-left" side="left" />
         <h2

@@ -166,6 +166,11 @@
 :root {
   --gutter: 1rem; /* 375: 16px */
   --grid-columns: 4;
+  /* Half of a day → night band on each side of a section seam; matches the sections' vertical padding
+     (py-24, then py-32 from md) so the band never runs under text */
+  --time-band: calc(var(--spacing) * 24);
+  /* Sunset → dusk, the day turning into night, gets a longer band (About and Colophon pad for it) */
+  --time-band-long: calc(var(--spacing) * 32);
 
   --duration-fast: 150ms; /* hover, focus feedback */
   --duration-base: 250ms; /* small transitions */
@@ -188,6 +193,8 @@
   :root {
     --gutter: 2rem; /* 768: 32px */
     --grid-columns: 8;
+    --time-band: calc(var(--spacing) * 32);
+    --time-band-long: calc(var(--spacing) * 48);
   }
 }
 

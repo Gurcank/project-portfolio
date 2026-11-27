@@ -50,7 +50,7 @@ function Credit({ credit }: { credit: CreditView }) {
 export function Colophon({ heading, text, credits, groups }: ColophonProps) {
   return (
     <section id="colophon" aria-labelledby="colophon-heading" data-time="dusk">
-      <div className="relative mx-auto grid max-w-page gap-16 px-(--gutter) py-24 md:py-32 lg:grid-cols-12 lg:gap-8">
+      <div className="relative mx-auto grid max-w-page gap-16 px-(--gutter) pt-32 pb-24 md:pt-48 md:pb-32 lg:grid-cols-12 lg:gap-8">
         <DecorSlot name="colophon-left" side="left" />
         <DecorSlot name="colophon-right" side="right" at="bottom" />
         <div className="lg:col-span-6">

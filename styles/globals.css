@@ -12,31 +12,88 @@
   /*
    * Day → night (v2, SPEC §8). A section names its time of day and re-points the working colours, so its
    * ground and its text change together, in the HTML itself: no script, and a screenshot shows the whole
-   * day. Each ground starts from the previous one over a short band instead of a hard edge.
+   * day.
+   *
+   * Between two times the ground eases over a band that straddles the seam: the previous section fades
+   * to the midpoint in its bottom padding (::after), the next one carries on from it in its top padding
+   * (::before). The band is no taller than that padding, so text never sits on a half-way tone. The stops
+   * follow smoothstep (t²(3 − 2t)), so neither end of the band shows an edge, and the mix runs in OKLab,
+   * so the middle doesn't turn grey or muddy. Each half paints inside its own section, under its content
+   * (isolate + z-index −1), so it never covers decor sitting near a section's edge.
    */
   [data-time] {
+    position: relative;
+    isolation: isolate;
     background-color: var(--color-paper);
-    background-image: linear-gradient(
-      var(--time-from, var(--color-paper)),
-      var(--color-paper) calc(var(--spacing) * 24)
-    );
     color: var(--color-ink);
+  }
+
+  [data-time]::before,
+  [data-time]::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    z-index: -1;
+    height: var(--time-band);
+    pointer-events: none;
+  }
+
+  /* Second half of the curve: from the seam's midpoint into this section's ground */
+  [data-time]::before {
+    top: 0;
+    background-image: linear-gradient(
+      in oklab,
+      color-mix(in oklab, var(--color-paper) 50%, var(--time-from, var(--color-paper))) 0%,
+      color-mix(in oklab, var(--color-paper) 68.4%, var(--time-from, var(--color-paper))) 25%,
+      color-mix(in oklab, var(--color-paper) 84.4%, var(--time-from, var(--color-paper))) 50%,
+      color-mix(in oklab, var(--color-paper) 95.7%, var(--time-from, var(--color-paper))) 75%,
+      var(--color-paper) 100%
+    );
+  }
+
+  /* First half: from this section's ground towards the next one, ending at the midpoint */
+  [data-time]::after {
+    bottom: 0;
+    background-image: linear-gradient(
+      in oklab,
+      var(--color-paper) 0%,
+      color-mix(in oklab, var(--time-to, var(--color-paper)) 4.3%, var(--color-paper)) 25%,
+      color-mix(in oklab, var(--time-to, var(--color-paper)) 15.6%, var(--color-paper)) 50%,
+      color-mix(in oklab, var(--time-to, var(--color-paper)) 31.6%, var(--color-paper)) 75%,
+      color-mix(in oklab, var(--time-to, var(--color-paper)) 50%, var(--color-paper)) 100%
+    );
+  }
+
+  /* The hero has no section ground of its own (the page is morning paper), so noon takes the whole
+     morning → noon curve in its top padding; the two are close, so the short band is enough */
+  [data-time="noon"]::before {
+    background-image: linear-gradient(
+      in oklab,
+      var(--time-from) 0%,
+      color-mix(in oklab, var(--color-paper) 15.6%, var(--time-from)) 25%,
+      color-mix(in oklab, var(--color-paper) 50%, var(--time-from)) 50%,
+      color-mix(in oklab, var(--color-paper) 84.4%, var(--time-from)) 75%,
+      var(--color-paper) 100%
+    );
   }
 
   [data-time="noon"] {
     --color-paper: var(--color-time-noon);
     --time-from: var(--color-time-morning);
+    --time-to: var(--color-time-afternoon);
   }
 
   [data-time="afternoon"] {
     --color-paper: var(--color-time-afternoon);
     --time-from: var(--color-time-noon);
+    --time-to: var(--color-time-sunset);
   }
 
   [data-time="sunset"] {
     --color-paper: var(--color-time-sunset);
     --color-accent: var(--color-accent-sunset);
     --time-from: var(--color-time-afternoon);
+    --time-to: var(--color-time-dusk);
   }
 
   [data-time="dusk"] {
@@ -46,11 +103,19 @@
     --color-line: var(--color-line-dusk);
     --color-accent: var(--color-accent-night);
     --time-from: var(--color-time-sunset);
+    --time-to: var(--color-time-night);
   }
 
-  /* Contact follows colophon inside the same dusk: no band */
-  [data-time="dusk"] + [data-time="dusk"] {
-    --time-from: var(--color-time-dusk);
+  /* The day turning into night: the biggest change in tone gets the longest band */
+  [data-time="sunset"]::after,
+  [data-time="dusk"]:not([data-time="dusk"] + [data-time="dusk"])::before {
+    height: var(--time-band-long);
+  }
+
+  /* Colophon and contact share the dusk: no band between them */
+  [data-time="dusk"]:has(+ [data-time="dusk"])::after,
+  [data-time="dusk"] + [data-time="dusk"]::before {
+    content: none;
   }
 
   [data-time="night"] {
