@@ -5,6 +5,7 @@ import "@/components/hero/desk.css";
 import { DeskTicket } from "@/components/hero/DeskTicket";
 import { PixelSprite } from "@/components/pixel/PixelSprite";
 import { pixelFill } from "@/components/pixel/pixel";
+import { peace, peacePalette } from "@/components/pixel/sprites/symbols";
 import type { SiteCopy } from "@/lib/content";
 
 const ARROW = [
@@ -35,6 +36,12 @@ export default function DeskScene({ desk }: { desk: SiteCopy["hero"]["desk"] }) 
         <span className="font-bold">{source}</span>
         <span>{message}</span>
       </div>
+      {/* A sticker on the desk, the way a laptop collects them (v2, user request) */}
+      <PixelSprite
+        grid={peace}
+        palette={peacePalette}
+        className="absolute top-12 -left-8 z-(--z-content) w-12 -rotate-6"
+      />
       <DeskTicket ticket={desk.ticket} />
       <div className="desk-cursor absolute bottom-6 left-48 flex items-start gap-1">
         <PixelSprite

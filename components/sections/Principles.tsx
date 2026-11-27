@@ -18,19 +18,22 @@ type PrinciplesProps = {
  */
 export function Principles({ heading, opening, principles, openLabel }: PrinciplesProps) {
   return (
-    <section id="principles" aria-labelledby="principles-heading" className="border-t border-line">
+    <section id="principles" aria-labelledby="principles-heading" data-time="afternoon">
       <div className="relative mx-auto max-w-page px-(--gutter)">
         <DecorSlot name="principles-left" side="left" />
         <DecorSlot name="principles-right" side="right" at="bottom" />
         {/* A full screen only from lg: on a phone it would push the principles a screen away (INS-02) */}
         <div className="flex items-center py-32 lg:min-h-svh">
-          <p className="principles-opening text-h1 font-black font-stretch-condensed lg:w-3/4">
+          <p className="principles-opening font-display text-h1 font-black font-stretch-condensed lg:w-3/4">
             {opening}
           </p>
         </div>
 
         <div className="pb-24 md:pb-32">
-          <h2 id="principles-heading" className="text-h1 font-black font-stretch-condensed">
+          <h2
+            id="principles-heading"
+            className="font-display text-h1 font-black font-stretch-condensed"
+          >
             <Emphasis text={heading} />
           </h2>
           <ul className="mt-12 border-t border-line md:mt-16">
@@ -39,7 +42,7 @@ export function Principles({ heading, opening, principles, openLabel }: Principl
                 key={principle.order}
                 className="grid gap-4 border-b border-line py-8 lg:grid-cols-12 lg:gap-8"
               >
-                <p className="text-h3 font-black font-stretch-condensed lg:col-span-5">
+                <p className="font-display text-h3 font-black font-stretch-condensed lg:col-span-5">
                   {principle.condition}
                   {/* No-break space: the arrow never ends up alone on the next line */}
                   <span aria-hidden="true">{" →"}</span>

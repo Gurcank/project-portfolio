@@ -20,7 +20,7 @@ function NotFoundCopy({ locale, level }: { locale: Locale; level: 1 | 2 }) {
   return (
     <section lang={locale}>
       <Heading
-        className={`${level === 1 ? "text-h1" : "text-h2"} font-black font-stretch-condensed`}
+        className={`${level === 1 ? "text-h1" : "text-h2"} font-display font-black font-stretch-condensed`}
       >
         {notFound.title}
       </Heading>

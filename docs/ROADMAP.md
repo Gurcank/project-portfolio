@@ -156,6 +156,24 @@
 | INS-28 | Albüm kurgulu case study | D2 (A/B yapı) + D3 (makaralar) |
 | INS-29 | Pixel art dili | D7 (motor) + D8 |
 
+## v2 dilimleri (kullanıcı kararı, 2026-11-27)
+
+Yön dokümanı: https://claude.ai/artifact/YakXZtFUmW8gZFSYhTwTSV · seçimler: Y-C Gün → Gece, V-wheel, R-kal, M-cd; GitHub kararı V6'da. Her dilim kendi dalında: plan → onay → kod → kanıt → preview → merge.
+
+| Dilim | İçerik |
+|---|---|
+| V1 · Kimlik | Gün → gece ton sistemi, yeni fontlar, barış (masada çıkartma) ve yin-yang (gün/gece dikişi) sembolleri |
+| V2 · Dock | Morphing dock nav (masaüstü), mobil menü, İstanbul/Łódź saat düğmesi; yin-yang kaydırma göstergesi |
+| V3 · Ben kimim | Intro → kısa "ben kimim" ekranı → ana site; kullanıcının fotoğrafından pixel avatar |
+| V4 · İş çarkı | Ekran görüntüleriyle çark vitrini; raf hızlı liste olarak kalır |
+| V5 · Kaydırma | Bölüm açılışları, arka plan katmanları, kaydırmayı takip eden avatar yolculuğu, ilkelerde yürüyen kalabalık |
+| V6 · Hakkımda | Polaroidler, CD çalar (walkman'in yerine), araç logoları, GitHub katkı grafiği (karara bağlı) |
+| V7 · İmleç | Bağlama göre 4 halli tek imleç sistemi |
+| V8 · Doğa footer | Katmanlı dağ ve orman, kamp ateşi, yıldızlar, yerel saate göre gökyüzü |
+| V9 · Kalite | PSI ortancası, JS artışı, a11y, ekran okuyucu, 30 sn testi |
+
+Framer ve 21st.dev bileşenlerinde lisans notu yok: kodları kopyalanmaz, davranışları kendi kodumuzla (Motion + token'lar) yazılır.
+
 ## Sonra (v1 dışı)
 
 - **INS-10 canlı mini demo:** ErasmusMap'ten küçük bir harita parçası; ayrı dilim, ölçülerek.

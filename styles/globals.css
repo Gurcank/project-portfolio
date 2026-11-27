@@ -7,16 +7,59 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-text-size-adjust: 100%;
-    /* The tone follows the section being read (ToneController sets data-tone); without JS it stays paper */
-    transition: background-color var(--duration-slow) var(--ease-in-out);
   }
 
-  html[data-tone="principles"] {
-    background-color: var(--color-tone-sage);
+  /*
+   * Day → night (v2, SPEC §8). A section names its time of day and re-points the working colours, so its
+   * ground and its text change together, in the HTML itself: no script, and a screenshot shows the whole
+   * day. Each ground starts from the previous one over a short band instead of a hard edge.
+   */
+  [data-time] {
+    background-color: var(--color-paper);
+    background-image: linear-gradient(
+      var(--time-from, var(--color-paper)),
+      var(--color-paper) calc(var(--spacing) * 24)
+    );
+    color: var(--color-ink);
   }
 
-  html[data-tone="about"] {
-    background-color: var(--color-tone-blush);
+  [data-time="noon"] {
+    --color-paper: var(--color-time-noon);
+    --time-from: var(--color-time-morning);
+  }
+
+  [data-time="afternoon"] {
+    --color-paper: var(--color-time-afternoon);
+    --time-from: var(--color-time-noon);
+  }
+
+  [data-time="sunset"] {
+    --color-paper: var(--color-time-sunset);
+    --color-accent: var(--color-accent-sunset);
+    --time-from: var(--color-time-afternoon);
+  }
+
+  [data-time="dusk"] {
+    --color-paper: var(--color-time-dusk);
+    --color-ink: var(--color-ink-dusk);
+    --color-ink-muted: var(--color-ink-muted-dusk);
+    --color-line: var(--color-line-dusk);
+    --color-accent: var(--color-accent-night);
+    --time-from: var(--color-time-sunset);
+  }
+
+  /* Contact follows colophon inside the same dusk: no band */
+  [data-time="dusk"] + [data-time="dusk"] {
+    --time-from: var(--color-time-dusk);
+  }
+
+  [data-time="night"] {
+    --color-paper: var(--color-time-night);
+    --color-ink: var(--color-ink-night);
+    --color-ink-muted: var(--color-ink-muted-night);
+    --color-line: var(--color-line-night);
+    --color-accent: var(--color-accent-night);
+    --time-from: var(--color-time-dusk);
   }
 
   body {

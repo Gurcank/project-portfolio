@@ -21,11 +21,11 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
   const [labelBefore = "", labelAfter = ""] = openLabel.split("{project}");
 
   return (
-    <section id="work" aria-labelledby="work-heading" className="border-t border-line">
+    <section id="work" aria-labelledby="work-heading" data-time="noon">
       <div className="relative mx-auto max-w-page px-(--gutter) py-24 md:py-32">
         <DecorSlot name="work-left" side="left" />
         <DecorSlot name="work-right" side="right" />
-        <h2 id="work-heading" className="text-h1 font-black font-stretch-condensed">
+        <h2 id="work-heading" className="font-display text-h1 font-black font-stretch-condensed">
           <Emphasis text={heading} />
         </h2>
 
@@ -51,7 +51,7 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
                 <span className="hidden font-mono text-label tracking-wide lg:block">
                   {project.catalog}
                 </span>{" "}
-                <span className="shelf-spine-title shelf-spine-name sr-only text-h3 font-black font-stretch-condensed lg:not-sr-only">
+                <span className="shelf-spine-title shelf-spine-name sr-only font-display text-h3 font-black font-stretch-condensed lg:not-sr-only">
                   {project.study.title}
                 </span>
                 <span className="sr-only">{labelAfter}</span>
@@ -75,7 +75,7 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
                   />
                 </div>
                 {/* wrap-anywhere: one long Turkish word must break rather than push the page sideways */}
-                <h3 className="text-h3 font-black wrap-anywhere font-stretch-condensed">
+                <h3 className="font-display text-h3 font-black wrap-anywhere font-stretch-condensed">
                   {project.study.title}
                 </h3>
                 <p className="mt-2 max-w-prose">{project.study.card.problem}</p>

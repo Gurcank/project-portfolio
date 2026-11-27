@@ -64,7 +64,7 @@ export function CaseStudyPanel({ project, labels }: CaseStudyPanelProps) {
                     <h3
                       id={`${slug}-${track.id}`}
                       tabIndex={-1}
-                      className="flex scroll-mt-24 items-baseline justify-between gap-4 text-h3 font-black font-stretch-condensed focus:outline-none"
+                      className="flex scroll-mt-24 items-baseline justify-between gap-4 font-display text-h3 font-black font-stretch-condensed focus:outline-none"
                     >
                       <span className="flex items-baseline gap-3">
                         <span className="tape-chip font-mono text-label font-regular tracking-wide">

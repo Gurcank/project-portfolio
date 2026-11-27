@@ -31,16 +31,16 @@ export async function renderOgImage(locale: Locale) {
   const labelText = label.map((part) => part.text).join(" · ");
 
   const [display, body, accent, mono] = await Promise.all([
-    loadGoogleFont("Archivo:wdth,wght@75,900", name),
-    loadGoogleFont("Archivo:wght@400", stripEmphasis(hero.role)),
-    loadGoogleFont("Fraunces:ital,wght@1,400", stripEmphasis(hero.role)),
-    loadGoogleFont("Geist+Mono:wght@500", labelText),
+    loadGoogleFont("Bricolage+Grotesque:wdth,wght@75,800", name),
+    loadGoogleFont("Instrument+Sans:wght@400", stripEmphasis(hero.role)),
+    loadGoogleFont("Instrument+Serif:ital@1", stripEmphasis(hero.role)),
+    loadGoogleFont("Fragment+Mono", labelText),
   ]);
   const fonts = [
-    display && { name: "Display", data: display, weight: 900 as const },
+    display && { name: "Display", data: display, weight: 800 as const },
     body && { name: "Body", data: body, weight: 400 as const },
     accent && { name: "Accent", data: accent, style: "italic" as const },
-    mono && { name: "Mono", data: mono, weight: 500 as const },
+    mono && { name: "Mono", data: mono, weight: 400 as const },
   ].filter((font) => !!font);
 
   return new ImageResponse(
@@ -90,7 +90,7 @@ export async function renderOgImage(locale: Locale) {
           style={{
             fontFamily: "Display",
             fontSize: 148,
-            fontWeight: 900,
+            fontWeight: 800,
             lineHeight: 0.9,
             letterSpacing: -3,
           }}

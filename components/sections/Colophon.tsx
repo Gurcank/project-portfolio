@@ -49,12 +49,15 @@ function Credit({ credit }: { credit: CreditView }) {
  */
 export function Colophon({ heading, text, credits, groups }: ColophonProps) {
   return (
-    <section id="colophon" aria-labelledby="colophon-heading" className="border-t border-line">
+    <section id="colophon" aria-labelledby="colophon-heading" data-time="dusk">
       <div className="relative mx-auto grid max-w-page gap-16 px-(--gutter) py-24 md:py-32 lg:grid-cols-12 lg:gap-8">
         <DecorSlot name="colophon-left" side="left" />
         <DecorSlot name="colophon-right" side="right" at="bottom" />
         <div className="lg:col-span-6">
-          <h2 id="colophon-heading" className="text-h1 font-black font-stretch-condensed">
+          <h2
+            id="colophon-heading"
+            className="font-display text-h1 font-black font-stretch-condensed"
+          >
             {heading}
           </h2>
           <p className="mt-8 max-w-prose text-lead">{text}</p>
@@ -66,7 +69,10 @@ export function Colophon({ heading, text, credits, groups }: ColophonProps) {
           role="region"
           className="scroll-mt-24 rounded-md border border-line p-6 lg:col-span-5 lg:col-start-8"
         >
-          <h3 id="credits-heading" className="text-h3 font-black font-stretch-condensed">
+          <h3
+            id="credits-heading"
+            className="font-display text-h3 font-black font-stretch-condensed"
+          >
             {credits.heading}
           </h3>
           <div className="mt-6 flex flex-col gap-8">

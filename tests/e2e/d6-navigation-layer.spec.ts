@@ -144,53 +144,67 @@ test.describe("J-card contents", () => {
   });
 });
 
-test.describe("background tone", () => {
-  test("changes per section, and the accent stays AA in every frame of the change", async ({
+test.describe("day → night (v2)", () => {
+  const times = [
+    ["work", "noon"],
+    ["principles", "afternoon"],
+    ["about", "sunset"],
+    ["colophon", "dusk"],
+    ["contact", "dusk"],
+  ] as const;
+
+  test("each section is a time of day, and the page gets darker towards the end", async ({
     page,
   }) => {
     await page.goto("/");
+    const grounds: number[] = [];
+    for (const [id, time] of times) {
+      const section = page.locator(`#${id}`);
+      await expect(section).toHaveAttribute("data-time", time);
+      grounds.push(
+        await section.evaluate((el) => {
+          const [r = 0, g = 0, b = 0] = (
+            getComputedStyle(el).backgroundColor.match(/\d+/g) ?? []
+          ).map(Number);
+          return r + g + b;
+        }),
+      );
+    }
+    await expect(page.locator("footer")).toHaveAttribute("data-time", "night");
+    // Dusk is far darker than any daytime ground
+    expect(Math.max(...grounds.slice(3))).toBeLessThan(Math.min(...grounds.slice(0, 3)) / 2);
+  });
+
+  test("ink, muted text and the accent stay AA on every time's ground", async ({ page }) => {
+    await page.goto("/");
+    for (const id of ["top", ...times.map(([id]) => id)]) {
+      const [ground, ...texts] = await page.locator(`#${id}`).evaluate((el) => {
+        const read = (token: string) => {
+          const probe = document.createElement("span");
+          probe.style.color = `var(${token})`;
+          el.append(probe);
+          const value = getComputedStyle(probe).color;
+          probe.remove();
+          return value;
+        };
+        const ground = document.createElement("span");
+        ground.style.color = "var(--color-paper)";
+        el.append(ground);
+        const paper = getComputedStyle(ground).color;
+        ground.remove();
+        return [paper, read("--color-ink"), read("--color-ink-muted"), read("--color-accent")];
+      });
+      for (const text of texts)
+        expect(contrast(text!, ground!), `${id} ${text}`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  test("the tone still follows the section being read", async ({ page }) => {
+    await page.goto("/");
     await scrollToSection(page, "work");
     await expect(page.locator("html")).toHaveAttribute("data-tone", "work");
-
-    // Sample the background on every frame while it moves to the principles tone
-    const frames = page.evaluate(
-      () =>
-        new Promise<string[]>((resolve) => {
-          const colors: string[] = [];
-          const start = performance.now();
-          const tick = () => {
-            colors.push(getComputedStyle(document.documentElement).backgroundColor);
-            if (performance.now() - start < 900) requestAnimationFrame(tick);
-            else resolve(colors);
-          };
-          requestAnimationFrame(tick);
-        }),
-    );
     await scrollToSection(page, "principles");
-    const colors = await frames;
     await expect(page.locator("html")).toHaveAttribute("data-tone", "principles");
-    expect(new Set(colors).size).toBeGreaterThan(1);
-
-    // The tone must be what the reader sees: nothing between <html> and the eye may paint over it
-    // (D6 shipped with a body background that hid the tone; this catches that)
-    const painted = await page.evaluate(() =>
-      document
-        .elementsFromPoint(innerWidth - 8, innerHeight / 2)
-        .filter((el) => el !== document.documentElement)
-        .map((el) => [el.tagName, getComputedStyle(el).backgroundColor])
-        .filter(([, color]) => color !== "rgba(0, 0, 0, 0)"),
-    );
-    expect(painted).toEqual([]);
-
-    const accent = await page.evaluate(() => {
-      const probe = document.createElement("span");
-      probe.style.color = "var(--color-accent)";
-      document.body.append(probe);
-      const value = getComputedStyle(probe).color;
-      probe.remove();
-      return value;
-    });
-    for (const color of colors) expect(contrast(accent, color)).toBeGreaterThanOrEqual(4.5);
   });
 });
 

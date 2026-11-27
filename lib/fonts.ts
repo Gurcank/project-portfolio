@@ -1,28 +1,43 @@
-import { Archivo, Caveat, Fraunces, Geist_Mono } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Caveat,
+  Fragment_Mono,
+  Instrument_Sans,
+  Instrument_Serif,
+} from "next/font/google";
 
 /*
- * Preload every face the first screen uses (ADR-15): Archivo for the name (LCP), Fraunces Italic for the
- * role's one accent word, Geist Mono for the role/city/availability label. Without preload the last two
- * arrived after first paint, the hero reflowed and pushed Contact down (mobile Lighthouse CLS 0.177).
- * Caveat only appears in margin notes far below the fold, so it stays lazy.
+ * v2 type (SPEC §8): Bricolage Grotesque for headings and the cassette spines (its width axis narrows to
+ * 75%), Instrument Serif Italic for each heading's one accent word, Instrument Sans for body text,
+ * Fragment Mono for labels. All first-screen faces are preloaded (ADR-15): without preload the hero
+ * reflowed when they arrived (mobile Lighthouse CLS 0.177 in D1). Caveat sits far below the fold, so it
+ * stays lazy.
  */
-export const archivo = Archivo({
+export const bricolage = Bricolage_Grotesque({
   subsets: ["latin", "latin-ext"],
   axes: ["wdth"],
-  variable: "--font-archivo",
+  variable: "--font-bricolage",
   display: "swap",
 });
 
-export const fraunces = Fraunces({
+export const instrumentSerif = Instrument_Serif({
   subsets: ["latin", "latin-ext"],
+  weight: "400",
   style: "italic",
-  variable: "--font-fraunces",
+  variable: "--font-instrument-serif",
   display: "swap",
 });
 
-export const geistMono = Geist_Mono({
+export const instrumentSans = Instrument_Sans({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-geist-mono",
+  variable: "--font-instrument-sans",
+  display: "swap",
+});
+
+export const fragmentMono = Fragment_Mono({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  variable: "--font-fragment-mono",
   display: "swap",
 });
 
@@ -33,6 +48,6 @@ export const caveat = Caveat({
   preload: false,
 });
 
-export const fontVariables = [archivo, fraunces, geistMono, caveat]
+export const fontVariables = [bricolage, instrumentSerif, instrumentSans, fragmentMono, caveat]
   .map((font) => font.variable)
   .join(" ");

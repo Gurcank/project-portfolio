@@ -25,7 +25,7 @@ export function Intro({ copy }: { copy: SiteCopy["hero"]["intro"] }) {
           </span>
         </span>
       </p>
-      <p className="grid text-center text-display font-black font-stretch-condensed">
+      <p className="grid text-center font-display text-display font-black font-stretch-condensed">
         {copy.words.map((word) => (
           <span key={word} className="intro-word">
             {word}

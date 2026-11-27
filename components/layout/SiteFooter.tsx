@@ -10,7 +10,7 @@ type SiteFooterProps = {
 
 export function SiteFooter({ copy, extras }: SiteFooterProps) {
   return (
-    <footer className="border-t border-line">
+    <footer data-time="night">
       <div className="mx-auto flex max-w-page flex-col gap-8 px-(--gutter) pt-8 pb-24">
         {extras}
         <p className="flex flex-col gap-1 text-small text-ink-muted md:flex-row md:gap-3">

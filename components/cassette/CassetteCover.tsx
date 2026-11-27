@@ -62,7 +62,7 @@ export function CassetteCover({ slug, catalog, title, color, image }: CassetteCo
     >
       <div className="flex flex-1 flex-col justify-between rounded-sm bg-paper px-4 py-3 text-ink">
         <span className="font-mono text-label tracking-wide">{catalog}</span>
-        <span className="text-h3 leading-tight font-black wrap-anywhere font-stretch-condensed">
+        <span className="font-display text-h3 leading-tight font-black wrap-anywhere font-stretch-condensed">
           {title}
         </span>
       </div>

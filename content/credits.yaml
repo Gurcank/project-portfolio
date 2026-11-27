@@ -1,29 +1,38 @@
 # Credits (SPEC §9, §14.5): every font, photo and outside image on the site, with its source and licence.
-# Links checked 2026-11-22; font designers as listed in google/fonts METADATA.pb. The build fails if a font in lib/fonts.ts or the Atatürk portrait has no entry.
+# Links checked 2026-11-22 (v2 fonts 2026-11-27); font designers as listed in google/fonts METADATA.pb. The build fails if a font in lib/fonts.ts or the Atatürk portrait has no entry.
 - kind: font
-  name: Archivo
-  author: Omnibus-Type
-  source: https://fonts.google.com/specimen/Archivo
+  name: Bricolage Grotesque
+  author: Mathieu Triay
+  source: https://fonts.google.com/specimen/Bricolage+Grotesque
   license: SIL OFL 1.1
-  licenseUrl: https://github.com/google/fonts/blob/main/ofl/archivo/OFL.txt
+  licenseUrl: https://github.com/google/fonts/blob/main/ofl/bricolagegrotesque/OFL.txt
   usedFor:
-    tr: Başlıklar, gövde, kaset sırtları
-    en: Headings, body, tape spines
+    tr: Başlıklar ve kaset sırtları
+    en: Headings and tape spines
 - kind: font
-  name: Fraunces
-  author: Undercase Type, Phaedra Charles, Flavia Zimbardi
-  source: https://fonts.google.com/specimen/Fraunces
+  name: Instrument Serif
+  author: Rodrigo Fuenzalida, Jordan Egstad
+  source: https://fonts.google.com/specimen/Instrument+Serif
   license: SIL OFL 1.1
-  licenseUrl: https://github.com/google/fonts/blob/main/ofl/fraunces/OFL.txt
+  licenseUrl: https://github.com/google/fonts/blob/main/ofl/instrumentserif/OFL.txt
   usedFor:
     tr: Başlıktaki italik vurgu
     en: Italic accent in headings
 - kind: font
-  name: Geist Mono
-  author: Andrés Briganti, Mateo Zaragoza, Guillermo Rauch, Evil Rabbit, José Rago, Facundo Santana
-  source: https://fonts.google.com/specimen/Geist+Mono
+  name: Instrument Sans
+  author: Rodrigo Fuenzalida, Jordan Egstad
+  source: https://fonts.google.com/specimen/Instrument+Sans
   license: SIL OFL 1.1
-  licenseUrl: https://github.com/google/fonts/blob/main/ofl/geistmono/OFL.txt
+  licenseUrl: https://github.com/google/fonts/blob/main/ofl/instrumentsans/OFL.txt
+  usedFor:
+    tr: Gövde metni
+    en: Body text
+- kind: font
+  name: Fragment Mono
+  author: Wei Huang, URW Design Studio
+  source: https://fonts.google.com/specimen/Fragment+Mono
+  license: SIL OFL 1.1
+  licenseUrl: https://github.com/google/fonts/blob/main/ofl/fragmentmono/OFL.txt
   usedFor:
     tr: Etiketler ve süreler
     en: Labels and durations

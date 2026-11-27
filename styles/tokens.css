@@ -10,11 +10,13 @@
    */
   --color-*: initial;
 
-  --color-paper: #f3ece0; /* wall: warm paper background */
-  --color-ink: #1e1b17; /* body text — 14.6:1 on paper */
-  --color-ink-muted: #5e574d; /* credits, captions — 6.1:1 on paper */
-  --color-line: #d9cfbf; /* dividers and frames only; carries no information (1.3:1) */
-  --color-accent: #b8471f; /* terracotta — 4.52:1 on paper (AA), deliberately far from flag red */
+  /* The working set. Every component paints with these five; a section's time of day (globals.css,
+   * [data-time]) re-points them, so one class reads right on morning paper and on night alike (SPEC §8). */
+  --color-paper: #eee8da; /* morning paper, the default ground */
+  --color-ink: #1c241b; /* forest black — 13.1:1 on paper */
+  --color-ink-muted: #575e50; /* 5.5:1 on paper */
+  --color-line: #cfc6b4; /* dividers and frames only; carries no information */
+  --color-accent: #a63f17; /* sunset — 5.1:1 on paper (AA); brown-orange, kept apart from flag red */
   --color-transparent: transparent;
   --color-current: currentColor;
 
@@ -36,13 +38,30 @@
   --color-on-cassette-olive: #1e1b17; /* 4.6:1 */
   --color-on-cassette-rose: #1e1b17; /* 6.3:1 */
 
-  /* Background tones per section (INS-18, D6). Paper family, each a touch lighter than paper so every
-   * text pair gains contrast: accent 4.52 → 4.61, muted 6.07 → 6.19, ink 14.6 → 14.9 (computed). */
-  --color-tone-sage: #eef0e6; /* principles: calm, for "how I decide" */
-  --color-tone-blush: #f7ede8; /* about: warm, the personal part */
-  /* About's background pattern (D8): lighter than the tone it sits on, so any text over it gains
-   * contrast instead of losing it (the accent margin notes are at 4.61:1 on blush) */
-  --color-pattern: #fbf5f1;
+  /* Day → night (v2, SPEC §8): the page runs like a day, one time per section. Contrast of ink / muted /
+   * accent on each ground, computed: morning 13.1 / 5.5 / 5.1 · noon 13.9 / 5.9 / 5.5 · afternoon
+   * 11.9 / 5.0 / 4.7 · sunset 11.3 / 4.8 / 5.0 (its own accent) · dusk 12.2 / 7.2 / 7.3 · night 15.1 / 7.5 / 9.0 */
+  --color-time-morning: #eee8da; /* hero: trail notebook paper */
+  --color-time-noon: #f3efe6; /* work: the brightest hour, for the screenshots */
+  --color-time-afternoon: #e8dec6; /* principles: sand */
+  --color-time-sunset: #efd5be; /* about: peach */
+  --color-time-dusk: #2a2433; /* colophon and contact: the turn to night */
+  --color-time-night: #0f1412; /* footer: night screening under the stars */
+
+  /* Text set for the two dark times. Light text, amber accent (projector light) */
+  --color-ink-dusk: #f1e6d8;
+  --color-ink-muted-dusk: #bdb2a6;
+  --color-line-dusk: #4a4055;
+  --color-ink-night: #efe7d6;
+  --color-ink-muted-night: #a9a493;
+  --color-line-night: #2c332c;
+  --color-accent-night: #f0a63a; /* 7.3:1 on dusk, 9.0:1 on night */
+  /* Sunset's own accent: the morning one falls to 4.46:1 on peach */
+  --color-accent-sunset: #943714; /* 5.3:1 on sunset, 6.0:1 on the pattern */
+
+  /* About's background pattern (D8): lighter than the sunset ground, so any text over it gains
+   * contrast instead of losing it */
+  --color-pattern: #f6e4d4;
 
   /* Turkish flag (components/respect only). Law 2893 fixes the shape, not a colour value: this is the red
    * public bodies use in practice. Never reused elsewhere, so the site accent stays clearly apart. */
@@ -53,9 +72,12 @@
    * Font CSS variables come from next/font (lib/fonts.ts).
    */
   --font-*: initial;
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-accent: var(--font-fraunces), ui-serif, Georgia, serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif; /* body */
+  --font-display:
+    var(--font-bricolage), var(--font-instrument-sans), ui-sans-serif, sans-serif; /* headings, spines */
+  --font-accent:
+    var(--font-instrument-serif), ui-serif, Georgia, serif; /* one accent word per heading */
+  --font-mono: var(--font-fragment-mono), ui-monospace, monospace;
   --font-hand: var(--font-caveat), cursive;
 
   /*
@@ -86,7 +108,7 @@
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
-  --font-weight-black: 900;
+  --font-weight-black: 800; /* Bricolage's heaviest weight */
 
   --tracking-tight: -0.02em;
   --tracking-normal: 0;
@@ -126,8 +148,8 @@
 
   /* ── Shadow ────────────────────────────────────────── */
   --shadow-*: initial;
-  --shadow-lift: 0 0.5rem 1rem -0.5rem rgb(30 27 23 / 0.35); /* tape lifting off the shelf */
-  --shadow-overlay: 0 1.5rem 3rem -1rem rgb(30 27 23 / 0.4);
+  --shadow-lift: 0 0.5rem 1rem -0.5rem rgb(28 36 27 / 0.35); /* tape lifting off the shelf */
+  --shadow-overlay: 0 1.5rem 3rem -1rem rgb(28 36 27 / 0.4);
 
   /* ── Motion ────────────────────────────────────────────
    * "Little but smooth": one consistent easing family, three durations.

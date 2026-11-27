@@ -9,6 +9,7 @@ import { MotionToggle } from "@/components/experience/MotionToggle";
 import { SectionIndicator } from "@/components/experience/SectionIndicator";
 import { ToneController } from "@/components/experience/ToneController";
 import { Walkman } from "@/components/experience/Walkman";
+import { DayNightSeam } from "@/components/home/DayNightSeam";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { About } from "@/components/sections/About";
@@ -120,6 +121,7 @@ export function HomeView({
           openLabel={copy.microcopy.cassette.open}
           portrait={portrait}
         />
+        <DayNightSeam />
         <Colophon
           heading={copy.sections.colophon}
           text={copy.colophon}

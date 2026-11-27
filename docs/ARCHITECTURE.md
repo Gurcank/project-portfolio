@@ -227,17 +227,19 @@ Atatürk portresi (doğrulanmış kamu malı fotoğraf) ve bayrak (2893 oranlar�
 
 ### ADR-15 · Fontlar: next/font/google
 
-**Bağlam.** Archivo (variable, `wdth`), Fraunces Italic, Geist Mono, Caveat; latin + latin-ext; yalnız display preload (SPEC §8).
+**Bağlam.** v2 (2026-11-27): Bricolage Grotesque (variable, `wdth`), Instrument Serif Italic, Instrument Sans, Fragment Mono, Caveat; latin + latin-ext (SPEC §8). v1'de Archivo, Fraunces Italic, Geist Mono, Caveat'ti.
 
 **Alternatifler.** `next/font/google` (build'de indirip self-host) · Google Fonts CSS linki · `next/font/local`.
 
-**Sonuç.** `next/font/google`. Archivo: `axes: ['wdth']`, `subsets: ['latin', 'latin-ext']`, preload açık. Fraunces (`style: 'italic'`) ve Geist Mono: preload açık (D1'de değişti, aşağıya bkz.). Caveat: preload kapalı; yalnız kenar notlarında kullanılır. Font CSS değişkenleri (`variable`) token'lara bağlanır.
+**Sonuç.** `next/font/google`. Bricolage Grotesque: `axes: ['wdth']`, preload açık. Instrument Serif (`style: 'italic'`), Instrument Sans ve Fragment Mono: preload açık (D1'de öğrenildi, aşağıya bkz.). Ölçüm (v2): preload edilen fontlar 300 KB'tan 197 KB'a indi. Başlık rolü `font-display` (`--font-display`), gövde `font-sans`. Caveat: preload kapalı; yalnız kenar notlarında kullanılır. Font CSS değişkenleri (`variable`) token'lara bağlanır.
 
 **Ödünleşim.** İlk planda yalnız Archivo preload ediliyordu. D1'de ölçüldü: hero'daki italik kelime ve mono etiket geç gelince hero yeniden akıyor, mobil Lighthouse CLS 0,177 çıkıyordu (`adjustFontFallback` yetmedi). İlk ekranda kullanılan iki font da preload'a alındı: CLS 0,001 (5/5 koşu, devtools throttling), LCP değişmedi; bedeli +1 font dosyası / +40 KB. Google Fonts CSS linkine göre build'de ağ gerekir.
 
 **Kaynak.** [next/font: axes, preload, style, subsets](https://github.com/vercel/next.js/blob/v16.4.5/docs/01-app/03-api-reference/02-components/font.mdx) · Font lisansları: SPEC §9.
 
-### ADR-16 · Hero çalışma masasında marka adları: yalnız metin
+### ADR-16 · Hero çalışma masasında marka adları: yalnız metin (v2'de kalktı)
+
+> **Kalktı (kullanıcı kararı, 2026-11-27):** v2'de araç logoları (Supabase, Claude, Jira, Miro, Vercel…) gösterilecek: Simple Icons SVG'leri, tek renk, her markanın kullanım kuralına göre. Uygulama V6'da (Hakkımda) ve masada.
 
 **Bağlam.** SPEC §13: Claude, GitHub, Vercel, Jira, Miro logo mu, isim mi? Her markanın logo kuralları ayrı.
 

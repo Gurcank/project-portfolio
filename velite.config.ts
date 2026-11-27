@@ -45,7 +45,13 @@ const profile = defineCollection({
 
 const creditKinds = ["font", "photo", "asset", "ai", "data"] as const;
 // Every family lib/fonts.ts loads must be credited (SPEC §14.5)
-const fontNames = ["Archivo", "Fraunces", "Geist Mono", "Caveat"];
+const fontNames = [
+  "Bricolage Grotesque",
+  "Instrument Serif",
+  "Instrument Sans",
+  "Fragment Mono",
+  "Caveat",
+];
 
 const site = defineCollection({
   name: "SiteCopy",

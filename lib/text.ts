@@ -1,6 +1,6 @@
 /*
  * Tiny parsers for the two inline conventions in content/ (CONTENT §0):
- * `*word*` marks the single Fraunces Italic emphasis, ` · ` separates mono label parts.
+ * `*word*` marks the single Instrument Serif Italic emphasis, ` · ` separates mono label parts.
  */
 
 export type TextPart = { text: string; emphasis: boolean };

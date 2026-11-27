@@ -179,7 +179,7 @@ export function CaseStudyOverlay({ studies, panels, labels, nowLabel }: CaseStud
                     <Dialog.Title
                       ref={titleRef}
                       tabIndex={-1}
-                      className="text-display font-black tracking-tight wrap-anywhere font-stretch-condensed focus:outline-none"
+                      className="font-display text-display font-black tracking-tight wrap-anywhere font-stretch-condensed focus:outline-none"
                     >
                       {study.title}
                     </Dialog.Title>
@@ -234,7 +234,7 @@ export function CaseStudyOverlay({ studies, panels, labels, nowLabel }: CaseStud
                     <a
                       href={`#${study.next.slug}`}
                       data-case-source="next"
-                      className="text-h3 font-black font-stretch-condensed underline decoration-2 underline-offset-8"
+                      className="font-display text-h3 font-black font-stretch-condensed underline decoration-2 underline-offset-8"
                     >
                       {fillTemplate(labels.next, { project: study.next.title })}
                       <span aria-hidden="true"> →</span>

@@ -29,7 +29,13 @@ test.describe("colophon and credits", () => {
   test("every font and the portrait have a credit (SPEC §14.5)", async ({ page }) => {
     await page.goto("/");
     const credits = page.locator("#credits");
-    for (const font of ["Archivo", "Fraunces", "Geist Mono", "Caveat"]) {
+    for (const font of [
+      "Bricolage Grotesque",
+      "Instrument Serif",
+      "Instrument Sans",
+      "Fragment Mono",
+      "Caveat",
+    ]) {
       await expect(credits.getByRole("link", { name: font })).toBeVisible();
     }
     // The portrait shown in About and its credit point at the same archive record

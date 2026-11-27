@@ -66,7 +66,9 @@ Kurallar:
 - **Metin uzunluğu bütçesi:** İlke "İK için taranabilir, PM için derin". Rakamlar CONTENT §0'da (ör. hero rol cümlesi ≤ 60 karakter, kart problemi ≤ 90 karakter, case study TR 300–420 / EN 370–530 kelime, Hakkımda ≤ 120 kelime).
 - Ekip arkadaşlarının adı sitede yazılmaz.
 
-## 8. Tasarım yönü (S2'de netleşti, 2026-11-21)
+## 8. Tasarım yönü (S2'de netleşti, 2026-11-21; v2 kimliği 2026-11-27)
+
+> **v2 (kullanıcı kararı, 2026-11-27):** Konsept "Odayı büyüt": kaset/oda fikri kalıyor, çok daha deneysel ve görsel olarak zengin hale geliyor. Kimlik kelimeleri: doğa, yürüyüş, psikoloji, sinema, retro, müzik. Yön dokümanı: https://claude.ai/artifact/YakXZtFUmW8gZFSYhTwTSV (seçilen yön Y-C "Gün → Gece"). Aşağıdaki Palet ve Tipografi tabloları v2 değerleriyle güncellendi; v1 değerleri git geçmişinde. Kalan v2 dilimleri ROADMAP "v2 dilimleri"nde.
 Kaynak: `docs/INSPIRATION.md` (9 referans siteden 29 öğe; parantez içindeki INS numaraları oradaki öğeler). Hiçbir site kopyalanmaz; fikirler sentezlenir.
 
 ### Konsept: "Odamdaki raf"
@@ -82,27 +84,40 @@ Site, sıcak kâğıt renginde bir duvar. İçerik ortada; odamdan pixel nesnele
 - Kapak = projenin kendi ekran görüntüsü + tipografi. Kaset formu kodla üretilir (dikdörtgen + iki daire); çizim gerekmez.
 - Gerekçe: müzik zevkini en önemli içeriğe bağlar ve İK'ya net bir yapı verir (problem → karar → sonuç). Kaset seçildi çünkü A/B yüzü Türkiye'nin kaset kültürüne ait, sırt formatı §6'daki "sırt" fikriyle uyumlu ve paulfey.me'deki plakçıdan ayrışıyor.
 
+### Gün → gece (v2)
+Sayfa bir gün gibi akar; her bölüm günün bir saati. Bölüm kendi zeminini boyar ve çalışma renklerini (kâğıt, mürekkep, ikincil, çizgi, vurgu) yeniden tanımlar, böylece zemin ve metin birlikte değişir. JavaScript gerekmez. Geçişlerde 96 px'lik renk bandı var; gün batımı ile akşam arasındaki bandın ortasında yin-yang durur (gün ve gecenin buluşması).
+
+| Saat | Bölüm | Zemin | Mürekkep / ikincil / vurgu kontrastı |
+|---|---|---|---|
+| sabah | hero | `#EEE8DA` | 13,1 / 5,5 / 5,1 |
+| öğle | işler | `#F3EFE6` | 13,9 / 5,9 / 5,5 |
+| ikindi | ilkeler | `#E8DEC6` | 11,9 / 5,0 / 4,7 |
+| gün batımı | hakkımda | `#EFD5BE` | 11,3 / 4,8 / 5,3 (kendi vurgusu `#943714`) |
+| akşam | colophon, iletişim | `#2A2433`, açık metin `#F1E6D8` | 12,2 / 7,2 / 7,3 (kehribar `#F0A63A`) |
+| gece | footer | `#0F1412`, açık metin `#EFE7D6` | 15,1 / 7,5 / 9,0 |
+
 ### Palet
 | Rol | Değer | Gerekçe |
 |---|---|---|
-| Kâğıt (zemin) | `#F3ECE0` | Sıcak ve klas zemin; oda duvarı hissi. |
-| Mürekkep (metin) | `#1E1B17` | Saf siyah yerine sıcak siyah; kâğıt üstünde 14.6:1. |
-| İkincil metin | `#5E574D` | Künye ve açıklamalar; kâğıt üstünde 6.1:1. |
-| Çizgi | `#D9CFBF` | Yalnızca ayraç ve çerçeve; bilgi taşımaz (1.3:1). |
-| Vurgu | Kiremit `#B8471F` | Analog kaset etiketlerinin sıcak turuncusu; kâğıt üstünde 4.52:1 (AA). Bayrak kırmızısından bilerek uzak. |
-| Kaset renkleri | hardal `#E0A82E` (mürekkep yazı, 8.0:1) · kiremit `#B8471F` (kâğıt yazı, 4.5:1) · petrol `#24666B` (kâğıt, 5.6:1) · zeytin `#7D8A3A` (mürekkep, 4.6:1) · gül kurusu `#D08C83` (mürekkep, 6.3:1) · gece mavisi `#2B3F6B` (kâğıt, 8.8:1) · bordo `#7A2E3A` (kâğıt, 7.9:1) | Yalnızca kasetlerde ve o projenin overlay'inde. Temel sistem 3 renkte kalır; çeşitlilik rafta. Proje–renk eşleşmesi CONTENT §2. |
+| Kâğıt (zemin) | `#EEE8DA` | Yürüyüş defteri kâğıdı; sabahın zemini. |
+| Mürekkep (metin) | `#1C241B` | Orman siyahı; kâğıt üstünde 13,1:1. |
+| İkincil metin | `#575E50` | Künye ve açıklamalar; kâğıt üstünde 5,5:1. |
+| Çizgi | `#CFC6B4` | Yalnızca ayraç ve çerçeve; bilgi taşımaz. |
+| Vurgu | Gün batımı `#A63F17`; gecede kehribar `#F0A63A` | Gündüz yürüyüşün gün batımı, gece projektör ışığı (sinema). Kâğıt üstünde 5,1:1. Kahverengiye çalan turuncu; bayrak kırmızısından ayrı. |
+| Kaset renkleri | hardal `#E0A82E` (mürekkep yazı, 8.0:1) · kiremit `#B8471F` (kâğıt yazı, 4.5:1) · petrol `#24666B` (kâğıt, 5.6:1) · zeytin `#7D8A3A` (mürekkep, 4.6:1) · gül kurusu `#D08C83` (mürekkep, 6.3:1) · gece mavisi `#2B3F6B` (kâğıt, 8.8:1) · bordo `#7A2E3A` (kâğıt, 7.9:1) | Yalnızca kasetlerde ve o projenin overlay'inde. Proje–renk eşleşmesi CONTENT §2. v2'de değişmedi: retro tonlar yeni palete uyuyor ve her çift kendi içinde AA. |
 
 Pixel dekor aynı paleti kullanır; Gemini ya da paket çıktıları bu palete indirgenir.
 
 ### Tipografi
 | Kullanım | Font | Gerekçe |
 |---|---|---|
-| Başlık, kaset sırtı, arayüz, gövde | **Archivo** (variable: genişlik 62–125, kalınlık 100–900) | Kaset sırtı dar → condensed yazı şart; tek aile hem dar/kalın başlığı hem normal gövdeyi karşılar. |
-| Vurgu (başlıkta tek kelime) | **Fraunces Italic** | "Kalın başlık + tek kelime italik serif" kalıbının bize ait hali; sıcak, dozunda mizaha uygun. |
-| Etiket, süre, künye | **Geist Mono** | Net bilgi satırı (rol · şehir · müsaitlik) ve okuma süreleri. |
+| Başlık, kaset sırtı | **Bricolage Grotesque** (variable: genişlik 75–100) | Karakterli bir grotesk; dar ve kalın halinde poster başlığı gibi durur, genişlik ekseni kaset sırtlarına daralır. |
+| Vurgu (başlıkta tek kelime) | **Instrument Serif Italic** | Film jeneriği zarafeti (sinema); kalın grotesk başlığın yanında tek italik kelime. |
+| Gövde, arayüz | **Instrument Sans** | Sakin, okunaklı gövde; başlığın karakterini öne bırakır. |
+| Etiket, süre, künye | **Fragment Mono** | Daktilo hissi veren mono (retro); bilgi satırı ve okuma süreleri. |
 | Kenar notları (isteğe bağlı) | **Caveat** | Yalnızca el yazısı notlarda; geç yüklenir. |
 
-Dördü de SIL OFL ve Google Fonts'ta latin-ext subset'li (ğ, ş, ı, İ dahil); doğrulama §9'da. İlk ekranda kullanılan fontlar (Archivo, Fraunces Italic, Geist Mono) preload edilir; Caveat geç yüklenir (D1'de ölçülerek değişti, ARCHITECTURE ADR-15).
+Beşi de SIL OFL ve Google Fonts'ta latin-ext subset'li (ğ, ş, ı, İ dahil; v2 fontları 2026-11-27'de google/fonts reposundan ve Google Fonts metadata'sından doğrulandı). İlk ekranda kullanılan dört font preload edilir (toplam 197 KB; v1'de üç fontla 300 KB'tı); Caveat geç yüklenir (ARCHITECTURE ADR-15).
 
 Tip ölçeği: akışkan; gövde 17–18 px; oran mobilde 1.25, masaüstünde 1.333; dev başlık condensed ve `clamp()` ile ekran genişliğine göre. Büyük harfli mono etiketlerde `lang="tr"` (i/İ dönüşümü).
 
@@ -147,7 +162,7 @@ Elle çizim yok. Kaynaklar: (1) kod ve tipografi, programla üretilen pixel/SVG;
 - **Kilim/dokuma teması:** jarnket.com'un dokuma sistemine fazla benzer kalır ve turistik görünme riski taşır; ızgara ihtiyacını pixel dili karşılıyor.
 - **Harita yolculuğu ve illüstre sahneler** (paulfey.me, andreas.vision, twandeniet.com): elle çizim gerektiriyor. Haritalar ErasmusMap ve ATAMap case study'lerinin içinde kalır.
 - **Klasör sekmeli kart yığını** (INS-09): kaset rafıyla aynı işi yapıyor.
-- **Koyu/sinematik görünüm, pastel lavanta, küfürlü dil:** §7 tonuna ve "sıcak oda" hissine uymuyor.
+- **Koyu/sinematik görünüm** (v2'de kısmen geri döndü: sayfa akşamda ve gecede koyulaşır, kullanıcı kararı 2026-11-27)**, pastel lavanta, küfürlü dil:** §7 tonuna ve "sıcak oda" hissine uymuyor.
 
 ## 9. Medya envanteri
 | Tür | Kaynak | Lisans | Adet | En-boy | Performans bütçesi (ARCHITECTURE §8) |

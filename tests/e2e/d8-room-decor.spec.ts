@@ -130,8 +130,9 @@ test.describe("About pattern", () => {
       const rect = document.querySelector("#about-decor-pattern rect")!;
       const probe = document.createElement("span");
       probe.style.color = "var(--color-accent)";
-      probe.style.backgroundColor = "var(--color-tone-blush)";
-      document.body.append(probe);
+      probe.style.backgroundColor = "var(--color-paper)";
+      // Inside About, where the sunset time re-points paper and accent
+      document.getElementById("about")!.append(probe);
       const style = getComputedStyle(probe);
       const values = [getComputedStyle(rect).fill, style.color, style.backgroundColor];
       probe.remove();

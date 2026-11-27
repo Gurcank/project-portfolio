@@ -21,13 +21,13 @@ const linkClass =
  */
 export function Contact({ profile, heading, labels }: ContactProps) {
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="border-t border-line">
+    <section id="contact" aria-labelledby="contact-heading" data-time="dusk">
       <div className="relative mx-auto grid max-w-page gap-8 px-(--gutter) py-24 md:py-32 xl:grid-cols-12 xl:gap-12">
         <DecorSlot name="contact-left" side="left" />
         <DecorSlot name="contact-right" side="right" />
         <h2
           id="contact-heading"
-          className="text-h1 font-black font-stretch-condensed xl:col-span-5"
+          className="font-display text-h1 font-black font-stretch-condensed xl:col-span-5"
         >
           <Emphasis text={heading} />
         </h2>
@@ -38,7 +38,7 @@ export function Contact({ profile, heading, labels }: ContactProps) {
             href={`mailto:${profile.email}`}
             data-umami-event={analyticsEvents.contactEmailClick}
             data-umami-event-method="mailto"
-            className="text-h2 font-bold wrap-anywhere text-accent font-stretch-condensed underline decoration-2 underline-offset-8 md:text-h1"
+            className="font-display text-h2 font-bold wrap-anywhere text-accent font-stretch-condensed underline decoration-2 underline-offset-8 md:text-h1"
           >
             {profile.email}
           </a>

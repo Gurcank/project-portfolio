@@ -40,7 +40,7 @@ export function Hero({ name, copy }: HeroProps) {
       <h1
         id="hero-name"
         // wrap-anywhere: a surname longer than the narrowest column breaks instead of pushing the page sideways
-        className="mt-6 text-display font-black tracking-tight wrap-anywhere font-stretch-condensed md:mt-8"
+        className="mt-6 font-display text-display font-black tracking-tight wrap-anywhere font-stretch-condensed md:mt-8"
       >
         {name}
       </h1>

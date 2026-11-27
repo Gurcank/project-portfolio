@@ -1,17 +1,47 @@
 # PROGRESS
 
-## Durum: CV kaldırıldı, beceriler Hakkımda'da (yerelde, 2026-11-27). Kalan: PSI ortancası; kullanıcıdan Umami ID, adres (en son), 30 sn testi, ekran okuyucu turu
+## Durum: v2 başladı. V1 (kimlik: gün → gece, yeni fontlar, barış ve yin-yang) yerelde hazır; S17 ve V1 merge bekliyor (2026-11-27). Kalan, kullanıcıdan: Umami ID, 30 sn testi, ekran okuyucu turu, pixel avatar için fotoğraf
 
-**Canlı:** https://project-portfolio-theta-mocha.vercel.app (S16, commit `9f3c8a6`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/s16-cv-skills` (yerel commit, push bekliyor). S16 `main`'de ve canlıda.
+**Canlı:** https://gurcankaradag.vercel.app (S16b, commit `1663ebe`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/v1-identity` (S17 dalının üstünde). `main`: S16b + ATAMap düzeltmesi, canlıda. Merge sırası: S17, sonra V1.
 
-### S16b · CV yerine Hakkımda'da beceriler (yerelde)
+### v2 · Yön (Faz 0, 2026-11-27)
+
+- Kullanıcı v1'in kendisini yansıtmadığını söyledi (renk, tipografi, deneysellik). Kararlar: konsept "Odayı büyüt", kimlik kelimeleri doğa · yürüyüş · psikoloji · sinema · retro · müzik, fotoğraftan pixel avatar, ADR-16 (logo yok) kalktı. Barış ve yin-yang sembolleri istendi.
+- Yön dokümanı: https://claude.ai/artifact/YakXZtFUmW8gZFSYhTwTSV. Seçimler (kullanıcı "önerilerinle devam et" dedi): Y-C Gün → Gece, V-wheel, R-kal, M-cd; GitHub kararı V6'da. 13 referans portfolyo incelendi; verilen 10 Framer modülü ve 4 21st.dev bileşeninde lisans notu yok: kod kopyalanmayacak, davranış kendi kodumuzla yazılacak.
+- v2 dilim tablosu ROADMAP "v2 dilimleri"nde.
+
+### V1 · Kimlik (yerelde)
+
+- **Gün → gece:** bölümler `data-time` ile günün bir saati (hero sabah, işler öğle, ilkeler ikindi, hakkımda gün batımı, colophon ve iletişim akşam, footer gece). Bölüm kendi zeminini boyar ve çalışma renklerini yeniden tanımlar (`styles/globals.css`); JavaScript yok. Geçişlerde 96 px renk bandı. Kontrastlar SPEC §8 tablosunda; gün batımında vurgu `#943714` (sabahınki 4,46:1'de kalıyordu). Bölümlerin üst çizgileri kalktı. ToneController `data-tone` yazmaya devam ediyor, artık renk vermiyor.
+- **Fontlar:** Bricolage Grotesque (başlık + sırt, `font-display`), Instrument Serif italik (vurgu), Instrument Sans (gövde), Fragment Mono (etiket), Caveat (kalıyor). Preload 300 KB → 197 KB. OG görseli de yeni fontlarla (Google TrueType döndürüyor, doğrulandı). Krediler ve velite font listesi güncellendi.
+- **Semboller:** `components/pixel/sprites/symbols.ts` (20×20, dairelerden hesaplanmış). Barış: hero masasında ticket köşesinde çıkartma. Yin-yang: gün batımı → akşam bandının ortasında (`components/home/DayNightSeam.tsx`; bölümlerin dışında, ki renkleri ters dönmesin). İkisi de `aria-hidden`, yalnız ≥ 1024 px.
+- **Testler:** d6 ton testi yeni modele göre yeniden yazıldı (saat sırası, koyulaşma, her zeminde mürekkep/ikincil/vurgu ≥ 4,5); d8 desen testi gün batımı zeminine; d5 kredi listesi yeni fontlar.
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (88/88), `check:tokens` (95), `build`, `test:e2e` (143/143). Ekran görüntüleri `artifacts/home-*`, `en-*`. Yerel Lighthouse mobil (3 koşu, aynı yöntem): S17 LCP 4,5–4,7 sn, V1 4,7–4,8 sn; CLS ikisinde 0, erişilebilirlik 100. Yerel mutlak değerler PSI ile kıyaslanamaz (S17 benzeri kod PSI'de 1,1 sn); fark gürültü düzeyinde, PSI ölçümü production'da.
+
+### S17 · Proje ekran görüntüleri (yerelde)
+
+- **ATAMap linki kırıktı (bulgu, 2026-11-27):** `project-atamap.vercel.app` 404 veriyordu; Vercel projesinin domain'i `atamap.vercel.app`. Ayrı dalda düzeltildi, kullanıcı onayıyla doğrudan main'e (`9f608cd`); production'da TR ve EN'de yeni link, eski adres yok, hedef 200. GitHub reposunun "homepage" alanı hâlâ eski adreste (kullanıcının değiştirmesi gerekiyor). Diğer bütün proje linkleri 200 (LinkedIn bot engeli 999, normal).
+- **Script:** `npm run capture:screens` (`scripts/capture-project-screens.ts`): canlı adresi olan 6 proje, 1280×800, 2× JPEG q90 → `content/projects/<slug>/media/cover.jpg`. ErasmusMap ve Novera'da çerez bandı "Reddet"; Nature & Sport'ta kapalı defter yerine Kuşlar sayfası. Yeni bağımlılık yok (JPEG'i Playwright yazıyor; siteye AVIF/WebP `next/image` ile).
+- **Şema:** `project.yaml` → isteğe bağlı `cover: { image, alt: {tr,en} ≤ 180, credit?: {tr,en} ≤ 80 }`; `getProjects` dile göre çözüyor. `gallery` ertelendi (ARCHITECTURE §3).
+- **Overlay:** başlığın altında 16:10 görsel, alt metinli; ErasmusMap'in altında "Harita: © Mapbox © OpenStreetMap © Maxar" (Mapbox statik harita kuralı: atıf görselin yanında; https://docs.mapbox.com/help/getting-started/static-maps/). Sunucu bileşeninde (`CaseStudyPanel`), istemci verisine eklenmedi. `sizes` ölçülerek düzeltildi (1280'de 1920 yerine 1200 px).
+- **Raf (≥ 1024 px):** ekran görüntüsü kaset etiketini dolduruyor, makara penceresi gerçek kasetteki gibi etiketin üstünde (D3'ün makara uçuşu buradan başladığı için korunmalıydı). Kart rafın boyunu aşmıyor (1024/1280/1440). IDDDergi tipografik kapakla kalıyor. Mobilde kapak görseli hiç indirilmiyor; masaüstünde 6 kapak toplam ≈ 41 KB AVIF, LCP öğesi hâlâ H1 (yerel 684 ms).
+- **Lisans (kullanıcının beyanı, 2026-11-27):** İklim Krizi açılış videosu serbest lisanslı stok (Pexels/Pixabay türü; kaynağı GORSEL-KAYNAKLAR.md'de yok, eklenmesi iyi olur). Nature & Sport'un ahşap ve çim dokuları yapay zekâ ile üretildi; defterdeki küçük fotoğraflar Wikimedia, künyeleri o sitenin Credits sayfasında.
+- **Alt metinler:** CONTENT §8 sonunda; kullanıcı onayladı (2026-11-27).
+- **Testler:** `s17-project-screens.spec.ts` (8 test). D3'ün "makaralar kapağa geri uçar" testi sabit 300 px yerine kapağın ölçülen genişliğine bakıyor (yeni kapakta makaralar etiket genişliğinin 3/5'i).
+- **Doğrulama (yerel):** `format:check`, `lint` (0), `typecheck`, `test` (88/88), `check:tokens` (94), `build`, `test:e2e` (141/141). Ekran görüntüleri: `artifacts/home-*`, `en-*`, `s17-shelf-{375,1024,1280,1440}`, `s17-overlay-*`.
+- **Bilinen, bu dilimden önce de olan:** D3 "bant soldan sağa geçer" testi 6 paralel işçi + 12 tekrarda ara sıra düşüyor (dilimsiz 3/12, dilimle 1/12); tam koşularda geçiyor. Kaydırma zamanlamasına bağlı, ayrıca bakılabilir.
+
+### S16b · CV yerine Hakkımda'da beceriler (canlıda)
 
 - **Kullanıcı kararı (2026-11-27):** CV sitede sunulmuyor; CV'deki bilgiler telefon hariç sitede. GANO eklenmedi (kullanıcı kararı). Domain alınmıyor; daha okunur bir vercel.app adresi kararı en sona. Umami'yi kullanıcı kuracak.
 - **Kaldırılan:** `public/cv/` (commit'lenmemiş TR PDF silindi), CV düğmesi, `profile.cv` şeması, `getCvHref`, `cv_download` event'i (SPEC §4 ve §14.6'da 3 event), break-ui'daki "No CV" durumu. d1'deki CV testi yerine "sitede PDF linki yok" testi.
-- **Eklenen:** Hakkımda'da Hedeflerim altında "Beceriler / Skills": dört grup (Ürün ve tasarım, Ürün ve proje yönetimi, Yazılım, Dil), case study künyesi biçiminde `<dl>` (mono etiket + düz metin; seviye çubuğu yok). Eğitim satırında "MEZUNİYET HAZİRAN 2027" → "2023 – HAZİRAN 2027" (EN "2023 – JUNE 2027"); tirenin iki yanı bölünmez boşluk. Metin CONTENT §6'ya da yazıldı (kullanıcı onayı). Şema: etiket ≤ 32, madde ≤ 140 karakter, 1–6 grup.
+- **Eklenen:** Hakkımda'da Hedeflerim altında "Beceriler / Skills": dört grup (Ürün ve tasarım, Ürün ve proje yönetimi, Yazılım, Dil), case study künyesi biçiminde `<dl>` (mono etiket + düz metin; seviye çubuğu yok). Eğitim satırında "MEZUNİYET HAZİRAN 2027" → "2023 – HAZİRAN 2027" (EN "2023 – JUNE 2027"); tirenin iki yanı bölünmez boşluk, tireden sonra ayrıca word joiner (U+2060): yalnız NBSP ile Unicode tireden sonra kırmaya izin veriyor (UAX #14, LB12a) ve preview'da 1280 px'te "2023 –" satır sonunda kaldı. Metin CONTENT §6'ya da yazıldı (kullanıcı onayı). Şema: etiket ≤ 32, madde ≤ 140 karakter, 1–6 grup.
 - **CV'de olup bilerek eklenmeyenler:** telefon, GANO, Novera'nın ekip arkadaşı kullanıcı adı içeren repo linki. Proje teknolojileri zaten case study'lerde.
-- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (88/88), `check:tokens` (94 dosya), `build`, `test:e2e` (132/132; bir koşuda d4'te tek bir hata görüldü, 3×14 tekrarda ve sonraki tam koşuda yeniden üretilemedi). Ekran görüntüleri: `artifacts/about-{tr,en}-{375,768,1280}.png`, `home-*`, `en-*`.
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (88/88), `check:tokens` (94 dosya), `build`, `test:e2e` (132/132; bir koşuda d4'te tek bir hata görüldü, 3×14 tekrarda ve sonraki tam koşuda yeniden üretilemedi). Ekran görüntüleri: `artifacts/about-{tr,en}-{375,768,1280}.png`, `home-*`, `en-*`. Tire düzeltmesinden sonra e2e 133/133 (yeni test: tarih aralıkları 375–1440 px'te tireden bölünmüyor); lint'teki kullanılmayan `join` import'u silindi.
+- **Production'da doğrulananlar (2026-11-27, `1663ebe`, gurcankaradag.vercel.app):** `/`, `/en`, `robots.txt`, `sitemap.xml` 200; eski PDF adresi 404. TR/EN × 375/768/1280: Beceriler 4 satır, GANO/GPA yok, PDF linki yok, CSP ihlali 0, yatay taşma 0. Tarih aralıkları TR/EN × 5 genişlikte bölünmüyor. Canonical, JSON-LD `url` ve sitemap yeni adreste (`lib/site-url.ts` Vercel'in production URL'ini okuyor). CSP, HSTS, X-Frame-Options, Referrer-Policy var; production CSP'sinde vercel.live yok.
+- **PageSpeed Insights, 5 koşu (2026-11-27 14:30–14:40, gurcankaradag.vercel.app, Lighthouse 13.6.0):** her koşuda Performans, Erişilebilirlik, Best Practices, SEO **100**. Mobil (Moto G Power, Slow 4G) ortanca: **FCP 1,1 sn · LCP 1,1 sn · TBT 20 ms · CLS 0 · Speed Index 1,1 sn** (TBT koşularda 0–40 ms; diğerleri beş koşuda da aynı). Masaüstü ortanca: **FCP 0,3 sn · LCP 0,3 sn · TBT 10 ms · CLS 0 · Speed Index 0,7 sn** (TBT 0–60 ms, SI 0,6–0,8 sn). Arka arkaya iki koşu (mobilde ve masaüstünde birer kez) aynı dakikada birebir aynı sonucu verdi; PSI önbelleği olabilir, bu ikisi tek sayılırsa ortanca değişmiyor (mobil TBT 15–20 ms). D7–D10'daki mobil Speed Index 3,7–4,4 sn ve masaüstü CLS 0,002 tekrarlanmadı: CLS, S16'daki `overflow-x-clip` düzeltmesiyle 0; SI'nin eski değeri tek koşu gürültüsü ya da aynı yatay kaydırma çubuğunun etkisiydi, ayırt edilemiyor. API hâlâ 429; ölçüm pagespeed.web.dev arayüzünden.
+- **Adres:** Vercel projesinde tek domain `gurcankaradag.vercel.app` (2026-11-27 11:39'da eklendi); `project-portfolio-theta-mocha.vercel.app` kaldırılmış, 404 veriyor. Bu eski adres bir yerde paylaşıldıysa (LinkedIn, CV) güncellenmeli.
 
 ### S16 · Kalite kapıları + yayın (kod tarafı canlıda)
 
@@ -24,8 +54,8 @@
   - D10'un Tab testi ≈ 8 koşuda 1 düşüyordu: Chromium ilk boyamadan önceki tuşu bekletebiliyor; test artık ilk boyamayı bekliyor (15/15).
 - **Lisans kontrolü (SPEC §14.5):** 4 font (OFL) ve Atatürk portresi kredilerde; OG görselleri aynı fontları kullanıyor; imleç, sprite'lar, bayrak ve favicon kodla üretiliyor; telifli görsel yok. Geçti.
 - **Sayılar (CONTENT "Sayılar"):** repolardaki commit sayıları içerikle aynı (110 / 142 / 4 / 43 / 17); ATAMap reposuna 18 Kasım'dan beri commit yok, 721 olay / 398 kaynak geçerli. Değişiklik gerekmedi.
-- **PSI 5 koşu ortancası yapılamadı:** anahtarsız API 429, arayüz aynı adresi önbellekten döndürüyor. Yerel Lighthouse 13.6.0 (5'er koşu): mobilde Speed Index her koşuda FCP'ye eşit, yani ilk boyamadan sonra görsel değişim yok; PSI'deki 3,7 sn'nin yerelde karşılığı bulunmadı. Ortanca PSI kotası açılınca alınacak.
-- **SPEC §14 kanıtı:** 1 → d1 + d9 testleri ve ekran görüntüleri · 2 → kullanıcı (LAUNCH-CHECKS §1) · 3 → d2 (hash, Esc, geri) · 4 → şema (eksik çeviri build'i kırar) · 5 → yukarıdaki lisans kontrolü · 6 → event öznitelikleri d1'de test ediliyor, canlı kanıt Umami ID'sini bekliyor · 7 → PSI mobil 99, erişilebilirlik 100, axe 0 · 8 → d3, d7, d8, d10 reduced-motion ve duraklatma testleri.
+- **PSI 5 koşu ortancası yapılamadı:** anahtarsız API 429, arayüz aynı adresi önbellekten döndürüyor. Yerel Lighthouse 13.6.0 (5'er koşu): mobilde Speed Index her koşuda FCP'ye eşit, yani ilk boyamadan sonra görsel değişim yok; PSI'deki 3,7 sn'nin yerelde karşılığı bulunmadı. Ortanca 2026-11-27'de alındı (aşağıda, S16b).
+- **SPEC §14 kanıtı:** 1 → d1 + d9 testleri ve ekran görüntüleri · 2 → kullanıcı (LAUNCH-CHECKS §1) · 3 → d2 (hash, Esc, geri) · 4 → şema (eksik çeviri build'i kırar) · 5 → yukarıdaki lisans kontrolü · 6 → event öznitelikleri d1'de test ediliyor, canlı kanıt Umami ID'sini bekliyor · 7 → PSI mobil 100 (5 koşu ortancası, 2026-11-27), erişilebilirlik 100, axe 0 · 8 → d3, d7, d8, d10 reduced-motion ve duraklatma testleri.
 - **Preview'da bulundu:** CSP, Vercel'in preview'lara eklediği araç çubuğunu (`vercel.live`) engelliyordu. Belgedeki adresler yalnız `VERCEL_ENV=preview` build'lerinde CSP'ye ekleniyor; production CSP'si değişmedi (`9f3c8a6`). Preview'a erişim için kullanıcı onayıyla 23 saatlik paylaşım linki açıldı (27.11.2026 22:16'da sona eriyor).
 - **Production'da doğrulananlar (2026-11-27):** `/` ve `/en` 200, olmayan yol 404. CSP (sıkı hali), COOP, Permissions-Policy, Referrer-Policy, nosniff, X-Frame-Options ve HSTS geliyor. 375 / 1280 / 1350'de CSP ihlali yok, masa oynarken 5 sn boyunca yatay taşma 0, JSON-LD `Person`, overlay açıkken tek contentinfo. Ekran görüntüleri canlıdan: `artifacts/home-*`, `en-*`.
 - **PSI yapılamadı:** API 429; arayüz analizi 3 dakikada bitirmedi (aynı kota olabilir). Bir sonraki oturumda 5 koşu ortancası.
@@ -198,8 +228,7 @@
 
 ### Sıradaki adım
 
-1. PSI 5 koşu ortancası (kota açılınca), mobil Speed Index takibi.
-2. Kullanıcıdan: domain, Umami ID, 30 sn testi, ekran okuyucu turu (`docs/LAUNCH-CHECKS.md`).
+1. Kullanıcıdan: Umami ID, 30 sn testi, ekran okuyucu turu (`docs/LAUNCH-CHECKS.md`; turda Hakkımda'daki kimlik satırını da dinle: tireden sonra görünmez bir word joiner var).
 
 ### Açık sorular (kullanıcıdan)
 
@@ -208,7 +237,7 @@
 | IDDDergi canlı adresi                                               | gelince `project.yaml` → `links.live` |
 | Umami Cloud hesabı ve Website ID (Vercel env'e)                     | kodsuz eklenir                   |
 | 2–3 kişisel fotoğraf | sonra (küçük dilim) |
-| 30 sn testi için bir kişi; domain                                   | S16                              |
+| 30 sn testi için bir kişi                                           | S16                              |
 
 ### Not
 

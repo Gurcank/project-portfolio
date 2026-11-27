@@ -82,11 +82,14 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
   const items = withNotes(parseStory(about.story), about.notes);
 
   return (
-    <section id="about" aria-labelledby="about-heading" className="border-t border-line">
+    <section id="about" aria-labelledby="about-heading" data-time="sunset">
       <div className="relative mx-auto grid max-w-page gap-12 px-(--gutter) py-24 md:py-32 lg:grid-cols-12 lg:gap-8">
         <PatternSlot />
         <DecorSlot name="about-left" side="left" />
-        <h2 id="about-heading" className="text-h1 font-black font-stretch-condensed lg:col-span-12">
+        <h2
+          id="about-heading"
+          className="font-display text-h1 font-black font-stretch-condensed lg:col-span-12"
+        >
           {heading}
         </h2>
 
@@ -118,12 +121,14 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
             {about.credentials.replaceAll(" – ", "\u00a0\u2013\u2060\u00a0")}
           </p>
 
-          <h3 className="mt-16 text-h3 font-black font-stretch-condensed">{about.goalsHeading}</h3>
+          <h3 className="mt-16 font-display text-h3 font-black font-stretch-condensed">
+            {about.goalsHeading}
+          </h3>
           <p className="mt-4 max-w-prose">{about.goals}</p>
 
           {/* Same shape as a case study's credits: a mono label, then plain text. No levels or bars:
               a self-rated "80% React" says nothing a reader can check */}
-          <h3 className="mt-16 text-h3 font-black font-stretch-condensed">
+          <h3 className="mt-16 font-display text-h3 font-black font-stretch-condensed">
             {about.skills.heading}
           </h3>
           <dl className="mt-4 flex max-w-prose flex-col gap-4">

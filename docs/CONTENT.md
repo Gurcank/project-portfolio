@@ -20,8 +20,8 @@
 | Boş durum, hata | ≤ 15 kelime |
 
 - **Okuma süresi** = kelime / 180 (TR) ve / 200 (EN), `m:ss`, en yakın 0:05'e yuvarlanır. TR ve EN ayrı hesaplanır. Bu dosyadaki süreler 2026-11-21'de bu formülle script'le hesaplandı.
-- *Yıldızlı* kelime = Fraunces Italic vurgu (başlıkta tek kelime, SPEC §8).
-- `Mono` metin = Geist Mono, büyük harf; `lang="tr"` ile (i/İ).
+- *Yıldızlı* kelime = Instrument Serif Italic vurgu (başlıkta tek kelime, SPEC §8; v1'de Fraunces).
+- `Mono` metin = Fragment Mono, büyük harf; `lang="tr"` ile (i/İ). (v1'de Geist Mono.)
 - Mizah yalnız mikro metinde ve başlıklarda (INS-15). Case study gövdesi ciddi. **ATAMap kasetinde mizah ve kenar notu yok** (SPEC §6).
 - Ekip arkadaşlarının adı sitede yazılmaz.
 
@@ -676,7 +676,7 @@ EN (~140 words):
 | Hedeflerim başlığı (D4; TR §6'dan, EN preview'da listelendi, merge onayıyla kabul edildi) | Hedeflerim | Goals |
 | Bayrağın erişilebilir adı (D4; preview'da listelendi, merge onayıyla kabul edildi) | Türk bayrağı | Turkish flag |
 | Krediler grup etiketleri (D5'te onaylandı) | Fontlar · Fotoğraf · Yapay zekâ | Fonts · Photo · AI |
-| Kredi kullanım yerleri (D5'te onaylandı) | Archivo: Başlıklar, gövde, kaset sırtları · Fraunces: Başlıktaki italik vurgu · Geist Mono: Etiketler ve süreler · Caveat: Kenar notları · Portre: Hakkımda'daki Atatürk portresi · Claude: Kod, tasarım ve metinde birlikte çalıştığım asistan | Headings, body, tape spines · Italic accent in headings · Labels and durations · Margin notes · Atatürk portrait in About · The assistant I worked with on code, design and copy |
+| Kredi kullanım yerleri (D5'te onaylandı; v2 fontları 2026-11-27) | Bricolage Grotesque: Başlıklar ve kaset sırtları · Instrument Serif: Başlıktaki italik vurgu · Instrument Sans: Gövde metni · Fragment Mono: Etiketler ve süreler · Caveat: Kenar notları · Portre: Hakkımda'daki Atatürk portresi · Claude: Kod, tasarım ve metinde birlikte çalıştığım asistan | Headings and tape spines · Italic accent in headings · Body text · Labels and durations · Margin notes · Atatürk portrait in About · The assistant I worked with on code, design and copy |
 
 Kurallar: Buton metni fiille başlar. ATAMap overlay'inde esprili mikro metin kullanılmaz (404 ve walkman metinleri ATAMap overlay'inde görünmez).
 
