@@ -287,7 +287,7 @@ SeeYourNextStep is live: 7 role paths, 31 categories, 335 lessons, 994 terms and
 
 - **Alt başlık:** 1881–1938, bir haritada *adım adım* · EN: 1881–1938, one map, *step* by step
 - **Künye:** 2026 · Product, tasarım, kod · Solo
-- **Linkler:** [project-atamap.vercel.app](https://project-atamap.vercel.app) · [github.com/Gurcank/project_ATAMap](https://github.com/Gurcank/project_ATAMap)
+- **Linkler:** [atamap.vercel.app](https://atamap.vercel.app) · [github.com/Gurcank/project_ATAMap](https://github.com/Gurcank/project_ATAMap)
 - **Toplam süre / Total:** TR 1:55 · EN 2:15
 
 #### TR

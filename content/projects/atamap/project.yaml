@@ -7,5 +7,5 @@ year: 2026
 # SPEC §6: no humour, no margin notes, no playful microcopy in this tape
 respectful: true
 links:
-  live: https://project-atamap.vercel.app
+  live: https://atamap.vercel.app
   source: https://github.com/Gurcank/project_ATAMap
