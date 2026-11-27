@@ -65,6 +65,7 @@ function toOverlayStudy(project: ProjectView, projects: ProjectView[]): OverlayS
     links: project.links,
     next: { slug: next.slug, title: next.study.title },
     tracks: project.study.tracks.map(({ id, title }) => ({ id, title })),
+    cover: project.cover?.image,
   };
 }
 

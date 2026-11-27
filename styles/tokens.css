@@ -29,6 +29,11 @@
   --color-cassette-olive: #7d8a3a;
   --color-cassette-rose: #d08c83;
 
+  /* A real tape (V2b): brown magnetic tape seen through a smoked window. The tape is how far you have
+   * read, so it has to read on the window: 5.5:1 */
+  --color-tape: #4a3326;
+  --color-tape-window: #b9b0a3;
+
   /* Text color on each cassette — pairs from SPEC §8 contrast table */
   --color-on-cassette-mustard: #1e1b17; /* 8.0:1 */
   --color-on-cassette-terracotta: #f3ece0; /* 4.5:1 */

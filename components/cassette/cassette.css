@@ -1,0 +1,105 @@
+/*
+ * The realistic cassette and the tape deck (V2b, /animate). Every duration comes from tokens, so reduced
+ * motion and "pause motion" make each change instant.
+ */
+
+/* A compact cassette is 100.4 × 63.8 mm */
+.cassette {
+  aspect-ratio: 100 / 64;
+  container-type: inline-size;
+}
+
+/* The label art: the paper label below its catalog strip (viewBox y 9 → 40) */
+.cassette-art {
+  position: absolute;
+  left: 7%;
+  top: 14%;
+  width: 86%;
+  height: 48.4%;
+  border-radius: var(--radius-sm);
+}
+
+/* No screenshot: the title written on the label by hand, sized with the tape */
+.cassette-art-hand {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 2cqi;
+  font-size: 9cqi;
+  line-height: 1;
+  text-align: center;
+}
+
+/* The window sits over the lower half of the label, as on a real tape */
+.cassette-window {
+  position: absolute;
+  left: 17%;
+  width: 66%;
+  top: 30%;
+}
+
+/* Playing: the hubs turn on their own, slowly. Automatic motion, so it stops when motion is reduced or
+   paused (WCAG 2.2.2; the pause control is in the footer) */
+@keyframes reel-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.reel-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: reel-spin 3.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel-spin {
+    animation: none;
+  }
+}
+
+:root[data-motion="paused"] .reel-spin {
+  animation: none;
+}
+
+/* ── Deck ─────────────────────────────────────────────── */
+
+/* Opened from anywhere but a visible cover (a shared link, a chip, a phone): the tape drops into the
+   slot from above instead of flying across the page */
+@keyframes tape-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-40%);
+  }
+}
+
+.tape-drop {
+  animation: tape-drop var(--duration-base) var(--ease-out);
+}
+
+/* The cassette door: smoked glass hinged at the top, it swings shut once the tape is in */
+.tape-deck-door {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  border-top: var(--hairline) solid color-mix(in oklab, var(--color-paper) 45%, transparent);
+  background: color-mix(in oklab, var(--color-paper) 14%, transparent);
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform var(--duration-fast) var(--ease-out);
+  pointer-events: none;
+}
+
+.tape-deck-door[data-closed="true"] {
+  transform: scaleY(1);
+}
+
+/* PLAY goes down once the door has shut */
+.tape-deck-key {
+  transition: transform var(--duration-fast) var(--ease-out);
+  transition-delay: var(--duration-fast);
+}
+
+.tape-deck-key[data-down="true"] {
+  transform: translateY(calc(var(--spacing) * 0.5));
+}

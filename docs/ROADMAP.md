@@ -164,6 +164,7 @@ Yön dokümanı: https://claude.ai/artifact/YakXZtFUmW8gZFSYhTwTSV · seçimler:
 |---|---|
 | V1 · Kimlik | Gün → gece ton sistemi, yeni fontlar, barış (masada çıkartma) ve yin-yang (gün/gece dikişi) sembolleri |
 | V2 · Dock | Morphing dock nav (masaüstü), mobil menü, İstanbul/Łódź saat düğmesi; yin-yang kaydırma göstergesi |
+| V2b · Kaset ve deck | Gerçekçi kaset çizimi, raf sırtlarında kutu görünümü; overlay başlığı kaset deck'i: kaset uçup takılır, kapak kapanır, PLAY, makaralar döner (kullanıcı isteği 2026-11-27) |
 | V3 · Ben kimim | Intro → kısa "ben kimim" ekranı → ana site; kullanıcının fotoğrafından pixel avatar |
 | V4 · İş çarkı | Ekran görüntüleriyle çark vitrini; raf hızlı liste olarak kalır |
 | V5 · Kaydırma | Bölüm açılışları, arka plan katmanları, kaydırmayı takip eden avatar yolculuğu, ilkelerde yürüyen kalabalık |

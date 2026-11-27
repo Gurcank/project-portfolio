@@ -81,6 +81,7 @@ Site, sıcak kâğıt renginde bir duvar. İçerik ortada; odamdan pixel nesnele
 - Üstüne gelince kaset raftan hafifçe çıkar; kapağında projenin tek cümlelik problemi, rolüm ve yıl görünür (INS-14, INS-16). Dokunmatikte aynı bilgi kartta zaten görünür.
 - Tıklayınca kaset "çalar": case study overlay'i açılır (§5). Yapı **A yüzü** (problem, kullanıcı, hedef) ve **B yüzü** (kararlar ve ödünleşimler, sonuç, öğrendiklerim) olarak bölünmüş bir tracklist; her bölümün "süresi" okuma süresi (INS-28, çizimsiz uyarlama).
 - Overlay başlığında iki makara: okudukça döner, bant soldan sağa akar; okuma ilerlemesi göstergesi.
+- **v2 (V2b, kullanıcı isteği 2026-11-27):** kaset gerçekçi çizilir (gövde, vidalar, A yüzü etiketi, etikete basılı ekran görüntüsü, dumanlı pencere, kahverengi bant, kafa açıklığı) ve overlay başlığı bir kaset deck'i olur. Raftan açılınca kasetin tamamı kapaktan deck'in yuvasına uçar, kapak kapanır, PLAY basılır, makaralar dönmeye başlar; kapatınca kaset rafa geri uçar. Başka yerden açılınca kaset yukarıdan deck'e düşer. Reduced motion / "hareketi durdur": kaset zaten takılı, makaralar dönmez.
 - Kapak = projenin kendi ekran görüntüsü + tipografi. Kaset formu kodla üretilir (dikdörtgen + iki daire); çizim gerekmez.
 - Gerekçe: müzik zevkini en önemli içeriğe bağlar ve İK'ya net bir yapı verir (problem → karar → sonuç). Kaset seçildi çünkü A/B yüzü Türkiye'nin kaset kültürüne ait, sırt formatı §6'daki "sırt" fikriyle uyumlu ve paulfey.me'deki plakçıdan ayrışıyor.
 

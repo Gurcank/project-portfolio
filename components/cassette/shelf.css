@@ -52,6 +52,25 @@
     transition:
       transform var(--duration-fast) var(--ease-out),
       box-shadow var(--duration-fast) var(--ease-out);
+    /* A tape box seen edge-on (V2b): light catches the left edge, the right falls into shadow, and the
+       box's plastic lips close the coloured spine card at the top and bottom */
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--color-paper) 24%, transparent) 0,
+        transparent calc(var(--spacing) * 1.5)
+      ),
+      linear-gradient(
+        to left,
+        color-mix(in oklab, var(--color-ink) 20%, transparent) 0,
+        transparent calc(var(--spacing) * 2)
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--color-ink) 30%, transparent) 0 calc(var(--spacing) * 2),
+        transparent calc(var(--spacing) * 2) calc(100% - var(--spacing) * 2),
+        color-mix(in oklab, var(--color-ink) 30%, transparent) calc(100% - var(--spacing) * 2)
+      );
   }
 
   /* A spine holds ~25 characters: longer titles end in "…" (the full title is on the card and in the

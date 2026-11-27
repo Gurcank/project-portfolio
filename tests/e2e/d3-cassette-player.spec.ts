@@ -1,11 +1,12 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "./fixtures";
 
-// ROADMAP → S8 · D3 acceptance tests
+// ROADMAP → S8 · D3 acceptance tests; V2b: the whole tape flies into a deck
 
-const playerReels = ".case-study-panel [aria-hidden='true']:has(> svg)";
-const coverReels = (slug: string) =>
-  `#cassette-${slug} ~ .shelf-card [aria-hidden='true']:has(> svg)`;
+const playerTape = ".case-study-panel [data-deck] [data-cassette]";
+const coverTape = (slug: string) => `#cassette-${slug} ~ .shelf-card [data-cassette]`;
+// The tape in the deck: 80px on phones (w-20), 112px from md (w-28)
+const DECK_TAPE = { phone: 80, wide: 112 };
 
 /** Width of the player's reels on every frame for `ms` after `action` runs. */
 async function sampleWidths(page: Page, selector: string, ms: number, action: () => Promise<void>) {
@@ -38,49 +39,66 @@ async function scrollPanel(page: Page, share: number) {
 /** Rendered radius of the left and right tape packs. */
 function packWidths(page: Page) {
   return page.evaluate((selector) => {
-    const packs = document.querySelectorAll(`${selector} circle.fill-line`);
+    const packs = document.querySelectorAll(`${selector} circle.cassette-pack`);
     return [...packs].map((pack) => pack.getBoundingClientRect().width);
-  }, playerReels);
+  }, playerTape);
 }
 
 test.describe("desktop: the tape plays", () => {
   test.use({ viewport: { width: 1280, height: 800 } });
 
-  test("clicking a tape flies its reels from the cover into the player bar", async ({ page }) => {
+  test("clicking a tape flies the whole cassette from the cover into the deck", async ({
+    page,
+  }) => {
     await page.goto("/");
     const tape = page.locator("#cassette-atamap");
     await tape.hover();
-    const coverWidth = (await page.locator(coverReels("atamap")).boundingBox())!.width;
+    const coverWidth = (await page.locator(coverTape("atamap")).boundingBox())!.width;
 
-    const widths = await sampleWidths(page, playerReels, 900, () => tape.click());
+    const widths = await sampleWidths(page, playerTape, 900, () => tape.click());
     expect(widths.length).toBeGreaterThan(5);
-    // Starts at the cover's size and lands at the bar's 128px (w-32)
+    // Starts at the cover's size and lands in the deck's slot
     expect(Math.max(...widths)).toBeGreaterThan(coverWidth * 0.8);
-    expect(widths.at(-1)).toBe(128);
+    expect(widths.at(-1)).toBe(DECK_TAPE.wide);
   });
 
-  test("closing flies the reels back to the cover", async ({ page }) => {
+  test("once it lands, the door shuts, PLAY goes down and the reels turn", async ({ page }) => {
     await page.goto("/");
-    const coverWidth = (await page.locator(coverReels("atamap")).boundingBox())!.width;
+    await page.locator("#cassette-atamap").click();
+    const deck = page.locator(".case-study-panel [data-deck]");
+    await expect(deck).toHaveAttribute("data-deck", "playing");
+    await expect(deck.locator(".tape-deck-door")).toHaveAttribute("data-closed", "true");
+    await expect(deck.locator(".tape-deck-key")).toHaveAttribute("data-down", "true");
+    expect(
+      await deck
+        .locator(".reel-spin")
+        .first()
+        .evaluate((el) => getComputedStyle(el).animationName),
+    ).toBe("reel-spin");
+  });
+
+  test("closing ejects the cassette back to the cover", async ({ page }) => {
+    await page.goto("/");
+    const coverWidth = (await page.locator(coverTape("atamap")).boundingBox())!.width;
     await page.locator("#cassette-atamap").click();
     await expect(page.getByRole("dialog")).toBeVisible();
     await page.waitForTimeout(700);
     await scrollPanel(page, 0.5);
 
-    const widths = await sampleWidths(page, coverReels("atamap"), 900, () =>
+    const widths = await sampleWidths(page, coverTape("atamap"), 900, () =>
       page.keyboard.press("Escape"),
     );
-    // Its first frames are still bar-sized, then it grows back into the cover
+    // Its first frames are still deck-sized, then it grows back into the cover
     expect(Math.min(...widths)).toBeLessThan(200);
     expect(widths.at(-1)).toBeCloseTo(coverWidth, 0);
   });
 
   test("a shared link opens without a flight", async ({ page }) => {
     await page.goto("/#atamap");
-    await expect(page.locator(playerReels)).toBeVisible();
-    // Sampled right away: a flight would show the cover's size in these frames
-    const widths = await sampleWidths(page, playerReels, 400, async () => {});
-    expect(new Set(widths)).toEqual(new Set([128]));
+    await expect(page.locator(playerTape)).toBeVisible();
+    // Sampled right away: a flight would show the cover's size in these frames (a drop doesn't resize)
+    const widths = await sampleWidths(page, playerTape, 400, async () => {});
+    expect(new Set(widths)).toEqual(new Set([DECK_TAPE.wide]));
   });
 
   test("hover lifts the tape off the shelf", async ({ page }) => {
@@ -95,7 +113,7 @@ test.describe("desktop: the tape plays", () => {
 test.describe("reels follow the reading", () => {
   test("the tape moves from the left reel to the right one as you scroll", async ({ page }) => {
     await page.goto("/#atamap");
-    await expect(page.locator(playerReels)).toBeVisible();
+    await expect(page.locator(playerTape)).toBeVisible();
 
     const [leftStart, rightStart] = await packWidths(page);
     expect(leftStart).toBeGreaterThan(rightStart!);
@@ -106,11 +124,11 @@ test.describe("reels follow the reading", () => {
       .toBe(true);
   });
 
-  test("mobile: the reels are in the bar too", async ({ page }) => {
+  test("mobile: the tape plays in the deck too", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/#atamap");
-    await expect(page.locator(playerReels)).toBeVisible();
-    expect(Math.round((await page.locator(playerReels).boundingBox())!.width)).toBe(96);
+    await expect(page.locator(playerTape)).toBeVisible();
+    expect(Math.round((await page.locator(playerTape).boundingBox())!.width)).toBe(DECK_TAPE.phone);
   });
 });
 
@@ -123,8 +141,8 @@ test.describe("reduced motion", () => {
     const tape = page.locator("#cassette-atamap");
     await tape.hover();
 
-    const widths = await sampleWidths(page, playerReels, 400, () => tape.click());
-    expect(new Set(widths)).toEqual(new Set([128]));
+    const widths = await sampleWidths(page, playerTape, 400, () => tape.click());
+    expect(new Set(widths)).toEqual(new Set([DECK_TAPE.wide]));
     await expect(page.getByRole("dialog").getByRole("heading", { name: "ATAMap" })).toBeVisible();
 
     await scrollPanel(page, 1);
@@ -133,13 +151,17 @@ test.describe("reduced motion", () => {
       .toBe(true);
     const hubTransforms = await page.evaluate(
       (selector) =>
-        [...document.querySelectorAll(`${selector} svg g g`)].map(
-          (hub) => getComputedStyle(hub).transform,
-        ),
-      playerReels,
+        [...document.querySelectorAll(`${selector} .cassette-window svg g g`)].map((hub) => [
+          getComputedStyle(hub).transform,
+          getComputedStyle(hub).animationName,
+        ]),
+      playerTape,
     );
-    for (const transform of hubTransforms)
+    // Neither the scroll-linked turn nor the playing spin
+    for (const [transform, animation] of hubTransforms) {
       expect(["none", "matrix(1, 0, 0, 1, 0, 0)"]).toContain(transform);
+      expect(animation).toBe("none");
+    }
   });
 });
 

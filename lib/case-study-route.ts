@@ -2,7 +2,7 @@ import { useSyncExternalStore } from "react";
 
 /*
  * Client side of the case study route (ADR-11). The overlay and the shelf covers both read the hash
- * from here, so they switch in the same render: the shelf hands its reels to the overlay in one commit.
+ * from here, so they switch in the same render: the shelf hands its tape to the deck in one commit.
  */
 
 // Fired after our own pushState/replaceState, which (unlike a hash link) don't emit hashchange
@@ -26,7 +26,7 @@ export function useLocationHash(): string {
 }
 
 /*
- * Where the open tape came from. Only a tape picked on the shelf flies its reels into the player:
+ * Where the open tape came from. Only a tape picked on the shelf flies into the deck:
  * a shared link or "next tape" has no visible cover to fly from. Module state, not React state:
  * it is written by the click handler right before the route changes and read during that render.
  */
@@ -41,9 +41,9 @@ export function isOpenedFromShelf(): boolean {
 }
 
 /*
- * Which tape's reels are in the player bar right now. Motion only flies a shared element when, in one
+ * Which tape is in the deck right now. Motion only flies a shared element when, in one
  * commit, one copy drops a layoutId and another takes it. The overlay content mounts a commit after the
- * route changes (Radix portal), so the hand-over can't ride on the hash: the player claims the reels
+ * route changes (Radix portal), so the hand-over can't ride on the hash: the deck claims the tape
  * here once it is mounted, and the cover and the player both switch in the render that follows.
  */
 let playerSlug: string | null = null;
@@ -62,9 +62,9 @@ function subscribePlayer(onChange: () => void) {
   };
 }
 
-/** Whether this tape's reels are in the player. A boolean per tape, so claiming one tape re-renders
+/** Whether this tape is in the deck. A boolean per tape, so claiming one tape re-renders
  *  only that cover (and the player), not all seven: the swap happens inside the click's frame. */
-export function useReelsInPlayer(slug: string): boolean {
+export function useTapeInPlayer(slug: string): boolean {
   return useSyncExternalStore(
     subscribePlayer,
     () => playerSlug === slug,

@@ -1,9 +1,19 @@
 # PROGRESS
 
-## Durum: V2 (dock) canlıda (2026-11-27, `f7dcb5b`). Sıradaki v2 dilimi: V3 ben kimim + pixel avatar (fotoğraf gerekli). Kalan, kullanıcıdan: pixel avatar için fotoğraf, Umami ID, 30 sn testi, ekran okuyucu turu. PSI ölçümü kota açılınca
+## Durum: V2b (gerçekçi kaset + deck) yerelde hazır, preview bekliyor (2026-11-27). Canlıda S17 + V1 + V2. Kalan, kullanıcıdan: pixel avatar için fotoğraf (V3), Umami ID, 30 sn testi, ekran okuyucu turu. PSI ölçümü kota açılınca
 
 **Canlı:** https://gurcankaradag.vercel.app (V2, commit `f7dcb5b`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `main` (V2 fast-forward ile merge edildi).
+**Branch:** `slice/v2b-tape-deck` (main'den). `main`: S17 + V1 + V2, canlıda.
+
+### V2b · Gerçekçi kaset ve deck (yerelde)
+
+- **Kullanıcı isteği (2026-11-27):** kasetler daha gerçekçi olsun; "aç" denince kaset bir yere takılsın ve çalmaya başlasın.
+- **Kaset** (`components/cassette/Cassette.tsx`, `cassette.css`): 100 × 64 (gerçek oran), SVG gövde projenin renginde, üst yarıda plastik parlaklığı, 5 vida, kâğıt etiket (katalog + "A"), etikete basılı ekran görüntüsü (yoksa el yazısıyla başlık: IDDDergi), dumanlı pencerede altı dişli iki makara ve kahverengi bant, kafa açıklığı. Yeni token'lar: `--color-tape` (#4A3326) ve `--color-tape-window` (#B9B0A3); bant pencere üstünde 5,5:1, okuma ilerlemesi okunuyor.
+- **Deck** (`TapeProgress.tsx`): overlay başlığında koyu deck, kapaklı yuva, PLAY ve STOP tuşları (dekor). Raftan açılınca kasetin tamamı `layoutId` ile kapaktan yuvaya uçar (önceden yalnız makaralar uçuyordu; `useReelsInPlayer` → `useTapeInPlayer`), indikten sonra kapak kapanır, PLAY basılır, makaralar yavaşça dönmeye başlar (CSS, reduced motion ve "hareketi durdur"da durur); kapatınca kapak açılır, kaset rafa döner. Paylaşılan link, chip ya da telefon: kaset yukarıdan düşer. Deck'teki kaset 80 px (telefon) / 112 px (md+).
+- **Raf:** kapak yeni kaset (`CoverCassette.tsx`; `CoverReels.tsx` silindi); xl'de kapak genişliği 4/5 → 2/3 (yeni oran daha yüksek, kart raf boyunu aşmasın). Sırtlarda kutu görünümü: sol kenarda ışık, sağda gölge, üst ve alt plastik dudaklar (CSS).
+- **JS:** ilk yükleme 233,1 → 234,2 KB gzip (+1,1 KB). Yeni bağımlılık yok.
+- **Testler:** D3 yeniden yazıldı (kasetin tamamı uçar ve yuvada 112 px'e iner; inince kapak kapalı, PLAY basılı, makaralar dönüyor; kapatınca kapağa döner; paylaşılan linkte uçuş yok; telefonda 80 px; reduced motion'da ne kaydırma dönüşü ne çalma dönüşü). S17 kapak testleri değişmeden geçti.
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test`, `check:tokens`, `build`, `test:e2e` (152/152). Ekran görüntüleri `artifacts/v2b-*`, `home-*`.
 
 ### V2 · Dock (canlıda)
 

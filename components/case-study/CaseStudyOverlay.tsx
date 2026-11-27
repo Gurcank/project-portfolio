@@ -12,7 +12,7 @@ import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { Emphasis } from "@/components/markdown/Emphasis";
 import { trackCaseStudyOpen, type CaseStudySource } from "@/lib/analytics";
 import { markOpenSource, ROUTE_EVENT, useLocationHash } from "@/lib/case-study-route";
-import type { Project, SiteCopy } from "@/lib/content";
+import type { Project, ProjectCover, SiteCopy } from "@/lib/content";
 import { fillTemplate, projectFromHash } from "@/lib/hash-route";
 
 export type OverlayStudy = {
@@ -26,6 +26,8 @@ export type OverlayStudy = {
   links: Project["links"];
   next: { slug: string; title: string };
   tracks: { id: string; title: string }[];
+  /** Printed on the tape that plays in the deck (V2b) */
+  cover?: ProjectCover["image"];
 };
 
 type CaseStudyOverlayProps = {
@@ -159,6 +161,10 @@ export function CaseStudyOverlay({ studies, panels, labels, nowLabel }: CaseStud
                   <ExperienceBoundary name="tape-progress">
                     <TapeProgress
                       slug={study.slug}
+                      color={study.color}
+                      catalog={study.catalog}
+                      title={study.title}
+                      image={study.cover}
                       playing={active === study.slug}
                       containerRef={panelRef}
                     />
