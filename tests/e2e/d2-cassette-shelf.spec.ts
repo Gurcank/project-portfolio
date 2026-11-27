@@ -142,9 +142,7 @@ test.describe("shelf", () => {
       await expect(card).toBeVisible();
       expect(await card.evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
     }
-    await expect(
-      page.getByRole("navigation").getByRole("link", { name: "Seçili işler" }),
-    ).toBeHidden();
+    await expect(page.getByRole("banner").getByRole("link", { name: "Seçili işler" })).toBeHidden();
   });
 
   test("desktop: the featured card shows by default, keyboard focus switches it", async ({
@@ -162,7 +160,7 @@ test.describe("shelf", () => {
     await expect.poll(() => opacityOf("atamap")).toBe("1");
     await expect.poll(() => opacityOf("erasmusmap")).toBe("0");
     await expect(
-      page.getByRole("navigation").getByRole("link", { name: "Seçili işler" }),
+      page.getByRole("banner").getByRole("link", { name: "Seçili işler" }),
     ).toBeVisible();
   });
 });

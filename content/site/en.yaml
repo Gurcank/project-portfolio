@@ -102,6 +102,21 @@ microcopy:
   indicator:
     current: "Now: {section}"
     contents: Contents
+  dock:
+    label: Sections
+    top: Back to top
+    clock:
+      label: "Local time: Istanbul and Łódź"
+      heading: My two cities
+      cities:
+        - name: Istanbul
+          short: IST
+          note: home
+          timeZone: Europe/Istanbul
+        - name: Łódź
+          short: ŁDZ
+          note: Erasmus+, until February 2027
+          timeZone: Europe/Warsaw
   walkman:
     label: "Walkman: suggest a random film or song"
     result: "▶ {title} ({year}) · {kind}"

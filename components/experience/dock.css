@@ -1,0 +1,58 @@
+/*
+ * Dock (V2, /animate). Every duration comes from tokens, so reduced motion and "pause motion" make each
+ * change instant.
+ */
+
+@keyframes dock-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* It appears once the hero is behind the reader: a fade, so it doesn't jump into view. Never wider than
+   the screen minus both gutters */
+.dock {
+  max-width: calc(100vw - var(--spacing) * 8);
+  animation: dock-in var(--duration-base) var(--ease-out);
+}
+
+/* The sections unfold from zero width; a grid track animates where `width: auto` can't */
+.dock-links {
+  grid-template-columns: 0fr;
+  transition: grid-template-columns var(--duration-base) var(--ease-out);
+}
+
+.dock-links > ul {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.dock:hover .dock-links,
+.dock:focus-within .dock-links {
+  grid-template-columns: 1fr;
+}
+
+.dock-icon {
+  image-rendering: pixelated;
+}
+
+/* The active link is paper on ink: its icon turns ink with it */
+.dock-links [aria-current="location"] .dock-icon rect {
+  fill: var(--color-ink);
+}
+
+/* Day → night: the yin-yang turns half a circle from the top of the page to the bottom. It follows the
+   reader's own scroll, but it is still movement, so it stays still when motion is reduced or paused */
+.dock-turn {
+  transform: rotate(calc(var(--dock-turn, 0) * 180deg));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-turn {
+    transform: none;
+  }
+}
+
+:root[data-motion="paused"] .dock-turn {
+  transform: none;
+}

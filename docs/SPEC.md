@@ -28,7 +28,7 @@
 - Takvim: sabit tarih yok; öncelik kalite.
 
 ## 5. Bilgi mimarisi
-**Tek uzun sayfa.** Her bölüme anchor ile kaydıran bir nav bar olacak; sayfanın içinde ayrıca deneysel bir gezinme katmanı bulunacak: sol alttaki bölüm göstergesi, tıklanınca sitenin içindekiler listesini kaset kapağı gibi açar (§8). Case study'ler tam ekran **overlay panelde** ("kaset çalar", §8) açılır; URL hash değişir (`#erasmusmap`), böylece link paylaşılabilir. Geri tuşu ve Esc paneli kapatır.
+**Tek uzun sayfa.** Her bölüme anchor ile kaydıran bir nav bar olacak; sayfanın içinde ayrıca deneysel bir gezinme katmanı bulunacak: dock (v2; önce sol alttaki bölüm göstergesiydi), tıklanınca sitenin içindekiler listesini kaset kapağı gibi açar (§8). Case study'ler tam ekran **overlay panelde** ("kaset çalar", §8) açılır; URL hash değişir (`#erasmusmap`), böylece link paylaşılabilir. Geri tuşu ve Esc paneli kapatır.
 
 Bölüm sırası (S3'te kesinleşti; metinler CONTENT.md):
 1. **Hero:** isim, rol (Product Manager adayı), "Şubat 2027, İstanbul", birincil CTA: İletişim.
@@ -136,7 +136,7 @@ Tip ölçeği: akışkan; gövde 17–18 px; oran mobilde 1.25, masaüstünde 1.
 7. **İletişim:** dev e-posta, LinkedIn, GitHub.
 
 ### Sabit öğeler
-- **Bölüm göstergesi** (sol alt, INS-07): bulunulan bölümü/kaseti gösterir. Tıklanınca sitenin içindekiler listesi bir kaset kapağı (J-card) gibi açılır: **deneysel gezinme katmanı** budur (§5). Overlay içinde aynı bileşen "şu an okunan bölüm" olur.
+- **Dock** (v2, V2; önceki sol alt bölüm göstergesinin yerine, INS-07): hero geçilince belirir; masaüstünde üstte ortada, telefonda altta. Yin-yang (sayfa geceye indikçe döner, başa döndürür) · "Şu an: {bölüm}" (tıklanınca içindekiler J-card gibi açılır: **deneysel gezinme katmanı**, §5) · 1024 px'ten itibaren üzerine gelince ya da klavyeyle odaklanınca açılan 5 bölüm bağlantısı (pixel ikonlu, kayan vurgu) · İstanbul/Łódź saati. Overlay içinde "şu an okunan bölüm" göstergesi ayrı kalır.
 - **Maskot: pixel saksı bitkisi** (INS-20, INS-26): göstergenin üstünde durur; okudukça yaprak açar, İletişim'de çiçeklenir. Kodla üretilen pixel sprite. `aria-hidden`; reduced-motion'da sabit poz. 404 ve boş durumlarda da kullanılır.
 - **Walkman** (sağ alt, INS-12): tıklanınca taste.md'den rastgele bir film ya da şarkı adı, kendi tipografimizle. Etkileşimli olduğu için dekor değil: gerçek button, erişilebilir ad, sonuç `aria-live="polite"`. Mobilde footer'a taşınır.
 - **Özel imleç** (INS-03, INS-19): yalnızca `pointer: fine`. Varsayılan küçük pixel ok; kaset üstünde "▶ Aç" pill'i; metin ve input alanlarında native imleç.

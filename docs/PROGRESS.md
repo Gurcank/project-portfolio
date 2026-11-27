@@ -1,9 +1,18 @@
 # PROGRESS
 
-## Durum: S17 ve V1 canlıda (2026-11-27, `1824cf9`). Sıradaki v2 dilimi: V2 dock. Kalan, kullanıcıdan: pixel avatar için fotoğraf, Umami ID, 30 sn testi, ekran okuyucu turu. PSI ölçümü kota açılınca
+## Durum: V2 (dock) yerelde hazır, preview bekliyor (2026-11-27). Canlıda S17 + V1. Kalan, kullanıcıdan: pixel avatar için fotoğraf, Umami ID, 30 sn testi, ekran okuyucu turu. PSI ölçümü kota açılınca
 
 **Canlı:** https://gurcankaradag.vercel.app (V1, commit `1824cf9`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `main` (S17 + V1 fast-forward ile merge edildi).
+**Branch:** `slice/v2-dock` (main'den). `main`: S17 + V1, canlıda.
+
+### V2 · Dock (yerelde)
+
+- **Dock** (`components/experience/Dock.tsx`, `dock.css`): sol alttaki bölüm göstergesinin yerini aldı (`SectionIndicator.tsx` silindi, J-card içeriği dock'a taşındı). Hero geçilince belirir; masaüstünde üstte, telefonda altta, ekran genişliğinde ortalı (`inset-x-0 mx-auto w-fit`; `left-1/2` + translate sabit öğenin genişliğini ekranın yarısıyla sınırlıyordu, açılınca son iki bölüm kesiliyordu).
+- **İçerik:** yin-yang (kâğıt daire üstünde; kaydırma oranıyla 0 → 180° döner, reduced motion ve "hareketi durdur"da sabit; başa döndürür) · "Şu an: {bölüm}" (J-card'ı açar; masaüstünde aşağı, telefonda yukarı) · 1024 px'ten itibaren hover ya da klavye odağıyla açılan 5 bölüm bağlantısı (12 × 9 pixel ikonlar, Motion `layoutId` ile kayan vurgu, `aria-current`; 768–1023'te beşi sığmadığı için yok) · saat (İstanbul görünür, panelde iki şehir; `Intl.DateTimeFormat` + IANA saat dilimi, 30 sn'de bir yenilenir).
+- **Metinler** kullanıcı onaylı (CONTENT §8). Axe'in yakaladığı bulgu: saat düğmesinin görünen metni erişilebilir adda yoktu (WCAG 2.5.3); görünen saat önde, onaylı ekran okuyucu metni arkada.
+- **JS:** ilk yükleme 231,8 → 233,1 KB gzip (+1,3 KB). Yeni bağımlılık yok.
+- **Testler:** `v2-dock.spec.ts` (8 test: hero'da yok, konum ve ortalama, klavyeyle açılma + aria-current, saat iki şehir + 24 saat + Esc, EN, yin-yang dönüşü ve reduced motion, telefonda 5 + 7 bağlantı, axe). d2'de başlık linki artık `banner` içinde aranıyor (iki nav var). D6 J-card testleri değişmeden geçti.
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test`, `check:tokens`, `build`, `test:e2e` (151/151). Ekran görüntüleri `artifacts/`.
 
 ### v2 · Yön (Faz 0, 2026-11-27)
 

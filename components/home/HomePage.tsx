@@ -1,12 +1,12 @@
 import { CaseStudyOverlay, type OverlayStudy } from "@/components/case-study/CaseStudyOverlay";
 import { CaseStudyPanel } from "@/components/case-study/CaseStudyPanel";
+import { Dock } from "@/components/experience/Dock";
 import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { MotionProvider } from "@/components/experience/MotionProvider";
 import { CassettePillLoader } from "@/components/experience/CassettePillLoader";
 import { DecorLoader } from "@/components/experience/DecorLoader";
 import { MascotLoader } from "@/components/experience/MascotLoader";
 import { MotionToggle } from "@/components/experience/MotionToggle";
-import { SectionIndicator } from "@/components/experience/SectionIndicator";
 import { ToneController } from "@/components/experience/ToneController";
 import { Walkman } from "@/components/experience/Walkman";
 import { DayNightSeam } from "@/components/home/DayNightSeam";
@@ -158,9 +158,11 @@ export function HomeView({
       <ExperienceBoundary name="tone">
         <ToneController />
       </ExperienceBoundary>
-      <ExperienceBoundary name="section-indicator">
-        <SectionIndicator
+      <ExperienceBoundary name="dock">
+        <Dock
+          locale={locale}
           labels={copy.microcopy.indicator}
+          dock={copy.microcopy.dock}
           nav={copy.nav}
           tapes={projects.map((project) => ({
             slug: project.slug,

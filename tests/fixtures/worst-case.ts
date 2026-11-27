@@ -158,6 +158,24 @@ export const worstCopy: SiteCopy = {
     },
     cassette: { open: "{project} kasetinin case study'sini aç", pill: "▶ Hemen aç" },
     indicator: { current: "Şu an buradasın: {section}", contents: "Bütün içindekiler listesi" },
+    // Schema limits: label 60, heading 3 words, name 20, short 4, note 40
+    dock: {
+      label: "Sitenin bütün bölümleri",
+      top: "En başa dön",
+      clock: {
+        label: "Yerel saat: İstanbul ile Łódź, iki şehrin şu anki saati",
+        heading: "İki şehrimin saati",
+        cities: [
+          { name: "İstanbul", short: "İST", note: "evim", timeZone: "Europe/Istanbul" },
+          {
+            name: "Łódź",
+            short: "ŁDZ",
+            note: "Erasmus+ dönemi, Şubat 2027'ye kadar",
+            timeZone: "Europe/Warsaw",
+          },
+        ],
+      },
+    },
     walkman: {
       label: "Walkman: bu akşam için rastgele bir film ya da şarkı öner",
       result: "▶ Öneri: {title} ({year}) · {kind}",

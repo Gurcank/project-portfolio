@@ -652,6 +652,11 @@ EN (~140 words):
 | Overlay sonu | Sıradaki kaset: {Proje} · Rafa dön | Next tape: {Project} · Back to the shelf |
 | Bölüm göstergesi | Şu an: {bölüm} | Now: {section} |
 | J-card menü | İçindekiler | Contents |
+| Dock (ekran okuyucu adı; V2, kullanıcı onayı 2026-11-27) | Bölümler | Sections |
+| Dock yin-yang bağlantısı | Başa dön | Back to top |
+| Saat düğmesi (ekran okuyucu adı; görünen saatten sonra okunur, WCAG 2.5.3: "İST 19:24 · Yerel saat: İstanbul ve Łódź") | Yerel saat: İstanbul ve Łódź | Local time: Istanbul and Łódź |
+| Saat düğmesinin görünen hali | İST {ss:dd} | IST {hh:mm} |
+| Saat paneli | İki şehrim · İstanbul · evim · Łódź · Erasmus+, Şubat 2027'ye kadar | My two cities · Istanbul · home · Łódź · Erasmus+, until February 2027 |
 | Hareket kontrolü | Hareketi durdur · Hareketi başlat | Pause motion · Resume motion |
 | Walkman (erişilebilir ad) | Walkman: rastgele bir film ya da şarkı öner | Walkman: suggest a random film or song |
 | Walkman sonucu | ▶ {Ad} ({yıl}) · film / şarkı | ▶ {Title} ({year}) · film / song |

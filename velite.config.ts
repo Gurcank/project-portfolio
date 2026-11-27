@@ -154,6 +154,28 @@ const site = defineCollection({
         cassette: s.object({ open: withPlaceholder("project"), pill: button }),
         // INS-07 section indicator and its J-card contents (CONTENT §8)
         indicator: s.object({ current: withPlaceholder("section"), contents: button }),
+        // V2 dock: its name for screen readers, the yin-yang's "back to top", and the two-city clock
+        dock: s.object({
+          label: button,
+          top: button,
+          clock: s.object({
+            // An accessible name, not a visible label
+            label: s.string().max(60),
+            heading: button,
+            // Home first: its short code and time are what the dock shows
+            cities: s
+              .array(
+                s.object({
+                  name: s.string().max(20),
+                  short: s.string().max(4),
+                  note: s.string().max(40),
+                  // IANA zone, read by Intl.DateTimeFormat in the browser
+                  timeZone: s.string().regex(/^[A-Za-z]+\/[A-Za-z_]+$/),
+                }),
+              )
+              .length(2),
+          }),
+        }),
         // D7 walkman and pause control (CONTENT §8)
         walkman: s.object({
           // "Walkman: suggest a random film or song" — an accessible name, not a button label
