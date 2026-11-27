@@ -1,9 +1,9 @@
 # PROGRESS
 
-## Durum: v2 başladı. V1 (kimlik: gün → gece, yeni fontlar, barış ve yin-yang) yerelde hazır; S17 ve V1 merge bekliyor (2026-11-27). Kalan, kullanıcıdan: Umami ID, 30 sn testi, ekran okuyucu turu, pixel avatar için fotoğraf
+## Durum: S17 ve V1 canlıda (2026-11-27, `1824cf9`). Sıradaki v2 dilimi: V2 dock. Kalan, kullanıcıdan: pixel avatar için fotoğraf, Umami ID, 30 sn testi, ekran okuyucu turu. PSI ölçümü kota açılınca
 
-**Canlı:** https://gurcankaradag.vercel.app (S16b, commit `1663ebe`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/v1-identity` (S17 dalının üstünde). `main`: S16b + ATAMap düzeltmesi, canlıda. Merge sırası: S17, sonra V1.
+**Canlı:** https://gurcankaradag.vercel.app (V1, commit `1824cf9`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `main` (S17 + V1 fast-forward ile merge edildi).
 
 ### v2 · Yön (Faz 0, 2026-11-27)
 
@@ -11,7 +11,7 @@
 - Yön dokümanı: https://claude.ai/artifact/YakXZtFUmW8gZFSYhTwTSV. Seçimler (kullanıcı "önerilerinle devam et" dedi): Y-C Gün → Gece, V-wheel, R-kal, M-cd; GitHub kararı V6'da. 13 referans portfolyo incelendi; verilen 10 Framer modülü ve 4 21st.dev bileşeninde lisans notu yok: kod kopyalanmayacak, davranış kendi kodumuzla yazılacak.
 - v2 dilim tablosu ROADMAP "v2 dilimleri"nde.
 
-### V1 · Kimlik (yerelde)
+### V1 · Kimlik (canlıda)
 
 - **Gün → gece:** bölümler `data-time` ile günün bir saati (hero sabah, işler öğle, ilkeler ikindi, hakkımda gün batımı, colophon ve iletişim akşam, footer gece). Bölüm kendi zeminini boyar ve çalışma renklerini yeniden tanımlar (`styles/globals.css`); JavaScript yok. Geçişler dikişin iki yanına yayılan bantla: önceki bölüm alt boşluğunda orta tona iner, sonraki üst boşluğunda devam eder (smoothstep durakları, OKLab karışımı; her yarı kendi bölümünün içinde, içeriğin altında). Bant 192/256 px, gün batımı → akşam 256/384 px (About alt ve Colophon üst boşluğu bunun için büyüdü, footer üst boşluğu 32 → 96/128 px). Ölçüm: bant içinde piksel başına değişim 1 renk birimi, kenar yok. Kontrastlar SPEC §8 tablosunda; gün batımında vurgu `#943714` (sabahınki 4,46:1'de kalıyordu). Bölümlerin üst çizgileri kalktı. ToneController `data-tone` yazmaya devam ediyor, artık renk vermiyor.
 - **Fontlar:** Bricolage Grotesque (başlık + sırt, `font-display`), Instrument Serif italik (vurgu), Instrument Sans (gövde), Fragment Mono (etiket), Caveat (kalıyor). Preload 300 KB → 197 KB. OG görseli de yeni fontlarla (Google TrueType döndürüyor, doğrulandı). Krediler ve velite font listesi güncellendi.
@@ -19,7 +19,10 @@
 - **Testler:** d6 ton testi yeni modele göre yeniden yazıldı (saat sırası, koyulaşma, her zeminde mürekkep/ikincil/vurgu ≥ 4,5); d8 desen testi gün batımı zeminine; d5 kredi listesi yeni fontlar.
 - **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (88/88), `check:tokens` (95), `build`, `test:e2e` (143/143). Ekran görüntüleri `artifacts/home-*`, `en-*`. Yerel Lighthouse mobil (3 koşu, aynı yöntem): S17 LCP 4,5–4,7 sn, V1 4,7–4,8 sn; CLS ikisinde 0, erişilebilirlik 100. Yerel mutlak değerler PSI ile kıyaslanamaz (S17 benzeri kod PSI'de 1,1 sn); fark gürültü düzeyinde, PSI ölçümü production'da.
 
-### S17 · Proje ekran görüntüleri (yerelde)
+- **Preview'da doğrulananlar (`1824cf9`, paylaşım linkiyle):** TR/EN × 375/768/1280: bölüm saatleri sırayla, başlık Bricolage, gövde Instrument Sans, barış ve yin-yang yalnız 1280'de, 6 kapak, ATAMap linki, CSP ihlali 0, yatay taşma 0.
+- **Production'da doğrulananlar (2026-11-27):** TR/EN × 375/1280 aynı kontroller temiz; production CSP'sinde vercel.live yok; OG görseli 200. PSI: arayüz "Running analysis"te takıldı, API 429 (anahtarsız günlük kota); ölçüm sonraya kaldı.
+
+### S17 · Proje ekran görüntüleri (canlıda)
 
 - **ATAMap linki kırıktı (bulgu, 2026-11-27):** `project-atamap.vercel.app` 404 veriyordu; Vercel projesinin domain'i `atamap.vercel.app`. Ayrı dalda düzeltildi, kullanıcı onayıyla doğrudan main'e (`9f608cd`); production'da TR ve EN'de yeni link, eski adres yok, hedef 200. GitHub reposunun "homepage" alanı hâlâ eski adreste (kullanıcının değiştirmesi gerekiyor). Diğer bütün proje linkleri 200 (LinkedIn bot engeli 999, normal).
 - **Script:** `npm run capture:screens` (`scripts/capture-project-screens.ts`): canlı adresi olan 6 proje, 1280×800, 2× JPEG q90 → `content/projects/<slug>/media/cover.jpg`. ErasmusMap ve Novera'da çerez bandı "Reddet"; Nature & Sport'ta kapalı defter yerine Kuşlar sayfası. Yeni bağımlılık yok (JPEG'i Playwright yazıyor; siteye AVIF/WebP `next/image` ile).
