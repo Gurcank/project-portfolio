@@ -112,8 +112,10 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
           </p>
 
           <p className="mt-8 font-mono text-label tracking-wide text-ink-muted">
-            {/* No-break spaces around the dash: "2023 –" alone at a line end reads as unfinished */}
-            {about.credentials.replaceAll(" – ", "\u00a0\u2013\u00a0")}
+            {/* "2023 –" alone at a line end reads as unfinished. A no-break space alone is not enough:
+                Unicode still allows a break after a dash before one (UAX #14, LB12a), so a word joiner
+                follows the dash */}
+            {about.credentials.replaceAll(" – ", "\u00a0\u2013\u2060\u00a0")}
           </p>
 
           <h3 className="mt-16 text-h3 font-black font-stretch-condensed">{about.goalsHeading}</h3>

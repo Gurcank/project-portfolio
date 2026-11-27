@@ -138,6 +138,26 @@ test.describe("about", () => {
     }
   });
 
+  test("a date range in the credentials never breaks at its dash", async ({ page }) => {
+    for (const width of [375, 768, 1024, 1280, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/");
+      const split = await page.locator("#about p.font-mono").evaluate((p) => {
+        const node = p.firstChild!;
+        const text = node.textContent ?? "";
+        const top = (needle: string) => {
+          const range = document.createRange();
+          const at = text.indexOf(needle);
+          range.setStart(node, at);
+          range.setEnd(node, at + needle.length);
+          return range.getClientRects()[0]!.top;
+        };
+        return [top("2023") !== top("HAZİRAN"), top("2026") !== top("ŞUBAT")];
+      });
+      expect(split, `width ${width}`).toEqual([false, false]);
+    }
+  });
+
   test("no broken image in About", async ({ page }) => {
     await page.goto("/");
     const broken = await page

@@ -1,5 +1,3 @@
-import { join } from "node:path";
-
 import { defineCollection, defineConfig, s } from "velite";
 
 import { checkAboutLinks, checkCredits, checkPrinciples } from "./lib/content/integrity";
