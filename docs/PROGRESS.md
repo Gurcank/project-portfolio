@@ -1,11 +1,11 @@
 # PROGRESS
 
-## Durum: V4 (iş çarkı) yerelde tamam, `slice/v4-works-wheel` dalında, commit onayı bekliyor. Canlıda V2b (`f4e9725`). Sıradaki v2 dilimi: V3 ben kimim + pixel avatar (fotoğraf gerekli). Kalan, kullanıcıdan: pixel avatar için fotoğraf, Umami ID, 30 sn testi, ekran okuyucu turu. PSI ölçümü kota açılınca
+## Durum: V4 (iş çarkı) canlıda (2026-11-27, `c22afea`). Sıradaki v2 dilimi: V3 ben kimim + pixel avatar (fotoğraf gerekli). Kalan, kullanıcıdan: pixel avatar için fotoğraf, Umami ID, 30 sn testi, ekran okuyucu turu. PSI ölçümü kota açılınca
 
-**Canlı:** https://gurcankaradag.vercel.app (V2b, commit `f4e9725`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/v4-works-wheel` (commit edilmedi).
+**Canlı:** https://gurcankaradag.vercel.app (V4, commit `c22afea`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `main` (V4 fast-forward ile merge edildi).
 
-### V4 · İş çarkı (yerelde)
+### V4 · İş çarkı (canlıda)
 
 - **Çark** (`components/works/WorksWheel.tsx`, `works.css`): "Rafımdaki yedi kaset" başlığının altında, rafın üstünde. Duruşta 7 ekran görüntüsü küçük kartlar halinde halka; kaydırınca halka dikey bir tambura açılır, öndeki kart düz, komşuları geriye dönük; kaydırmaya devam edince sıradaki iş alttan yükselip öne gelir. Sayfanın kendi kaydırması sürer (sticky sahne, 4 ekran boyu kutu): tekerlek, klavye, kaydırma çubuğu ve dokunma olayı yakalanmıyor. Tek sayı (`turn`) bütün dönüşümleri belirler; dönüşümler doğrudan DOM'a yazılır (her karede React render'ı yok), rAF yalnız kutu ekrandayken çalışır.
 - **Yan bilgiler:** solda öndeki işin katalog numarası ve adı (`aria-hidden`, kartın adı aynı kelimeleri taşıyor), sağda 7 işin dizini (düğmeye basınca o iş öne döner, `aria-current`). Merkez dock'un altında kalan alana göre (`--wheel-centre`); halka 800 px yüksekliğe sığacak boyutta. İkinci komşudan sonra kartlar dönerken soluyor (kenarda ince şerit kalmıyor). IDDDergi'nin ekran görüntüsü yok: kendi renginde katalog + başlıklı yazılı kart.
@@ -15,6 +15,9 @@
 - **JS:** ilk yükleme 234,2 → 235,6 KB gzip (+1,4 KB). Yeni bağımlılık yok. Analitik kaynağına `"wheel"` eklendi.
 - **Testler:** `v4-works-wheel.spec.ts` (12 test: 7 kart + rafla aynı adlar, kaydırınca dizin öndeki işi izliyor, dizin düğmesi öne getiriyor, klavye odağı öne çeviriyor + Enter açıyor, öndeki karta tıklama açıyor, EN adlar, taşma + axe; telefon şeridi kendi içinde kayıyor, tablet şeridi, reduced motion ızgarası, "hareketi durdur" ızgarası, script yokken ızgara). Test, IDDDergi kartında adın iki kez okunduğunu yakaladı (düzeltildi). Güncellenen eski testler: d2 raf bağlantıları `.shelf-list` içinde aranıyor (çarkta aynı adlı bağlantılar var); s17 `#work li` → `.shelf-list > li`, "telefon kapak indirmez" testi raf kapaklarını ölçüyor + şerit en fazla 2 görsel; smoke taşma testi şeridin içindeki kartları saymıyor (şeridin kendisi sığmalı); d4 About görseli testi artık önce About'a kaydırıp görsellerin bitmesini bekliyor (çark sayfayı uzattığı için lazy görsel ilk anda inmiyordu).
 - **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (88/88), `check:tokens`, `build`, `test:e2e` (164 testten 163; d9 "masa dekor" testi tam koşuda bir kez düştü, tek başına 3 tekrarda 39/39 geçti: yük altında flake). Ekran görüntüleri `artifacts/v4-*`, `home-*`, `en-*`.
+
+- **Preview'da doğrulananlar (`c22afea`, paylaşım linkiyle):** TR/EN × 375/768: şerit, çark yok; 1280: çark, kaydırınca dizinde ATAMap öne geliyor, öndeki karta tıklama `#atamap` overlay'ini açıyor; taşma 0, CSP ihlali 0.
+- **Production'da doğrulananlar (2026-11-27):** aynı kontroller aynı sonuçla (TR/EN × 375/768/1280).
 
 ### V2b · Gerçekçi kaset ve deck (canlıda)
 
