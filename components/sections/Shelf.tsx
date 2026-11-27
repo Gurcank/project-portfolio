@@ -2,7 +2,9 @@ import "@/components/cassette/shelf.css";
 import { DecorSlot } from "@/components/experience/DecorSlot";
 import { cassetteSurface } from "@/components/cassette/cassette-colors";
 import { CassetteCover } from "@/components/cassette/CassetteCover";
+import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { Emphasis } from "@/components/markdown/Emphasis";
+import { WorksWheel } from "@/components/works/WorksWheel";
 import type { ProjectView } from "@/lib/content";
 
 type ShelfProps = {
@@ -28,6 +30,23 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
         <h2 id="work-heading" className="font-display text-h1 font-black font-stretch-condensed">
           <Emphasis text={heading} />
         </h2>
+
+        {/* V4: the screenshots on a wheel (a strip or a grid where the wheel can't fit or shouldn't
+            move); the shelf below stays as the quick list of all seven tapes */}
+        <div className="mt-12 md:mt-16">
+          <ExperienceBoundary name="works-wheel">
+            <WorksWheel
+              openLabel={openLabel}
+              items={projects.map((project) => ({
+                slug: project.slug,
+                catalog: project.catalog,
+                title: project.study.title,
+                color: project.color,
+                image: project.cover?.image,
+              }))}
+            />
+          </ExperienceBoundary>
+        </div>
 
         <ul className="shelf-list mt-12 flex flex-col gap-4 md:mt-16 lg:flex-row lg:items-end lg:gap-0">
           {projects.map((project) => (

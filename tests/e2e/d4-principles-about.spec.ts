@@ -160,6 +160,15 @@ test.describe("about", () => {
 
   test("no broken image in About", async ({ page }) => {
     await page.goto("/");
+    // The images are lazy: bring About into view so they load, then look for any that failed
+    await page.locator("#about").scrollIntoViewIfNeeded();
+    await expect
+      .poll(() =>
+        page
+          .locator("#about img")
+          .evaluateAll((images) => images.every((img) => (img as HTMLImageElement).complete)),
+      )
+      .toBe(true);
     const broken = await page
       .locator("#about img")
       .evaluateAll((images) =>

@@ -70,7 +70,10 @@ test.describe("shelf covers", () => {
     )) {
       expect(alt).toBe("");
     }
-    const iddCard = page.locator("#work li").filter({ hasText: "IDDDergi" }).locator(".shelf-card");
+    const iddCard = page
+      .locator("#work .shelf-list > li")
+      .filter({ hasText: "IDDDergi" })
+      .locator(".shelf-card");
     await expect(iddCard.locator("img")).toHaveCount(0);
   });
 
@@ -78,7 +81,7 @@ test.describe("shelf covers", () => {
     for (const width of [1024, 1280, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto("/");
-      const overflow = await page.locator("#work li").evaluateAll((items) =>
+      const overflow = await page.locator("#work .shelf-list > li").evaluateAll((items) =>
         items.map((item) => {
           const spine = item.querySelector(".shelf-spine")!.getBoundingClientRect();
           const card = item.querySelector(".shelf-card")!.getBoundingClientRect();
@@ -89,7 +92,9 @@ test.describe("shelf covers", () => {
     }
   });
 
-  test("phones never download the shelf covers", async ({ page }) => {
+  test("phones never download the shelf covers; the V4 strip loads only what is in view", async ({
+    page,
+  }) => {
     const requests: string[] = [];
     page.on("request", (request) => {
       if (request.url().includes("/_next/image")) requests.push(request.url());
@@ -98,6 +103,13 @@ test.describe("shelf covers", () => {
     await page.goto("/");
     await page.locator("#work").scrollIntoViewIfNeeded();
     await page.waitForLoadState("networkidle");
-    expect(requests).toEqual([]);
+    const shelfCovers = await page
+      .locator(".shelf-card img")
+      .evaluateAll(
+        (images) => images.filter((img) => (img as HTMLImageElement).naturalWidth).length,
+      );
+    expect(shelfCovers).toBe(0);
+    // The strip shows one card and the edge of the next: the other five wait until they are swiped in
+    expect(requests.length).toBeLessThanOrEqual(2);
   });
 });
