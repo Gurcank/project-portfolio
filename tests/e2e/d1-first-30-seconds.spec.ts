@@ -1,13 +1,6 @@
-import { readFileSync } from "node:fs";
-
 import { expect, test } from "./fixtures";
 
 // ROADMAP → S6 · D1 acceptance tests
-
-// Velite output of content/profile.yaml; `npm run build` (required before e2e) generates it
-const profile = JSON.parse(readFileSync(".velite/profile.json", "utf8")) as {
-  cv: Partial<Record<"tr" | "en", string>>;
-};
 
 test.describe("hero: the 30-second test", () => {
   for (const width of [375, 768, 1280]) {
@@ -73,29 +66,11 @@ test.describe("contact", () => {
     );
   });
 
-  // The CV button follows content/profile.yaml: shown and tracked when a file is set, absent otherwise
-  for (const { locale, path, name } of [
-    { locale: "tr", path: "/", name: "CV'yi indir (PDF)" },
-    { locale: "en", path: "/en", name: "Download CV (PDF)" },
-  ] as const) {
-    const cvHref = profile.cv[locale];
-
-    test(`${path} CV button matches profile.yaml (${cvHref ?? "no CV"})`, async ({
-      page,
-      request,
-    }) => {
-      await page.goto(path);
-      const button = page.locator("#contact").getByRole("link", { name });
-      if (!cvHref) {
-        await expect(button).toHaveCount(0);
-        return;
-      }
-      await expect(button).toHaveAttribute("data-umami-event", "cv_download");
-      const response = await request.get(cvHref);
-      expect(response.status()).toBe(200);
-      expect(response.headers()["content-type"]).toContain("pdf");
-    });
-  }
+  // The CV is not offered on the site (user decision, 2026-11-27); its facts live in About
+  test("no CV download link", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0);
+  });
 
   test("copy email shows Copied", async ({ page, context }) => {
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);

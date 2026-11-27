@@ -48,7 +48,6 @@ export const worstProfile: Profile = {
   email: "gurcan.karadag+portfolio@ogrenci.okan.edu.tr",
   linkedin: "https://www.linkedin.com/in/gurcankaradag",
   github: "https://github.com/Gurcank",
-  cv: { tr: "/cv/gurcan-karadag-cv-tr.pdf" },
 };
 
 export const worstCopy: SiteCopy = {
@@ -128,6 +127,18 @@ export const worstCopy: SiteCopy = {
     // 59 words, limit 60
     goals:
       "Şubat 2027'den itibaren İstanbul'da tam zamanlı, uzun dönem bir Product stajı arıyorum; yaz boyunca kesintisiz devam edebilirim ve gerekirse hibrit çalışmaya da açığım. Bir ürün ekibinde kullanıcıyla konuşmayı, önceliklendirmeyi, ödünleşimleri yazmayı ve karar vermeyi gerçek sonuçlarla öğrenmek istiyorum. Uzun vadede hedefim, gerçekten kullanıcısı olan ve her gün açılan bir ürünün PM'i olmak.",
+    // Near the schema limits (label ≤ 32, items ≤ 140): 29 and 137 characters
+    skills: {
+      heading: "Beceriler",
+      groups: [
+        {
+          label: "Ürün, proje ve süreç yönetimi",
+          items:
+            "Ürün yönetimi, proje yönetimi, gereksinim analizi, kullanıcı araştırması, önceliklendirme, Agile, Scrum, Kanban, Jira, Confluence, Notion",
+        },
+        { label: "Dil", items: "İngilizce (B2)" },
+      ],
+    },
     // 119 characters, limit 120
     portraitCaption:
       "Mustafa Kemal Atatürk, 1922. Fotoğraf: Agence Meurisse · Kaynak: Bibliothèque nationale de France (Gallica, 2158 A)",
@@ -144,7 +155,6 @@ export const worstCopy: SiteCopy = {
       copyFailed: "Tarayıcın panoya erişime izin vermedi; adresi seçip elle kopyalayabilirsin.",
       linkedin: "LinkedIn",
       github: "GitHub",
-      downloadCv: "Özgeçmişimi indir (PDF)",
     },
     cassette: { open: "{project} kasetinin case study'sini aç", pill: "▶ Hemen aç" },
     indicator: { current: "Şu an buradasın: {section}", contents: "Bütün içindekiler listesi" },

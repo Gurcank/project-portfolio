@@ -1,4 +1,3 @@
-import { existsSync } from "node:fs";
 import { join } from "node:path";
 
 import { defineCollection, defineConfig, s } from "velite";
@@ -34,12 +33,6 @@ const navItem = button.pipe(s.string().max(16));
 const withPlaceholder = (name: string) =>
   s.string().refine((value) => value.includes(`{${name}}`), `needs the {${name}} placeholder`);
 
-// A CV path that points at nothing would render a broken download link
-const publicFile = s
-  .string()
-  .regex(/^\/cv\/[\w-]+\.pdf$/, "CV paths look like /cv/<name>.pdf")
-  .refine((path) => existsSync(join(process.cwd(), "public", path)), "file not found in public/");
-
 const profile = defineCollection({
   name: "Profile",
   pattern: "profile.yaml",
@@ -49,7 +42,6 @@ const profile = defineCollection({
     email: s.string().email(),
     linkedin: s.string().url(),
     github: s.string().url(),
-    cv: s.object({ tr: publicFile.optional(), en: publicFile.optional() }),
   }),
 });
 
@@ -133,6 +125,14 @@ const site = defineCollection({
         credentials: s.string().max(160),
         goalsHeading: button,
         goals: words(60),
+        // From the CV (user decision, 2026-11-27): one row per group, the items as one written list
+        skills: s.object({
+          heading: button,
+          groups: s
+            .array(s.object({ label: s.string().max(32), items: s.string().max(140) }))
+            .min(1)
+            .max(6),
+        }),
         portraitCaption: s.string().max(120),
         flagLabel: button,
       }),
@@ -145,7 +145,6 @@ const site = defineCollection({
           copyFailed: message,
           linkedin: button,
           github: button,
-          downloadCv: button,
         }),
         // pill: the cursor's decorative "▶ Open" over a tape (CONTENT §8); the link keeps the real name
         cassette: s.object({ open: withPlaceholder("project"), pill: button }),

@@ -32,6 +32,5 @@ Windows: NVDA (ücretsiz, nvaccess.org) + Chrome. Mac: VoiceOver (Cmd+F5) + Safa
 
 Umami Website ID Vercel'e eklendikten sonra, production'da:
 
-1. E-posta linkine, LinkedIn linkine ve CV düğmesine tıkla; bir case study aç.
-2. Umami panelinde **Events**: `contact_email_click`, `contact_linkedin_click`, `cv_download`, `case_study_open` görünüyor mu?
-3. CV düğmesi yalnız yayınlanabilir CV eklendikten sonra görünür; o zamana kadar `cv_download` beklenmez.
+1. E-posta linkine ve LinkedIn linkine tıkla; bir case study aç.
+2. Umami panelinde **Events**: `contact_email_click`, `contact_linkedin_click`, `case_study_open` görünüyor mu?

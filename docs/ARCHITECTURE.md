@@ -212,7 +212,7 @@ Atatürk portresi (doğrulanmış kamu malı fotoğraf) ve bayrak (2893 oranlar�
 
 ### ADR-14 · Analytics: Umami Cloud
 
-**Bağlam.** Cookie'siz; 4 event: `contact_email_click`, `contact_linkedin_click`, `cv_download`, `case_study_open` (SPEC §4). Ücretsiz olmalı.
+**Bağlam.** Cookie'siz; 3 event: `contact_email_click`, `contact_linkedin_click`, `case_study_open` (SPEC §4). Ücretsiz olmalı. (`cv_download` 2026-11-27'de kalktı: CV sitede sunulmuyor (kullanıcı kararı, 2026-11-27); bilgileri telefon hariç Hakkımda'da.)
 
 **Alternatifler.**
 - **Vercel Web Analytics:** custom event yalnız Pro ve Enterprise'da; Hobby'de yok (Hobby: ayda 50.000 event, 1 aylık rapor penceresi).
@@ -314,7 +314,7 @@ project-portfolio/
 │  ├─ respect/       # AtaturkPortrait, TurkishFlag (hareket API'si yok)
 │  └─ ui/            # shadcn kopyaları (dialog, button…)
 ├─ content/
-│  ├─ profile.yaml   # dilden bağımsız: ad, e-posta, LinkedIn, GitHub, CV yolları
+│  ├─ profile.yaml   # dilden bağımsız: ad, e-posta, LinkedIn, GitHub
 │  ├─ site/          # tr.yaml · en.yaml · media/ (kişisel fotoğraflar, portre)
 │  ├─ projects/
 │  │  └─ <slug>/     # project.yaml · tr.md · en.md · media/
@@ -328,7 +328,6 @@ project-portfolio/
 │  ├─ experience-store.ts
 │  └─ analytics.ts   # event adları + track()
 ├─ styles/           # tokens.css (tek doğruluk kaynağı) · globals.css
-├─ public/cv/        # CV PDF'leri (TR, EN)
 ├─ scripts/          # check-tokens.ts · screenshots.ts · capture-project-screens.ts · quantize-pixel.ts
 ├─ tests/            # unit/ (Vitest) · e2e/ (Playwright + axe)
 ├─ velite.config.ts · next.config.ts · tsconfig.json · eslint.config.mjs · .prettierrc
@@ -417,7 +416,6 @@ interface Profile {
   email: string
   linkedin: string
   github: string
-  cv: Partial<L10n<string>>  // public/cv yolu; dosya yoksa o dilde düğme gizli
 }
 
 // content/site/{tr,en}.yaml — iki dosya aynı şemayı eksiksiz doldurur
@@ -475,7 +473,6 @@ interface Credit {
 | `/opengraph-image` · `/en/opengraph-image` | OG görseli | build'de |
 | `/sitemap.xml` · `/robots.txt` | SEO | build'de |
 | `/icon.svg` | Favicon | statik |
-| `/cv/*.pdf` | CV (TR, EN) | `public/` |
 | Diğer her URL | İki dilli 404 ("Bu kaset rafta yok." / "This tape isn't on the shelf.") | `global-not-found.tsx` |
 
 ## 5. Bileşen haritası
@@ -503,7 +500,7 @@ Statik sitede "yükleniyor ekranı" ya da loader yok (INSPIRATION "Kaçınılaca
 |---|---|
 | Yükleniyor | Görseller blur placeholder; fontlar fallback metrikli; dinamik katmanlar yüklenene kadar render edilmez (içerik zaten görünür); overlay içeriği payload'da, beklemesiz. |
 | Hata | Görsel `onError` → "Görsel yüklenemedi; anlatı aşağıda." (CONTENT §8). Deneyim katmanı hatası → `ExperienceBoundary` hiçbir şey çizmez. Pano erişimi reddedilirse e-posta seçilebilir metin olarak kalır, mailto çalışır. Umami bloklanırsa site etkilenmez. İçerik şema hatası → deploy olmaz, canlı önceki sürüm. |
-| Boş | Opsiyonel alan yoksa öğe yok: link, kapak (→ tipografik kapak), fotoğraf, CV düğmesi. Walkman listesi boşsa "Kaset sarıyor. Bir daha bas." Bilinmeyen hash → hiçbir şey. Bilinmeyen URL → 404. Atatürk portresinin lisansı doğrulanmadıysa bileşen hiç render edilmez (yer tutucu yok). |
+| Boş | Opsiyonel alan yoksa öğe yok: link, kapak (→ tipografik kapak), fotoğraf. Walkman listesi boşsa "Kaset sarıyor. Bir daha bas." Bilinmeyen hash → hiçbir şey. Bilinmeyen URL → 404. Atatürk portresinin lisansı doğrulanmadıysa bileşen hiç render edilmez (yer tutucu yok). |
 
 ## 7. Erişilebilirlik mimarisi
 
@@ -524,7 +521,7 @@ Statik sitede "yükleniyor ekranı" ya da loader yok (INSPIRATION "Kaçınılaca
 | LCP öğesi | Hero'daki isim (metin, preload'lu display font); hero'da görsel yok | — |
 | JS | S5'te boş sayfanın değeri baz alınır; her dilim eklediği JS'i raporlar; toplam bütçe S5 ölçümünden sonra PROGRESS'e yazılır | Lighthouse "JavaScript transfer" |
 | Pixel dekor | masaüstü ilk yük ≤ 300 KB, mobilde 0 | Playwright ağ kaydı |
-| Görseller | fotoğraf ≤ 80 KB, portre ≤ 60 KB, tek sprite ≤ 15 KB, CV ≤ 200 KB (SPEC §9) | build script uyarısı |
+| Görseller | fotoğraf ≤ 80 KB, portre ≤ 60 KB, tek sprite ≤ 15 KB (SPEC §9) | build script uyarısı |
 
 ## 9. İçerik güncelleme akışı (kod dışından)
 

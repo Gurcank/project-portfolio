@@ -5,7 +5,6 @@
 export const analyticsEvents = {
   contactEmailClick: "contact_email_click",
   contactLinkedinClick: "contact_linkedin_click",
-  cvDownload: "cv_download",
   caseStudyOpen: "case_study_open",
 } as const;
 

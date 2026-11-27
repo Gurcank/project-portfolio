@@ -112,11 +112,31 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
           </p>
 
           <p className="mt-8 font-mono text-label tracking-wide text-ink-muted">
-            {about.credentials}
+            {/* No-break spaces around the dash: "2023 –" alone at a line end reads as unfinished */}
+            {about.credentials.replaceAll(" – ", "\u00a0\u2013\u00a0")}
           </p>
 
           <h3 className="mt-16 text-h3 font-black font-stretch-condensed">{about.goalsHeading}</h3>
           <p className="mt-4 max-w-prose">{about.goals}</p>
+
+          {/* Same shape as a case study's credits: a mono label, then plain text. No levels or bars:
+              a self-rated "80% React" says nothing a reader can check */}
+          <h3 className="mt-16 text-h3 font-black font-stretch-condensed">
+            {about.skills.heading}
+          </h3>
+          <dl className="mt-4 flex max-w-prose flex-col gap-4">
+            {about.skills.groups.map((group) => (
+              <div
+                key={group.label}
+                className="flex flex-col gap-1 md:grid md:grid-cols-3 md:gap-4"
+              >
+                <dt className="font-mono text-label tracking-wide text-ink-muted uppercase md:pt-1">
+                  {group.label}
+                </dt>
+                <dd className="md:col-span-2">{group.items}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
         {portrait && (

@@ -121,6 +121,23 @@ test.describe("about", () => {
     }
   });
 
+  test("skills from the CV: four groups as a description list, in both languages", async ({
+    page,
+  }) => {
+    for (const [path, heading, first, english] of [
+      ["/", "Beceriler", "Ürün ve tasarım", "İngilizce (B2)"],
+      ["/en", "Skills", "Product & design", "English (B2)"],
+    ] as const) {
+      await page.goto(path);
+      const about = page.locator("#about");
+      await expect(about.getByRole("heading", { name: heading, level: 3 })).toBeVisible();
+      await expect(about.locator("dl dt")).toHaveCount(4);
+      await expect(about.locator("dl dt").first()).toHaveText(first);
+      await expect(about.locator("dl dd").last()).toHaveText(english);
+      await expect(about).not.toContainText(/GANO|GPA/);
+    }
+  });
+
   test("no broken image in About", async ({ page }) => {
     await page.goto("/");
     const broken = await page

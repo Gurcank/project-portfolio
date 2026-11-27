@@ -24,7 +24,7 @@
 
 ## 4. Başarı ölçümü
 - Yayın öncesi: 1 kişiye siteyi 30 sn göster, sonra 3 soru sor (kim? ne arıyor? nasıl ulaşırım?). 3/3 doğru = geçti.
-- Yayın sonrası: cookie'siz, gizlilik dostu analytics (Umami Cloud; ARCHITECTURE ADR-14). İzlenecek event'ler: `contact_email_click`, `contact_linkedin_click`, `cv_download`, `case_study_open`.
+- Yayın sonrası: cookie'siz, gizlilik dostu analytics (Umami Cloud; ARCHITECTURE ADR-14). İzlenecek event'ler: `contact_email_click`, `contact_linkedin_click`, `case_study_open`. (CV sitede sunulmuyor (kullanıcı kararı, 2026-11-27); bilgileri telefon hariç Hakkımda'da.)
 - Takvim: sabit tarih yok; öncelik kalite.
 
 ## 5. Bilgi mimarisi
@@ -36,7 +36,7 @@ Bölüm sırası (S3'te kesinleşti; metinler CONTENT.md):
 3. **Ürün ilkelerim:** "Nasıl karar veririm" maddeleri; her madde bir projeden somut örneğe bağlı.
 4. **Hakkımda:** Ana hikâye, eğitim, Erasmus.
 5. **Bu site nasıl yapıldı:** Sitenin kendi case study'si (SPEC → kararlar → AI destekli iş akışı → vazgeçilenler) + **Krediler/atıflar** (Atatürk fotoğrafı kaynağı, fontlar, asset paketleri).
-6. **İletişim:** mailto, LinkedIn, GitHub, CV indir.
+6. **İletişim:** mailto, LinkedIn, GitHub.
 
 ## 6. Kişisel katman: "Site benim odam"
 Kişisel katman ayrı bir bölüm değil. Sevdiğim nesneler scroll boyunca içeriğin **arkasında ve kenarlarında** dağınık bir dekor olarak belirir; ana içeriğin önüne asla geçmez. Bir oda sahnesi kurulmayacak.
@@ -118,7 +118,7 @@ Tip ölçeği: akışkan; gövde 17–18 px; oran mobilde 1.25, masaüstünde 1.
 4. **Ürün ilkelerim:** tek cümlelik bir ekranla açılır (INS-18); maddeler "Şu olduğunda → şunu yaparım" kalıbında, her biri bir kasete bağlı (INS-14).
 5. **Hakkımda** (INS-27): ortada kısa hikâye, cümle içinde proje chip'leri (INS-05); zeminde soluk pixel nesne deseni; kenarlarda 2–3 gerçek fotoğraf ve el yazısı not (INS-13). Kısa tutulur.
 6. **Bu site nasıl yapıldı** + **Krediler** (§5).
-7. **İletişim:** dev e-posta, LinkedIn, GitHub, CV.
+7. **İletişim:** dev e-posta, LinkedIn, GitHub.
 
 ### Sabit öğeler
 - **Bölüm göstergesi** (sol alt, INS-07): bulunulan bölümü/kaseti gösterir. Tıklanınca sitenin içindekiler listesi bir kaset kapağı (J-card) gibi açılır: **deneysel gezinme katmanı** budur (§5). Overlay içinde aynı bileşen "şu an okunan bölüm" olur.
@@ -162,7 +162,7 @@ Elle çizim yok. Kaynaklar: (1) kod ve tipografi, programla üretilen pixel/SVG;
 | Atatürk portresi | Kamu malı fotoğraf (Wikimedia Commons vb.) | Her fotoğrafın lisansı ayrıca doğrulanır; FSEK md. 27: fotoğrafçının ölümünden itibaren 70 yıl | 1 | 3:4 | WebP/AVIF ≤ 60 KB |
 | Türk bayrağı | Kendi çizimimiz (SVG), 2893 sayılı Kanun ekindeki oranlar | Kamu sembolü | 1 | 3:2 | SVG |
 | Proje görselleri | Kendi projelerimin ekran görüntüleri | Bizim | 7 × n (n, D2'de ekran görüntüleri alınırken) | 16:10 | AVIF/WebP, responsive srcset |
-| CV PDF | Kendi CV'm | Bizim | 2 (TR + EN; EN sitede EN CV) | — | ≤ 200 KB |
+| ~~CV PDF~~ | — | — | 0: CV sitede sunulmuyor (kullanıcı kararı, 2026-11-27); bilgileri telefon hariç Hakkımda’da | — | — |
 
 Genel performans hedefi: LCP < 2,5 sn, CLS < 0,1, INP < 200 ms (mobil). Bütçeler ARCHITECTURE §8'de; her dilimde spot ölçüm, Faz 7'de tam ölçüm.
 
@@ -201,7 +201,7 @@ GitHub → Vercel. Stack: `docs/ARCHITECTURE.md` (Next.js 16, tamamen statik). `
 **S4'te kapandı (2026-11-21):** hero çalışma masasında marka adları yalnız metin, logo yok (ARCHITECTURE ADR-16) · Gemini şartları (§8, ADR-08) · pixel nesneler kodla üretilir; paket gerekirse yalnız CC0, Kenney doğrulandı (ADR-08) · canlı mini demo (INS-10) v1'de yok (ADR-17) · analytics aracı Umami Cloud (ADR-14) · Barış Manço albümü doğrulandı (CONTENT §9).
 
 **Açık:**
-- CONTENT §10'daki maddeler: IDDDergi canlı adresi, Novera repo linki (ekip arkadaşının kullanıcı adını içeriyor), EN metin kontrolü, EN CV PDF'i, kişisel fotoğraflar, şarkı yılları, kenar notu metinleri, eksik mikro metinler. Hangi dilimde gerektiği ROADMAP'in "Kullanıcıdan beklenenler" tablosunda.
+- CONTENT §10'daki maddeler: IDDDergi canlı adresi, Novera repo linki (ekip arkadaşının kullanıcı adını içeriyor), EN metin kontrolü, kişisel fotoğraflar, şarkı yılları, kenar notu metinleri, eksik mikro metinler. Hangi dilimde gerektiği ROADMAP'in "Kullanıcıdan beklenenler" tablosunda.
 
 ## 14. Uçtan uca doğrulama (yayın öncesi kabul)
 1. 375 / 768 / 1280 px ekran görüntüleri: hero'da rol, tarih, şehir ve CTA ilk ekranda görünüyor.
@@ -209,6 +209,6 @@ GitHub → Vercel. Stack: `docs/ARCHITECTURE.md` (Next.js 16, tamamen statik). `
 3. Her case study overlay'i hash ile doğrudan açılıyor, Esc ve geri tuşuyla kapanıyor.
 4. TR/EN geçişinde hiçbir metin eksik değil.
 5. Lisans kontrolü: envanterdeki her görselin kaynağı ve lisansı krediler bölümünde; telifli poster veya kapak yok.
-6. Analytics'te 4 event canlıda tetikleniyor.
+6. Analytics'te 3 event canlıda tetikleniyor.
 7. Lighthouse (mobil) ve WCAG 2.2 AA kontrolü (Faz 7).
 8. `prefers-reduced-motion` açıkken ve "hareketi durdur" kontrolüne basılınca intro, makaralar, maskot ve dekor duruyor; intro içeriği bekletmiyor.

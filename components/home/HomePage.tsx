@@ -21,7 +21,6 @@ import { Shelf } from "@/components/sections/Shelf";
 import {
   getCreditGroups,
   getDecor,
-  getCvHref,
   getPortrait,
   getPrinciples,
   getProfile,
@@ -43,7 +42,6 @@ type HomeViewProps = {
   copy: SiteCopy;
   profile: Profile;
   projects: ProjectView[];
-  cvHref?: string;
   principles: PrincipleView[];
   portrait?: Portrait;
   creditGroups: ReturnType<typeof getCreditGroups>;
@@ -75,7 +73,6 @@ export function HomeView({
   copy,
   profile,
   projects,
-  cvHref,
   principles,
   portrait,
   creditGroups,
@@ -131,7 +128,6 @@ export function HomeView({
         />
         <Contact
           profile={profile}
-          cvHref={cvHref}
           heading={copy.sections.contact}
           labels={copy.microcopy.contact}
         />
@@ -202,7 +198,6 @@ export function HomePage({ locale }: { locale: Locale }) {
         copy={getSiteCopy(locale)}
         profile={getProfile()}
         projects={getProjects(locale)}
-        cvHref={getCvHref(locale)}
         principles={getPrinciples(locale)}
         portrait={getPortrait()}
         creditGroups={getCreditGroups(locale)}

@@ -66,12 +66,23 @@ about:
       text: 1602 şehir; hepsini gezmedim (henüz)
     - after: end
       text: ikisi aynı anda olmuyor, denedim
-  credentials: OKAN ÜNİVERSİTESİ · BİLİŞİM SİSTEMLERİ VE TEKNOLOJİLERİ · MEZUNİYET HAZİRAN 2027 · ERASMUS+ ŁÓDŹ, EKİM 2026 – ŞUBAT 2027
+  credentials: OKAN ÜNİVERSİTESİ · BİLİŞİM SİSTEMLERİ VE TEKNOLOJİLERİ · 2023 – HAZİRAN 2027 · ERASMUS+ ŁÓDŹ, EKİM 2026 – ŞUBAT 2027
   goalsHeading: Hedeflerim
   goals: >-
     Şubat 2027'den itibaren İstanbul'da tam zamanlı, uzun dönem bir Product stajı arıyorum; yaz boyunca
     kesintisiz devam edebilirim. Bir ürün ekibinde kullanıcıyla konuşmayı, önceliklendirmeyi ve karar vermeyi
     gerçek sonuçlarla öğrenmek istiyorum. Uzun vadede hedefim, kullanıcısı olan bir ürünün PM'i olmak.
+  skills:
+    heading: Beceriler
+    groups:
+      - label: Ürün ve tasarım
+        items: Ürün tasarımı, UX/UI tasarımı, responsive web tasarımı, gereksinim analizi, teknik dokümantasyon
+      - label: Ürün ve proje yönetimi
+        items: Ürün yönetimi, proje yönetimi, Agile, Scrum, Jira
+      - label: Yazılım
+        items: HTML, CSS, JavaScript, TypeScript, React, Next.js, SQL, veritabanı tasarımı
+      - label: Dil
+        items: İngilizce (B2)
   portraitCaption: "Mustafa Kemal Atatürk, 1922. Fotoğraf: Agence Meurisse · Kaynak: Bibliothèque nationale de France"
   flagLabel: Türk bayrağı
 
@@ -86,7 +97,6 @@ microcopy:
     copyFailed: Kopyalanamadı; adresi seçip kopyala.
     linkedin: LinkedIn
     github: GitHub
-    downloadCv: CV'yi indir (PDF)
   cassette:
     open: "{project} case study'sini aç"
     pill: ▶ Aç

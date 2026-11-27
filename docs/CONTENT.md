@@ -608,8 +608,8 @@ EN (~95 words):
 > I'm Gürcan, a final-year Information Systems student at Istanbul Okan University, currently on Erasmus+ in Łódź. I came to product with a question: which role fits me? To answer it, I mapped the path of seven roles [SeeYourNextStep] and landed on Product Manager. Since then I've been turning scattered information into tangible products: a map for Erasmus cities [ErasmusMap], another for Atatürk's journeys [ATAMap], a climate documentary [İklim Krizi]. I design and code because it's the shortest way to understand a product end to end. If I'm not hiking, I'm probably watching a film.
 
 **Künye satırı (mono, Hakkımda altı):**
-- TR: `OKAN ÜNİVERSİTESİ · BİLİŞİM SİSTEMLERİ VE TEKNOLOJİLERİ · MEZUNİYET HAZİRAN 2027 · ERASMUS+ ŁÓDŹ, EKİM 2026 – ŞUBAT 2027`
-- EN: `OKAN UNIVERSITY · INFORMATION SYSTEMS · GRADUATING JUNE 2027 · ERASMUS+ ŁÓDŹ, OCT 2026 – FEB 2027`
+- TR: `OKAN ÜNİVERSİTESİ · BİLİŞİM SİSTEMLERİ VE TEKNOLOJİLERİ · 2023 – HAZİRAN 2027 · ERASMUS+ ŁÓDŹ, EKİM 2026 – ŞUBAT 2027`
+- EN: `OKAN UNIVERSITY · INFORMATION SYSTEMS · 2023 – JUNE 2027 · ERASMUS+ ŁÓDŹ, OCT 2026 – FEB 2027`
 
 **Hedeflerim**
 
@@ -618,6 +618,15 @@ TR:
 
 EN:
 > From February 2027 I'm looking for a full-time, long-term product internship in Istanbul, and I can continue through the summer. I want to learn user conversations, prioritisation and decision-making against real outcomes. Longer term: PM of a product people actually use.
+
+**Beceriler / Skills** (Hedeflerim altında; CV'den, telefon hariç; kullanıcı onayı 2026-11-27)
+
+| TR | EN |
+|---|---|
+| **Ürün ve tasarım:** Ürün tasarımı, UX/UI tasarımı, responsive web tasarımı, gereksinim analizi, teknik dokümantasyon | **Product & design:** Product design, UX/UI design, responsive web design, requirements analysis, technical documentation |
+| **Ürün ve proje yönetimi:** Ürün yönetimi, proje yönetimi, Agile, Scrum, Jira | **Product & project management:** Product management, project management, Agile, Scrum, Jira |
+| **Yazılım:** HTML, CSS, JavaScript, TypeScript, React, Next.js, SQL, veritabanı tasarımı | **Software:** HTML, CSS, JavaScript, TypeScript, React, Next.js, SQL, database design |
+| **Dil:** İngilizce (B2) | **Language:** English (B2) |
 
 ## 7. Bu site nasıl yapıldı
 
@@ -647,7 +656,7 @@ EN (~140 words):
 | Walkman (erişilebilir ad) | Walkman: rastgele bir film ya da şarkı öner | Walkman: suggest a random film or song |
 | Walkman sonucu | ▶ {Ad} ({yıl}) · film / şarkı | ▶ {Title} ({year}) · film / song |
 | ↳ D7 uygulaması | Şarkılarda {Ad} = "Sanatçı — Şarkı": "▶ Sade — Smooth Operator (1984) · şarkı" | "▶ Sade — Smooth Operator (1984) · song" |
-| İletişim | E-postayı kopyala · Kopyalandı · LinkedIn · GitHub · CV'yi indir (PDF) | Copy email · Copied · LinkedIn · GitHub · Download CV (PDF) |
+| İletişim | E-postayı kopyala · Kopyalandı · LinkedIn · GitHub | Copy email · Copied · LinkedIn · GitHub |
 | Boş durum (walkman listesi boş) | Kaset sarıyor. Bir daha bas. | Tape's rewinding. Press again. |
 | Görsel yüklenemedi | Görsel yüklenemedi; anlatı aşağıda. | Image didn't load; the story's below. |
 | 404 başlık | Bu kaset rafta yok. | This tape isn't on the shelf. |
@@ -713,7 +722,7 @@ Walkman yalnız ad ve yıl gösterir; puan, yorum, Letterboxd verisi yok (SPEC �
 Pullar dekordur (`aria-hidden`); adlar yalnız görsel etiket.
 
 ### Diğer kararlar
-- **EN CV:** EN sitede İngilizce CV sunulur. PDF'i kullanıcı sağlar (§10).
+- **CV:** CV sitede sunulmuyor (kullanıcı kararı, 2026-11-27); bilgileri telefon hariç Hakkımda'da.
 - **Letterboxd profil linki:** yok.
 
 ## 10. Açık maddeler (S4 ve sonrası)
@@ -723,7 +732,7 @@ Pullar dekordur (`aria-hidden`); adlar yalnız görsel etiket.
 | IDDDergi canlı adresi | Kullanıcı | "Dernek sitesinde canlı" denildi; URL verilmedi. D2 linksiz çıktı; adres gelince `content/projects/idddergi/project.yaml` → `links.live`. |
 | ~~Novera repo linki~~ | Kapandı (D2) | Gösterilmiyor (ekip arkadaşının kullanıcı adı URL'de); yalnız canlı site linki var. |
 | ~~EN metinlerin kontrolü~~ | Kapandı (D2) | Kullanıcı D2 preview'unda okudu ve merge onayı verdi (2026-11-21). |
-| EN CV PDF'i | Kullanıcı | İngilizce CV hazırlanmalı (≤ 200 KB). |
+| ~~EN CV PDF'i~~ | Kapandı (2026-11-27) | CV sitede sunulmuyor (kullanıcı kararı, 2026-11-27); bilgileri telefon hariç Hakkımda'da. |
 | ~~Barış Manço albümü~~ | Kapandı (S4) | *Sözüm Meclisten Dışarı*, 1981, Türküola, stüdyo albümü. Kaynak: [tr.wikipedia](https://tr.wikipedia.org/wiki/S%C3%B6z%C3%BCm_Meclisten_D%C4%B1%C5%9Far%C4%B1) (resmî diskografi değil). |
 | Kişisel fotoğraflar (Hakkımda kenarları, 2–3) | Kullanıcı · sonra | SPEC §9; henüz yok. D4 fotoğrafsız çıktı (kullanıcı kararı, 2026-11-22): Hakkımda tek sütun + kenar notları. Gelince küçük bir dilimle eklenir. |
 | ~~Atatürk portresi~~ | Kapandı (D4) | Agence Meurisse, 1922, BnF, Meurisse 2158 A. Commons'ta kamu malı (PD-France, PD-1996, PD-US expired); Europeana/BnF: NoC-OKLR, ticari olmayan kullanım kaynak belirtilerek serbest. Dosya Commons'taki BnF taramasının 1280 px kopyası; yalnız plaka numaralarını dışarıda bırakmak için 3:4 kırpıldı (600×800 WebP, 55 KB). Kaynak: `content/respect.yaml`. |

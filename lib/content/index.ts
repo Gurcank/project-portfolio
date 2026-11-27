@@ -40,11 +40,6 @@ export function getProfile(): Profile {
   return profile;
 }
 
-/** Public path of the CV for a language, or undefined when that language has no CV yet. */
-export function getCvHref(locale: Locale): string | undefined {
-  return profile.cv[locale];
-}
-
 /** Shelf order; the last tape's "next" wraps to the first so the overlay never dead-ends. */
 export function getProjects(locale: Locale): ProjectView[] {
   const ordered = [...projects].sort((a, b) => a.order - b.order);

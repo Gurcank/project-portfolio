@@ -2,7 +2,6 @@ import { HomeView } from "@/components/home/HomePage";
 import {
   getCreditGroups,
   getDecor,
-  getCvHref,
   getPortrait,
   getPrinciples,
   getProfile,
@@ -16,10 +15,10 @@ import { worstCopy, worstProfile, worstProjects } from "@/tests/fixtures/worst-c
  * Dev-only stress page for /break-ui. The `.dev.tsx` extension is registered only under `next dev`
  * (next.config.ts), so production builds never see this route.
  */
-const states = ["demo", "worst", "no-cv"] as const;
+const states = ["demo", "worst"] as const;
 type State = (typeof states)[number];
 
-const labels: Record<State, string> = { demo: "Demo data", worst: "Worst case", "no-cv": "No CV" };
+const labels: Record<State, string> = { demo: "Demo data", worst: "Worst case" };
 
 function resolveState(value: string | string[] | undefined): State {
   return states.find((state) => state === value) ?? "demo";
@@ -40,7 +39,6 @@ export default async function BreakUiPage({
         copy={isWorst ? worstCopy : getSiteCopy("tr")}
         profile={isWorst ? worstProfile : getProfile()}
         projects={isWorst ? worstProjects(getProjects("tr")) : getProjects("tr")}
-        cvHref={state === "no-cv" ? undefined : getCvHref("tr")}
         principles={getPrinciples("tr")}
         portrait={getPortrait()}
         creditGroups={getCreditGroups("tr")}

@@ -1,9 +1,17 @@
 # PROGRESS
 
-## Durum: S16 kod tarafı canlıda (2026-11-27). Kalan: PSI ortancası ve kullanıcıdan gelecekler (domain, Umami, 30 sn testi, ekran okuyucu turu, CV)
+## Durum: CV kaldırıldı, beceriler Hakkımda'da (yerelde, 2026-11-27). Kalan: PSI ortancası; kullanıcıdan Umami ID, adres (en son), 30 sn testi, ekran okuyucu turu
 
 **Canlı:** https://project-portfolio-theta-mocha.vercel.app (S16, commit `9f3c8a6`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/s16-quality` `main`'e fast-forward ile alındı (2026-11-27).
+**Branch:** `slice/s16-cv-skills` (yerel commit, push bekliyor). S16 `main`'de ve canlıda.
+
+### S16b · CV yerine Hakkımda'da beceriler (yerelde)
+
+- **Kullanıcı kararı (2026-11-27):** CV sitede sunulmuyor; CV'deki bilgiler telefon hariç sitede. GANO eklenmedi (kullanıcı kararı). Domain alınmıyor; daha okunur bir vercel.app adresi kararı en sona. Umami'yi kullanıcı kuracak.
+- **Kaldırılan:** `public/cv/` (commit'lenmemiş TR PDF silindi), CV düğmesi, `profile.cv` şeması, `getCvHref`, `cv_download` event'i (SPEC §4 ve §14.6'da 3 event), break-ui'daki "No CV" durumu. d1'deki CV testi yerine "sitede PDF linki yok" testi.
+- **Eklenen:** Hakkımda'da Hedeflerim altında "Beceriler / Skills": dört grup (Ürün ve tasarım, Ürün ve proje yönetimi, Yazılım, Dil), case study künyesi biçiminde `<dl>` (mono etiket + düz metin; seviye çubuğu yok). Eğitim satırında "MEZUNİYET HAZİRAN 2027" → "2023 – HAZİRAN 2027" (EN "2023 – JUNE 2027"); tirenin iki yanı bölünmez boşluk. Metin CONTENT §6'ya da yazıldı (kullanıcı onayı). Şema: etiket ≤ 32, madde ≤ 140 karakter, 1–6 grup.
+- **CV'de olup bilerek eklenmeyenler:** telefon, GANO, Novera'nın ekip arkadaşı kullanıcı adı içeren repo linki. Proje teknolojileri zaten case study'lerde.
+- **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (88/88), `check:tokens` (94 dosya), `build`, `test:e2e` (132/132; bir koşuda d4'te tek bir hata görüldü, 3×14 tekrarda ve sonraki tam koşuda yeniden üretilemedi). Ekran görüntüleri: `artifacts/about-{tr,en}-{375,768,1280}.png`, `home-*`, `en-*`.
 
 ### S16 · Kalite kapıları + yayın (kod tarafı canlıda)
 
@@ -191,16 +199,14 @@
 ### Sıradaki adım
 
 1. PSI 5 koşu ortancası (kota açılınca), mobil Speed Index takibi.
-2. Kullanıcıdan: domain, Umami ID, 30 sn testi, ekran okuyucu turu (`docs/LAUNCH-CHECKS.md`), TR CV kararı.
+2. Kullanıcıdan: domain, Umami ID, 30 sn testi, ekran okuyucu turu (`docs/LAUNCH-CHECKS.md`).
 
 ### Açık sorular (kullanıcıdan)
 
 | Ne                                                                  | Gerektiği dilim                  |
 | ------------------------------------------------------------------- | -------------------------------- |
 | IDDDergi canlı adresi                                               | gelince `project.yaml` → `links.live` |
-| Yayımlanabilir TR CV (telefonsuz, Novera linksiz)                   | geldiğinde                       |
 | Umami Cloud hesabı ve Website ID (Vercel env'e)                     | kodsuz eklenir                   |
-| EN CV PDF'i                                                         | gelince `profile.yaml` → `cv.en` |
 | 2–3 kişisel fotoğraf | sonra (küçük dilim) |
 | 30 sn testi için bir kişi; domain                                   | S16                              |
 
@@ -211,4 +217,4 @@
 - Yerel Lighthouse'ta Kaspersky enjeksiyonu için `--blocked-url-patterns="*kaspersky-labs.com*"`; yerel ölçümde HTML sıkıştırılmadan sayılabiliyor, ağırlık karşılaştırmasını gzip/brotli boyutuyla yap.
 - **Kaspersky HTTPS'i araya giriyor (2026-11-21 doğrulandı):** sitenin sertifikası bu makinede "Kaspersky Anti-Virus Personal Root Certificate" imzalı geliyor. Yerel LCP mutlak değer olarak kullanılmaz (PSI'den ≈ 0,7 sn yüksek); karar ölçümü PageSpeed Insights ile (pagespeed.web.dev arayüzü; anahtarsız API günlük kotaya takılabiliyor). Yerel ölçüm yalnız aynı makinede iki build'i karşılaştırmak için.
 - Git Bash'te yol argümanlarına `MSYS_NO_PATHCONV=1`.
-- `/break-ui` sayfası: `npm run dev` → `localhost:3000/dev/break-ui?data=worst|demo|no-cv`.
+- `/break-ui` sayfası: `npm run dev` → `localhost:3000/dev/break-ui?data=worst|demo`.

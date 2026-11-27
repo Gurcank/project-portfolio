@@ -113,7 +113,7 @@
 - **Kabul testleri:** aynı oturumda ikinci ziyarette intro yok; tuşla atlanıyor; reduced-motion'da hiç yok; mobil Lighthouse değişmedi.
 
 ### S16 · Kalite kapıları + yayın (Faz 7–8)
-- `/web-quality-audit` (performans, WCAG 2.2 AA, SEO, best practices), `/mobile-native`, ekran okuyucu turu, lisans ve atıf kontrolü, 30 sn testi (3/3), analytics'te 4 event canlıda, sayıların tazelenmesi (CONTENT §10), "Bu site nasıl yapıldı" metninin son hali, güvenlik başlıkları, production domain. SPEC §14'ün sekiz maddesi kanıtla.
+- `/web-quality-audit` (performans, WCAG 2.2 AA, SEO, best practices), `/mobile-native`, ekran okuyucu turu, lisans ve atıf kontrolü, 30 sn testi (3/3), analytics'te 3 event canlıda, sayıların tazelenmesi (CONTENT §10), "Bu site nasıl yapıldı" metninin son hali, güvenlik başlıkları, production domain. SPEC §14'ün sekiz maddesi kanıtla.
 
 ---
 
@@ -162,7 +162,7 @@
 | Ne | Gerektiği dilim | Not |
 |---|---|---|
 | Umami Cloud hesabı ve Website ID | D1 | Hesabı kullanıcı açar |
-| EN CV PDF'i (≤ 200 KB) | D1 | Gelene kadar EN'de CV düğmesi gizli |
+| ~~EN CV PDF'i~~ | — | Kapandı: CV sitede sunulmuyor (kullanıcı kararı, 2026-11-27); bilgileri telefon hariç Hakkımda'da |
 | IDDDergi canlı adresi | D2 | Gelmezse linksiz |
 | Novera repo linki gösterilsin mi | D2 | URL'de ekip arkadaşının kullanıcı adı var |
 | EN case study metinlerinin kontrolü | D2 production'dan önce | CONTENT §10 |
