@@ -680,6 +680,21 @@ EN (~140 words):
 
 Kurallar: Buton metni fiille başlar. ATAMap overlay'inde esprili mikro metin kullanılmaz (404 ve walkman metinleri ATAMap overlay'inde görünmez).
 
+### Proje ekran görüntüleri: alt metin ve kredi (S17, kullanıcı onayı 2026-11-27)
+
+Overlay'de ekran görüntüsünün `alt` metni; raftaki kapakta aynı görsel dekor (`alt=""`). Kaynak: `content/projects/<slug>/project.yaml` → `cover`. GK-07 IDDDergi'nin canlı adresi olmadığı için ekran görüntüsü yok (tipografik kapak).
+
+| Kaset | TR | EN |
+|---|---|---|
+| GK-01 | ErasmusMap'in ana ekranı: uydu görünümünde Avrupa haritası, üstte şehir arama çubuğu, solda yol, demiryolu ve havalimanı katmanları. | ErasmusMap's main screen: a satellite map of Europe with a city search bar on top and road, rail and airport layers on the left. |
+| GK-02 | Novera Mobility'nin ana sayfası: “Hafta sonu yola çıkın” kampanya alanı ve altında araç kiralama bölümü. | Novera Mobility's home page: a “Hit the road this weekend” campaign banner with the car rental section below. |
+| GK-03 | SeeYourNextStep'te rol seçimi: Product Manager, Product Designer ve Scrum Master gibi sekiz kart, altında 335 derslik ilerleme göstergesi. | Role selection in SeeYourNextStep: eight cards such as Product Manager, Product Designer and Scrum Master, with a progress tracker for 335 lessons below. |
+| GK-04 | ATAMap'in açılış ekranı: eski harita dokusunda 1881 ve Selanik, altta zaman çizelgesi ile oynatma düğmeleri, sağda kaynaklı olay kartı. | ATAMap's opening screen: 1881 and Salonika on an old-map texture, a timeline with playback controls below and a sourced event card on the right. |
+| GK-05 | İklim Krizi belgeselinin açılışı: dağ manzarası üzerinde “İklim krizi, sebebi ne?” başlığı ve giriş metni. | The opening of the İklim Krizi documentary: the title “Climate crisis: what causes it?” and an intro over a mountain landscape. |
+| GK-06 | Nature & Sport Handbook'ta Kuşlar sayfası: ahşap masada açık bir defter; her türün fotoğrafı, yaşam alanı, beslenmesi ve boyu; kenarlarda konu sekmeleri. | The Birds spread in Nature & Sport Handbook: an open notebook on a wooden table, each species with a photo, habitat, diet and size, and topic tabs along the edges. |
+
+**Kredi satırı** (görselin altında, yalnız ErasmusMap; Mapbox statik harita kuralı: atıf görselin yanında): TR "Harita: © Mapbox © OpenStreetMap © Maxar" · EN "Map: © Mapbox © OpenStreetMap © Maxar".
+
 ## 9. Kişisel katman listeleri
 
 ### Plak sırtları (SPEC §6; yalnız ad, kendi tipografimizle)
@@ -736,7 +751,7 @@ Pullar dekordur (`aria-hidden`); adlar yalnız görsel etiket.
 | ~~Barış Manço albümü~~ | Kapandı (S4) | *Sözüm Meclisten Dışarı*, 1981, Türküola, stüdyo albümü. Kaynak: [tr.wikipedia](https://tr.wikipedia.org/wiki/S%C3%B6z%C3%BCm_Meclisten_D%C4%B1%C5%9Far%C4%B1) (resmî diskografi değil). |
 | Kişisel fotoğraflar (Hakkımda kenarları, 2–3) | Kullanıcı · sonra | SPEC §9; henüz yok. D4 fotoğrafsız çıktı (kullanıcı kararı, 2026-11-22): Hakkımda tek sütun + kenar notları. Gelince küçük bir dilimle eklenir. |
 | ~~Atatürk portresi~~ | Kapandı (D4) | Agence Meurisse, 1922, BnF, Meurisse 2158 A. Commons'ta kamu malı (PD-France, PD-1996, PD-US expired); Europeana/BnF: NoC-OKLR, ticari olmayan kullanım kaynak belirtilerek serbest. Dosya Commons'taki BnF taramasının 1280 px kopyası; yalnız plaka numaralarını dışarıda bırakmak için 3:4 kırpıldı (600×800 WebP, 55 KB). Kaynak: `content/respect.yaml`. |
-| Proje ekran görüntüleri | Sonra (D2'den ertelendi) | D2 tipografik kapakla çıktı. Canlı sitelerden `scripts/capture-project-screens.ts` ile 1280×800 alınır; kullanıcı onaylar (ARCHITECTURE ADR-12). |
+| ~~Proje ekran görüntüleri~~ | Kapandı (S17) | 6 projede tek ekran görüntüsü (IDDDergi'de canlı adres yok); alt metinler §8 sonunda. `npm run capture:screens` ile alınır, her sonuç kullanıcıya onaylatılır. |
 | ~~Okuma süreleri~~ | Kapandı (D2) | Build'de hesaplanıyor. Bu dosyadaki elle yazılmış değerlerden sapma en fazla 0:10 (Markdown işaretleri kelime sayılmıyor); site hesaplananı gösterir. |
 | Liner notes (D2) | Not | CONTENT'te tek satırda "Veri / Data" gibi TR / EN çiftleri vardı; her dil kendi tarafını aldı, metin değişmedi (`content/projects/*/{tr,en}.md` → `liner`). |
 | ~~Şarkı yılları~~ | Kapandı (D7) | İlk yayım yılı kuralıyla §9'da; kaynak Wikipedia. |

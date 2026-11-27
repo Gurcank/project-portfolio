@@ -61,6 +61,7 @@ test.describe("desktop: the tape plays", () => {
 
   test("closing flies the reels back to the cover", async ({ page }) => {
     await page.goto("/");
+    const coverWidth = (await page.locator(coverReels("atamap")).boundingBox())!.width;
     await page.locator("#cassette-atamap").click();
     await expect(page.getByRole("dialog")).toBeVisible();
     await page.waitForTimeout(700);
@@ -71,7 +72,7 @@ test.describe("desktop: the tape plays", () => {
     );
     // Its first frames are still bar-sized, then it grows back into the cover
     expect(Math.min(...widths)).toBeLessThan(200);
-    expect(widths.at(-1)).toBeGreaterThan(300);
+    expect(widths.at(-1)).toBeCloseTo(coverWidth, 0);
   });
 
   test("a shared link opens without a flight", async ({ page }) => {

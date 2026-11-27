@@ -9,3 +9,8 @@ respectful: true
 links:
   live: https://atamap.vercel.app
   source: https://github.com/Gurcank/project_ATAMap
+cover:
+  image: ./media/cover.jpg
+  alt:
+    tr: "ATAMap'in açılış ekranı: eski harita dokusunda 1881 ve Selanik, altta zaman çizelgesi ile oynatma düğmeleri, sağda kaynaklı olay kartı."
+    en: "ATAMap's opening screen: 1881 and Salonika on an old-map texture, a timeline with playback controls below and a sourced event card on the right."

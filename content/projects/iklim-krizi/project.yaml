@@ -8,3 +8,8 @@ respectful: false
 links:
   live: https://iklimkrizi.vercel.app
   source: https://github.com/Gurcank/project_IDD
+cover:
+  image: ./media/cover.jpg
+  alt:
+    tr: "İklim Krizi belgeselinin açılışı: dağ manzarası üzerinde “İklim krizi, sebebi ne?” başlığı ve giriş metni."
+    en: "The opening of the İklim Krizi documentary: the title “Climate crisis: what causes it?” and an intro over a mountain landscape."

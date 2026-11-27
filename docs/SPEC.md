@@ -161,7 +161,7 @@ Elle çizim yok. Kaynaklar: (1) kod ve tipografi, programla üretilen pixel/SVG;
 | Fontlar | Google Fonts: Archivo, Fraunces, Geist Mono, Caveat | SIL OFL (doğrulandı) | 4 aile | — | latin + latin-ext subset; ilk ekran fontları preload; Caveat lazy |
 | Atatürk portresi | Kamu malı fotoğraf (Wikimedia Commons vb.) | Her fotoğrafın lisansı ayrıca doğrulanır; FSEK md. 27: fotoğrafçının ölümünden itibaren 70 yıl | 1 | 3:4 | WebP/AVIF ≤ 60 KB |
 | Türk bayrağı | Kendi çizimimiz (SVG), 2893 sayılı Kanun ekindeki oranlar | Kamu sembolü | 1 | 3:2 | SVG |
-| Proje görselleri | Kendi projelerimin ekran görüntüleri | Bizim | 7 × n (n, D2'de ekran görüntüleri alınırken) | 16:10 | AVIF/WebP, responsive srcset |
+| Proje görselleri | Kendi projelerimin ekran görüntüleri (S17); içlerindeki üçüncü taraf içerik: ErasmusMap'te Mapbox/OSM/Maxar haritası (görselin altında kredi), İklim Krizi'nde serbest lisanslı stok video karesi, Nature & Sport'ta yapay zekâ dokuları ve Wikimedia küçük fotoğrafları (künyeler o sitenin Credits sayfasında) | Bizim + belirtilenler | 6 × 1 (IDDDergi'de canlı adres yok) | 16:10 | Kaynak JPEG 2560×1600; AVIF/WebP, responsive srcset |
 | ~~CV PDF~~ | — | — | 0: CV sitede sunulmuyor (kullanıcı kararı, 2026-11-27); bilgileri telefon hariç Hakkımda’da | — | — |
 
 Genel performans hedefi: LCP < 2,5 sn, CLS < 0,1, INP < 200 ms (mobil). Bütçeler ARCHITECTURE §8'de; her dilimde spot ölçüm, Faz 7'de tam ölçüm.

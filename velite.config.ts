@@ -211,6 +211,8 @@ const cassetteColors = [
   "rose",
 ] as const;
 
+const l10n = (max: number) => s.object({ tr: s.string().max(max), en: s.string().max(max) });
+
 const projects = defineCollection({
   name: "Project",
   pattern: "projects/*/project.yaml",
@@ -226,6 +228,15 @@ const projects = defineCollection({
       respectful: s.boolean(),
       // A missing link is simply not shown (CONTENT §10)
       links: s.object({ live: s.string().url().optional(), source: s.string().url().optional() }),
+      // A screenshot of the live site (ADR-12); without one the shelf keeps the typographic cover
+      cover: s
+        .object({
+          image: s.image(),
+          alt: l10n(180),
+          // Third-party content visible in the shot (map tiles, photos) is credited next to it
+          credit: l10n(80).optional(),
+        })
+        .optional(),
     })
     .transform(({ path, ...rest }, { addIssue }) => {
       const slug = path.split("/")[1] ?? "";
@@ -277,8 +288,6 @@ const caseStudies = defineCollection({
       }
     }),
 });
-
-const l10n = (max: number) => s.object({ tr: s.string().max(max), en: s.string().max(max) });
 
 // content/principles.yaml is one list: each item is a principle (CONTENT §5 budgets)
 const principles = defineCollection({

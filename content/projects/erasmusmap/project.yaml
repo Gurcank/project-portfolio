@@ -8,3 +8,11 @@ respectful: false
 links:
   live: https://erasmusmap.vercel.app
   source: https://github.com/Gurcank/project-Erasmusmap
+cover:
+  image: ./media/cover.jpg
+  alt:
+    tr: "ErasmusMap'in ana ekranı: uydu görünümünde Avrupa haritası, üstte şehir arama çubuğu, solda yol, demiryolu ve havalimanı katmanları."
+    en: "ErasmusMap's main screen: a satellite map of Europe with a city search bar on top and road, rail and airport layers on the left."
+  credit:
+    tr: "Harita: © Mapbox © OpenStreetMap © Maxar"
+    en: "Map: © Mapbox © OpenStreetMap © Maxar"

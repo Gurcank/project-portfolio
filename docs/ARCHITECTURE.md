@@ -192,7 +192,7 @@ Atatürk portresi (doğrulanmış kamu malı fotoğraf) ve bayrak (2893 oranlar�
 
 **Alternatifler.** `next/image` + Vercel Image Optimization · build'de sharp ile AVIF/WebP + srcset üretip `unoptimized` kullanmak.
 
-**Sonuç.** `next/image`. `images.formats: ['image/avif', 'image/webp']`; `images.qualities: [75]` (Next 16'da zorunlu alan); `deviceSizes` kısıtlı tutulur (dönüşüm sayısı düşük kalsın). Velite'in verdiği width/height/blurDataURL ile CLS olmaz; blur placeholder "yükleniyor" durumudur. Proje ekran görüntüleri canlı sitelerden `scripts/capture-project-screens.ts` (Playwright) ile 1280×800 alınır.
+**Sonuç.** `next/image`. `images.formats: ['image/avif', 'image/webp']`; `images.qualities: [75]` (Next 16'da zorunlu alan); `deviceSizes` kısıtlı tutulur (dönüşüm sayısı düşük kalsın). Velite'in verdiği width/height/blurDataURL ile CLS olmaz; blur placeholder "yükleniyor" durumudur. Proje ekran görüntüleri canlı sitelerden `scripts/capture-project-screens.ts` (Playwright, `npm run capture:screens`) ile 1280×800, 2× ölçekte JPEG (q90) alınır; kaynak dosya JPEG, siteye AVIF/WebP olarak `next/image` dönüştürür (yeni bağımlılık yok). S17'de proje başına tek görsel (`cover`); `gallery` ertelendi.
 
 **Ödünleşim.** Hobby'de ayda 5.000 dönüşüm; aşılırsa yeni görseller 402 döner, önbelleğe girmişler çalışır, ücret çıkmaz. Tahmini ihtiyaç ~25 kaynak × 4 genişlik × 2 format ≈ 200. Aşılırsa B planı: sharp ile build'de üretim. Her format ayrı önbelleklenir (Next dokümanı).
 
@@ -365,8 +365,8 @@ interface Project {
   year: number
   respectful: boolean        // ATAMap: mizah, kenar notu, esprili mikro metin yok
   links: { live?: string; source?: string }   // yoksa link gösterilmez
-  cover?: ImageAsset         // yoksa tipografik kapak
-  gallery: ImageAsset[]
+  cover?: ImageAsset & { credit?: L10n<string> }  // yoksa tipografik kapak; credit: görseldeki üçüncü taraf içerik (ör. Mapbox)
+  // gallery: ImageAsset[]   // S17'de ertelendi (proje başına tek görsel yeterli görüldü)
 }
 
 // content/projects/<slug>/{tr,en}.md — frontmatter + gövde

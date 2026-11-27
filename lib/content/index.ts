@@ -25,8 +25,19 @@ export type { CaseStudy, Profile, Project, SiteCopy };
 export type { Track, TrackId } from "./tracks";
 export { parseStory, type StorySegment } from "./story";
 
+/** A cover screenshot with its text in one language. */
+export type ProjectCover = {
+  image: NonNullable<Project["cover"]>["image"];
+  alt: string;
+  credit?: string;
+};
+
 /** A project with its case study in one language and the tape that follows it on the shelf. */
-export type ProjectView = Project & { study: CaseStudy; next: Project["slug"] };
+export type ProjectView = Omit<Project, "cover"> & {
+  cover?: ProjectCover;
+  study: CaseStudy;
+  next: Project["slug"];
+};
 export type ProjectSlug = Project["slug"];
 
 export function getSiteCopy(locale: Locale): SiteCopy {
@@ -49,7 +60,17 @@ export function getProjects(locale: Locale): ProjectView[] {
     );
     if (!study) throw new Error(`content/projects/${project.slug}/${locale}.md is missing`);
     const next = ordered[(index + 1) % ordered.length] ?? project;
-    return { ...project, study, next: next.slug };
+    const { cover, ...rest } = project;
+    return {
+      ...rest,
+      cover: cover && {
+        image: cover.image,
+        alt: cover.alt[locale],
+        credit: cover.credit?.[locale],
+      },
+      study,
+      next: next.slug,
+    };
   });
 }
 

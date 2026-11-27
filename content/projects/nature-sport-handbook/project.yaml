@@ -8,3 +8,8 @@ respectful: false
 links:
   live: https://naturesporthandbook.vercel.app
   source: https://github.com/Gurcank/project_NatureSportHandbook
+cover:
+  image: ./media/cover.jpg
+  alt:
+    tr: "Nature & Sport Handbook'ta Kuşlar sayfası: ahşap masada açık bir defter; her türün fotoğrafı, yaşam alanı, beslenmesi ve boyu; kenarlarda konu sekmeleri."
+    en: "The Birds spread in Nature & Sport Handbook: an open notebook on a wooden table, each species with a photo, habitat, diet and size, and topic tabs along the edges."

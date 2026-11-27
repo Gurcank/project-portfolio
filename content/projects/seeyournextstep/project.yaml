@@ -8,3 +8,8 @@ respectful: false
 links:
   live: https://seeyournextstep.vercel.app
   source: https://github.com/Gurcank/project-SeeYourNextStep
+cover:
+  image: ./media/cover.jpg
+  alt:
+    tr: "SeeYourNextStep'te rol seçimi: Product Manager, Product Designer ve Scrum Master gibi sekiz kart, altında 335 derslik ilerleme göstergesi."
+    en: "Role selection in SeeYourNextStep: eight cards such as Product Manager, Product Designer and Scrum Master, with a progress tracker for 335 lessons below."

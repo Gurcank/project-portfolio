@@ -34,6 +34,7 @@
 | S14 | D9 · Hero çalışma masası + özel imleç | Ticket, deploy bildirimi, "Claude" imleci (masaüstünde hareketli, mobilde statik ticket); pixel imleç ve kaset üstünde "▶ Aç" pill'i | INS-04 + INS-23, INS-03 + INS-19 (pill) | §4 | — |
 | S15 | D10 · Intro | ≤ 2,5 sn kaset sayacı + kelimeler; oturumda bir kez; atlanabilir | INS-01 + INS-22 | §4 | — |
 | S16 | Kalite kapıları + yayın (Faz 7–8) | Lighthouse, WCAG 2.2 AA, SEO, lisans kontrolü, 30 sn testi, analytics canlıda, domain | — | §7 son hali | 30 sn testi için bir kişi; domain kararı |
+| S17 | Proje ekran görüntüleri (v1 sonrası) | 6 projenin canlı sitesinden ekran görüntüsü: overlay başlığının altında (alt metinli), rafta kaset etiketinde (≥ 1024 px, dekor) | INS-08 | §8 sonu (alt metinler) | Her ekran görüntüsünün ve alt metinlerin onayı; görsellerdeki üçüncü taraf içeriğin kaynağı |
 
 ---
 
@@ -114,6 +115,10 @@
 
 ### S16 · Kalite kapıları + yayın (Faz 7–8)
 - `/web-quality-audit` (performans, WCAG 2.2 AA, SEO, best practices), `/mobile-native`, ekran okuyucu turu, lisans ve atıf kontrolü, 30 sn testi (3/3), analytics'te 3 event canlıda, sayıların tazelenmesi (CONTENT §10), "Bu site nasıl yapıldı" metninin son hali, güvenlik başlıkları, production domain. SPEC §14'ün sekiz maddesi kanıtla.
+
+### S17 · Proje ekran görüntüleri
+- `npm run capture:screens`: canlı adresi olan her proje için 1280×800, 2× JPEG (`content/projects/<slug>/media/cover.jpg`); çerez bandı "Reddet" ile kapatılır, Nature & Sport'ta dolu bir sayfa (Kuşlar) açılır. Sonuçlar elle onaylanır.
+- **Kabul testleri:** canlı her projenin overlay'inde görsel ve boş olmayan `alt`; IDDDergi'de görsel ve boş çerçeve yok; ErasmusMap'te Mapbox kredisi; `/en`'de İngilizce alt metin; rafta 6 dekor kapak (`alt=""`), kart rafın boyunu aşmıyor (1024/1280/1440); 375'te kapaklar indirilmiyor; overlay'de axe serious/critical 0.
 
 ---
 

@@ -8,3 +8,8 @@ respectful: false
 links:
   live: https://novera-mobility.vercel.app
   # source: not shown (CONTENT §10)
+cover:
+  image: ./media/cover.jpg
+  alt:
+    tr: "Novera Mobility'nin ana sayfası: “Hafta sonu yola çıkın” kampanya alanı ve altında araç kiralama bölümü."
+    en: "Novera Mobility's home page: a “Hit the road this weekend” campaign banner with the car rental section below."

@@ -71,6 +71,7 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
                     catalog={project.catalog}
                     title={project.study.title}
                     color={project.color}
+                    image={project.cover?.image}
                   />
                 </div>
                 {/* wrap-anywhere: one long Turkish word must break rather than push the page sideways */}
