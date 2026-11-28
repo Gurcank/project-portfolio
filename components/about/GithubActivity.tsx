@@ -4,9 +4,11 @@ import { fillTemplate } from "@/lib/hash-route";
 type GithubActivityProps = {
   profileUrl: string;
   copy: { heading: string; summary: string };
+  /** The section's h3 style, so every heading in About matches */
+  headingClass: string;
 };
 
-// One pixel per day; the four levels step up in olive, the empty days are the line colour
+// One pixel per day; the four levels step up in pine green (v4), the empty days are the line colour
 const LEVEL_OPACITY = [1, 0.35, 0.55, 0.8, 1];
 
 /**
@@ -14,7 +16,7 @@ const LEVEL_OPACITY = [1, 0.35, 0.55, 0.8, 1];
  * a picture of the sentence beside it, so it is hidden from assistive tech and the sentence carries the
  * number. With no data (GitHub unreachable at build), nothing is rendered at all.
  */
-export async function GithubActivity({ profileUrl, copy }: GithubActivityProps) {
+export async function GithubActivity({ profileUrl, copy, headingClass }: GithubActivityProps) {
   const data = await getContributions(profileUrl);
   if (!data) return null;
   const cells = data.weeks.flatMap((days, week) =>
@@ -27,7 +29,7 @@ export async function GithubActivity({ profileUrl, copy }: GithubActivityProps) 
 
   return (
     <>
-      <h3 className="mt-16 font-display text-h3 font-black font-stretch-condensed">
+      <h3 className={headingClass}>
         <a
           href={profileUrl}
           lang="en"
@@ -53,7 +55,7 @@ export async function GithubActivity({ profileUrl, copy }: GithubActivityProps) 
           <path
             key={level}
             d={path(active.filter((cell) => cell.level === level))}
-            className="fill-cassette-olive"
+            className="fill-pine"
             fillOpacity={LEVEL_OPACITY[level]}
           />
         ))}

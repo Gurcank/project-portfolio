@@ -13,3 +13,9 @@ cover:
   alt:
     tr: "İklim Krizi belgeselinin açılışı: dağ manzarası üzerinde “İklim krizi, sebebi ne?” başlığı ve giriş metni."
     en: "The opening of the İklim Krizi documentary: the title “Climate crisis: what causes it?” and an intro over a mountain landscape."
+# v4: the site on a phone, captured from the live address (2026-11-28)
+phone:
+  image: ./media/phone.jpg
+  alt:
+    tr: "İklim Krizi telefonda: dağ manzarası üstünde “İklim krizi sebebi ne?” başlığı ve belgeselin giriş paragrafı."
+    en: "İklim Krizi on a phone: the title asking what causes the climate crisis over a mountain landscape, and the documentary's opening paragraph."

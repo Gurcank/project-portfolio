@@ -47,3 +47,59 @@
   text-transform: uppercase;
   color: var(--color-ink-muted);
 }
+
+/*
+ * Readability (v4, user: "daha okunabilir yap"): prose gets a little more air between lines, and a
+ * line never runs past ~65 characters even where the column is wider.
+ */
+.case-study-md {
+  max-width: 65ch;
+  line-height: var(--leading-relaxed);
+}
+
+/* B1 decisions: the title, then labelled rows (CaseStudyMarkdown ListItem) */
+.case-study-md .decision {
+  padding-left: 0;
+}
+
+.case-study-md ol:has(> .decision) {
+  gap: calc(var(--spacing) * 8);
+}
+
+.case-study-md .decision > p {
+  font-weight: var(--font-weight-bold);
+}
+
+.case-study-md .decision > p strong {
+  font-weight: inherit;
+}
+
+.case-study-md .decision dl {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 3);
+  margin-top: calc(var(--spacing) * 3);
+  padding-left: calc(var(--spacing) * 4);
+  border-left: calc(var(--spacing) * 0.5) solid var(--tape);
+}
+
+.case-study-md .decision dd {
+  /* Leading space carried over from the paragraph */
+  text-indent: 0;
+}
+
+.case-study-md .decision dt .decision-label {
+  margin-right: 0;
+}
+
+@media (width >= 48rem) {
+  .case-study-md .decision dl > div {
+    display: grid;
+    grid-template-columns: calc(var(--spacing) * 24) 1fr;
+    gap: calc(var(--spacing) * 4);
+  }
+
+  .case-study-md .decision dt {
+    padding-top: calc(var(--spacing) * 1);
+  }
+}

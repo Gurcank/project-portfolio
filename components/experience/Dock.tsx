@@ -7,9 +7,9 @@ import { Popover } from "radix-ui";
 import { useEffect, useRef, useState, useSyncExternalStore, type RefObject } from "react";
 
 import { LanguageSwitch } from "@/components/layout/LanguageSwitch";
-import { PixelSprite } from "@/components/pixel/PixelSprite";
+import { PixelLayer, PixelSprite } from "@/components/pixel/PixelSprite";
 import { dockIconPalette, dockIcons } from "@/components/pixel/sprites/dock-icons";
-import { yinYang, yinYangPalette } from "@/components/pixel/sprites/symbols";
+import { GLOBE_FRAMES, globeFrames, globePalette } from "@/components/pixel/sprites/globe";
 import { useActiveSection, type SectionId } from "@/lib/active-section";
 import type { SiteCopy } from "@/lib/content";
 import { fillTemplate } from "@/lib/hash-route";
@@ -33,8 +33,11 @@ const jcardLinkClass =
 const pillClass =
   "inline-flex min-h-10 items-center gap-2 rounded-full px-3 font-mono text-label tracking-wide whitespace-nowrap uppercase";
 
-/** How far down the page the reader is, 0 → 1, written to a CSS variable without re-rendering. */
-function useScrollTurn(target: RefObject<HTMLElement | null>, active: boolean) {
+/**
+ * How far down the page the reader is, 0 → 1, written to the DOM without re-rendering: the globe shows
+ * the frame for that point (two full turns from top to bottom). Reduced or paused motion keeps frame 0.
+ */
+function useScrollTurn(target: RefObject<SVGSVGElement | null>, active: boolean) {
   useEffect(() => {
     const element = target.current;
     if (!active || !element) return;
@@ -42,7 +45,12 @@ function useScrollTurn(target: RefObject<HTMLElement | null>, active: boolean) {
     const update = () => {
       frame = 0;
       const room = document.documentElement.scrollHeight - window.innerHeight;
-      element.style.setProperty("--dock-turn", String(room > 0 ? window.scrollY / room : 0));
+      const turn = room > 0 ? window.scrollY / room : 0;
+      const still =
+        document.documentElement.dataset.motion === "paused" ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const shown = still ? 0 : Math.floor(turn * GLOBE_FRAMES * 2) % GLOBE_FRAMES;
+      element.setAttribute("data-frame", String(shown));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -79,14 +87,14 @@ function useNow(): Date | null {
 /**
  * The dock (V2, INS-07 grown up; v3: always there, the site's only navigation): at the top on wide
  * screens and within thumb reach at the bottom on phones, from the first screen on. It is server-rendered
- * like any client component, so its links work before (and without) hydration. A yin-yang turns as the page moves from day
- * to night and leads back to the top; "Now: …" opens the J-card contents (sections and the seven tapes);
+ * like any client component, so its links work before (and without) hydration. A pixel globe (v4; the
+ * yin-yang before it) turns as the reader scrolls and leads back to the top; "Now: …" opens the J-card contents (sections and the seven tapes);
  * on wide screens hovering or focusing it unfolds the five sections; a clock shows Istanbul and Łódź.
  * No aria-live: the label changes as you scroll and announcing every change would be noise (D6).
  */
 export function Dock({ locale, labels, languageSwitch, dock, nav, tapes }: DockProps) {
   const section = useActiveSection();
-  const turn = useRef<HTMLSpanElement>(null);
+  const turn = useRef<SVGSVGElement>(null);
   useScrollTurn(turn, true);
   const now = useNow();
   const wide = useMediaQuery("(width >= 48rem)");
@@ -117,9 +125,20 @@ export function Dock({ locale, labels, languageSwitch, dock, nav, tapes }: DockP
         aria-label={dock.top}
         className="grid size-10 shrink-0 place-items-center rounded-full bg-paper"
       >
-        <span ref={turn} className="dock-turn block w-7">
-          <PixelSprite grid={yinYang} palette={yinYangPalette} />
-        </span>
+        {/* All frames in one drawing; CSS shows the one the scroll picked (dock.css) */}
+        <svg
+          ref={turn}
+          data-frame="0"
+          viewBox="0 0 16 16"
+          shapeRendering="crispEdges"
+          aria-hidden="true"
+          focusable="false"
+          className="dock-globe block w-7"
+        >
+          {globeFrames.map((grid, index) => (
+            <PixelLayer key={index} grid={grid} palette={globePalette} />
+          ))}
+        </svg>
       </a>
 
       <Popover.Root open={menuOpen} onOpenChange={setMenuOpen}>

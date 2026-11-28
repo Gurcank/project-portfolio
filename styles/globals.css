@@ -92,7 +92,6 @@
 
   [data-time="sunset"] {
     --color-paper: var(--color-time-sunset);
-    --color-accent: var(--color-accent-sunset);
     --time-from: var(--color-time-afternoon);
     --time-to: var(--color-time-dusk);
   }

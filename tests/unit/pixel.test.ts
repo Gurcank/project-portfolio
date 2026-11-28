@@ -16,7 +16,7 @@ import {
   plantPalette,
 } from "@/components/pixel/sprites/plant";
 import { stampPalette, stampSprites } from "@/components/pixel/sprites/stamps";
-import { toolSlug } from "@/components/about/ToolList";
+import { toolSlug } from "@/components/about/tool-slug";
 import {
   avatarPalette,
   avatarPortrait,
@@ -28,6 +28,9 @@ import {
   walkerWave,
 } from "@/components/pixel/sprites/avatar";
 import { cdPlayerFrames, cdPlayerPalette } from "@/components/pixel/sprites/cd-player";
+import { globeFrames, globePalette } from "@/components/pixel/sprites/globe";
+import { envelopeClosed, envelopeOpen, envelopePalette } from "@/components/pixel/sprites/symbols";
+import { tvOff, tvOn, tvPalette } from "@/components/pixel/sprites/tv";
 
 const sprites: [string, PixelGrid, Record<string, string>][] = [
   ["plant base", plantBase, plantPalette],
@@ -42,6 +45,16 @@ const sprites: [string, PixelGrid, Record<string, string>][] = [
     frame,
     cdPlayerPalette,
   ]),
+  // v4
+  ...globeFrames.map((frame, i): [string, PixelGrid, Record<string, string>] => [
+    `globe ${i + 1}`,
+    frame,
+    globePalette,
+  ]),
+  ["tv off", tvOff, tvPalette],
+  ["tv on", tvOn, tvPalette],
+  ["envelope closed", envelopeClosed, envelopePalette],
+  ["envelope open", envelopeOpen, envelopePalette],
   ["avatar portrait", avatarPortrait, avatarPalette],
   ["walker stand", walkerStand, walkerPalette],
   ["walker step A", walkerStepA, walkerPalette],

@@ -16,3 +16,12 @@ cover:
   credit:
     tr: "Harita: © Mapbox © OpenStreetMap © Maxar"
     en: "Map: © Mapbox © OpenStreetMap © Maxar"
+# v4: the site on a phone, captured from the live address (2026-11-28)
+phone:
+  image: ./media/phone.jpg
+  alt:
+    tr: "ErasmusMap telefonda: uydu görünümünde Avrupa haritası, üstte Giriş Yap düğmesi, sol altta yol, demiryolu ve havalimanı katmanları."
+    en: "ErasmusMap on a phone: a satellite map of Europe, a sign-in button on top and road, rail and airport layers in the bottom left."
+  credit:
+    tr: "Harita: © Mapbox © OpenStreetMap © Maxar"
+    en: "Map: © Mapbox © OpenStreetMap © Maxar"

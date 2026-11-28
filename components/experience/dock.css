@@ -41,18 +41,19 @@
   fill: var(--color-ink);
 }
 
-/* Day → night: the yin-yang turns half a circle from the top of the page to the bottom. It follows the
-   reader's own scroll, but it is still movement, so it stays still when motion is reduced or paused */
-.dock-turn {
-  transform: rotate(calc(var(--dock-turn, 0) * 180deg));
+/* The globe (v4): one frame at a time. Dock.tsx picks the frame from the scroll position and holds
+   frame 0 when motion is reduced or paused */
+.dock-globe > g {
+  display: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .dock-turn {
-    transform: none;
-  }
-}
-
-:root[data-motion="paused"] .dock-turn {
-  transform: none;
+.dock-globe[data-frame="0"] > g:nth-of-type(1),
+.dock-globe[data-frame="1"] > g:nth-of-type(2),
+.dock-globe[data-frame="2"] > g:nth-of-type(3),
+.dock-globe[data-frame="3"] > g:nth-of-type(4),
+.dock-globe[data-frame="4"] > g:nth-of-type(5),
+.dock-globe[data-frame="5"] > g:nth-of-type(6),
+.dock-globe[data-frame="6"] > g:nth-of-type(7),
+.dock-globe[data-frame="7"] > g:nth-of-type(8) {
+  display: inline;
 }

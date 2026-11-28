@@ -27,3 +27,13 @@ export function pickNext(
   const draw = Math.floor(random() * (count - 1));
   return draw >= previous ? draw + 1 : draw;
 }
+
+// The visit's pick (v4): drawn on first read and kept for the life of the page, so every reader of it
+// (two TVs, re-renders) sees the same one until the next load
+let visitPick: { count: number; index: number | null } | undefined;
+
+/** This page load's pick, drawn once; a different list length (tests) draws again. */
+export function drawVisitPick(count: number, random: () => number): number | null {
+  if (visitPick?.count !== count) visitPick = { count, index: pickNext(count, null, random) };
+  return visitPick.index;
+}

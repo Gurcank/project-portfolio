@@ -638,7 +638,7 @@ EN:
 
 **GitHub** (v3 R6, Araçlar'ın üstünde; build sırasında GitHub'ın herkese açık takviminden; commit öncesi onaya sunuldu 2026-11-28): başlık "GitHub" · TR "Son bir yılda {count} katkı" · EN "{count} contributions in the last year". GitHub'a ulaşılamazsa bölüm görünmez.
 
-**Araçlar / Tools** (V6, Beceriler altında, logolu; kullanıcı onayı 2026-11-27): Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude. Logolar Simple Icons'tan (CC0), tek renk.
+**Araçlar / Tools** (V6, Beceriler altında, logolu; kullanıcı onayı 2026-11-27): Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude. Logolar Simple Icons'tan (CC0), tek renk. v4: kartlar her uygulamanın arayüz diliyle (Jira iş tipi karesi, Figma seçim tutamaçları, Miro yapışkan not, Vercel "ready" noktası, Claude imleç etiketi); ≥ 1024'te dağınık, düğme TR "Toparla" · EN "Tidy up" (kullanıcı onayı 2026-11-28).
 
 ## 7. Bu site nasıl yapıldı
 
@@ -673,11 +673,12 @@ EN (~140 words):
 | Saat düğmesinin görünen hali | İST {ss:dd} | IST {hh:mm} |
 | Saat paneli | İki şehrim · İstanbul · evim · Łódź · Erasmus+, Şubat 2027'ye kadar | My two cities · Istanbul · home · Łódź · Erasmus+, until February 2027 |
 | Hareket kontrolü | Hareketi durdur · Hareketi başlat | Pause motion · Resume motion |
-| CD çalar (erişilebilir ad; V6'da walkman'in yerine, kullanıcı onayı 2026-11-27) | CD çalar: rastgele bir film ya da şarkı öner | CD player: suggest a random film or song |
+| Televizyon (erişilebilir ad; v4'te CD çaların yerine, kullanıcı onayı 2026-11-28) | Televizyon: bu ziyaretin önerisi | TV: this visit's pick |
+| Televizyon açıkken önerinin başlığı (v4, kullanıcı onayı 2026-11-28) | Bu ziyaretin önerisi | This visit's pick |
 | Walkman sonucu | ▶ {Ad} ({yıl}) · film / şarkı | ▶ {Title} ({year}) · film / song |
 | ↳ D7 uygulaması | Şarkılarda {Ad} = "Sanatçı — Şarkı": "▶ Sade — Smooth Operator (1984) · şarkı" | "▶ Sade — Smooth Operator (1984) · song" |
 | İletişim | E-postayı kopyala · Kopyalandı · LinkedIn · GitHub | Copy email · Copied · LinkedIn · GitHub |
-| Boş durum (walkman listesi boş) | Kaset sarıyor. Bir daha bas. | Tape's rewinding. Press again. |
+| Boş durum (öneri listesi boş; v4, kullanıcı onayı 2026-11-28: artık "bir daha bas" yok, seçim yüklemede bir kez yapılıyor) | Bu akşam yayın yok. | Nothing on tonight. |
 | Görsel yüklenemedi | Görsel yüklenemedi; anlatı aşağıda. | Image didn't load; the story's below. |
 | 404 başlık | Bu kaset rafta yok. | This tape isn't on the shelf. |
 | 404 metin | Sayfa taşınmış ya da hiç olmamış. | The page moved or never existed. |
@@ -712,6 +713,8 @@ Overlay'de ekran görüntüsünün `alt` metni; raftaki kapakta aynı görsel de
 | GK-04 | ATAMap'in açılış ekranı: eski harita dokusunda 1881 ve Selanik, altta zaman çizelgesi ile oynatma düğmeleri, sağda kaynaklı olay kartı. | ATAMap's opening screen: 1881 and Salonika on an old-map texture, a timeline with playback controls below and a sourced event card on the right. |
 | GK-05 | İklim Krizi belgeselinin açılışı: dağ manzarası üzerinde “İklim krizi, sebebi ne?” başlığı ve giriş metni. | The opening of the İklim Krizi documentary: the title “Climate crisis: what causes it?” and an intro over a mountain landscape. |
 | GK-06 | Nature & Sport Handbook'ta Kuşlar sayfası: ahşap masada açık bir defter; her türün fotoğrafı, yaşam alanı, beslenmesi ve boyu; kenarlarda konu sekmeleri. | The Birds spread in Nature & Sport Handbook: an open notebook on a wooden table, each species with a photo, habitat, diet and size, and topic tabs along the edges. |
+
+**v4 · telefon ekran görüntüleri ve IDDDergi kapağı (alt metinler: kullanıcı onayı 2026-11-28).** Canlı adreslerden 390 px genişlikte çekildi (çerez bandında "Reddet"); `project.yaml` → `phone` ve IDDDergi için `cover`. Metinler dosyadadır; özet: her biri "<Proje> telefonda: …" / "<Project> on a phone: …" kalıbında, görünen öğeleri sayar. IDDDergi kapağı ve telefon görüntüsünde dergi kapağı görünür; kredi TR "Dergi kapağı: IDD ORG" · EN "Magazine cover: IDD ORG" (IDD ORG'un izni kullanıcıyla doğrulanmalı).
 
 **Kredi satırı** (görselin altında, yalnız ErasmusMap; Mapbox statik harita kuralı: atıf görselin yanında): TR "Harita: © Mapbox © OpenStreetMap © Maxar" · EN "Map: © Mapbox © OpenStreetMap © Maxar".
 

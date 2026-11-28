@@ -16,7 +16,13 @@
   --color-ink: #1c241b; /* forest black — 13.1:1 on paper */
   --color-ink-muted: #575e50; /* 5.5:1 on paper */
   --color-line: #cfc6b4; /* dividers and frames only; carries no information */
-  --color-accent: #a63f17; /* sunset — 5.1:1 on paper (AA); brown-orange, kept apart from flag red */
+  /* v4 (user, 2026-11-28: "yeşil mavi renklerini severim"): lake blue leads, pine green follows. Lake on
+   * every day ground: morning 6.0 · noon 6.4 · afternoon 5.7 · sunset 5.2; paper on lake 6.0 (CTA fill) */
+  --color-accent: #1f5a85; /* lake blue */
+  /* Pine green: "available" and growing things (status dot, the globe's land). 5.3:1 on morning paper */
+  --color-pine: #2b6a3c;
+  /* The dock globe's sea: lighter than the accent, so the coast reads against it at 28px. Pixel only */
+  --color-sea: #4f8fc0;
   --color-transparent: transparent;
   --color-current: currentColor;
 
@@ -58,25 +64,23 @@
   --color-on-cassette-rose: #1e1b17; /* 6.3:1 */
 
   /* Day → night (v2, SPEC §8): the page runs like a day, one time per section. Contrast of ink / muted /
-   * accent on each ground, computed: morning 13.1 / 5.5 / 5.1 · noon 13.9 / 5.9 / 5.5 · afternoon
-   * 11.9 / 5.0 / 4.7 · sunset 11.3 / 4.8 / 5.0 (its own accent) · dusk 12.2 / 7.2 / 7.3 · night 15.1 / 7.5 / 9.0 */
+   * accent on each ground, computed (v4): morning 13.1 / 5.5 / 6.0 · noon 13.9 / 5.9 / 6.4 · afternoon
+   * 12.4 / 5.2 / 5.7 · sunset 11.3 / 4.8 / 5.2 · dusk 11.8 / 7.7 / 8.3 · night 15.1 / 7.5 / 10.5 */
   --color-time-morning: #eee8da; /* hero: trail notebook paper */
   --color-time-noon: #f3efe6; /* work: the brightest hour, for the screenshots */
-  --color-time-afternoon: #e8dec6; /* principles: sand */
+  --color-time-afternoon: #e1e5d0; /* principles: sage, the forest walk after lunch (v4) */
   --color-time-sunset: #efd5be; /* about: peach */
-  --color-time-dusk: #2a2433; /* colophon and contact: the turn to night */
+  --color-time-dusk: #1b2a3b; /* colophon and contact: the blue hour (v4) */
   --color-time-night: #0f1412; /* footer: night screening under the stars */
 
   /* Text set for the two dark times. Light text, amber accent (projector light) */
   --color-ink-dusk: #f1e6d8;
-  --color-ink-muted-dusk: #bdb2a6;
-  --color-line-dusk: #4a4055;
+  --color-ink-muted-dusk: #b3bec6; /* 7.7:1 on the blue hour */
+  --color-line-dusk: #34465a;
   --color-ink-night: #efe7d6;
   --color-ink-muted-night: #a9a493;
   --color-line-night: #2c332c;
-  --color-accent-night: #f0a63a; /* 7.3:1 on dusk, 9.0:1 on night */
-  /* Sunset's own accent: the morning one falls to 4.46:1 on peach */
-  --color-accent-sunset: #943714; /* 5.3:1 on sunset, 6.0:1 on the pattern */
+  --color-accent-night: #86d3a6; /* aurora green (v4): 8.3:1 on dusk, 10.5:1 on night */
 
   /* About's background pattern (D8): lighter than the sunset ground, so any text over it gains
    * contrast instead of losing it */
@@ -111,6 +115,9 @@
   --text-small--line-height: 1.5;
   --text-body: clamp(1.0625rem, 1.0366rem + 0.1105vw, 1.125rem);
   --text-body--line-height: 1.6;
+  /* Long reading at a size between body and lead (v4): the About story and its asides, 19 → 21px */
+  --text-body-lg: clamp(1.1875rem, 1.1358rem + 0.221vw, 1.3125rem);
+  --text-body-lg--line-height: 1.55;
   --text-lead: clamp(1.3281rem, 1.2569rem + 0.3039vw, 1.5rem);
   --text-lead--line-height: 1.45;
   --text-h3: clamp(1.66rem, 1.5191rem + 0.6011vw, 2rem);
@@ -136,6 +143,7 @@
   --leading-tight: 1.1;
   --leading-snug: 1.3;
   --leading-normal: 1.6;
+  --leading-relaxed: 1.7; /* case study prose: long lines of decisions read easier with more air (v4) */
 
   /* ── Spacing ───────────────────────────────────────────
    * 4px base so 16/32px pixel sprites share the grid.

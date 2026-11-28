@@ -33,6 +33,8 @@ export const pixelFill = {
   skyDay: "fill-sky-day",
   timeAfternoon: "fill-time-afternoon",
   burgundy: "fill-cassette-burgundy",
+  pine: "fill-pine",
+  sea: "fill-sea",
 } as const;
 
 export type PixelFill = (typeof pixelFill)[keyof typeof pixelFill];

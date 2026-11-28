@@ -147,10 +147,12 @@ const site = defineCollection({
             .max(60)
             .refine((value) => value.includes("{count}"), "summary needs {count}"),
         }),
-        // V6: tool names; each must have a logo in components/about/tool-icons.ts (unit test)
+        // V6: tool names; each must have a logo in public/tools (unit test)
         tools: s.object({
           heading: button,
           items: s.array(s.string().max(20)).min(1).max(12),
+          // v4: the desk toggle that squares the scattered cards ("Toparla" / "Tidy up")
+          tidy: button,
         }),
         portraitCaption: s.string().max(120),
         flagLabel: button,
@@ -194,8 +196,10 @@ const site = defineCollection({
         }),
         // D7 walkman and pause control (CONTENT §8)
         walkman: s.object({
-          // "Walkman: suggest a random film or song" — an accessible name, not a button label
+          // "TV: this visit's pick" — an accessible name, not a button label (v4: the TV)
           label: s.string().max(60),
+          // Over the pick when it shows: "This visit's pick"
+          heading: button,
           result: withPlaceholder("title")
             .pipe(withPlaceholder("year"))
             .pipe(withPlaceholder("kind")),
@@ -257,6 +261,14 @@ const cassetteColors = [
 
 const l10n = (max: number) => s.object({ tr: s.string().max(max), en: s.string().max(max) });
 
+// A screenshot of one of my sites: alt text in both languages; third-party content visible in the shot
+// (map tiles, photos, a magazine cover) is credited next to it
+const screenshot = s.object({
+  image: s.image(),
+  alt: l10n(180),
+  credit: l10n(80).optional(),
+});
+
 const projects = defineCollection({
   name: "Project",
   pattern: "projects/*/project.yaml",
@@ -273,14 +285,9 @@ const projects = defineCollection({
       // A missing link is simply not shown (CONTENT §10)
       links: s.object({ live: s.string().url().optional(), source: s.string().url().optional() }),
       // A screenshot of the live site (ADR-12); without one the shelf keeps the typographic cover
-      cover: s
-        .object({
-          image: s.image(),
-          alt: l10n(180),
-          // Third-party content visible in the shot (map tiles, photos) is credited next to it
-          credit: l10n(80).optional(),
-        })
-        .optional(),
+      cover: screenshot.optional(),
+      // v4: the same site on a phone, beside the cover in the case study
+      phone: screenshot.optional(),
     })
     .transform(({ path, ...rest }, { addIssue }) => {
       const slug = path.split("/")[1] ?? "";

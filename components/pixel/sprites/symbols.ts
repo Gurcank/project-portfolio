@@ -57,3 +57,31 @@ export const peace: PixelGrid = [
   "....aaaaoaaoaaaa....",
   ".....aaaaaaaaaa.....",
 ];
+
+/*
+ * The envelope on the "Write to me" key (v4), 10 × 8, in paper on the ink key. Closed at rest; the flap
+ * lifts while the key is hovered or focused (components/hero/cta.css).
+ */
+export const envelopePalette: PixelPalette = { o: pixelFill.paper };
+
+export const envelopeClosed: PixelGrid = [
+  "..........",
+  "..........",
+  "oooooooooo",
+  "oo......oo",
+  "o.o....o.o",
+  "o..oooo..o",
+  "o........o",
+  "oooooooooo",
+];
+
+export const envelopeOpen: PixelGrid = [
+  "....oo....",
+  "..oo..oo..",
+  "oo......oo",
+  "o........o",
+  "o.o....o.o",
+  "o..oooo..o",
+  "o........o",
+  "oooooooooo",
+];

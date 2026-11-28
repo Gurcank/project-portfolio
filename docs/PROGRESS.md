@@ -1,9 +1,22 @@
-# PROGRESS
+## Durum: v4 "Koleksiyon" `slice/v4-collection` dalında, commit edilmedi (2026-11-28). Metinler onaylandı, push edildi; kullanıcıda: preview onayı, IDD ORG kapak izni; Umami ID, 30 sn testi, ekran okuyucu turu.
 
-## Durum: v3 ve dokuz ilke canlıda (2026-11-28, `f83a8b1`). Kullanıcıda: Umami ID (adımlar verildi; ID gelince Vercel'e `NEXT_PUBLIC_UMAMI_WEBSITE_ID`), arkadaşına gösterip fikir almak (30 sn testi), ekran okuyucu turu. PSI kota açılınca
+**Canlı:** https://gurcankaradag.vercel.app (v3.1, commit `f83a8b1`) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `slice/v4-collection` (main `9f3b6be` üstünde, değişiklikler çalışma ağacında).
 
-**Canlı:** https://gurcankaradag.vercel.app (v3.1, commit `f83a8b1`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `main` (v3-principles fast-forward ile merge edildi).
+### v4 · Koleksiyon (dalda, preview bekliyor)
+
+- **Kullanıcı isteği (2026-11-28):** navbar'da yin-yang yerine dünya; hero butonları daha deneysel; rastgele film butonunun görseli değişsin, yüklemede bir öneri, tıkla aç/kapat; proje pencereleri okunabilir ve görsel medyalı; Hakkımda konumları ve post-it notlar kötü; referans sitelere yeniden bak; tipografi; yeşil-mavi; Jira/GitHub/Vercel gibi araçların arayüz dili, biraz dağınık; aksesuar bol ama düzenli, hiçbir şey atılmasın. Kullanıcı "kalan adımları kendince yap" dedi: açık sorular kararla kapatıldı (aşağıda).
+- **Kararlar:** medya canlı sitelerden benim çekimim (telefon 390 px, 2x); "simge özellikleri" = logolar + arayüz öğeleri; film her sayfa yüklemesinde yeniden seçilir (dil değiştirmek de bir yükleme), şarkılar listede kalır; CTA ve palet önerilen yönde.
+- **Referanslar (9/9 yeniden gezildi):** Kamal (Hakkımda: hikâye + ince çizgili bilgi tablosu; case study'de önce büyük medya), Maryl (4 sütunlu künye, bölüm sekmeleri), Jorge ("Tidy up / Shuffle" ile dağınık yığın → araç masası), Andreas (vitrin ızgarası, pixel mavi dünya; kod kopyalanmadı), Twan/Sruthi (dar metin sütunu), Jarnket (GitHub sayfası).
+- **Dock:** `sprites/globe.ts` kodla küreye sarılan 32 × 16 dünya haritası, 8 kare; kaydırmayla kare değişir (sayfa boyunca iki tur), reduced motion / durdurulmuşta kare 0. Dikişteki ve masadaki yin-yang yerinde (koleksiyon).
+- **Hero CTA:** "Bana yaz" pixel klavye tuşu (göl mavisi taban; üzerine gelince yükselir, basınca çöker; zarf açılır), "İşlere bak" kaset etiketi (iki makara üzerine gelince döner). Metinler aynı. `components/hero/cta.css`.
+- **Film TV:** `FilmTv.tsx` (CdPlayer yerine). Seçim `useSyncExternalStore` + sunucuda `undefined` (hydration uyuşmazlığı yok); `aria-expanded`, `aria-controls`, Escape kapatır, kendiliğinden kapanmaz. CD çalar sprite'ı Hakkımda rafına taşındı.
+- **Proje pencereleri:** kapak + telefon yan yana (lg'den; altta alt alta), IDDDergi'ye ilk kapak. B1 kararları başlık + "Seçtim / Vazgeçtim / Çünkü / Bedeli" satırları (aynı kelimeler, `CaseStudyMarkdown` ListItem). Metin en fazla 65 karakter, satır aralığı 1,7; başlıklar bold semi-condensed.
+- **Hakkımda:** solda kenar notları (post-it ve Caveat yok: italik serif, ince vurgu çizgisi), ortada hikâye (`--text-body-lg`), hedefler ve beceri tablosu, sağda portre + bayrak; altta vitrin: GitHub (çam yeşili), araç masası (`ToolDesk`, "Toparla"), plak rafı (pikap, CD çalar, 7 kılıf).
+- **Renk/tipografi token'ları:** `--color-accent` göl mavisi, `--color-pine`, `--color-sea`, ikindi adaçayı, akşam mavi saat, gece vurgusu aurora; `--color-accent-sunset` kaldırıldı. `--text-body-lg`, `--leading-relaxed`.
+- **Onaylanan metinler (kullanıcı, 2026-11-28):** TV adı/başlık/boş durum, "Toparla"/"Tidy up", 8 yeni alt metin, IDDDergi kredisi (CONTENT §6, §8, S17 notu).
+- **Doğrulama (yerel):** `lint`, `typecheck`, `format:check`, `check:tokens` (117 dosya), `test` 135/135, `build`, `test:e2e` 187/187 (tam koşu). Axe serious/critical 0 (About, overlay, footer + TV açık). Ağırlık: ana sayfa HTML 57,6 → 59,1 KB gzip (+1,5), ilk yük JS 235,5 → 235,6 KB. Ekran görüntüleri `artifacts/v4-*`, `home-*`, `en-*`.
+- **Yapılmadı:** Vercel preview (commit/push onayı yok), PSI, ekran okuyucuyla gerçek tur, kısa video/GIF (yalnız durağan görüntü).
 
 ### v3.1 · İlkeler ve IDDDergi (canlıda)
 

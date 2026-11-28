@@ -9,7 +9,7 @@ import { DayGradient } from "@/components/experience/DayGradient";
 import { MascotLoader } from "@/components/experience/MascotLoader";
 import { MotionToggle } from "@/components/experience/MotionToggle";
 import { ToneController } from "@/components/experience/ToneController";
-import { CdPlayer } from "@/components/experience/CdPlayer";
+import { FilmTv } from "@/components/experience/FilmTv";
 import { DayNightSeam } from "@/components/home/DayNightSeam";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { About } from "@/components/sections/About";
@@ -83,8 +83,8 @@ export function HomeView({
   decor,
 }: HomeViewProps) {
   const player = (placement: "fixed" | "inline") => (
-    <ExperienceBoundary name={`cd-player-${placement}`}>
-      <CdPlayer placement={placement} items={walkmanItems} labels={copy.microcopy.walkman} />
+    <ExperienceBoundary name={`film-tv-${placement}`}>
+      <FilmTv placement={placement} items={walkmanItems} labels={copy.microcopy.walkman} />
     </ExperienceBoundary>
   );
 

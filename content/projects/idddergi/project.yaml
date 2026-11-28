@@ -9,3 +9,20 @@ links:
   # Confirmed by the user 2026-11-28 (CONTENT §10)
   live: https://iklimdd.org/public/dergi/?sayfa=1
   source: https://github.com/Gurcank/project_IDDDergi
+# v4: the site on a phone, captured from the live address (2026-11-28)
+cover:
+  image: ./media/cover.jpg
+  alt:
+    tr: "IDDDergi'nin okuma sayfası: solda COP31 Türkiye sayısının tanıtımı, 62 dakika okuma ve 56 sayfa; sağda kapak, altta sayfa çevirme denetimi."
+    en: "IDDDergi's reading page: the COP31 Türkiye issue introduced on the left with a 62-minute read and 56 pages, its cover on the right, page controls below."
+  credit:
+    tr: "Dergi kapağı: IDD ORG"
+    en: "Magazine cover: IDD ORG"
+phone:
+  image: ./media/phone.jpg
+  alt:
+    tr: "IDDDergi telefonda: sayının başlığı, tanıtım paragrafı ve altında derginin kapağı."
+    en: "IDDDergi on a phone: the issue's title and introduction, with its cover below."
+  credit:
+    tr: "Dergi kapağı: IDD ORG"
+    en: "Magazine cover: IDD ORG"

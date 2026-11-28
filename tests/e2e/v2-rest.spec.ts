@@ -106,7 +106,7 @@ test.describe("V6 · About", () => {
     await page.goto("/");
     const about = page.locator("#about");
     await expect(about.getByRole("heading", { name: "Araçlar" })).toBeVisible();
-    const items = about.locator("h3:has-text('Araçlar') + ul > li");
+    const items = about.locator(".tool-desk > li");
     await expect(items).toHaveCount(9);
     await expect(items.first()).toHaveText("Jira");
     const logos = items.locator(".tool-logo");
@@ -117,14 +117,39 @@ test.describe("V6 · About", () => {
     expect(response.ok()).toBe(true);
   });
 
-  test("the CD player keeps the walkman's job, under its new name", async ({ page }) => {
+  test("the TV keeps the walkman's job in English too (v4)", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/en");
-    const player = page.getByRole("button", { name: "CD player: suggest a random film or song" });
-    await player.click();
-    await expect(page.locator('[aria-live="polite"]:visible').first()).toHaveText(
-      /^▶ .+ \(\d{4}(–\d{4})?\) · (film|song)$/,
-    );
+    const tv = page.getByRole("button", { name: "TV: this visit's pick" }).locator("visible=true");
+    await tv.click();
+    const panel = page.locator(`[id="${await tv.getAttribute("aria-controls")}"]`);
+    await expect(panel.locator("p").first()).toHaveText("This visit's pick");
+    await expect(panel.locator("p").nth(1)).toHaveText(/^▶ .+ \(\d{4}(–\d{4})?\) · (film|song)$/);
+  });
+
+  test("tool desk (v4): scattered from lg, Tidy up squares the cards and back", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto("/");
+    const turned = () =>
+      page
+        .locator("#about .tool-desk > li")
+        .evaluateAll(
+          (list) =>
+            list.filter((li) => !["none", "0deg"].includes(getComputedStyle(li).rotate)).length,
+        );
+    await expect.poll(turned).toBeGreaterThan(0);
+    const tidy = page.getByRole("button", { name: "Toparla" });
+    await tidy.click();
+    await expect(tidy).toHaveAttribute("aria-pressed", "true");
+    await expect.poll(turned).toBe(0);
+    await tidy.click();
+    await expect.poll(turned).toBeGreaterThan(0);
+    // Phones get plain rows and no toggle
+    await page.setViewportSize({ width: 375, height: 812 });
+    await expect(tidy).toBeHidden();
+    await expect.poll(turned).toBe(0);
   });
 
   test("About has no serious or critical axe findings", async ({ page }) => {

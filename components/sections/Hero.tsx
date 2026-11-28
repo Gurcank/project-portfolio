@@ -1,9 +1,11 @@
+import "@/components/hero/cta.css";
 import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { DeskTicket } from "@/components/hero/DeskTicket";
 import { HeroDeskLoader } from "@/components/hero/HeroDeskLoader";
 import { RevealWords } from "@/components/markdown/RevealWords";
 import { PixelSprite } from "@/components/pixel/PixelSprite";
 import { avatarPalette, avatarPortrait } from "@/components/pixel/sprites/avatar";
+import { envelopeClosed, envelopeOpen, envelopePalette } from "@/components/pixel/sprites/symbols";
 import type { SiteCopy } from "@/lib/content";
 import { splitLabel } from "@/lib/text";
 
@@ -31,7 +33,8 @@ export function Hero({ name, copy }: HeroProps) {
           {/* Separator trails its part, so a wrapped line never starts with a stray "·" */}
           {labelParts.map((part, index) => (
             <span key={part.text} className="inline-flex items-center gap-3">
-              {part.status && <span aria-hidden="true" className="size-2 rounded-full bg-accent" />}
+              {/* v4: available is pine green, the colour of "go" */}
+              {part.status && <span aria-hidden="true" className="size-2 rounded-full bg-pine" />}
               {part.text}
               {index < labelParts.length - 1 && <span aria-hidden="true">·</span>}
             </span>
@@ -66,19 +69,33 @@ export function Hero({ name, copy }: HeroProps) {
         </div>
       </div>
 
-      <div className="relative mt-8 flex flex-wrap gap-3 md:mt-12">
+      {/* v4: two objects from the room (cta.css): a key on a pixel keyboard and a cassette label. Same
+          words; the pictures are decoration on top of them */}
+      <div className="relative mt-8 flex flex-wrap gap-4 md:mt-12">
         <a
           href="#contact"
-          className="pixel-box inline-flex min-h-12 items-center gap-3 bg-ink px-6 font-mono text-label tracking-wide text-paper uppercase transition-colors duration-(--duration-fast) hover:bg-accent"
+          className="cta-key inline-flex min-h-12 items-center gap-3 px-6 font-mono text-label tracking-wide uppercase"
         >
+          <PixelSprite
+            grid={envelopeClosed}
+            palette={envelopePalette}
+            className="cta-envelope-closed w-5"
+          />
+          <PixelSprite
+            grid={envelopeOpen}
+            palette={envelopePalette}
+            className="cta-envelope-open w-5"
+          />
           {copy.primaryCta}
           <span aria-hidden="true">↓</span>
         </a>
         <a
           href="#work"
-          className="pixel-frame inline-flex min-h-12 items-center gap-3 px-6 font-mono text-label tracking-wide uppercase transition-colors duration-(--duration-fast) hover:bg-ink hover:text-paper"
+          className="cta-tape inline-flex min-h-12 items-center gap-3 px-6 font-mono text-label tracking-wide uppercase"
         >
+          <span aria-hidden="true" className="cta-reel" />
           {copy.secondaryCta}
+          <span aria-hidden="true" className="cta-reel" />
         </a>
       </div>
 

@@ -1,0 +1,97 @@
+/*
+ * Hero CTAs (v4, user: "daha deneysel ve uniq"). Two objects from the room instead of two boxes, each
+ * moving only to answer the reader (purpose: feedback). Every duration is a token, so reduced motion and
+ * "pause motion" make them still; the focus outline is never covered (no clip-path, no overflow hidden).
+ *
+ * .cta-key: "Write to me" is a key on a pixel keyboard. It stands on a lake-blue slab, rises a step under
+ * the pointer and sinks onto the slab when pressed. The envelope on it opens on hover or focus.
+ */
+.cta-key {
+  --key-depth: calc(var(--spacing) * 1.5);
+  --key-edge: var(--spacing);
+  position: relative;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  box-shadow:
+    0 calc(var(--key-edge) * -1) 0 0 var(--color-ink),
+    calc(var(--key-edge) * -1) 0 0 0 var(--color-ink),
+    var(--key-edge) 0 0 0 var(--color-ink),
+    0 var(--key-edge) 0 0 var(--color-ink),
+    /* the slab under the key, notched like the key itself */ 0
+      calc(var(--key-edge) + var(--key-depth)) 0 0 var(--color-accent),
+    calc(var(--key-edge) * -1) var(--key-depth) 0 0 var(--color-accent),
+    var(--key-edge) var(--key-depth) 0 0 var(--color-accent);
+  transition:
+    translate var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .cta-key:hover {
+    --key-depth: calc(var(--spacing) * 2.5);
+    translate: 0 calc(var(--spacing) * -1);
+  }
+}
+
+.cta-key:active {
+  --key-depth: calc(var(--spacing) * 0);
+  translate: 0 calc(var(--spacing) * 1.5);
+}
+
+/* The envelope: closed by default, flap up while the key is under the pointer or focused */
+.cta-envelope-open {
+  display: none;
+}
+
+.cta-key:is(:hover, :focus-visible) .cta-envelope-open {
+  display: block;
+}
+
+.cta-key:is(:hover, :focus-visible) .cta-envelope-closed {
+  display: none;
+}
+
+/*
+ * .cta-tape: "See the work" is a cassette label: an outlined strip with two reels. Under the pointer the
+ * reels turn, the way a tape on the shelf below would start to play.
+ */
+.cta-tape {
+  box-shadow:
+    0 calc(var(--spacing) * -0.5) 0 0 var(--color-ink),
+    0 calc(var(--spacing) * 0.5) 0 0 var(--color-ink),
+    calc(var(--spacing) * -0.5) 0 0 0 var(--color-ink),
+    calc(var(--spacing) * 0.5) 0 0 0 var(--color-ink);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.cta-tape:hover {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.cta-reel {
+  display: block;
+  width: calc(var(--spacing) * 3);
+  height: calc(var(--spacing) * 3);
+  border: var(--hairline) solid currentColor;
+  border-radius: var(--radius-full);
+  /* One spoke, so the turn is visible */
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: var(--hairline) 50%;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+@keyframes cta-reel-turn {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="paused"]) .cta-tape:is(:hover, :focus-visible) .cta-reel {
+    animation: cta-reel-turn calc(var(--duration-slow) * 2) linear infinite;
+  }
+}

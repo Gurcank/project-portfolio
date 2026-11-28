@@ -152,6 +152,7 @@ export const worstCopy: SiteCopy = {
     // 12 tools, the limit
     tools: {
       heading: "Kullandığım araçlar",
+      tidy: "Masayı toparla",
       items: [
         "Jira",
         "Figma",
@@ -206,10 +207,11 @@ export const worstCopy: SiteCopy = {
       },
     },
     walkman: {
-      label: "CD çalar: bu akşam için rastgele bir film ya da şarkı öner",
+      label: "Televizyon: bu akşamın rastgele film ya da şarkı önerisi",
+      heading: "Bu ziyaretin önerisi",
       result: "▶ Öneri: {title} ({year}) · {kind}",
       kinds: { film: "uzun film", song: "şarkı önerisi" },
-      empty: "Kaset şu an başa sarıyor; biraz bekle ve bir daha bas.",
+      empty: "Bu akşam televizyonda hiçbir şey yayında değil.",
     },
     motion: { pause: "Bütün hareketi durdur", resume: "Hareketi yeniden başlat" },
     overlay: {

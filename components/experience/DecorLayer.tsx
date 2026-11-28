@@ -30,6 +30,7 @@ import {
   tortoiseTrainer,
 } from "@/components/pixel/sprites/room";
 import { PixelSprite } from "@/components/pixel/PixelSprite";
+import { cdPlayerFrames, cdPlayerPalette } from "@/components/pixel/sprites/cd-player";
 import { stampPalette, stampSprites, type StampSprite } from "@/components/pixel/sprites/stamps";
 
 export type DecorData = {
@@ -123,10 +124,12 @@ export default function DecorLayer({ films, records, stamps }: DecorData) {
       ))}
     </Stack>
   );
-  // The records stand face out on the About shelf, each in its own original pixel sleeve
+  // The records stand face out on the About shelf, each in its own original pixel sleeve; the CD player
+  // (v4: the TV took over its job) stays in the collection, beside the turntable
   const vinyl = (
     <>
       <RoomSprite grid={recordPlayer} />
+      <RoomSprite grid={cdPlayerFrames[0]!} palette={cdPlayerPalette} />
       {records.map((record, i) => (
         <span key={record.album} lang={record.lang} title={`${record.artist} · ${record.album}`}>
           <RoomSprite grid={recordSleeves[i % recordSleeves.length]!} />

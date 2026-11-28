@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { pickNext } from "@/lib/walkman";
+import { drawVisitPick, pickNext } from "@/lib/walkman";
 
 describe("pickNext", () => {
   it("returns null for an empty list (empty state)", () => {
@@ -27,5 +27,22 @@ describe("pickNext", () => {
 
   it("a one-item list repeats, because it has to", () => {
     expect(pickNext(1, 0, () => 0.7)).toBe(0);
+  });
+});
+
+describe("drawVisitPick (v4: one pick per page load)", () => {
+  it("draws once and keeps the same pick for the rest of the visit", () => {
+    let draws = 0;
+    const random = () => {
+      draws += 1;
+      return 0.42;
+    };
+    const first = drawVisitPick(30, random);
+    expect(drawVisitPick(30, () => 0.99)).toBe(first);
+    expect(draws).toBe(1);
+  });
+
+  it("is null for an empty list (the TV shows its empty state)", () => {
+    expect(drawVisitPick(0, () => 0.5)).toBeNull();
   });
 });

@@ -33,8 +33,10 @@ export type ProjectCover = {
 };
 
 /** A project with its case study in one language and the tape that follows it on the shelf. */
-export type ProjectView = Omit<Project, "cover"> & {
+export type ProjectView = Omit<Project, "cover" | "phone"> & {
   cover?: ProjectCover;
+  /** v4: the site on a phone */
+  phone?: ProjectCover;
   study: CaseStudy;
   next: Project["slug"];
 };
@@ -60,14 +62,13 @@ export function getProjects(locale: Locale): ProjectView[] {
     );
     if (!study) throw new Error(`content/projects/${project.slug}/${locale}.md is missing`);
     const next = ordered[(index + 1) % ordered.length] ?? project;
-    const { cover, ...rest } = project;
+    const { cover, phone, ...rest } = project;
+    const inLocale = (shot: Project["cover"]): ProjectCover | undefined =>
+      shot && { image: shot.image, alt: shot.alt[locale], credit: shot.credit?.[locale] };
     return {
       ...rest,
-      cover: cover && {
-        image: cover.image,
-        alt: cover.alt[locale],
-        credit: cover.credit?.[locale],
-      },
+      cover: inLocale(cover),
+      phone: inLocale(phone),
       study,
       next: next.slug,
     };

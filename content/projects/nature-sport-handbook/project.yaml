@@ -13,3 +13,9 @@ cover:
   alt:
     tr: "Nature & Sport Handbook'ta Kuşlar sayfası: ahşap masada açık bir defter; her türün fotoğrafı, yaşam alanı, beslenmesi ve boyu; kenarlarda konu sekmeleri."
     en: "The Birds spread in Nature & Sport Handbook: an open notebook on a wooden table, each species with a photo, habitat, diet and size, and topic tabs along the edges."
+# v4: the site on a phone, captured from the live address (2026-11-28)
+phone:
+  image: ./media/phone.jpg
+  alt:
+    tr: "Nature & Sport Handbook telefonda: çimen üstünde ahşap masa, kapalı deri kapaklı el kitabı ve solda bölüm sekmeleri."
+    en: "Nature & Sport Handbook on a phone: a wooden table on grass, the closed leather-bound handbook and section tabs on the left."

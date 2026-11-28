@@ -13,3 +13,9 @@ cover:
   alt:
     tr: "SeeYourNextStep'te rol seçimi: Product Manager, Product Designer ve Scrum Master gibi sekiz kart, altında 335 derslik ilerleme göstergesi."
     en: "Role selection in SeeYourNextStep: eight cards such as Product Manager, Product Designer and Scrum Master, with a progress tracker for 335 lessons below."
+# v4: the site on a phone, captured from the live address (2026-11-28)
+phone:
+  image: ./media/phone.jpg
+  alt:
+    tr: "SeeYourNextStep telefonda: “Hangi rolün yolunu görmek istersin?” sorusunun altında rol kartları, en altta gezinme çubuğu."
+    en: "SeeYourNextStep on a phone: role cards under the question of which path to see, with a tab bar at the bottom."

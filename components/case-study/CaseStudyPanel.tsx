@@ -14,7 +14,9 @@ type CaseStudyPanelProps = {
  * page payload, so the overlay opens without a network wait (ADR-11); the client only picks which to show.
  */
 export function CaseStudyPanel({ project, labels }: CaseStudyPanelProps) {
-  const { slug, study, cover } = project;
+  const { slug, study, cover, phone } = project;
+  // One line of credits under the pictures; the same credit on both is said once
+  const credits = [...new Set([cover?.credit, phone?.credit].filter(Boolean))];
   const linerItems = study.liner.split(" · ");
   const sides = (["A", "B"] as const).map((side) => ({
     label: side === "A" ? labels.sideA : labels.sideB,
@@ -25,22 +27,41 @@ export function CaseStudyPanel({ project, labels }: CaseStudyPanelProps) {
 
   return (
     <div className="flex flex-col gap-12">
-      {/* The product itself, before the story of how it was made; without a screenshot the text stands alone */}
-      {cover && (
+      {/* The product itself, before the story of how it was made (v4: on a screen and on a phone, side
+          by side from lg); without a screenshot the text stands alone */}
+      {(cover || phone) && (
         <figure className="flex flex-col gap-3">
-          <Image
-            src={cover.image.src}
-            width={cover.image.width}
-            height={cover.image.height}
-            placeholder="blur"
-            blurDataURL={cover.image.blurDataURL}
-            alt={cover.alt}
-            // The content column: the page width minus the gutters, capped at 80rem minus the gutters
-            sizes="(width >= 80rem) 72rem, 100vw"
-            className="aspect-16/10 w-full rounded-sm border border-line object-cover object-top"
-          />
-          {cover.credit && (
-            <figcaption className="font-mono text-label text-ink-muted">{cover.credit}</figcaption>
+          <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-8">
+            {cover && (
+              <Image
+                src={cover.image.src}
+                width={cover.image.width}
+                height={cover.image.height}
+                placeholder="blur"
+                blurDataURL={cover.image.blurDataURL}
+                alt={cover.alt}
+                // Nine of twelve columns from lg, the full content column below it
+                sizes="(width >= 80rem) 54rem, (width >= 64rem) 70vw, 100vw"
+                className="aspect-16/10 w-full rounded-sm border border-line object-cover object-top lg:col-span-9"
+              />
+            )}
+            {phone && (
+              <Image
+                src={phone.image.src}
+                width={phone.image.width}
+                height={phone.image.height}
+                placeholder="blur"
+                blurDataURL={phone.image.blurDataURL}
+                alt={phone.alt}
+                sizes="(width >= 64rem) 16rem, 50vw"
+                className="phone-shot mx-auto w-1/2 max-w-64 md:w-1/3 lg:col-span-3 lg:w-full lg:max-w-none"
+              />
+            )}
+          </div>
+          {credits.length > 0 && (
+            <figcaption className="font-mono text-label text-ink-muted">
+              {credits.join(" · ")}
+            </figcaption>
           )}
         </figure>
       )}
@@ -64,7 +85,7 @@ export function CaseStudyPanel({ project, labels }: CaseStudyPanelProps) {
                     <h3
                       id={`${slug}-${track.id}`}
                       tabIndex={-1}
-                      className="flex scroll-mt-24 items-baseline justify-between gap-4 font-display text-h3 font-black font-stretch-condensed focus:outline-none"
+                      className="flex scroll-mt-24 items-baseline justify-between gap-4 font-display text-h3 font-bold font-stretch-semi-condensed focus:outline-none"
                     >
                       <span className="flex items-baseline gap-3">
                         <span className="tape-chip font-mono text-label font-regular tracking-wide">

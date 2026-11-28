@@ -14,3 +14,9 @@ cover:
   alt:
     tr: "ATAMap'in açılış ekranı: eski harita dokusunda 1881 ve Selanik, altta zaman çizelgesi ile oynatma düğmeleri, sağda kaynaklı olay kartı."
     en: "ATAMap's opening screen: 1881 and Salonika on an old-map texture, a timeline with playback controls below and a sourced event card on the right."
+# v4: the site on a phone, captured from the live address (2026-11-28)
+phone:
+  image: ./media/phone.jpg
+  alt:
+    tr: "ATAMap telefonda: eski harita dokusunda Selanik; altta 1881, Selanik'te doğdu kartı, kaynak bağlantısı ve oynatma düğmeli zaman çizelgesi."
+    en: "ATAMap on a phone: Thessaloniki on an old map texture; below, the 1881 card for his birth there, a sources link and a timeline with play controls."

@@ -117,7 +117,8 @@ test.describe("in the gutters, never on the content", () => {
     const slot = (name: string) => page.locator(`[data-decor-slot="${name}"] .decor-item`);
     await expect(slot("work-shelf").filter({ has: page.locator("[lang=en]") })).toHaveCount(0);
     await expect(page.locator("[data-decor-slot$='-shelf'] [lang=en].decor-item")).toHaveCount(14);
-    await expect(page.locator('[data-decor-slot="about-shelf"] .room-sprite')).toHaveCount(8);
+    // Turntable, the CD player (v4: moved here when the TV took its job) and seven sleeves
+    await expect(page.locator('[data-decor-slot="about-shelf"] .room-sprite')).toHaveCount(9);
     await expect(page.locator(".room-painting")).toHaveCount(3);
     await expect(page.locator("[data-decor-slot$='-right'] .decor-item")).toHaveCount(9);
   });

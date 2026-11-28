@@ -1,5 +1,5 @@
 import { GithubActivity } from "@/components/about/GithubActivity";
-import { ToolList } from "@/components/about/ToolList";
+import { ToolDesk } from "@/components/about/ToolDesk";
 import "@/components/sections/about.css";
 import { Fragment } from "react";
 
@@ -85,9 +85,11 @@ function MarginNote({ text }: { text: string }) {
 }
 
 /*
- * About (INS-27 layout): the story in the middle column with project chips in its sentences (INS-05),
- * handwritten notes in the left margin, and on the right the Atatürk portrait with the flag in their
- * own fixed frame, apart from any decor (SPEC §6). Without a verified portrait the right column is empty.
+ * About (v4 layout; INS-27, after another look at the reference sites: a reading column with a fact table
+ * beside it, then a collection below). From lg: margin notes in the left two columns, the story, goals and
+ * a skills fact table in the middle seven, and on the right the Atatürk portrait with the flag in their
+ * own fixed frame, apart from any decor (SPEC §6). Below the story, the collection: the GitHub year, the tool
+ * desk and the record shelf. On a phone it is one column in reading order.
  */
 export function About({ heading, about, projects, openLabel, portrait, githubUrl }: AboutProps) {
   const items = withNotes(parseStory(about.story), about.notes);
@@ -103,6 +105,8 @@ export function About({ heading, about, projects, openLabel, portrait, githubUrl
     0,
   );
 
+  const h3 = "font-display text-h3 font-bold font-stretch-semi-condensed";
+
   return (
     <section id="about" aria-labelledby="about-heading" data-time="sunset">
       <div className="relative mx-auto grid max-w-page gap-12 px-(--gutter) pt-24 pb-32 md:pt-32 md:pb-48 lg:grid-cols-12 lg:gap-8">
@@ -114,8 +118,8 @@ export function About({ heading, about, projects, openLabel, portrait, githubUrl
           <WaveText text={heading} />
         </h2>
 
-        <div className="lg:col-span-6 lg:col-start-4">
-          <p className="relative max-w-prose text-lead">
+        <div className="lg:col-span-7 lg:col-start-3">
+          <p className="relative max-w-prose text-body-lg">
             {items.map((item, index) => {
               if (item.kind === "text") {
                 // One passage: the brightening runs through the whole story, chips and notes aside
@@ -142,49 +146,59 @@ export function About({ heading, about, projects, openLabel, portrait, githubUrl
             })}
           </p>
 
-          <p className="mt-8 font-mono text-label tracking-wide text-ink-muted">
+          <p className="mt-8 max-w-prose font-mono text-label tracking-wide text-ink-muted">
             {/* "2023 –" alone at a line end reads as unfinished. A no-break space alone is not enough:
                 Unicode still allows a break after a dash before one (UAX #14, LB12a), so a word joiner
                 follows the dash */}
             {about.credentials.replaceAll(" – ", "\u00a0\u2013\u2060\u00a0")}
           </p>
 
-          <h3 className="mt-16 font-display text-h3 font-black font-stretch-condensed">
-            {about.goalsHeading}
-          </h3>
+          <h3 className={`mt-16 ${h3}`}>{about.goalsHeading}</h3>
           <p className="mt-4 max-w-prose">{about.goals}</p>
 
-          {/* Same shape as a case study's credits: a mono label, then plain text. No levels or bars:
-              a self-rated "80% React" says nothing a reader can check */}
-          <h3 className="mt-16 font-display text-h3 font-black font-stretch-condensed">
-            {about.skills.heading}
-          </h3>
-          <dl className="mt-4 flex max-w-prose flex-col gap-4">
-            {about.skills.groups.map((group) => (
-              <div
-                key={group.label}
-                className="flex flex-col gap-1 md:grid md:grid-cols-3 md:gap-4"
-              >
-                <dt className="font-mono text-label tracking-wide text-ink-muted uppercase md:pt-1">
-                  {group.label}
-                </dt>
-                <dd className="md:col-span-2">{group.items}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <GithubActivity profileUrl={githubUrl} copy={about.github} />
-          <ToolList heading={about.tools.heading} items={about.tools.items} />
-          {/* v3: the records on a shelf, face out, with the player */}
-          <RoomShelf name="about-shelf" className="mt-16" />
+          {/* A fact table, one hairline per row (Kamal-style), not a list of bars: a self-rated
+              "80% React" says nothing a reader can check */}
+          <div className="mt-16">
+            <h3 className={h3}>{about.skills.heading}</h3>
+            <dl className="mt-4 flex flex-col">
+              {about.skills.groups.map((group) => (
+                <div
+                  key={group.label}
+                  className="flex flex-col gap-1 border-t border-line py-3 md:grid md:grid-cols-3 md:gap-4"
+                >
+                  <dt className="font-mono text-label tracking-wide text-ink-muted uppercase md:pt-1">
+                    {group.label}
+                  </dt>
+                  <dd className="md:col-span-2">{group.items}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
 
+        {/* Without a verified portrait there is no right column at all */}
         {portrait && (
-          <aside className="flex max-w-48 flex-col gap-6 lg:col-span-2 lg:col-start-11 lg:max-w-none">
+          <aside className="flex max-w-48 flex-col gap-6 lg:col-span-3 lg:col-start-10 lg:max-w-none">
             <AtaturkPortrait portrait={portrait} caption={about.portraitCaption} />
             <TurkishFlag label={about.flagLabel} className="w-full rounded-sm" />
           </aside>
         )}
+
+        {/* The collection (v4): things gathered over the years, each in its own cell */}
+        <div className="grid gap-16 lg:col-span-12 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-6">
+            <GithubActivity profileUrl={githubUrl} copy={about.github} headingClass={h3} />
+          </div>
+          <div className="lg:col-span-5 lg:col-start-8">
+            <ToolDesk
+              heading={about.tools.heading}
+              items={about.tools.items}
+              tidyLabel={about.tools.tidy}
+            />
+          </div>
+          {/* v3: the records on a shelf, face out, with the turntable and (v4) the CD player */}
+          <RoomShelf name="about-shelf" className="lg:col-span-12" />
+        </div>
       </div>
     </section>
   );

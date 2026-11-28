@@ -13,3 +13,9 @@ cover:
   alt:
     tr: "Novera Mobility'nin ana sayfası: “Hafta sonu yola çıkın” kampanya alanı ve altında araç kiralama bölümü."
     en: "Novera Mobility's home page: a “Hit the road this weekend” campaign banner with the car rental section below."
+# v4: the site on a phone, captured from the live address (2026-11-28)
+phone:
+  image: ./media/phone.jpg
+  alt:
+    tr: "Novera Mobility telefonda: “Hafta sonu yola çıkın” kampanya kartı, Araç Ara düğmesi ve altında Araç Kirala başlığı."
+    en: "Novera Mobility on a phone: the weekend campaign card with a car search button, and the car rental heading below it."

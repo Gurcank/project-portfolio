@@ -98,6 +98,7 @@ about:
   tools:
     heading: Tools
     items: [Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude]
+    tidy: Tidy up
   portraitCaption: "Mustafa Kemal Atatürk, 1922. Photo: Agence Meurisse · Source: Bibliothèque nationale de France"
   flagLabel: Turkish flag
 
@@ -136,12 +137,13 @@ microcopy:
           note: Erasmus+, until February 2027
           timeZone: Europe/Warsaw
   walkman:
-    label: "CD player: suggest a random film or song"
+    label: "TV: this visit's pick"
+    heading: "This visit's pick"
     result: "▶ {title} ({year}) · {kind}"
     kinds:
       film: film
       song: song
-    empty: Tape's rewinding. Press again.
+    empty: Nothing on tonight.
   motion:
     pause: Pause motion
     resume: Resume motion

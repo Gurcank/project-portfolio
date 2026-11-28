@@ -8,3 +8,169 @@
   mask-repeat: no-repeat;
   mask-size: contain;
 }
+
+/*
+ * The tool desk (v4). Below lg: neat rows that wrap. From lg: a three-column grid whose cards lie
+ * scattered (each nudged and turned a little); "Tidy up" (data-tidy="true") sets every card straight,
+ * and the move between the two is the only motion here, so it follows the duration tokens (instant
+ * when motion is reduced or paused).
+ */
+.tool-desk {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 3);
+}
+
+.tool-card {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  min-height: calc(var(--spacing) * 12);
+  padding-inline: calc(var(--spacing) * 3);
+  border: var(--hairline) solid var(--color-line);
+  border-radius: var(--radius-md);
+  background-color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-wide);
+  box-shadow: var(--shadow-lift);
+}
+
+/* ── Each app's interface language, in miniature ──────────────────────────── */
+
+/* Jira: the blue issue-type square before the name */
+.tool-card[data-tool="jira"]::before {
+  content: "";
+  order: -1;
+  width: calc(var(--spacing) * 3);
+  height: calc(var(--spacing) * 3);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+}
+
+/* Figma: the card is selected, an accent outline with four square handles */
+.tool-card[data-tool="figma"] {
+  outline: var(--hairline) solid var(--color-accent);
+  outline-offset: calc(var(--spacing) * 1);
+}
+
+.tool-card[data-tool="figma"]::after {
+  content: "";
+  position: absolute;
+  inset: calc(var(--spacing) * -1.5);
+  pointer-events: none;
+  background:
+    linear-gradient(var(--color-accent), var(--color-accent)) top left / calc(var(--spacing) * 1.5)
+      calc(var(--spacing) * 1.5) no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) top right / calc(var(--spacing) * 1.5)
+      calc(var(--spacing) * 1.5) no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) bottom left /
+      calc(var(--spacing) * 1.5) calc(var(--spacing) * 1.5) no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) bottom right /
+      calc(var(--spacing) * 1.5) calc(var(--spacing) * 1.5) no-repeat;
+}
+
+/* Miro: a sticky note with a folded corner */
+.tool-card[data-tool="miro"] {
+  border-color: var(--color-cassette-mustard);
+  background-color: var(--color-cassette-mustard);
+  color: var(--color-on-cassette-mustard);
+}
+
+.tool-card[data-tool="miro"]::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-style: solid;
+  border-width: calc(var(--spacing) * 2);
+  border-color: var(--color-paper) var(--color-paper) var(--color-on-cassette-mustard)
+    var(--color-on-cassette-mustard);
+  opacity: 0.3;
+}
+
+/* Vercel: the green "ready" dot of a finished deployment */
+.tool-card[data-tool="vercel"]::after {
+  content: "";
+  width: calc(var(--spacing) * 2);
+  height: calc(var(--spacing) * 2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-pine);
+}
+
+/* Claude: a collaborator's cursor tag hanging off the card, as in a shared canvas */
+.tool-card[data-tool="claude"]::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--spacing) * -2);
+  right: calc(var(--spacing) * -2);
+  width: calc(var(--spacing) * 3);
+  height: calc(var(--spacing) * 3);
+  background-color: var(--color-cassette-terracotta);
+  clip-path: polygon(0 0, 100% 40%, 45% 55%, 35% 100%);
+}
+
+/* TypeScript, Next.js, React, Supabase: code, so the card is an editor tab with its top edge marked */
+.tool-card:is(
+  [data-tool="typescript"],
+  [data-tool="nextjs"],
+  [data-tool="react"],
+  [data-tool="supabase"]
+) {
+  border-top: calc(var(--spacing) * 0.5) solid var(--color-ink);
+}
+
+/* ── The scatter (lg) ─────────────────────────────────────────────────────── */
+@media (width >= 64rem) {
+  .tool-desk {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: calc(var(--spacing) * 6) calc(var(--spacing) * 4);
+    padding-block: calc(var(--spacing) * 4);
+  }
+
+  .tool-card {
+    transition:
+      translate var(--duration-slow) var(--ease-out),
+      rotate var(--duration-slow) var(--ease-out);
+  }
+
+  /* Nine resting places, picked by hand so no two neighbours lean the same way or touch */
+  .tool-desk[data-tidy="false"] .tool-card:nth-child(1) {
+    translate: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    rotate: -5deg;
+  }
+  .tool-desk[data-tidy="false"] .tool-card:nth-child(2) {
+    translate: calc(var(--spacing) * -1) calc(var(--spacing) * -2);
+    rotate: 3deg;
+  }
+  .tool-desk[data-tidy="false"] .tool-card:nth-child(3) {
+    translate: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+    rotate: -2deg;
+  }
+  .tool-desk[data-tidy="false"] .tool-card:nth-child(4) {
+    translate: calc(var(--spacing) * 6) calc(var(--spacing) * -1);
+    rotate: 4deg;
+  }
+  .tool-desk[data-tidy="false"] .tool-card:nth-child(5) {
+    translate: calc(var(--spacing) * -3) calc(var(--spacing) * 3);
+    rotate: -7deg;
+  }
+  .tool-desk[data-tidy="false"] .tool-card:nth-child(6) {
+    translate: calc(var(--spacing) * 2) calc(var(--spacing) * -3);
+    rotate: 2deg;
+  }
+  .tool-desk[data-tidy="false"] .tool-card:nth-child(7) {
+    translate: calc(var(--spacing) * -2) calc(var(--spacing) * -1);
+    rotate: 6deg;
+  }
+  .tool-desk[data-tidy="false"] .tool-card:nth-child(8) {
+    translate: calc(var(--spacing) * 4) calc(var(--spacing) * 2);
+    rotate: -3deg;
+  }
+  .tool-desk[data-tidy="false"] .tool-card:nth-child(9) {
+    translate: calc(var(--spacing) * -1) calc(var(--spacing) * -2);
+    rotate: 5deg;
+  }
+}

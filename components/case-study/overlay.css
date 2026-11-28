@@ -117,3 +117,11 @@
   background-color: var(--tape);
   color: var(--on-tape);
 }
+
+/* v4: the phone screenshot sits in a plain handset: a thick ink bezel with rounded corners. No device
+   artwork (no maker's shape), just enough to read as "on a phone" next to the desktop shot */
+.phone-shot {
+  border: calc(var(--spacing) * 2) solid var(--color-ink);
+  border-radius: calc(var(--radius-lg) * 4);
+  box-shadow: var(--shadow-lift);
+}

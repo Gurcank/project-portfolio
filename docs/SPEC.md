@@ -92,10 +92,10 @@ Sayfa bir gün gibi akar; her bölüm günün bir saati. Bölüm kendi zeminini 
 |---|---|---|---|
 | sabah | hero | `#EEE8DA` | 13,1 / 5,5 / 5,1 |
 | öğle | işler | `#F3EFE6` | 13,9 / 5,9 / 5,5 |
-| ikindi | ilkeler | `#E8DEC6` | 11,9 / 5,0 / 4,7 |
-| gün batımı | hakkımda | `#EFD5BE` | 11,3 / 4,8 / 5,3 (kendi vurgusu `#943714`) |
-| akşam | colophon, iletişim | `#2A2433`, açık metin `#F1E6D8` | 12,2 / 7,2 / 7,3 (kehribar `#F0A63A`) |
-| gece | footer | `#0F1412`, açık metin `#EFE7D6` | 15,1 / 7,5 / 9,0 |
+| ikindi | ilkeler | `#E1E5D0` (v4: adaçayı) | 12,4 / 5,2 / 5,7 |
+| gün batımı | hakkımda | `#EFD5BE` | 11,3 / 4,8 / 5,2 (v4: kendi vurgusu kalktı, göl mavisi) |
+| akşam | colophon, iletişim | `#1B2A3B` (v4: mavi saat), açık metin `#F1E6D8` | 11,8 / 7,7 / 8,3 (aurora `#86D3A6`) |
+| gece | footer | `#0F1412`, açık metin `#EFE7D6` | 15,1 / 7,5 / 10,5 |
 
 ### Palet
 | Rol | Değer | Gerekçe |
@@ -104,7 +104,7 @@ Sayfa bir gün gibi akar; her bölüm günün bir saati. Bölüm kendi zeminini 
 | Mürekkep (metin) | `#1C241B` | Orman siyahı; kâğıt üstünde 13,1:1. |
 | İkincil metin | `#575E50` | Künye ve açıklamalar; kâğıt üstünde 5,5:1. |
 | Çizgi | `#CFC6B4` | Yalnızca ayraç ve çerçeve; bilgi taşımaz. |
-| Vurgu | Gün batımı `#A63F17`; gecede kehribar `#F0A63A` | Gündüz yürüyüşün gün batımı, gece projektör ışığı (sinema). Kâğıt üstünde 5,1:1. Kahverengiye çalan turuncu; bayrak kırmızısından ayrı. |
+| Vurgu | v4 (kullanıcı: "yeşil mavi renklerini severim", 2026-11-28): göl mavisi `#1F5A85` (kâğıtta 6,0:1, gün batımında 5,2:1); gecede aurora yeşili `#86D3A6` (akşamda 8,3, gecede 10,5). Çam yeşili `#2B6A3C` "müsait" noktası ve pixel kara parçaları; `--color-sea` `#4F8FC0` yalnız dock küresi. | Eski vurgular (gün batımı `#A63F17`, kehribar `#F0A63A`) git geçmişinde. |
 | Kaset renkleri | hardal `#E0A82E` (mürekkep yazı, 8.0:1) · kiremit `#B8471F` (kâğıt yazı, 4.5:1) · petrol `#24666B` (kâğıt, 5.6:1) · zeytin `#7D8A3A` (mürekkep, 4.6:1) · gül kurusu `#D08C83` (mürekkep, 6.3:1) · gece mavisi `#2B3F6B` (kâğıt, 8.8:1) · bordo `#7A2E3A` (kâğıt, 7.9:1) | Yalnızca kasetlerde ve o projenin overlay'inde. Proje–renk eşleşmesi CONTENT §2. v2'de değişmedi: retro tonlar yeni palete uyuyor ve her çift kendi içinde AA. |
 
 Pixel dekor aynı paleti kullanır; Gemini ya da paket çıktıları bu palete indirgenir.

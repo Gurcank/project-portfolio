@@ -13,7 +13,7 @@ async function scrollToSection(page: Page, id: string) {
 }
 
 test.describe("dock", () => {
-  test("there from the first screen (v3), named Intro on the hero; the yin-yang leads back to the top", async ({
+  test("there from the first screen (v3), named Intro on the hero; the globe leads back to the top", async ({
     page,
   }) => {
     await page.goto("/");
@@ -81,20 +81,31 @@ test.describe("dock", () => {
     );
   });
 
-  test("the yin-yang turns with the page, and stays still when motion is reduced", async ({
+  test("the globe turns with the page (v4), one frame at a time, and holds still when motion is reduced", async ({
     page,
   }) => {
-    const angle = () => page.locator(".dock-turn").evaluate((el) => getComputedStyle(el).transform);
+    const globe = page.locator(".dock-globe");
+    const frame = () => globe.getAttribute("data-frame");
+    const shown = () =>
+      globe.evaluate(
+        (el) =>
+          [...el.querySelectorAll(":scope > g")].filter(
+            (g) => getComputedStyle(g).display !== "none",
+          ).length,
+      );
     await page.goto("/");
+    await expect(globe.locator(":scope > g")).toHaveCount(8);
+    expect(await shown()).toBe(1);
     await scrollToSection(page, "work");
-    const early = await angle();
-    await scrollToSection(page, "contact");
-    await expect.poll(angle).not.toBe(early);
+    const early = await frame();
+    await scrollToSection(page, "about");
+    await expect.poll(frame).not.toBe(early);
+    expect(await shown()).toBe(1);
 
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.reload();
     await scrollToSection(page, "contact");
-    await expect.poll(angle).toBe("none");
+    await expect.poll(frame).toBe("0");
   });
 
   test("phone: the menu opens from the dock with every section and tape", async ({ page }) => {
