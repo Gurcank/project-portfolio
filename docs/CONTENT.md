@@ -589,15 +589,19 @@ Marka adları yalnız metin olarak yazılır, logo kullanılmaz (ARCHITECTURE AD
 - TR: Ne yaptığımdan çok, nasıl karar verdiğim anlatır beni.
 - EN: How I decide says more than what I built.
 
-**İlkeler** ("Şu olduğunda → şunu yaparım", her biri bir kasete bağlı chip):
+**İlkeler** ("Şu olduğunda → şunu yaparım", her biri bir kasete bağlı chip). v3 (2026-11-28): kullanıcının dokuz ilkesi, kendi sırasıyla (sorunu çözmek, güvenlik, kanıtlanabilirlik, güvenilirlik, yasal, somutlaştırmak, kolaylaştırmak, güzelleştirmek, takım içi uyum); her biri o kasetin case study'sindeki bir karara dayanır. Commit öncesi kullanıcı onayına sunuldu.
 
-| # | TR | EN | Kaset |
-|---|---|---|---|
-| 1 | **Temel sağlam değilken yeni özellik istendiğinde →** önce temeli onarırım; çatlağın üstüne kat çıkılmaz. | **When new features are asked for on a shaky base →** I fix the base first. You don't build on cracks. | GK-02 Novera |
-| 2 | **Güven ürünün kendisi olduğunda →** kaynağını gösteremediğimi yayımlamam, kapsam küçülse bile. | **When trust is the product →** I don't ship what I can't source, even if scope shrinks. | GK-04 ATAMap |
-| 3 | **Kullanıcıdan bir şey istediğimde →** önce ona kendisi için bir sebep veririm. | **When I need something from users →** I first give them a reason of their own. | GK-01 ErasmusMap |
-| 4 | **İstek "bir şey yap" kadar açık olduğunda →** önce problemi tanımlarım. | **When the brief is just "make something" →** I define the problem first. | GK-05 İklim Krizi |
-| 5 | **İstek bir çözüm gibi geldiğinde →** arkasındaki ihtiyacı sorarım. "PDF'i koy" değil, "dergiyi okut". | **When a request arrives as a solution →** I ask for the need behind it. Not "upload the PDF" but "get the magazine read". | GK-07 IDDDergi |
+| # | İlke | TR | EN | Kaset |
+|---|---|---|---|---|
+| 1 | Sorunu çözmek | **Bir şey yapmaya başlamadan önce →** kimin hangi sorununu çözdüğünü tek cümleyle yazarım; yazamıyorsam başlamam. | **Before I start building anything →** I write down whose problem it solves, in one sentence. If I can't, I don't start. | GK-03 SeeYourNextStep |
+| 2 | Güvenlik | **Kullanıcının verisi işin içine girdiğinde →** yalnızca gerekeni tutarım; şifre ve fotoğraf saklamamak riski baştan siler. | **When users' data is involved →** I keep only what's needed. Not storing passwords or photos removes the risk from the start. | GK-01 ErasmusMap |
+| 3 | Kanıtlanabilirlik | **Güven ürünün kendisi olduğunda →** kaynağını gösteremediğimi yayımlamam, kapsam küçülse bile. | **When trust is the product →** I don't ship what I can't source, even if scope shrinks. | GK-04 ATAMap |
+| 4 | Güvenilirlik | **Temel sağlam değilken yeni özellik istendiğinde →** önce temeli onarırım; çatlağın üstüne kat çıkılmaz. | **When new features are asked for on a shaky base →** I fix the base first. You don't build on cracks. | GK-02 Novera |
+| 5 | Yasal | **Bir görsel ya da veri kullanacağımda →** lisansını ve kaynağını kayda geçirmeden yayımlamam; çarpıcı ama belirsiz olanı seçmem. | **When I use an image or a dataset →** I don't publish it until its licence and source are on record. I pass on striking but unclear ones. | GK-06 Nature & Sport |
+| 6 | Somutlaştırmak | **Konu soyut ve uzak kaldığında →** onu görülebilir kılarım: rapor yerine belgesel, rakam yerine okurun hayatından bir örnek. | **When a subject stays abstract and distant →** I make it visible: a documentary instead of a report, an example from the reader's life instead of a number. | GK-05 İklim Krizi |
+| 7 | Kolaylaştırmak | **Bir şeyi kullanmak zahmetli olduğunda →** zahmeti ben üstlenirim: indirilecek bir PDF değil, telefonda sayfa sayfa okunan bir dergi. | **When something takes effort to use →** I take the effort on myself: not a PDF to download, but a magazine you page through on your phone. | GK-07 IDDDergi |
+| 8 | Güzelleştirmek | **Bir şey doğru çalıştığında →** orada durmam, güzelleştiririm; özenli görünen bir rehbere insan daha çok güvenir. | **When something already works →** I don't stop there; I make it beautiful. People trust a guide that looks cared for. | GK-06 Nature & Sport |
+| 9 | Takım içi uyum | **Bir ekiple aynı ürünü yaptığımızda →** tek bir yazılı kaynaktan çalışırız; kararlar sohbette değil, belgede ve PR'da kalır. | **When a team builds one product together →** We work from one written source. Decisions live in the doc and the PR, not in chat. | GK-02 Novera |
 
 ## 6. Hakkımda ve Hedeflerim
 
@@ -760,7 +764,7 @@ Pullar dekordur (`aria-hidden`); adlar yalnız görsel etiket.
 
 | Madde | Kimde | Not |
 |---|---|---|
-| IDDDergi canlı adresi | Kullanıcı | "Dernek sitesinde canlı" denildi; URL verilmedi. D2 linksiz çıktı; adres gelince `content/projects/idddergi/project.yaml` → `links.live`. |
+| ~~IDDDergi canlı adresi~~ | — | Kapandı (2026-11-28): https://iklimdd.org/public/dergi/?sayfa=1 → `links.live`. |
 | ~~Novera repo linki~~ | Kapandı (D2) | Gösterilmiyor (ekip arkadaşının kullanıcı adı URL'de); yalnız canlı site linki var. |
 | ~~EN metinlerin kontrolü~~ | Kapandı (D2) | Kullanıcı D2 preview'unda okudu ve merge onayı verdi (2026-11-21). |
 | ~~EN CV PDF'i~~ | Kapandı (2026-11-27) | CV sitede sunulmuyor (kullanıcı kararı, 2026-11-27); bilgileri telefon hariç Hakkımda'da. |

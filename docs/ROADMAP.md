@@ -204,7 +204,7 @@ Tek dal `slice/v3-room`. Kararlar: özgün pixel plak kılıfları (kapak kopyas
 |---|---|---|
 | Umami Cloud hesabı ve Website ID | D1 | Hesabı kullanıcı açar |
 | ~~EN CV PDF'i~~ | — | Kapandı: CV sitede sunulmuyor (kullanıcı kararı, 2026-11-27); bilgileri telefon hariç Hakkımda'da |
-| IDDDergi canlı adresi | D2 | Gelmezse linksiz |
+| ~~IDDDergi canlı adresi~~ | D2 | Kapandı 2026-11-28 |
 | Novera repo linki gösterilsin mi | D2 | URL'de ekip arkadaşının kullanıcı adı var |
 | EN case study metinlerinin kontrolü | D2 production'dan önce | CONTENT §10 |
 | 2–3 kişisel fotoğraf | D4 | Yoksa tek sütun |

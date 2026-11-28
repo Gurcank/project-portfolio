@@ -30,8 +30,9 @@ export function checkAboutLinks(
 
 export function checkPrinciples(list: { order: number; project: string }[]) {
   const orders = list.map((principle) => principle.order);
-  if (list.length !== 5)
-    throw new Error(`content/principles.yaml: expected 5, found ${list.length}`);
+  // v3: the user's own list (nine as of 2026-11-28). Bounded so the section stays one scannable list
+  if (list.length < 3 || list.length > 9)
+    throw new Error(`content/principles.yaml: expected 3–9, found ${list.length}`);
   if (new Set(orders).size !== orders.length) {
     throw new Error("content/principles.yaml: duplicate order");
   }

@@ -68,9 +68,14 @@ describe("broken chips fail the build", () => {
 describe("checkPrinciples", () => {
   const five = [1, 2, 3, 4, 5].map((order) => ({ order, project: "erasmusmap" }));
 
-  it("needs exactly five principles with unique order", () => {
+  it("needs three to nine principles with unique order", () => {
     expect(() => checkPrinciples(five)).not.toThrow();
-    expect(() => checkPrinciples(five.slice(0, 4))).toThrow(/expected 5/);
+    const nine = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((order) => ({ order, project: "atamap" }));
+    expect(() => checkPrinciples(nine)).not.toThrow();
+    expect(() => checkPrinciples(five.slice(0, 2))).toThrow(/expected 3–9/);
+    expect(() => checkPrinciples([...nine, { order: 10, project: "atamap" }])).toThrow(
+      /expected 3–9/,
+    );
     expect(() => checkPrinciples([...five.slice(0, 4), { order: 1, project: "atamap" }])).toThrow(
       /duplicate order/,
     );

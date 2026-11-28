@@ -6,5 +6,6 @@ color: rose
 year: 2026
 respectful: false
 links:
-  # live: not shown until the URL is confirmed (CONTENT §10)
+  # Confirmed by the user 2026-11-28 (CONTENT §10)
+  live: https://iklimdd.org/public/dergi/?sayfa=1
   source: https://github.com/Gurcank/project_IDDDergi

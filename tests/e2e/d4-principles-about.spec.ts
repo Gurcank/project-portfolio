@@ -5,12 +5,17 @@ import { expect, test } from "./fixtures";
 
 const dialog = (page: import("@playwright/test").Page) => page.getByRole("dialog");
 
+// v3: nine principles in the user's order; Novera and Nature & Sport teach two each
 const principleTapes = [
-  ["novera-mobility", "Novera Mobility"],
-  ["atamap", "ATAMap"],
+  ["seeyournextstep", "SeeYourNextStep"],
   ["erasmusmap", "ErasmusMap"],
+  ["atamap", "ATAMap"],
+  ["novera-mobility", "Novera Mobility"],
+  ["nature-sport-handbook", "Nature & Sport Handbook"],
   ["iklim-krizi", "İklim Krizi · IDD ORG"],
   ["idddergi", "IDDDergi"],
+  ["nature-sport-handbook", "Nature & Sport Handbook"],
+  ["novera-mobility", "Novera Mobility"],
 ] as const;
 
 test.describe("principles", () => {
@@ -18,8 +23,9 @@ test.describe("principles", () => {
     page,
   }) => {
     await page.goto("/");
-    for (const [slug, title] of principleTapes) {
-      const chip = page.locator(`#principles a[href="#${slug}"]`);
+    await expect(page.locator("#principles li")).toHaveCount(principleTapes.length);
+    for (const [index, [slug, title]] of principleTapes.entries()) {
+      const chip = page.locator("#principles li").nth(index).locator(`a[href="#${slug}"]`);
       await chip.click();
       await expect(page).toHaveURL(new RegExp(`#${slug}$`));
       await expect(dialog(page).getByRole("heading", { name: title, level: 2 })).toBeVisible();
@@ -34,7 +40,8 @@ test.describe("principles", () => {
     await expect(
       page
         .locator("#principles")
-        .getByRole("link", { name: "GK-02 Novera Mobility case study'sini aç" }),
+        .getByRole("link", { name: "GK-02 Novera Mobility case study'sini aç" })
+        .first(),
     ).toBeVisible();
   });
 

@@ -86,11 +86,11 @@ test.describe("opening and closing a tape", () => {
 });
 
 test.describe("overlay content", () => {
-  test("missing links are not shown (IDDDergi: no live site, Novera: no source)", async ({
+  test("links are shown only when they exist (IDDDergi: both since 2026-11-28, Novera: no source)", async ({
     page,
   }) => {
     await page.goto("/#idddergi");
-    await expect(dialog(page).getByRole("link", { name: /Canlı site/ })).toHaveCount(0);
+    await expect(dialog(page).getByRole("link", { name: /Canlı site/ })).toHaveCount(1);
     await expect(dialog(page).getByRole("link", { name: /Kaynak kod/ })).toHaveCount(1);
     await page.goto("/#novera-mobility");
     await expect(dialog(page).getByRole("link", { name: /Kaynak kod/ })).toHaveCount(0);

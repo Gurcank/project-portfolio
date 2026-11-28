@@ -1,9 +1,16 @@
 # PROGRESS
 
-## Durum: v3 "Oda" canlıda (2026-11-28, `db49afc`). Kullanıcıda: "Nasıl karar veririm" metni (çalışma kâğıdı https://claude.ai/artifact/TJd4Wd4gT5DMnimHoSoRex), Umami ID, 30 sn testi, ekran okuyucu turu, IDDDergi adresi. PSI kota açılınca (2026-11-28 API yine 429)
+## Durum: İlkeler (9) ve IDDDergi adresi yerelde, `slice/v3-principles` dalında, metin onayı ve commit bekliyor. Canlıda v3 (`db49afc`). Kullanıcıda: Umami ID (adımlar verildi), 30 sn testi, ekran okuyucu turu. PSI kota açılınca
 
 **Canlı:** https://gurcankaradag.vercel.app (v3, commit `db49afc`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `main` (v3-room fast-forward ile merge edildi).
+**Branch:** `slice/v3-principles` (commit edilmedi).
+
+### v3.1 · İlkeler ve IDDDergi (yerelde)
+
+- **Kullanıcı isteği (2026-11-28):** ilkeleri kendisi verdi: sorunu çözmek, güvenlik, kanıtlanabilirlik, güvenilirlik, yasal, somutlaştırmak, kolaylaştırmak, güzelleştirmek, takım içi uyum. IDDDergi adresi: https://iklimdd.org/public/dergi/?sayfa=1.
+- **İlkeler:** dokuzu, kullanıcının sırasıyla, "durum → ne yaparım" kalıbında; her biri o kasetin case study'sinde yazılı bir karara bağlı (ErasmusMap: şifre ve fotoğraf saklamamak · Nature & Sport: 558 kredili görsel ve el yazısı rehber hissi · İklim Krizi: rapor yerine belgesel · IDDDergi: PDF yerine dergi · Novera: önce temel, SPEC tek kaynak, PR akışı · ATAMap: kaynak · SeeYourNextStep: önce sorunu yazmak). Kanıtlanabilirlik ve güvenilirlik eski 2. ve 1. ilkeler, aynen. CONTENT §5 güncellendi; metin onay bekliyor. Bütünlük kuralı "tam 5" → "3–9" (`lib/content/integrity.ts`, unit test).
+- **IDDDergi:** `links.live` eklendi; overlay'de "Canlı site" görünüyor (d2 testi güncellendi). CONTENT §10 ve ROADMAP'te açık madde kapandı.
+- **Doğrulama (yerel):** `lint`, `typecheck`, `test` (109/109), `check:tokens`, `format:check`, `build`, `test:e2e` 182/184; düşen iki test (d10 tuşla atlama, d3 kaset uçuşu) tek başına 3'er tekrarda geçti, tam koşunun yükünde zamanlamaya bağlı. Ekran görüntüleri `artifacts/principles-{375,1280}.png`.
 
 ### v3 · Oda (canlıda)
 
