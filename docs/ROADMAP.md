@@ -177,6 +177,21 @@ V3–V9 tek dalda (`slice/v2-rest`), dilim başına bir commit; kullanıcı kara
 
 Framer ve 21st.dev bileşenlerinde lisans notu yok: kodları kopyalanmaz, davranışları kendi kodumuzla (Motion + token'lar) yazılır.
 
+## v3 "Oda" (kullanıcı isteği, 2026-11-28)
+
+Tek dal `slice/v3-room`. Kararlar: özgün pixel plak kılıfları (kapak kopyası yok), bölüme göre imleç izi, "oda duvarı boyunca" yerleşim, Framer bileşenlerinin davranışı kendi kodumuzla.
+
+| Aşama | İçerik |
+|---|---|
+| R1 · Temizlik ✓ | Çark, ok, polaroid, Hakkımda deseni, konturlar kalktı; sayfa boyu gün gradyanı; yapışkan not kâğıdı kenar notları; küçük krediler; dock en üstte de |
+| R2 · Oda ✓ | Raflar (kitap, VHS, nesneler, plak kılıfları), 3 kamu malı tablo; sol kenar yürüyen avatara bırakıldı |
+| R3 · Masa ✓ | Pixel masa sahnesi (pencere, monitör, not, soyulabilir çıkartmalar), pixel köşeli CTA'lar |
+| R4 · Hareket ✓ | Harf dalgası başlıklar, okundukça koyulaşan metin, sırayla inen kaset sırtları, pixel oda loading'i + buruşan perde |
+| R5 · İmleç ✓ | Pixel ok her yerde, pixel el; bölüme göre iz |
+| R6 · GitHub ✓ | Build'de herkese açık katkı takvimi, pixel ızgara; ulaşılamazsa yok |
+| R7 · İlkeler | Kullanıcı yazıyor: çalışma kâğıdı https://claude.ai/artifact/TJd4Wd4gT5DMnimHoSoRex |
+| R8 · Kalite ✓ | Kapılar, gradyan kontrast örneklemesi, ağırlık raporu |
+
 ## Sonra (v1 dışı)
 
 - **INS-10 canlı mini demo:** ErasmusMap'ten küçük bir harita parçası; ayrı dilim, ölçülerek.

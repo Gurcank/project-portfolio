@@ -51,6 +51,8 @@ test.describe("desktop: the tape plays", () => {
     page,
   }) => {
     await page.goto("/");
+    // v3: the room's decor and the desk arrive after load; a reader doesn't click in that first moment
+    await page.waitForLoadState("networkidle");
     const tape = page.locator("#cassette-atamap");
     await tape.hover();
     const coverWidth = (await page.locator(coverTape("atamap")).boundingBox())!.width;
@@ -79,6 +81,7 @@ test.describe("desktop: the tape plays", () => {
 
   test("closing ejects the cassette back to the cover", async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("networkidle");
     const coverWidth = (await page.locator(coverTape("atamap")).boundingBox())!.width;
     await page.locator("#cassette-atamap").click();
     await expect(page.getByRole("dialog")).toBeVisible();
@@ -169,6 +172,8 @@ test.describe("the tape's colour is the overlay's accent", () => {
   test("every tape: track chips take its colour and the overlay has no serious axe findings", async ({
     page,
   }) => {
+    // Seven page loads plus seven axe runs: give it the slow-test budget, not the default 30 s
+    test.slow();
     await page.goto("/");
     const slugs = await page
       .locator(".shelf-spine")

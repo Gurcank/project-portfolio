@@ -1,9 +1,10 @@
 import "@/components/sections/principles.css";
 import { PrinciplesCrowd } from "@/components/decor/PrinciplesCrowd";
-import { DecorSlot } from "@/components/experience/DecorSlot";
+import { DecorSlot, RoomFrame, RoomShelf } from "@/components/experience/DecorSlot";
 import { CassetteChip } from "@/components/cassette/CassetteChip";
-import { Emphasis } from "@/components/markdown/Emphasis";
 import type { PrincipleView } from "@/lib/content";
+import { WaveText } from "@/components/markdown/WaveText";
+import { ReadText } from "@/components/markdown/ReadText";
 
 type PrinciplesProps = {
   heading: string;
@@ -20,25 +21,25 @@ type PrinciplesProps = {
 export function Principles({ heading, opening, principles, openLabel }: PrinciplesProps) {
   return (
     <section id="principles" aria-labelledby="principles-heading" data-time="afternoon">
-      {/* V5: trail-map contour lines behind the section and a crowd passing at its foot (decor) */}
-      <div aria-hidden="true" className="contours" />
+      {/* V5: a crowd passing at the foot of the section (decor) */}
       <PrinciplesCrowd />
       <div className="relative mx-auto max-w-page px-(--gutter)">
-        <DecorSlot name="principles-left" side="left" />
         <DecorSlot name="principles-right" side="right" at="bottom" />
         {/* A full screen only from lg: on a phone it would push the principles a screen away (INS-02) */}
         <div className="flex items-center py-32 lg:min-h-svh">
           <p className="principles-opening font-display text-h1 font-black font-stretch-condensed lg:w-3/4">
-            {opening}
+            <ReadText text={opening} />
           </p>
+          {/* v3: a painting on the wall beside the sentence, in the quarter it leaves free */}
+          <RoomFrame name="principles-painting" className="ml-auto" />
         </div>
 
         <div className="pb-24 md:pb-32">
           <h2
             id="principles-heading"
-            className="reveal font-display text-h1 font-black font-stretch-condensed"
+            className="font-display text-h1 font-black font-stretch-condensed"
           >
-            <Emphasis text={heading} />
+            <WaveText text={heading} />
           </h2>
           <ul className="mt-12 border-t border-line md:mt-16">
             {principles.map((principle) => (
@@ -63,6 +64,8 @@ export function Principles({ heading, opening, principles, openLabel }: Principl
               </li>
             ))}
           </ul>
+          {/* v3: more of the room: the rest of the films, a map, boots for the trail */}
+          <RoomShelf name="principles-shelf" className="mt-16" />
         </div>
       </div>
     </section>

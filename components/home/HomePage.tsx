@@ -5,13 +5,13 @@ import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
 import { MotionProvider } from "@/components/experience/MotionProvider";
 import { DecorLoader } from "@/components/experience/DecorLoader";
 import { CursorLoader } from "@/components/experience/CursorLoader";
+import { DayGradient } from "@/components/experience/DayGradient";
 import { MascotLoader } from "@/components/experience/MascotLoader";
 import { MotionToggle } from "@/components/experience/MotionToggle";
 import { ToneController } from "@/components/experience/ToneController";
 import { CdPlayer } from "@/components/experience/CdPlayer";
 import { DayNightSeam } from "@/components/home/DayNightSeam";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { SiteHeader } from "@/components/layout/SiteHeader";
 import { About } from "@/components/sections/About";
 import { Colophon } from "@/components/sections/Colophon";
 import { Intro } from "@/components/intro/Intro";
@@ -37,6 +37,7 @@ import {
 import type { Locale } from "@/lib/i18n";
 import { serializeJsonLd } from "@/lib/serialize-json-ld";
 import { personJsonLd } from "@/lib/structured-data";
+import { RevealObserver } from "@/components/experience/RevealObserver";
 
 type HomeViewProps = {
   locale: Locale;
@@ -98,7 +99,23 @@ export function HomeView({
       >
         {copy.microcopy.skipToContent}
       </a>
-      <SiteHeader locale={locale} name={profile.name} copy={copy} />
+      {/* The site's banner is the dock (v3): first after the skip link, so it is also first in tab order */}
+      <header>
+        <ExperienceBoundary name="dock">
+          <Dock
+            locale={locale}
+            labels={copy.microcopy.indicator}
+            languageSwitch={copy.microcopy.languageSwitch}
+            dock={copy.microcopy.dock}
+            nav={copy.nav}
+            tapes={projects.map((project) => ({
+              slug: project.slug,
+              catalog: project.catalog,
+              title: project.study.title,
+            }))}
+          />
+        </ExperienceBoundary>
+      </header>
       {/* overflow-x-clip: the hero desk's cursor glides in from past the right edge; at 1280–1440 px that
           raised a horizontal scrollbar for ~2 s (the page jumped). clip, not hidden: no scroll container,
           so vertical scrolling and sticky children are untouched */}
@@ -121,6 +138,7 @@ export function HomeView({
           projects={projects}
           openLabel={copy.microcopy.cassette.open}
           portrait={portrait}
+          githubUrl={profile.github}
         />
         <DayNightSeam />
         <Colophon
@@ -155,22 +173,16 @@ export function HomeView({
       <ExperienceBoundary name="decor">
         <DecorLoader {...decor} />
       </ExperienceBoundary>
-      {/* Extras on top of the nav: if they fail, the header links still work (ROADMAP D6) */}
+      {/* The dock is the only nav (v3). It is server-rendered, so its links are in the HTML before and
+          without hydration; the hero CTAs and the J-card cover the rest (ROADMAP D6) */}
+      <ExperienceBoundary name="reveal">
+        <RevealObserver />
+      </ExperienceBoundary>
+      <ExperienceBoundary name="day">
+        <DayGradient />
+      </ExperienceBoundary>
       <ExperienceBoundary name="tone">
         <ToneController />
-      </ExperienceBoundary>
-      <ExperienceBoundary name="dock">
-        <Dock
-          locale={locale}
-          labels={copy.microcopy.indicator}
-          dock={copy.microcopy.dock}
-          nav={copy.nav}
-          tapes={projects.map((project) => ({
-            slug: project.slug,
-            catalog: project.catalog,
-            title: project.study.title,
-          }))}
-        />
       </ExperienceBoundary>
       {/* Last in the page: it is a fixed curtain, so its place in the DOM doesn't change how it looks,
           and the hero (the LCP element) is parsed first */}

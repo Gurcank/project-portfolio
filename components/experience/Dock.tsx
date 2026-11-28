@@ -4,15 +4,16 @@ import "@/components/experience/indicator.css";
 import "@/components/experience/dock.css";
 import * as m from "motion/react-m";
 import { Popover } from "radix-ui";
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type RefObject } from "react";
 
+import { LanguageSwitch } from "@/components/layout/LanguageSwitch";
 import { PixelSprite } from "@/components/pixel/PixelSprite";
 import { dockIconPalette, dockIcons } from "@/components/pixel/sprites/dock-icons";
 import { yinYang, yinYangPalette } from "@/components/pixel/sprites/symbols";
 import { useActiveSection, type SectionId } from "@/lib/active-section";
 import type { SiteCopy } from "@/lib/content";
 import { fillTemplate } from "@/lib/hash-route";
-import type { Locale } from "@/lib/i18n";
+import { otherLocale, type Locale } from "@/lib/i18n";
 import { useMediaQuery } from "@/lib/use-media-query";
 
 type Tape = { slug: string; catalog: string; title: string };
@@ -20,6 +21,7 @@ type Tape = { slug: string; catalog: string; title: string };
 type DockProps = {
   locale: Locale;
   labels: SiteCopy["microcopy"]["indicator"];
+  languageSwitch: SiteCopy["microcopy"]["languageSwitch"];
   dock: SiteCopy["microcopy"]["dock"];
   nav: SiteCopy["nav"];
   tapes: Tape[];
@@ -54,42 +56,53 @@ function useScrollTurn(target: RefObject<HTMLElement | null>, active: boolean) {
   }, [target, active]);
 }
 
-/** The current time, refreshed every 30 s: often enough that the minute never looks stale. */
-function useNow() {
-  const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 30_000);
-    return () => clearInterval(timer);
-  }, []);
-  return now;
+const TICK_MS = 30_000;
+const subscribeClock = (onTick: () => void) => {
+  const timer = setInterval(onTick, 5_000);
+  return () => clearInterval(timer);
+};
+
+/**
+ * The current time in 30-second steps: often enough that the minute never looks stale. Null on the
+ * server and in the hydration pass (v3: the dock is server-rendered now, and a build-time clock that
+ * differs from the reader's would be a hydration mismatch), the real time right after.
+ */
+function useNow(): Date | null {
+  const tick = useSyncExternalStore(
+    subscribeClock,
+    () => Math.floor(Date.now() / TICK_MS),
+    () => null,
+  );
+  return tick === null ? null : new Date(tick * TICK_MS);
 }
 
 /**
- * The dock (V2, INS-07 grown up): it appears once the hero is behind the reader, at the top on wide
- * screens and within thumb reach at the bottom on phones. A yin-yang turns as the page moves from day
+ * The dock (V2, INS-07 grown up; v3: always there, the site's only navigation): at the top on wide
+ * screens and within thumb reach at the bottom on phones, from the first screen on. It is server-rendered
+ * like any client component, so its links work before (and without) hydration. A yin-yang turns as the page moves from day
  * to night and leads back to the top; "Now: …" opens the J-card contents (sections and the seven tapes);
  * on wide screens hovering or focusing it unfolds the five sections; a clock shows Istanbul and Łódź.
  * No aria-live: the label changes as you scroll and announcing every change would be noise (D6).
  */
-export function Dock({ locale, labels, dock, nav, tapes }: DockProps) {
+export function Dock({ locale, labels, languageSwitch, dock, nav, tapes }: DockProps) {
   const section = useActiveSection();
-  const visible = section !== "top";
   const turn = useRef<HTMLSpanElement>(null);
-  useScrollTurn(turn, visible);
+  useScrollTurn(turn, true);
   const now = useNow();
   const wide = useMediaQuery("(width >= 48rem)");
   const [menuOpen, setMenuOpen] = useState(false);
-  if (!visible) return null;
 
-  const current = nav[section as Exclude<SectionId, "top">];
+  const current = section === "top" ? dock.intro : nav[section as Exclude<SectionId, "top">];
   const closeMenu = () => setMenuOpen(false);
   const clockTime = (timeZone: string) =>
-    new Intl.DateTimeFormat(locale === "tr" ? "tr-TR" : "en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hourCycle: "h23",
-      timeZone,
-    }).format(now);
+    !now
+      ? "--:--"
+      : new Intl.DateTimeFormat(locale === "tr" ? "tr-TR" : "en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hourCycle: "h23",
+          timeZone,
+        }).format(now);
   const [home] = dock.clock.cities;
   // The J-card and the clock open away from the screen edge the dock sits on
   const side = wide ? "bottom" : "top";
@@ -247,6 +260,13 @@ export function Dock({ locale, labels, dock, nav, tapes }: DockProps) {
           </Popover.Content>
         </Popover.Portal>
       </Popover.Root>
+
+      <LanguageSwitch
+        target={otherLocale(locale)}
+        label={languageSwitch.label}
+        accessibleName={languageSwitch.accessibleName}
+        variant="dock"
+      />
     </nav>
   );
 }

@@ -49,8 +49,6 @@ test.describe("layout", () => {
             scrollWidth: document.documentElement.scrollWidth,
             boxes: [...document.querySelectorAll("body *")]
               .filter((el) => el.getBoundingClientRect().right > viewport + 0.5)
-              // A horizontal strip (V4) holds cards past the edge on purpose; only the strip must fit
-              .filter((el) => !el.parentElement?.closest(".works-list"))
               .map((el) => el.outerHTML.slice(0, 80)),
           };
         });

@@ -24,9 +24,9 @@ function contrast(a: string, b: string) {
 }
 
 test.describe("section indicator", () => {
-  test("hidden on the hero, then names the section being read", async ({ page }) => {
+  test("there on the hero as Giriş (v3), then names the section being read", async ({ page }) => {
     await page.goto("/");
-    await expect(pill(page)).toHaveCount(0);
+    await expect(pill(page)).toContainText("Şu an: Giriş", { ignoreCase: true });
     for (const [id, label] of [
       ["work", "Şu an: Seçili işler"],
       ["principles", "Şu an: İlkeler"],
@@ -49,8 +49,12 @@ test.describe("section indicator", () => {
   test("375px: it never covers the hero CTA or the contact links", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
-    await expect(page.getByRole("link", { name: "Bana yaz" })).toBeVisible();
-    await expect(pill(page)).toHaveCount(0);
+    const cta = page.getByRole("link", { name: "Bana yaz" });
+    await expect(cta).toBeVisible();
+    // v3: the dock is there from the first screen, at the bottom on phones: never over the CTA
+    const ctaBox = (await cta.boundingBox())!;
+    const dockBox = (await page.locator(".dock").boundingBox())!;
+    expect(ctaBox.y + ctaBox.height).toBeLessThanOrEqual(dockBox.y);
 
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await expect(pill(page)).toBeVisible();
@@ -77,6 +81,8 @@ test.describe("J-card contents", () => {
   test("keyboard: opens on the current section, Esc closes and returns focus", async ({ page }) => {
     await page.goto("/");
     await scrollToSection(page, "principles");
+    // v3: the dock is there from the start, so wait for it to catch up with the scroll before opening
+    await expect(pill(page)).toContainText("İlkeler", { ignoreCase: true });
     await pill(page).focus();
     await page.keyboard.press("Enter");
     await expect(pill(page)).toHaveAttribute("aria-expanded", "true");
@@ -157,22 +163,69 @@ test.describe("day → night (v2)", () => {
     page,
   }) => {
     await page.goto("/");
-    const grounds: number[] = [];
     for (const [id, time] of times) {
-      const section = page.locator(`#${id}`);
-      await expect(section).toHaveAttribute("data-time", time);
-      grounds.push(
-        await section.evaluate((el) => {
-          const [r = 0, g = 0, b = 0] = (
-            getComputedStyle(el).backgroundColor.match(/\d+/g) ?? []
-          ).map(Number);
-          return r + g + b;
-        }),
-      );
+      await expect(page.locator(`#${id}`)).toHaveAttribute("data-time", time);
     }
     await expect(page.locator("footer")).toHaveAttribute("data-time", "night");
-    // Dusk is far darker than any daytime ground
-    expect(Math.max(...grounds.slice(3))).toBeLessThan(Math.min(...grounds.slice(0, 3)) / 2);
+    // v3: one long gradient on <body> carries the day; it starts on morning paper and ends at night
+    await expect(page.locator("html")).toHaveAttribute("data-day", "");
+    const ends = await page.evaluate(() => {
+      const colours = getComputedStyle(document.body).backgroundImage.match(/rgb\([^)]*\)/g) ?? [];
+      const sum = (c?: string) =>
+        (c?.match(/\d+/g) ?? [])
+          .slice(0, 3)
+          .map(Number)
+          .reduce((x, y) => x + y, 0);
+      return { count: colours.length, first: sum(colours[0]), last: sum(colours.at(-1)) };
+    });
+    expect(ends.count).toBeGreaterThan(5);
+    expect(ends.first).toBeGreaterThan(600);
+    expect(ends.last).toBeLessThan(150);
+  });
+
+  test("v3: text stays AA on every in-between tone of the day gradient", async ({ page }) => {
+    await page.goto("/");
+    // The light-to-light blends cross section edges: sample each in quarters, mixed in OKLab by the
+    // browser itself, against the text colours of both sections it touches
+    const blends = [
+      ["morning", "noon", "top", "work"],
+      ["noon", "afternoon", "work", "principles"],
+      ["afternoon", "sunset", "principles", "about"],
+    ] as const;
+    for (const [from, to, a, b] of blends) {
+      for (const id of [a, b]) {
+        const sample = await page.locator(`#${id}`).evaluate(
+          (el, [from, to]) => {
+            const read = (property: "color" | "backgroundColor", value: string) => {
+              const probe = document.createElement("span");
+              probe.style[property] = value;
+              el.append(probe);
+              const result = getComputedStyle(probe)[property];
+              probe.remove();
+              return result;
+            };
+            return {
+              texts: ["--color-ink", "--color-ink-muted", "--color-accent"].map((token) =>
+                read("color", `var(${token})`),
+              ),
+              grounds: [0, 25, 50, 75, 100].map((p) =>
+                read(
+                  "backgroundColor",
+                  `color-mix(in oklab, var(--color-time-${to}) ${p}%, var(--color-time-${from}))`,
+                ),
+              ),
+            };
+          },
+          [from, to] as const,
+        );
+        for (const ground of sample.grounds)
+          for (const text of sample.texts)
+            expect(
+              contrast(text, ground),
+              `${id} ${from}→${to} ${text} on ${ground}`,
+            ).toBeGreaterThanOrEqual(4.5);
+      }
+    }
   });
 
   test("ink, muted text and the accent stay AA on every time's ground", async ({ page }) => {

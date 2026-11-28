@@ -118,7 +118,9 @@ test.describe("keyboard and landmarks", () => {
   test("English words on the TR page are marked lang=en", async ({ page }) => {
     await page.goto("/");
     for (const name of ["Switch to English", "LinkedIn", "GitHub"]) {
-      await expect(page.getByRole("link", { name })).toHaveAttribute("lang", "en");
+      // GitHub is linked twice since v3: the activity heading in About and the contact row
+      for (const link of await page.getByRole("link", { name, exact: true }).all())
+        await expect(link).toHaveAttribute("lang", "en");
     }
   });
 });

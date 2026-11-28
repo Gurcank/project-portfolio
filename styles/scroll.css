@@ -48,33 +48,6 @@
   }
 }
 
-/* ── Self-drawing arrows ───────────────────────────────────────────────── */
-
-@keyframes arrow-draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-}
-
-.drawn-arrow path {
-  stroke-dasharray: 1;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    :root:not([data-motion="paused"]) .drawn-arrow path {
-      animation: arrow-draw linear both;
-      animation-timeline: view();
-      animation-range: entry 20% cover 45%;
-    }
-
-    /* The head is drawn after the shaft */
-    :root:not([data-motion="paused"]) .drawn-arrow path + path {
-      animation-range: cover 40% cover 50%;
-    }
-  }
-}
-
 /* ── Film grain over the whole page (sinema), wide screens only ─────────── */
 
 @media (width >= 64rem) {
@@ -86,36 +59,6 @@
     pointer-events: none;
     background-image: var(--texture-grain);
     opacity: var(--grain-opacity);
-  }
-}
-
-/* ── Contour lines behind the principles (yürüyüş: a trail map) ─────────── */
-
-.contours {
-  display: none;
-}
-
-@media (width >= 64rem) {
-  .contours {
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: var(--z-behind);
-    pointer-events: none;
-    background-image:
-      repeating-radial-gradient(
-        ellipse at 85% 30%,
-        transparent 0 calc(var(--spacing) * 8),
-        var(--color-line) calc(var(--spacing) * 8) calc(var(--spacing) * 8.25)
-      ),
-      repeating-radial-gradient(
-        ellipse at 10% 85%,
-        transparent 0 calc(var(--spacing) * 6),
-        var(--color-line) calc(var(--spacing) * 6) calc(var(--spacing) * 6.25)
-      );
-    /* Lines fade out before the text column, so they never sit under a sentence at full strength */
-    mask-image: linear-gradient(to right, black, transparent 30%, transparent 70%, black);
-    opacity: var(--contour-opacity);
   }
 }
 
@@ -200,5 +143,87 @@
 
   :root:not([data-motion="paused"]) .crowd-walker svg + svg {
     animation: crowd-frame-b var(--crowd-step) steps(1) infinite;
+  }
+}
+
+/* ── v3 landing animations ─────────────────────────────────────────────── */
+
+/* Headings: the letters arrive in a short wave when the heading first comes into view (WaveText) */
+@keyframes wave-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em);
+  }
+}
+
+.wave-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.wave-letter {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-reveal]:not([data-motion="paused"]) .wave:not([data-in]) .wave-letter {
+    opacity: 0;
+  }
+
+  :root[data-reveal]:not([data-motion="paused"]) .wave[data-in] .wave-letter {
+    animation: wave-in var(--duration-slow) var(--ease-out) both;
+    animation-delay: calc(var(--i) * var(--duration-fast) * 0.12);
+  }
+}
+
+/* Long passages: each word brightens a little after the one before it, as it scrolls into the reading
+   zone (ReadText). Browsers without scroll timelines show the passage at full strength. */
+@keyframes read-in {
+  from {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    :root:not([data-motion="paused"]) .read-word {
+      animation: read-in linear both;
+      animation-timeline: view();
+      animation-range: cover calc(var(--p) * 30% + 5%) cover calc(var(--p) * 30% + 20%);
+    }
+  }
+}
+
+/* Lists that land: each item drops in after the one before it, once (the cassette spines) */
+@keyframes land-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--spacing) * 6));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-reveal]:not([data-motion="paused"]) .land:not([data-in]) > * {
+    opacity: 0;
+  }
+
+  :root[data-reveal]:not([data-motion="paused"]) .land[data-in] > * {
+    /* backwards, not both: once landed nothing stays applied, so the tapes' own flight to the deck
+       (Motion layout animation) measures them without a leftover transform on their shelf item */
+    animation: land-in var(--duration-slow) var(--ease-out) backwards;
+    animation-delay: calc(var(--i, 0) * var(--duration-fast) * 0.4);
+  }
+}
+
+/* Without scroll timelines, the section headings' entrance (.reveal) falls back to the observer */
+@supports not (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    :root[data-reveal]:not([data-motion="paused"]) .reveal[data-reveal]:not([data-in]) {
+      opacity: 0;
+    }
+
+    :root[data-reveal]:not([data-motion="paused"]) .reveal[data-in] {
+      animation: reveal-in var(--duration-slow) var(--ease-out) both;
+    }
   }
 }

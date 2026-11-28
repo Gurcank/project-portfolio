@@ -630,6 +630,10 @@ EN:
 | **Yazılım:** HTML, CSS, JavaScript, TypeScript, React, Next.js, SQL, veritabanı tasarımı | **Software:** HTML, CSS, JavaScript, TypeScript, React, Next.js, SQL, database design |
 | **Dil:** İngilizce (B2) | **Language:** English (B2) |
 
+**Krediler, yeni grup** (v3, commit öncesi onaya sunuldu 2026-11-28): Tablolar / Paintings.
+
+**GitHub** (v3 R6, Araçlar'ın üstünde; build sırasında GitHub'ın herkese açık takviminden; commit öncesi onaya sunuldu 2026-11-28): başlık "GitHub" · TR "Son bir yılda {count} katkı" · EN "{count} contributions in the last year". GitHub'a ulaşılamazsa bölüm görünmez.
+
 **Araçlar / Tools** (V6, Beceriler altında, logolu; kullanıcı onayı 2026-11-27): Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude. Logolar Simple Icons'tan (CC0), tek renk.
 
 ## 7. Bu site nasıl yapıldı
@@ -637,12 +641,12 @@ EN:
 > Yayından önce gerçek akışa göre güncellenir (S-son). **D5 notu:** "koddan üretilen pixel nesneler" bir kararı anlatıyor; nesneler D7–D8'de gelecek, metin bu yüzden S-son'da yeniden okunmalı (kullanıcı birebir taşımayı onayladı, 2026-11-22). Krediler listesi (fontlar, Atatürk fotoğrafı kaynağı, asset paketleri, AI görselleri) `content/credits.yaml`'da tutulur ve D5'te bu bölümün altında gösterilir (ROADMAP).
 
 TR (~140 kelime):
-> Bu site de bir ürün gibi yapıldı. Önce bir SPEC yazdım: kim bakacak, 30 saniyede ne görmeli, başarıyı nasıl ölçeceğim. Sonra 9 portfolyo sitesini inceleyip 29 fikri bir havuza koydum ve tek bir konsepte indirdim: odamdaki raf, rafta yedi kaset. Kod, tasarım ve metin, Claude ile birlikte çalıştığım fazlı bir akışta ilerledi. Her faz bir dokümanla bitti, her karar gerekçesiyle yazıldı. Vazgeçtiklerim de karar: telifli film posteri ve albüm kapağı kullanmadım; illüstre bir oda sahnesi yerine koddan üretilen pixel nesneler seçtim; kilim temasını turistik durma riski yüzünden bıraktım. Sonra siteyi baştan düşündüm: gün ışığından geceye akan renkler, sayfayla dönen bir iş çarkı ve fotoğrafımdan kodla çizilen bir pixel avatar. Kullandığım her font, fotoğraf ve görselin kaynağı aşağıda.
+> Bu site de bir ürün gibi yapıldı. Önce bir SPEC yazdım: kim bakacak, 30 saniyede ne görmeli, başarıyı nasıl ölçeceğim. Sonra 9 portfolyo sitesini inceleyip 29 fikri bir havuza koydum ve tek bir konsepte indirdim: odamdaki raf, rafta yedi kaset. Kod, tasarım ve metin, Claude ile birlikte çalıştığım fazlı bir akışta ilerledi. Her faz bir dokümanla bitti, her karar gerekçesiyle yazıldı. Vazgeçtiklerim de karar: telifli film posteri ve albüm kapağı kullanmadım; illüstre bir oda sahnesi yerine koddan üretilen pixel nesneler seçtim; kilim temasını turistik durma riski yüzünden bıraktım. Sonra siteyi baştan düşündüm: gün ışığından geceye akan renkler, pixel art bir oda ve fotoğrafımdan kodla çizilen bir avatar. Kullandığım her font, fotoğraf ve görselin kaynağı aşağıda.
 >
-> *v2 cümlesi ("Sonra siteyi baştan düşündüm…") V9'da eklendi; kullanıcının commit öncesi onayına sunuldu (2026-11-27).*
+> *v2 cümlesi ("Sonra siteyi baştan düşündüm…") V9'da eklendi (2026-11-27); v3'te çark kalkınca "pixel art bir oda" oldu (kullanıcı onayı 2026-11-28).*
 
 EN (~140 words):
-> This site was built like a product. I started with a spec: who visits, what they should see in 30 seconds, how I'd measure success. Then I studied 9 portfolio sites, pooled 29 ideas and narrowed them to one concept: a shelf in my room holding seven tapes. Code, design and copy moved through a phased workflow with Claude; each phase ended in a document, each decision came with a reason. What I dropped counts too: no copyrighted posters or album covers, code-generated pixel objects instead of an illustrated room, no kilim theme, which risked looking touristy. Then I rethought it: colours that run from daylight to night, a work wheel that turns with the page, and a pixel avatar drawn in code from my photo. Every font, photo and image is credited below.
+> This site was built like a product. I started with a spec: who visits, what they should see in 30 seconds, how I'd measure success. Then I studied 9 portfolio sites, pooled 29 ideas and narrowed them to one concept: a shelf in my room holding seven tapes. Code, design and copy moved through a phased workflow with Claude; each phase ended in a document, each decision came with a reason. What I dropped counts too: no copyrighted posters or album covers, code-generated pixel objects instead of an illustrated room, no kilim theme, which risked looking touristy. Then I rethought it: colours that run from daylight to night, a pixel-art room, and an avatar drawn in code from my photo. Every font, photo and image is credited below.
 
 ## 8. Mikro metinler
 
@@ -660,6 +664,7 @@ EN (~140 words):
 | J-card menü | İçindekiler | Contents |
 | Dock (ekran okuyucu adı; V2, kullanıcı onayı 2026-11-27) | Bölümler | Sections |
 | Dock yin-yang bağlantısı | Başa dön | Back to top |
+| Dock, hero'dayken bölüm adı (v3, kullanıcı onayı 2026-11-28) | Giriş | Intro |
 | Saat düğmesi (ekran okuyucu adı; görünen saatten sonra okunur, WCAG 2.5.3: "İST 19:24 · Yerel saat: İstanbul ve Łódź") | Yerel saat: İstanbul ve Łódź | Local time: Istanbul and Łódź |
 | Saat düğmesinin görünen hali | İST {ss:dd} | IST {hh:mm} |
 | Saat paneli | İki şehrim · İstanbul · evim · Łódź · Erasmus+, Şubat 2027'ye kadar | My two cities · Istanbul · home · Łódź · Erasmus+, until February 2027 |

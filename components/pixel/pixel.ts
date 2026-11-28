@@ -28,6 +28,11 @@ export const pixelFill = {
   /** The surrounding text colour: one drawing, recoloured per use (the principles crowd) */
   current: "fill-current",
   accentNight: "fill-accent-night",
+  tape: "fill-tape",
+  timeMorning: "fill-time-morning",
+  skyDay: "fill-sky-day",
+  timeAfternoon: "fill-time-afternoon",
+  burgundy: "fill-cassette-burgundy",
 } as const;
 
 export type PixelFill = (typeof pixelFill)[keyof typeof pixelFill];

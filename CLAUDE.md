@@ -55,7 +55,7 @@ components/
   cassette/ case-study/ markdown/
   experience/        client-only layers, each inside ExperienceBoundary
   pixel/             PixelSprite + sprites/ (string grids → SVG paths, palette tokens only)
-  works/ decor/ about/ footer/   v2 pieces: works wheel, crowd + arrow, tools + polaroids, nature footer
+  decor/ about/ footer/   v2–v3 pieces: crowd, tools + GitHub grid, nature footer (room objects: pixel/sprites/room.ts)
   respect/           Atatürk portrait, Turkish flag — no motion or hover props, ever
   ui/                shadcn copies
 content/             all site data (Velite) — see below

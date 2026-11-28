@@ -1,8 +1,8 @@
-import { DecorSlot } from "@/components/experience/DecorSlot";
-import { Emphasis } from "@/components/markdown/Emphasis";
+import { DecorSlot, RoomFrame } from "@/components/experience/DecorSlot";
 import { CopyEmailButton } from "@/components/sections/CopyEmailButton";
 import { analyticsEvents } from "@/lib/analytics";
 import type { Profile, SiteCopy } from "@/lib/content";
+import { WaveText } from "@/components/markdown/WaveText";
 
 type ContactProps = {
   profile: Profile;
@@ -23,13 +23,12 @@ export function Contact({ profile, heading, labels }: ContactProps) {
   return (
     <section id="contact" aria-labelledby="contact-heading" data-time="dusk">
       <div className="relative mx-auto grid max-w-page gap-8 px-(--gutter) py-24 md:py-32 xl:grid-cols-12 xl:gap-12">
-        <DecorSlot name="contact-left" side="left" />
         <DecorSlot name="contact-right" side="right" />
         <h2
           id="contact-heading"
-          className="reveal font-display text-h1 font-black font-stretch-condensed xl:col-span-5"
+          className="font-display text-h1 font-black font-stretch-condensed xl:col-span-5"
         >
-          <Emphasis text={heading} />
+          <WaveText text={heading} />
         </h2>
 
         <div className="flex flex-col gap-8 xl:col-span-7">
@@ -67,6 +66,8 @@ export function Contact({ profile, heading, labels }: ContactProps) {
             </li>
           </ul>
         </div>
+        {/* v3: a painting on the dusk wall, under the heading */}
+        <RoomFrame name="contact-painting" className="xl:col-span-5" />
       </div>
     </section>
   );

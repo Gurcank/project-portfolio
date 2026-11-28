@@ -126,6 +126,7 @@ Tip ölçeği: akışkan; gövde 17–18 px; oran mobilde 1.25, masaüstünde 1.
 - Ölçek (4 px taban): 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 192. Gerekçe: 16/32 px pixel sprite'larıyla aynı ızgara; adımlar ~1,5 kat büyüyerek hiyerarşi kurar.
 - Izgara: 4 / 8 / 12 sütun (375 / 768 / 1280). Kenar boşluğu 16 / 32 / 64 px. Okuma satırı en fazla ~70 karakter.
 - Pixel dekor yalnızca ≥ 1024 px'te ve kenar boşluklarında; mobilde yok. **Tek istisna (v2, V3):** hero'daki pixel portre her ekranda görünür; dekor değil, kişiyi temsil ediyor ("ben kimim" cümlelerinin yanında, `aria-hidden`, bilgiyi cümleler taşır).
+- **v3 "Oda" (2026-11-28, kullanıcı isteği):** pixel art ana tema. Bölümlerin içinde ahşap raflar (kitaplar, VHS'ler, küre, kamera, bitki, lamba, botlar, harita, pikap ve plaklar) ve kamu malı eserlerin pixel yorumları (Van Gogh *Yıldızlı Gece*, Hokusai *Büyük Dalga*, Osman Hamdi Bey *Kaplumbağa Terbiyecisi*; kaynak Wikimedia Commons, PD-Art). Plaklar özgün pixel kılıflarda: kapak kopyası yok (§9 kuralı kalıyor). Hero masası pixel sahne (pencere, monitör, not, soyulabilir çıkartmalar); CTA'lar pixel köşeli. Gün tek bir sayfa boyu gradyanla akar (açıktan açığa geçişler iki bölüme yayılır, gün batımı → akşam metinsiz dikişte). Dock en üstte de görünür ve sitenin tek nav'ıdır. İmleç: pixel ok her yerde (yazı üstünde de), bağlantıda pixel el; bölüme göre iz (makara, ayak izi, kalem, yıldız tozu, yaprak). Başlıklar harf dalgasıyla, İlkeler açılışı ve Hakkımda hikâyesi okundukça koyulaşarak girer; kaset sırtları sırayla iner. Loading: karanlık odada şafak, lamba, avatar; perde kâğıt gibi buruşur. GitHub katkı takvimi build'de okunur (token'sız, ulaşılamazsa bölüm yok). İş çarkı, polaroidler, Hakkımda deseni ve kontur çizgileri kaldırıldı.
 - **v2 katmanları (V3–V8, 2026-11-27):** hero'da fotoğraftan çizilen 32 × 28 pixel portre ve iki "ben kimim" cümlesi · başlıklar kaydırmayla hafifçe girer, hero rol cümlesi kelime kelime gelir (intro oynamıyorsa) · ≥ 1024 px'te film greni, ilkelerin arkasında topografik çizgiler ve altında yürüyen pixel kalabalık, işler başlığından çarka kendini çizen ok · bitki maskotunun yerine sol kenarda okudukça aşağı yürüyen küçük avatar (İletişim'de el sallar, footer'da kampa bırakır) · Hakkımda'da Araçlar (logo + ad), üç proje polaroidi (ATAMap asla), walkman yerine CD çalar · bağlama göre 4 halli imleç (halka, yazıda çekilir, bağlantıda büyür, kasette "▶ Aç", footer'da yaprak izi) · footer'da gece manzarası, kamp ateşi, ziyaretçinin saatine göre gökyüzü. Hepsi reduced motion ve "hareketi durdur"da durur.
 
 ### Yerleşim akışı
@@ -206,7 +207,7 @@ GitHub → Vercel. Stack: `docs/ARCHITECTURE.md` (Next.js 16, tamamen statik). `
 - Product teardown bölümü
 - Now sayfası
 - Letterboxd verisi: puan, yorum, istatistik, RSS; profil linki de yok (S3 kararı)
-- Kitap dekoru (S3 kararı)
+- ~~Kitap dekoru (S3 kararı)~~ v3'te değişti (kullanıcı isteği 2026-11-28): raflarda başlıksız pixel kitap sırtları; kitap listesi yine yok.
 - Telifli poster ve albüm kapakları (orijinal ya da yeniden çizilmiş)
 - Doğa fotoğrafları
 - Ayrı bir "kişisel katman" bölümü ya da oda sahnesi

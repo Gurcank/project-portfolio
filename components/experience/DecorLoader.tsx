@@ -9,8 +9,9 @@ import { useMediaQuery } from "@/lib/use-media-query";
 // Its own chunk (ADR-18: PixelDecor, after idle): fetched only on wide screens, never on a phone
 const DecorLayer = dynamic(() => import("@/components/experience/DecorLayer"), { ssr: false });
 
-// Same edge as the mascot: decor only where the page gutter is wide enough (SPEC §8)
-const WIDE_GUTTER = "(width >= 80rem)";
+// From lg: the shelves and paintings sit inside the content (v3); the gutter pieces still only show
+// from xl (DecorSlot), where the gutter is wide enough (SPEC §8)
+const WIDE = "(width >= 64rem)";
 
 /** Waits for the browser to be idle, so the first screen never waits on decor. */
 function useIdle(): boolean {
@@ -28,7 +29,7 @@ function useIdle(): boolean {
 }
 
 export function DecorLoader(props: DecorData) {
-  const wide = useMediaQuery(WIDE_GUTTER);
+  const wide = useMediaQuery(WIDE);
   const idle = useIdle();
   return wide && idle ? <DecorLayer {...props} /> : null;
 }

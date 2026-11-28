@@ -1,44 +1,13 @@
 /*
- * Cursor system (V7, /animate). Purpose: the pointer answers what it is over, so the page feels handled
- * rather than clicked. The follower is offset by its own half size, so its centre is the pointer's tip.
- * Shape changes ease with tokens; reduced motion collapses them to instant.
+ * Cursor trails (v3, /animate). Purpose: each part of the room answers the pointer in its own material,
+ * so moving across the page feels like moving through the room. A mark is placed where the pointer was
+ * and fades from the pointer back; nothing moves on its own once the pointer stops.
  */
 .cursor-layer {
   position: fixed;
   inset: 0;
   z-index: var(--z-cursor);
   pointer-events: none;
-}
-
-.cursor-ring {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: calc(var(--spacing) * 8);
-  height: calc(var(--spacing) * 8);
-  margin: calc(var(--spacing) * -4) 0 0 calc(var(--spacing) * -4);
-  border: var(--focus-ring-width) solid var(--color-accent);
-  border-radius: var(--radius-full);
-  opacity: 0.6;
-  transition:
-    width var(--duration-base) var(--ease-out),
-    height var(--duration-base) var(--ease-out),
-    margin var(--duration-base) var(--ease-out),
-    opacity var(--duration-base) var(--ease-out);
-}
-
-/* Over text the I-beam does the job: the ring steps aside */
-[data-cursor="text"] .cursor-ring,
-[data-cursor="tape"] .cursor-ring,
-[data-cursor="leaf"] .cursor-ring {
-  opacity: 0;
-}
-
-[data-cursor="link"] .cursor-ring {
-  width: calc(var(--spacing) * 12);
-  height: calc(var(--spacing) * 12);
-  margin: calc(var(--spacing) * -6) 0 0 calc(var(--spacing) * -6);
-  opacity: 1;
 }
 
 .cursor-pill {
@@ -57,18 +26,62 @@
   opacity: 1;
 }
 
-/* Footer: small square leaves, the trail fades from the pointer back */
-.cursor-leaf {
+/* Every mark is centred on the spot the pointer passed */
+.cursor-mark {
   position: absolute;
   top: 0;
   left: 0;
   width: calc(var(--spacing) * 2);
   height: calc(var(--spacing) * 2);
   margin: calc(var(--spacing) * -1) 0 0 calc(var(--spacing) * -1);
-  background-color: var(--color-cassette-olive);
   opacity: 0;
 }
 
-.cursor-leaf:nth-child(even) {
+/* Work: tiny tape reels */
+[data-trail="reel"] .cursor-mark {
+  width: calc(var(--spacing) * 3);
+  height: calc(var(--spacing) * 3);
+  border: calc(var(--spacing) * 0.75) solid var(--color-tape);
+  border-radius: var(--radius-full);
+  background-color: var(--color-tape-window);
+}
+
+/* Principles: footprints, left and right */
+[data-trail="step"] .cursor-mark {
+  width: calc(var(--spacing) * 1.5);
+  height: calc(var(--spacing) * 2.5);
+  border-radius: var(--radius-full);
+  background-color: var(--color-ink-muted);
+}
+
+[data-trail="step"] .cursor-mark:nth-child(odd) {
+  margin-left: calc(var(--spacing) * 1);
+}
+
+/* About: a pencil line, dense small dots */
+[data-trail="pencil"] .cursor-mark {
+  width: calc(var(--spacing) * 1);
+  height: calc(var(--spacing) * 1);
+  margin: 0;
+  background-color: var(--color-accent);
+}
+
+/* Dusk: star dust */
+[data-trail="star"] .cursor-mark {
+  width: calc(var(--spacing) * 1);
+  height: calc(var(--spacing) * 1);
+  background-color: var(--color-accent-night);
+}
+
+[data-trail="star"] .cursor-mark:nth-child(3n) {
+  background-color: var(--color-ink-night);
+}
+
+/* Footer: leaves */
+[data-trail="leaf"] .cursor-mark {
+  background-color: var(--color-cassette-olive);
+}
+
+[data-trail="leaf"] .cursor-mark:nth-child(even) {
   background-color: var(--color-cassette-mustard);
 }

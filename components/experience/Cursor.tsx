@@ -6,92 +6,96 @@ import { useEffect, useRef, useState } from "react";
 import { useMotionPaused } from "@/lib/experience-store";
 import { useMediaQuery } from "@/lib/use-media-query";
 
-type Mode = "idle" | "text" | "link" | "tape" | "leaf";
+/** What the pointer leaves behind, by where it is on the page. */
+type Trail = "none" | "reel" | "step" | "pencil" | "star" | "leaf";
 
-// What the pointer is over decides the follower's shape; the first match wins
-const TAPE = ".shelf-spine, .works-wheel-card, .works-list a";
-const LINK = "a, button, summary, [role='button'], label[for]";
-const TEXT = "p, h1, h2, h3, h4, li, dd, dt, figcaption, blockquote, input, textarea";
-const LEAF = "footer";
+// Over a tape the pill says "▶ Open"; everywhere else the section decides the trail
+const TAPE = ".shelf-spine";
+const BY_SECTION: Record<string, Trail> = {
+  work: "reel",
+  principles: "step",
+  about: "pencil",
+  colophon: "star",
+  contact: "star",
+};
 
-// Share of the remaining distance the ring closes each frame: it trails the pointer, never lags far
-const FOLLOW = 0.22;
-const TRAIL = 6;
-const TRAIL_MS = 45;
+const TRAIL = 8;
+const DROP_MS = 45;
 
-function modeAt(target: Element | null): Mode {
-  if (!target?.closest) return "idle";
-  if (target.closest(TAPE)) return "tape";
-  if (target.closest(LEAF)) return target.closest(LINK) ? "link" : "leaf";
-  if (target.closest(LINK)) return "link";
-  if (target.closest(TEXT)) return "text";
-  return "idle";
+function trailAt(target: Element | null): Trail {
+  if (!target?.closest) return "none";
+  if (target.closest("footer")) return "leaf";
+  const section = target.closest("section[id]");
+  return (section && BY_SECTION[section.id]) || "none";
 }
 
 /**
- * The cursor system (V7; grew out of the D9 "▶ Open" pill, INS-03/INS-19). The real cursor never goes
- * away; a follower sits beside it and changes with what it is over: a soft ring on the page, out of the
- * way over text (the I-beam is enough), a wider ring on links and buttons, the "▶ Open" pill on a tape,
- * and a short trail of leaves in the footer. Decor: hidden from assistive tech, never clickable. Real
- * pointers on wide screens only (CursorLoader). Reduced motion and "pause motion": no ring and no trail,
- * only the pill, which snaps to the pointer.
+ * The cursor system (v3; grew out of the D9 "▶ Open" pill and the V7 follower). The pixel arrow is the
+ * cursor everywhere, text included (globals.css); behind it each part of the room leaves its own short
+ * trail: tape reels over the work, footprints along the principles, a pencil line over the story, star
+ * dust once it is dusk, leaves in the footer. Over a tape the "▶ Open" pill rides beside it.
+ * Decor: hidden from assistive tech, never clickable. Real pointers on wide screens only
+ * (CursorLoader). Reduced motion and "pause motion": no trail, only the pill.
  */
 export function Cursor({ label }: { label: string }) {
-  const ring = useRef<HTMLSpanElement>(null);
   const pill = useRef<HTMLSpanElement>(null);
-  const leaves = useRef<(HTMLSpanElement | null)[]>([]);
-  const [mode, setMode] = useState<Mode>("idle");
+  const marks = useRef<(HTMLSpanElement | null)[]>([]);
+  const [trail, setTrail] = useState<Trail>("none");
+  const [onTape, setOnTape] = useState(false);
   const paused = useMotionPaused();
   const reduce = useMediaQuery("(prefers-reduced-motion: reduce)");
   const still = paused || reduce;
 
   useEffect(() => {
     const pointer = { x: -100, y: -100 };
-    const at = { x: -100, y: -100 };
-    const trail: { x: number; y: number }[] = [];
+    const spots: { x: number; y: number }[] = [];
     let frame = 0;
     let lastDrop = 0;
-    let current: Mode = "idle";
+    let moved = false;
+    let current: Trail = "none";
 
     const draw = (time: number) => {
       frame = 0;
-      at.x = still ? pointer.x : at.x + (pointer.x - at.x) * FOLLOW;
-      at.y = still ? pointer.y : at.y + (pointer.y - at.y) * FOLLOW;
       // A transform, not top/left: it moves on the compositor, with no layout work per frame
-      if (ring.current) ring.current.style.transform = `translate(${at.x}px, ${at.y}px)`;
       if (pill.current) {
         pill.current.style.transform = `translate(${pointer.x + 16}px, ${pointer.y + 16}px)`;
       }
-      if (!still && current === "leaf" && time - lastDrop > TRAIL_MS) {
-        trail.unshift({ x: pointer.x, y: pointer.y });
-        trail.length = Math.min(trail.length, TRAIL);
+      if (!still && current !== "none" && time - lastDrop > DROP_MS) {
+        // Moving: a new mark at the pointer. Still: the trail draws back into the pointer and is gone
+        if (moved) spots.unshift({ x: pointer.x, y: pointer.y });
+        else spots.pop();
+        spots.length = Math.min(spots.length, TRAIL);
         lastDrop = time;
+        moved = false;
       }
-      leaves.current.forEach((leaf, index) => {
-        const spot = trail[index];
-        if (!leaf) return;
-        leaf.style.opacity = spot && current === "leaf" ? String(1 - index / TRAIL) : "0";
-        if (spot) leaf.style.transform = `translate(${spot.x}px, ${spot.y}px)`;
+      marks.current.forEach((mark, index) => {
+        const spot = spots[index];
+        if (!mark) return;
+        mark.style.opacity = spot && current !== "none" ? String(1 - index / TRAIL) : "0";
+        if (spot) mark.style.transform = `translate(${spot.x}px, ${spot.y}px)`;
       });
-      const settled = Math.abs(pointer.x - at.x) + Math.abs(pointer.y - at.y) < 0.5;
-      if (!settled || current === "leaf") frame = requestAnimationFrame(draw);
+      if (spots.length) frame = requestAnimationFrame(draw);
     };
 
     const onMove = (event: PointerEvent) => {
       pointer.x = event.clientX;
       pointer.y = event.clientY;
-      const next = modeAt(event.target as Element | null);
+      moved = true;
+      const target = event.target as Element | null;
+      const next = trailAt(target);
       if (next !== current) {
         current = next;
-        if (next !== "leaf") trail.length = 0;
-        setMode(next);
+        spots.length = 0;
+        setTrail(next);
       }
+      setOnTape(!!target?.closest?.(TAPE));
       if (!frame) frame = requestAnimationFrame(draw);
     };
     const onLeave = () => {
-      current = "idle";
-      setMode("idle");
-      pointer.x = pointer.y = -100;
+      current = "none";
+      spots.length = 0;
+      setTrail("none");
+      setOnTape(false);
     };
 
     document.addEventListener("pointermove", onMove, { passive: true });
@@ -104,8 +108,12 @@ export function Cursor({ label }: { label: string }) {
   }, [still]);
 
   return (
-    <div aria-hidden="true" data-cursor={mode} className="cursor-layer">
-      {!still && <span ref={ring} className="cursor-ring" />}
+    <div
+      aria-hidden="true"
+      data-cursor={onTape ? "tape" : trail}
+      data-trail={trail}
+      className="cursor-layer"
+    >
       <span ref={pill} className="cursor-pill font-mono text-label tracking-wide uppercase">
         {label}
       </span>
@@ -114,9 +122,9 @@ export function Cursor({ label }: { label: string }) {
           <span
             key={index}
             ref={(node) => {
-              leaves.current[index] = node;
+              marks.current[index] = node;
             }}
-            className="cursor-leaf"
+            className="cursor-mark"
           />
         ))}
     </div>

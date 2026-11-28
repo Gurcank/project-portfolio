@@ -1,18 +1,18 @@
 /*
- * Work desk (D9, /animate): plays once, ≤ 4 s, then rests. Purpose: show "someone at work" without
- * competing with the hero text. Every duration and delay is a token, so reduced motion and "pause
- * motion" jump straight to the final frame.
+ * Work desk (D9; v3 pixel scene, /animate): plays once, ≤ 4 s, then rests. Purpose: show "someone at
+ * work" without competing with the hero text. Every duration and delay is a token, so reduced motion and
+ * "pause motion" jump straight to the final frame.
  */
 @keyframes desk-notify-in {
   from {
     opacity: 0;
-    transform: translateX(calc(var(--spacing) * 6));
+    transform: translateY(calc(var(--spacing) * 2));
   }
 }
 
 @keyframes desk-cursor-move {
   from {
-    transform: translate(calc(var(--spacing) * 24), calc(var(--spacing) * -16));
+    transform: translate(calc(var(--spacing) * 24), calc(var(--spacing) * 16));
   }
 }
 
@@ -33,4 +33,51 @@
 
 .desk-cursor-arrow {
   animation: desk-click var(--duration-fast) var(--ease-out) calc(var(--duration-slow) * 6) both;
+}
+
+/* The desk top: a wooden board under the monitor, like the room's shelves */
+.desk-top {
+  height: calc(var(--spacing) * 3);
+  background-color: var(--color-tape);
+  box-shadow: 0 calc(var(--spacing) * 2) 0 calc(var(--spacing) * -1) var(--color-line);
+}
+
+/* The ticket as a note on the wall, held by a strip of tape */
+.desk-note {
+  rotate: -3deg;
+  box-shadow: var(--shadow-note);
+}
+
+.desk-note::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--spacing) * -2);
+  left: 50%;
+  width: calc(var(--spacing) * 12);
+  height: calc(var(--spacing) * 3);
+  translate: -50% 0;
+  background-color: var(--color-line);
+  opacity: 0.8;
+}
+
+/* Stickers peel from one corner: --peel 0 → 1 (DeskScene's Sticker sets it while dragging) */
+.desk-sticker {
+  --peel: 0;
+  display: block;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  transform-origin: 0% 100%;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="paused"]) .desk-sticker {
+    transform: perspective(calc(var(--spacing) * 48)) rotateX(calc(var(--peel) * 55deg))
+      rotateY(calc(var(--peel) * -35deg));
+  }
+
+  :root:not([data-motion="paused"]) .desk-sticker:hover {
+    --peel: 0.3;
+  }
 }

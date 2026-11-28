@@ -52,9 +52,18 @@ test.describe("V5 · scroll and backgrounds", () => {
   test("headings enter as they scroll in, and are fully there once in view", async ({ page }) => {
     await page.goto("/");
     await scrollToId(page, "about");
-    const heading = page.locator("#about-heading");
-    await expect(heading).toHaveClass(/reveal/);
-    await expect.poll(() => heading.evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
+    // v3: the letters arrive in a wave once the heading is in view, and end fully visible
+    const wave = page.locator("#about-heading .wave");
+    await expect(wave).toHaveAttribute("data-in", "");
+    await expect
+      .poll(() =>
+        wave
+          .locator(".wave-letter")
+          .last()
+          .evaluate((el) => getComputedStyle(el).opacity),
+      )
+      .toBe("1");
+    await expect(page.getByRole("heading", { name: "Hakkımda", level: 2 })).toBeVisible();
   });
 
   test("the crowd walks along the principles, and stands still with reduced motion", async ({
@@ -71,7 +80,7 @@ test.describe("V5 · scroll and backgrounds", () => {
     expect(await walkers.first().evaluate((el) => getComputedStyle(el).animationName)).toBe("none");
   });
 
-  test("pause motion stops the crowd and the arrow drawing", async ({ page }) => {
+  test("pause motion stops the crowd", async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem("motion", "paused"));
     await page.goto("/");
     expect(
@@ -80,20 +89,12 @@ test.describe("V5 · scroll and backgrounds", () => {
         .first()
         .evaluate((el) => getComputedStyle(el).animationName),
     ).toBe("none");
-    expect(
-      await page
-        .locator(".drawn-arrow path")
-        .first()
-        .evaluate((el) => getComputedStyle(el).animationName),
-    ).toBe("none");
   });
 
-  test("phones: no grain, no contours, no crowd, no arrow", async ({ page }) => {
+  test("phones: no grain, no crowd", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
     await expect(page.locator(".crowd")).toBeHidden();
-    await expect(page.locator(".contours")).toBeHidden();
-    await expect(page.locator(".drawn-arrow")).toBeHidden();
     expect(
       await page.evaluate(() => getComputedStyle(document.body, "::after").backgroundImage),
     ).toBe("none");
@@ -114,17 +115,6 @@ test.describe("V6 · About", () => {
     // The mask file is really there: the logo paints, it is not an empty square
     const response = await page.request.get("/tools/nextjs.svg");
     expect(response.ok()).toBe(true);
-  });
-
-  test("polaroids: wide screens only, decor, never ATAMap", async ({ page }) => {
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/");
-    const row = page.locator("#about .polaroid").locator("..");
-    await expect(page.locator("#about .polaroid")).toHaveCount(3);
-    await expect(row).toHaveAttribute("aria-hidden", "true");
-    await expect(page.locator("#about .polaroid")).not.toContainText(["ATAMap"]);
-    await page.setViewportSize({ width: 768, height: 1024 });
-    await expect(page.locator("#about .polaroid").first()).toBeHidden();
   });
 
   test("the CD player keeps the walkman's job, under its new name", async ({ page }) => {
@@ -149,26 +139,27 @@ test.describe("V7 · cursor", () => {
   test.use({ viewport: { width: 1280, height: 900 } });
   const layer = (page: Page) => page.locator(".cursor-layer");
 
-  test("changes with what it is over: link, text, tape, footer", async ({ page }) => {
+  test("each part of the room leaves its own trail; a tape shows the pill", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: "İşlere bak" }).hover();
-    await expect(layer(page)).toHaveAttribute("data-cursor", "link");
-    await page.locator("#top p.text-lead").hover();
-    await expect(layer(page)).toHaveAttribute("data-cursor", "text");
+    await page.locator("#work h2").hover();
+    await expect(layer(page)).toHaveAttribute("data-trail", "reel");
+    await page.locator("#principles h2").hover();
+    await expect(layer(page)).toHaveAttribute("data-trail", "step");
+    await page.locator("#about h2").hover();
+    await expect(layer(page)).toHaveAttribute("data-trail", "pencil");
     await page.locator("#cassette-atamap").hover();
     await expect(layer(page)).toHaveAttribute("data-cursor", "tape");
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await page.locator(".nature").hover();
-    await expect(layer(page)).toHaveAttribute("data-cursor", "leaf");
+    await expect(layer(page)).toHaveAttribute("data-trail", "leaf");
     await expect(layer(page)).toHaveAttribute("aria-hidden", "true");
   });
 
-  test("reduced motion: no ring and no trail, only the pill", async ({ page }) => {
+  test("reduced motion: no trail, only the pill", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await page.locator("#cassette-atamap").hover();
-    await expect(layer(page).locator(".cursor-ring")).toHaveCount(0);
-    await expect(layer(page).locator(".cursor-leaf")).toHaveCount(0);
+    await expect(layer(page).locator(".cursor-mark")).toHaveCount(0);
     await expect(layer(page).locator(".cursor-pill")).toHaveCSS("opacity", "1");
   });
 

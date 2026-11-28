@@ -43,7 +43,7 @@ const profile = defineCollection({
   }),
 });
 
-const creditKinds = ["font", "photo", "asset", "ai", "data"] as const;
+const creditKinds = ["font", "photo", "art", "asset", "ai", "data"] as const;
 // Every family lib/fonts.ts loads must be credited (SPEC §14.5)
 const fontNames = [
   "Bricolage Grotesque",
@@ -139,6 +139,14 @@ const site = defineCollection({
             .min(1)
             .max(6),
         }),
+        // v3: the GitHub calendar's heading and its one sentence ({count})
+        github: s.object({
+          heading: button,
+          summary: s
+            .string()
+            .max(60)
+            .refine((value) => value.includes("{count}"), "summary needs {count}"),
+        }),
         // V6: tool names; each must have a logo in components/about/tool-icons.ts (unit test)
         tools: s.object({
           heading: button,
@@ -165,6 +173,7 @@ const site = defineCollection({
         dock: s.object({
           label: button,
           top: button,
+          intro: navItem,
           clock: s.object({
             // An accessible name, not a visible label
             label: s.string().max(60),

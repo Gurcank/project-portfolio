@@ -110,7 +110,7 @@ export function getPortrait(): Portrait | undefined {
   return respect.portrait ?? undefined;
 }
 
-const creditOrder = ["font", "photo", "asset", "ai", "data"] as const;
+const creditOrder = ["font", "photo", "art", "asset", "ai", "data"] as const;
 export type CreditKind = (typeof creditOrder)[number];
 
 /** One credit in one language. */

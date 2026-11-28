@@ -55,6 +55,30 @@
   usedFor:
     tr: Hakkımda'daki Atatürk portresi
     en: Atatürk portrait in About
+- kind: art
+  name: The Starry Night, 1889
+  author: Vincent van Gogh
+  source: https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg
+  license: Public domain
+  usedFor:
+    tr: İlkeler'deki duvar tablosu (pixel yorum)
+    en: The painting on the wall in Principles (pixel reading)
+- kind: art
+  name: The Great Wave off Kanagawa, c. 1831
+  author: Katsushika Hokusai
+  source: https://commons.wikimedia.org/wiki/File:Tsunami_by_hokusai_19th_century.jpg
+  license: Public domain
+  usedFor:
+    tr: İletişim'deki duvar tablosu (pixel yorum)
+    en: The painting on the wall in Contact (pixel reading)
+- kind: art
+  name: Kaplumbağa Terbiyecisi, 1906
+  author: Osman Hamdi Bey
+  source: https://commons.wikimedia.org/wiki/File:Osman_Hamdi_Bey_-_The_Tortoise_Trainer.jpg
+  license: Public domain
+  usedFor:
+    tr: Colophon'daki duvar tablosu (pixel yorum)
+    en: The painting on the wall in the colophon (pixel reading)
 - kind: asset
   name: Simple Icons 16.38.1
   author: Simple Icons contributors

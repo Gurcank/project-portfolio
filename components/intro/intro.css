@@ -2,7 +2,8 @@
  * Intro (D10, INS-01 + INS-22, /animate): ≤ 2.5 s, once per session, any click or key skips it.
  * Pure CSS, in the HTML from the start: it is already on screen at first paint, so the hero is never
  * seen and then covered. Three words and a closing line, one step each (2 changes a second, under the
- * WCAG 2.3.1 limit of 3), then the curtain fades. Shown only for html[data-intro="play"].
+ * WCAG 2.3.1 limit of 3). v3: a pixel room wakes up behind the words, and the curtain leaves by crumpling
+ * like a sheet of paper. Shown only for html[data-intro="play"].
  */
 .intro {
   --intro-step: calc(var(--duration-base) * 2);
@@ -12,15 +13,63 @@
 @media (width >= 64rem) and (prefers-reduced-motion: no-preference) {
   :root[data-intro="play"]:not([data-motion="paused"]) .intro {
     display: flex;
-    animation: intro-out var(--duration-slow) var(--ease-out) calc(var(--intro-step) * 4) forwards;
+    animation: intro-crumple var(--duration-slow) var(--ease-in-out) calc(var(--intro-step) * 4)
+      forwards;
   }
 }
 
-@keyframes intro-out {
-  to {
+/* The curtain crumples: its outline folds in to a small jagged ball, which turns, shrinks and is gone.
+   Eight points in every frame, so the browser can morph between them */
+@keyframes intro-crumple {
+  0% {
+    clip-path: polygon(0% 0%, 50% 0%, 100% 0%, 100% 50%, 100% 100%, 50% 100%, 0% 100%, 0% 50%);
+  }
+  55% {
+    clip-path: polygon(8% 6%, 54% 16%, 94% 9%, 82% 52%, 96% 92%, 47% 80%, 5% 95%, 19% 47%);
+    transform: rotate(-3deg) scale(0.92);
+  }
+  100% {
+    clip-path: polygon(46% 43%, 51% 47%, 56% 42%, 54% 50%, 57% 57%, 50% 54%, 43% 58%, 47% 50%);
+    transform: rotate(-14deg) scale(0.5);
     opacity: 0;
     visibility: hidden;
   }
+}
+
+/* The room wakes up: night lifts from the window, the lamp comes on, the avatar sits down */
+@keyframes intro-dawn {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes intro-on {
+  to {
+    opacity: 1;
+  }
+}
+
+.intro-night {
+  opacity: 0.85;
+  animation: intro-dawn calc(var(--intro-step) * 3) var(--ease-in-out) forwards;
+}
+
+.intro-lamp-light {
+  /* A cone of light falling from the lamp's shade */
+  clip-path: polygon(70% 0%, 85% 0%, 100% 100%, 0% 100%);
+  opacity: 0;
+  animation: intro-lamp var(--duration-fast) steps(2) var(--intro-step) forwards;
+}
+
+@keyframes intro-lamp {
+  to {
+    opacity: 0.25;
+  }
+}
+
+.intro-sitter {
+  opacity: 0;
+  animation: intro-on var(--duration-slow) var(--ease-out) calc(var(--intro-step) * 2) forwards;
 }
 
 /* A word is visible only while its own step plays (no fill), with a short fade at each end */

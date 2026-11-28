@@ -15,7 +15,7 @@ export const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || undefi
 
 /** How a case study was opened: a tape on the shelf, a project chip (principles, About), the J-card
  *  contents menu, a shared/typed link, or "next tape" in the overlay. */
-export type CaseStudySource = "shelf" | "wheel" | "chip" | "menu" | "hash" | "next";
+export type CaseStudySource = "shelf" | "chip" | "menu" | "hash" | "next";
 
 type UmamiWindow = Window & { umami?: { track: (event: string, data?: object) => void } };
 

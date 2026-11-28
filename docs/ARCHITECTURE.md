@@ -310,12 +310,12 @@ project-portfolio/
 │  ├─ case-study/    # CaseStudyOverlay (client), Tracklist, Track, Reels, LinerNotes
 │  ├─ markdown/      # Markdown (react-markdown + eşleme), ProjectChip, DecisionLabel
 │  ├─ experience/    # ExperienceProvider, ExperienceBoundary, MotionToggle,
-│  │                 # Dock, ToneController, Mascot (V5: yürüyen avatar), CdPlayer (V6),
-│  │                 # Cursor (V7), HeroDesk, Intro, PixelDecor
-│  ├─ pixel/         # PixelSprite (bir renk = bir path) + sprites/ (avatar, plant, cd-player, stamps…)
-│  ├─ works/         # V4 WorksWheel (çark / şerit / ızgara)
-│  ├─ decor/         # V5 DrawnArrow, PrinciplesCrowd (sunucu bileşeni, yalnız CSS hareket)
-│  ├─ about/         # V6 ToolList (logolar public/tools/*.svg, CSS mask), Polaroids
+│  │                 # Dock (v3: tek nav, <header> içinde), ToneController, DayGradient (v3),
+│  │                 # RevealObserver (v3), Mascot (yürüyen avatar), CdPlayer, Cursor (v3 izler),
+│  │                 # DecorLayer + DecorSlot/RoomShelf/RoomFrame (v3 oda), Intro
+│  ├─ pixel/         # PixelSprite (bir renk = bir path), canvas.ts (kodla çizim) + sprites/ (avatar, room, plant, cd-player, stamps…)
+│  ├─ decor/         # V5 PrinciplesCrowd (sunucu bileşeni, <symbol>/<use>, yalnız CSS hareket)
+│  ├─ about/         # V6 ToolList (logolar public/tools/*.svg, CSS mask), v3 GithubActivity (build'de)
 │  ├─ footer/        # V8 NatureScene, landscape.ts (build'de üretilen manzara), SkyClock
 │  ├─ respect/       # AtaturkPortrait, TurkishFlag (hareket API'si yok)
 │  └─ ui/            # shadcn kopyaları (dialog, button…)

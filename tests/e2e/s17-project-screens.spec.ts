@@ -92,9 +92,7 @@ test.describe("shelf covers", () => {
     }
   });
 
-  test("phones never download the shelf covers; the V4 strip loads only what is in view", async ({
-    page,
-  }) => {
+  test("phones never download the shelf covers", async ({ page }) => {
     const requests: string[] = [];
     page.on("request", (request) => {
       if (request.url().includes("/_next/image")) requests.push(request.url());
@@ -103,13 +101,6 @@ test.describe("shelf covers", () => {
     await page.goto("/");
     await page.locator("#work").scrollIntoViewIfNeeded();
     await page.waitForLoadState("networkidle");
-    const shelfCovers = await page
-      .locator(".shelf-card img")
-      .evaluateAll(
-        (images) => images.filter((img) => (img as HTMLImageElement).naturalWidth).length,
-      );
-    expect(shelfCovers).toBe(0);
-    // The strip shows one card and the edge of the next: the other five wait until they are swiped in
-    expect(requests.length).toBeLessThanOrEqual(2);
+    expect(requests).toEqual([]);
   });
 });

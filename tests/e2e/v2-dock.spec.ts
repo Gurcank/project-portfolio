@@ -13,11 +13,13 @@ async function scrollToSection(page: Page, id: string) {
 }
 
 test.describe("dock", () => {
-  test("not on the hero; appears after it, and the yin-yang leads back to the top", async ({
+  test("there from the first screen (v3), named Intro on the hero; the yin-yang leads back to the top", async ({
     page,
   }) => {
     await page.goto("/");
-    await expect(dock(page)).toHaveCount(0);
+    await expect(dock(page)).toBeVisible();
+    await expect(page.locator(".section-indicator")).toContainText("Şu an: Giriş");
+    await expect(dock(page).getByRole("link", { name: "Switch to English" })).toBeVisible();
     await scrollToSection(page, "work");
     await expect(dock(page)).toBeVisible();
     await dock(page).getByRole("link", { name: "Başa dön" }).click();

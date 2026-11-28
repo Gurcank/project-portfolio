@@ -53,7 +53,7 @@ export function Hero({ name, copy }: HeroProps) {
 
       {/* V3 "who am I": the pixel portrait is the one pixel piece shown on every screen size (SPEC §8),
           because it stands for the person, not the room. Decorative: the sentences say who it is */}
-      <div className="mt-8 flex max-w-prose items-start gap-4 md:mt-12 md:gap-6">
+      <div className="mt-8 flex max-w-prose items-start gap-4 md:mt-12 md:gap-6 lg:max-w-3/5 xl:max-w-prose">
         <PixelSprite
           grid={avatarPortrait}
           palette={avatarPalette}
@@ -67,26 +67,28 @@ export function Hero({ name, copy }: HeroProps) {
       </div>
 
       <div className="relative mt-8 flex flex-wrap gap-3 md:mt-12">
-        {/* Desktop: the moving desk starts level with the CTAs, so it is always below the name and the
-            role line. Absolutely placed: it adds no height, so its late arrival shifts nothing (CLS) */}
-        <div className="absolute top-0 right-0 hidden lg:block">
-          <ExperienceBoundary name="hero-desk">
-            <HeroDeskLoader desk={copy.desk} />
-          </ExperienceBoundary>
-        </div>
         <a
           href="#contact"
-          className="inline-flex min-h-12 items-center gap-3 rounded-sm bg-ink px-6 font-mono text-label tracking-wide text-paper uppercase transition-colors duration-(--duration-fast) hover:bg-accent"
+          className="pixel-box inline-flex min-h-12 items-center gap-3 bg-ink px-6 font-mono text-label tracking-wide text-paper uppercase transition-colors duration-(--duration-fast) hover:bg-accent"
         >
           {copy.primaryCta}
           <span aria-hidden="true">↓</span>
         </a>
         <a
           href="#work"
-          className="inline-flex min-h-12 items-center gap-3 rounded-sm border border-ink px-6 font-mono text-label tracking-wide uppercase transition-colors duration-(--duration-fast) hover:bg-ink hover:text-paper"
+          className="pixel-frame inline-flex min-h-12 items-center gap-3 px-6 font-mono text-label tracking-wide uppercase transition-colors duration-(--duration-fast) hover:bg-ink hover:text-paper"
         >
           {copy.secondaryCta}
         </a>
+      </div>
+
+      {/* Desktop: the pixel desk sits at the foot of the hero, right of the text column (which is held
+          narrower at lg to leave it room). Absolutely placed: it adds no height, so its late arrival shifts
+          nothing (CLS) */}
+      <div className="absolute right-(--gutter) bottom-16 hidden lg:block">
+        <ExperienceBoundary name="hero-desk">
+          <HeroDeskLoader desk={copy.desk} />
+        </ExperienceBoundary>
       </div>
 
       {/* Phone and tablet: just the ticket, still and server-drawn (SPEC §8), under the CTAs */}

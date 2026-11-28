@@ -1,17 +1,11 @@
+import "@/components/experience/room.css";
+
 /*
  * An empty, invisible spot in a section's gutter where the room decor (D8) lands once it loads.
  * Server-rendered, so the position comes from the section's own layout; below xl it doesn't display.
  */
-export type DecorSlotName =
-  | "work-left"
-  | "work-right"
-  | "principles-left"
-  | "principles-right"
-  | "about-left"
-  | "colophon-left"
-  | "colophon-right"
-  | "contact-left"
-  | "contact-right";
+// Right gutters only (v3): the left gutter is the walker's trail (Mascot)
+export type DecorSlotName = "principles-right" | "about-right" | "colophon-right" | "contact-right";
 
 type DecorSlotProps = {
   name: DecorSlotName;
@@ -32,13 +26,34 @@ export function DecorSlot({ name, side, at = "top" }: DecorSlotProps) {
   );
 }
 
-/** The About background pattern's spot: the story and notes columns, never the portrait's column. */
-export function PatternSlot() {
+/* ── The room (v3): shelves and frames inside the content, from lg ─────────── */
+
+export type RoomSlotName =
+  | "work-shelf"
+  | "principles-shelf"
+  | "about-shelf"
+  | "principles-painting"
+  | "colophon-painting"
+  | "contact-painting";
+
+/** A wooden shelf plank; its objects arrive after idle and stand on it. */
+export function RoomShelf({ name, className = "" }: { name: RoomSlotName; className?: string }) {
   return (
     <div
-      data-decor-slot="about-pattern"
+      data-decor-slot={name}
       aria-hidden="true"
-      className="decor-behind pointer-events-none absolute inset-y-0 left-0 hidden w-3/4 xl:block"
+      className={`room-shelf pointer-events-none ${className}`}
+    />
+  );
+}
+
+/** Where a painting hangs. Positioned by the section, so it can never land on the text. */
+export function RoomFrame({ name, className = "" }: { name: RoomSlotName; className?: string }) {
+  return (
+    <div
+      data-decor-slot={name}
+      aria-hidden="true"
+      className={`room-frame pointer-events-none ${className}`}
     />
   );
 }

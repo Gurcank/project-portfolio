@@ -1,0 +1,66 @@
+/*
+ * The room's furniture (v3). A shelf is a wooden plank drawn in CSS, server-rendered with its height
+ * reserved, so the objects that land on it after idle (DecorLayer) shift nothing. A frame is the hook a
+ * painting hangs from. Both only from lg, where there is room beside the text; never on a phone.
+ */
+.room-shelf {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .room-shelf {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: calc(var(--spacing) * 2);
+    height: calc(var(--spacing) * 24);
+    padding-inline: calc(var(--spacing) * 4);
+    /* The plank: a dark board with a lit top edge, standing on the shelf's own bottom */
+    border-bottom: calc(var(--spacing) * 3) solid var(--color-tape);
+    box-shadow: 0 calc(var(--spacing) * 2) 0 calc(var(--spacing) * -1) var(--color-line);
+  }
+
+  .room-shelf::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: calc(var(--spacing) * 1);
+    background-color: var(--color-cassette-terracotta);
+    opacity: 0.5;
+  }
+}
+
+.room-frame {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .room-frame {
+    display: block;
+  }
+}
+
+/* The painting's frame: wood, a paper mat, a soft shadow on the wall */
+.room-painting {
+  display: inline-block;
+  padding: calc(var(--spacing) * 2);
+  background-color: var(--color-tape);
+  box-shadow: var(--shadow-note);
+}
+
+.room-painting > svg {
+  display: block;
+  outline: calc(var(--spacing) * 1) solid var(--color-paper);
+}
+
+/* Room pixels: one size for everything on the shelves, a larger one for paintings */
+.room-sprite {
+  width: calc(var(--room-pixel) * var(--cols));
+  /* Pixel objects keep their size: a crowded shelf may run a little long, it never squashes one flat */
+  flex-shrink: 0;
+}
+
+.room-painting > svg {
+  width: calc(var(--painting-pixel) * var(--cols));
+}

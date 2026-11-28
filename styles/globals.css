@@ -128,6 +128,28 @@
     --time-from: var(--color-time-dusk);
   }
 
+  /*
+   * With script, the day is one long gradient on <body> (DayGradient.tsx, v3): the sections stop painting
+   * their own grounds and bands, and only re-point the text colours. Without script the bands above stay.
+   */
+  :root[data-day] [data-time] {
+    background-color: transparent;
+  }
+
+  :root[data-day] [data-time]::before,
+  :root[data-day] [data-time]::after {
+    display: none;
+  }
+
+  /* The seam between About and Colophon: without script it holds the bands' shared midpoint tone */
+  .day-seam {
+    background-color: color-mix(in oklab, var(--color-time-sunset) 50%, var(--color-time-dusk));
+  }
+
+  :root[data-day] .day-seam {
+    background-color: transparent;
+  }
+
   body {
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);
@@ -141,8 +163,9 @@
     }
   }
 
-  /* Custom cursor (INS-03, D9): a pixel arrow on real pointers only. Text keeps the native I-beam,
-     links and buttons keep the hand, so nothing about how the page works changes. */
+  /* Custom cursor (INS-03; v3): the pixel arrow everywhere, text included (the user asked for the cursor
+     not to drop back to the default over text), a pixel hand on anything clickable. Only fields you type
+     into keep the I-beam, because there the caret position matters. */
   @media (pointer: fine) {
     html {
       cursor:
@@ -150,27 +173,56 @@
         auto;
     }
 
-    :where(
-      p,
-      h1,
-      h2,
-      h3,
-      h4,
-      li,
-      dd,
-      dt,
-      figcaption,
-      blockquote,
-      input,
-      textarea,
-      [contenteditable]
-    ) {
-      cursor: auto;
+    :where(input, textarea, [contenteditable]) {
+      cursor: text;
     }
 
     :where(a, button, summary, label[for], [role="button"]) {
-      cursor: pointer;
+      cursor:
+        url("/cursor/hand.svg") 8 0,
+        pointer;
     }
+  }
+
+  /*
+   * Pixel corners (v3: pixel art as the main theme). Four shadows one pixel-step out on each side draw a
+   * border with its corners missing, the way a sprite rounds a box. Shadows, not clip-path, so the focus
+   * outline is never cut off.
+   *   .pixel-box: a filled box (its own background colour extends into the notched edge)
+   *   .pixel-frame: an outlined box in the text colour
+   */
+  .pixel-box {
+    --pixel-edge: var(--spacing);
+    box-shadow:
+      0 calc(var(--pixel-edge) * -1) 0 0 currentColor,
+      0 var(--pixel-edge) 0 0 currentColor,
+      calc(var(--pixel-edge) * -1) 0 0 0 currentColor,
+      var(--pixel-edge) 0 0 0 currentColor;
+    color: inherit;
+  }
+
+  .pixel-box.bg-ink {
+    box-shadow:
+      0 calc(var(--spacing) * -1) 0 0 var(--color-ink),
+      0 var(--spacing) 0 0 var(--color-ink),
+      calc(var(--spacing) * -1) 0 0 0 var(--color-ink),
+      var(--spacing) 0 0 0 var(--color-ink);
+  }
+
+  .pixel-box.bg-ink:hover {
+    box-shadow:
+      0 calc(var(--spacing) * -1) 0 0 var(--color-accent),
+      0 var(--spacing) 0 0 var(--color-accent),
+      calc(var(--spacing) * -1) 0 0 0 var(--color-accent),
+      var(--spacing) 0 0 0 var(--color-accent);
+  }
+
+  .pixel-frame {
+    box-shadow:
+      0 calc(var(--spacing) * -0.5) 0 0 var(--color-ink),
+      0 calc(var(--spacing) * 0.5) 0 0 var(--color-ink),
+      calc(var(--spacing) * -0.5) 0 0 0 var(--color-ink),
+      calc(var(--spacing) * 0.5) 0 0 0 var(--color-ink);
   }
 
   :focus-visible {

@@ -104,6 +104,7 @@ export const worstCopy: SiteCopy = {
     groups: {
       font: "Kullanılan yazı tipleri",
       photo: "Arşiv fotoğrafları (kamu)",
+      art: "Kamu malı tablolar",
       ai: "Yapay zekâ araçları",
       asset: "Hazır görsel paketleri",
       data: "Veri kaynakları listesi",
@@ -143,6 +144,10 @@ export const worstCopy: SiteCopy = {
         },
         { label: "Dil", items: "İngilizce (B2)" },
       ],
+    },
+    github: {
+      heading: "GitHub hareketlerim",
+      summary: "Son on iki ayda GitHub'da toplam {count} katkı yaptım",
     },
     // 12 tools, the limit
     tools: {
@@ -185,6 +190,7 @@ export const worstCopy: SiteCopy = {
     dock: {
       label: "Sitenin bütün bölümleri",
       top: "En başa dön",
+      intro: "Giriş ekranı",
       clock: {
         label: "Yerel saat: İstanbul ile Łódź, iki şehrin şu anki saati",
         heading: "İki şehrimin saati",

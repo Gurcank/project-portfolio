@@ -42,14 +42,14 @@ colophon: >-
   akışta ilerledi. Her faz bir dokümanla bitti, her karar gerekçesiyle yazıldı. Vazgeçtiklerim de karar:
   telifli film posteri ve albüm kapağı kullanmadım; illüstre bir oda sahnesi yerine koddan üretilen pixel
   nesneler seçtim; kilim temasını turistik durma riski yüzünden bıraktım. Sonra siteyi baştan düşündüm:
-  gün ışığından geceye akan renkler, sayfayla dönen bir iş çarkı ve fotoğrafımdan kodla çizilen bir pixel
-  avatar. Kullandığım her font, fotoğraf ve görselin kaynağı aşağıda.
+  gün ışığından geceye akan renkler, pixel art bir oda ve fotoğrafımdan kodla çizilen bir avatar. Kullandığım her font, fotoğraf ve görselin kaynağı aşağıda.
 
 credits:
   heading: Krediler
   groups:
     font: Fontlar
     photo: Fotoğraf
+    art: Tablolar
     asset: Logolar
     ai: Yapay zekâ
 
@@ -90,6 +90,10 @@ about:
       - label: Dil
         items: İngilizce (B2)
   # V6 (CONTENT §6): logos from Simple Icons, keyed by these names (components/about/tool-icons.ts)
+  # v3 (R6): build-time GitHub calendar; {count} is filled in. Shown only if GitHub answers at build
+  github:
+    heading: GitHub
+    summary: "Son bir yılda {count} katkı"
   tools:
     heading: Araçlar
     items: [Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude]
@@ -116,6 +120,8 @@ microcopy:
   dock:
     label: Bölümler
     top: Başa dön
+    # v3: the dock is there from the first screen; this is the hero's name in "Şu an: …"
+    intro: Giriş
     clock:
       label: "Yerel saat: İstanbul ve Łódź"
       heading: İki şehrim

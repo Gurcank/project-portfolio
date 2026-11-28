@@ -10,7 +10,7 @@ const heroInfo = [
   "#top a[href='#contact']",
   "#top a[href='#work']",
 ];
-const desk = (page: Page) => page.locator("#top .desk-notification").locator("..");
+const desk = (page: Page) => page.locator("#top .desk-scene");
 
 async function jsBodies(browser: Browser, width: number) {
   const page = await browser.newPage({ viewport: { width, height: 900 } });
@@ -105,6 +105,24 @@ test.describe("hero desk", () => {
     await page.goto("/");
     await expect(desk(page)).toBeVisible({ timeout: 8000 });
     await expect(desk(page)).toHaveAttribute("aria-hidden", "true");
+    // Measure the scene at rest: axe reads a fading-in notification as a low-contrast blend
+    await expect(page.locator(".desk-notification")).toHaveCSS("opacity", "1", { timeout: 8000 });
+    await expect
+      .poll(
+        () =>
+          page.evaluate(
+            () =>
+              document
+                .getAnimations()
+                .filter(
+                  (a) =>
+                    a.playState === "running" &&
+                    (a as CSSAnimation).animationName?.startsWith("desk-"),
+                ).length,
+          ),
+        { timeout: 8000 },
+      )
+      .toBe(0);
     const results = await new AxeBuilder({ page }).include("#top").analyze();
     expect(
       results.violations.filter((v) => ["serious", "critical"].includes(v.impact ?? "")),
@@ -113,7 +131,9 @@ test.describe("hero desk", () => {
 });
 
 test.describe("custom cursor", () => {
-  test("a pixel arrow on fine pointers; text keeps its own cursor", async ({ page }) => {
+  test("a pixel arrow on fine pointers, over text too (v3); a pixel hand on links", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
     expect(await page.evaluate(() => getComputedStyle(document.documentElement).cursor)).toContain(
@@ -121,7 +141,10 @@ test.describe("custom cursor", () => {
     );
     expect(
       await page.locator("#top p.text-lead").evaluate((el) => getComputedStyle(el).cursor),
-    ).toBe("auto");
+    ).toContain("/cursor/arrow.svg");
+    expect(
+      await page.locator('#top a[href="#contact"]').evaluate((el) => getComputedStyle(el).cursor),
+    ).toContain("/cursor/hand.svg");
   });
 
   test("over a tape the pill says ▶ Aç", async ({ page }) => {

@@ -1,28 +1,50 @@
 /*
- * Handwritten margin notes (INS-13): a second, warmer voice beside the story. They are real text inside
- * the paragraph, right after the chip they talk about, so they read in order for everyone.
- * Below lg they sit on their own line under that sentence; from lg they move into the left margin and
- * stay level with their line (an absolutely positioned box keeps the vertical spot it had in the text).
+ * Handwritten margin notes (INS-13): a second, warmer voice beside the story, written on small sticky
+ * notes (v3). They are real text inside the paragraph, right after the chip they talk about, so they read
+ * in order for everyone. Below lg each note is its own small slip under that sentence; from lg it moves
+ * into the left margin, its top level with the chip's line (an absolutely positioned box keeps the
+ * vertical spot it had in the text), and never wider than the margin.
  */
 .margin-note {
+  position: relative;
   display: block;
-  margin-block: calc(var(--spacing) * 2);
+  width: fit-content;
+  max-width: calc(var(--spacing) * 48);
+  margin-block: calc(var(--spacing) * 3);
+  /* A little in from the edge, so the tilted slip never pokes out of the story column */
+  margin-inline-start: calc(var(--spacing) * 1);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  background-color: var(--color-pattern);
+  box-shadow: var(--shadow-note);
   font-family: var(--font-hand);
   font-size: var(--text-lead);
   line-height: var(--leading-tight);
   color: var(--color-accent);
+  rotate: -2deg;
+}
+
+/* A strip of pixel tape holding the slip to the page */
+.margin-note::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--spacing) * -2);
+  left: 50%;
+  width: calc(var(--spacing) * 12);
+  height: calc(var(--spacing) * 3);
+  translate: -50% 0;
+  background-color: var(--color-line);
+  opacity: 0.8;
 }
 
 @media (width >= 64rem) {
   .margin-note {
     /* Inline before positioning: the box then keeps the line it sits on, not the line after it */
-    display: inline;
+    display: inline-block;
     position: absolute;
     right: calc(100% + var(--spacing) * 8);
     width: calc(var(--spacing) * 48);
     margin-block: 0;
-    text-align: right;
-    /* A slight tilt is what makes it read as a note in the margin rather than a pull quote */
-    rotate: -2deg;
+    margin-inline-start: 0;
+    text-align: left;
   }
 }

@@ -3,7 +3,7 @@ import { expect, test, type Browser, type Page } from "./fixtures";
 
 // ROADMAP → S13 · D8 acceptance tests
 
-const MARKER = "about-decor-pattern"; // a string only the decor chunk contains
+const MARKER = "decor-spine-text"; // a string only the decor chunk contains
 
 /** Every JS file the page fetched, with its body and transfer size, after decor had time to load. */
 async function scripts(browser: Browser, width: number) {
@@ -36,16 +36,6 @@ async function decorLoaded(page: Page) {
   });
 }
 
-function luminance(rgb: string) {
-  const [r = 0, g = 0, b = 0] = (rgb.match(/\d+/g) ?? []).map((v) => Number(v) / 255);
-  const lin = (c: number) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
-  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
-}
-const contrast = (a: string, b: string) => {
-  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-  return (hi! + 0.05) / (lo! + 0.05);
-};
-
 test.describe("decor is wide-screen only", () => {
   test("375 and 768: no decor code at all; 1280: it loads and stays under 300 KB", async ({
     browser,
@@ -64,12 +54,17 @@ test.describe("decor is wide-screen only", () => {
     }
   });
 
-  test("below xl the slots don't display", async ({ page }) => {
+  test("below xl the gutter slots don't display; the room's shelves start at lg", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1024, height: 900 });
     await page.goto("/");
-    for (const slot of await page.locator("[data-decor-slot]").all()) {
+    for (const slot of await page.locator('[data-decor-slot$="-right"]').all()) {
       await expect(slot).toBeHidden();
     }
+    await expect(page.locator('[data-decor-slot="work-shelf"]')).toBeVisible();
+    await page.setViewportSize({ width: 768, height: 900 });
+    await expect(page.locator('[data-decor-slot="work-shelf"]')).toBeHidden();
   });
 });
 
@@ -114,39 +109,17 @@ test.describe("in the gutters, never on the content", () => {
     });
   }
 
-  test("all 28 pieces are placed: 14 tapes, 7 records, 7 stamps", async ({ page }) => {
+  test("every piece is placed: 14 tapes and the books on shelves, 7 sleeves, 7 stamps, 3 paintings", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await decorLoaded(page);
-    await expect(page.locator("[data-decor-slot] .decor-item")).toHaveCount(28);
-  });
-});
-
-test.describe("About pattern", () => {
-  test.use({ viewport: { width: 1280, height: 900 } });
-
-  test("lighter than the tone, so the accent notes over it stay AA", async ({ page }) => {
-    await decorLoaded(page);
-    const [pattern, accent, tone] = await page.evaluate(() => {
-      const rect = document.querySelector("#about-decor-pattern path")!;
-      const probe = document.createElement("span");
-      probe.style.color = "var(--color-accent)";
-      probe.style.backgroundColor = "var(--color-paper)";
-      // Inside About, where the sunset time re-points paper and accent
-      document.getElementById("about")!.append(probe);
-      const style = getComputedStyle(probe);
-      const values = [getComputedStyle(rect).fill, style.color, style.backgroundColor];
-      probe.remove();
-      return values;
-    });
-    expect(luminance(pattern!)).toBeGreaterThan(luminance(tone!));
-    expect(contrast(accent!, pattern!)).toBeGreaterThanOrEqual(4.5);
-  });
-
-  test("never reaches the portrait and flag column (SPEC §6)", async ({ page }) => {
-    await decorLoaded(page);
-    const pattern = (await page.locator('[data-decor-slot="about-pattern"]').boundingBox())!;
-    const portrait = (await page.locator("#about aside").boundingBox())!;
-    expect(pattern.x + pattern.width).toBeLessThanOrEqual(portrait.x);
+    const slot = (name: string) => page.locator(`[data-decor-slot="${name}"] .decor-item`);
+    await expect(slot("work-shelf").filter({ has: page.locator("[lang=en]") })).toHaveCount(0);
+    await expect(page.locator("[data-decor-slot$='-shelf'] [lang=en].decor-item")).toHaveCount(14);
+    await expect(page.locator('[data-decor-slot="about-shelf"] .room-sprite')).toHaveCount(8);
+    await expect(page.locator(".room-painting")).toHaveCount(3);
+    await expect(page.locator("[data-decor-slot$='-right'] .decor-item")).toHaveCount(9);
   });
 });
 
@@ -169,7 +142,7 @@ test("pause motion: hovering decor no longer moves it", async ({ page }) => {
   await page.evaluate(() =>
     document.getElementById("work")!.scrollIntoView({ behavior: "instant" }),
   );
-  const tape = page.locator('[data-decor-slot="work-left"] .decor-item').first();
+  const tape = page.locator('[data-decor-slot="work-shelf"] .decor-item').first();
   await tape.hover();
   expect(await tape.evaluate((el) => getComputedStyle(el).transform)).toBe("none");
 });

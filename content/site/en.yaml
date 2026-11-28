@@ -42,7 +42,7 @@ colophon: >-
   with Claude; each phase ended in a document, each decision came with a reason. What I dropped counts too:
   no copyrighted posters or album covers, code-generated pixel objects instead of an illustrated room, no
   kilim theme, which risked looking touristy. Then I rethought it: colours that run from daylight to night,
-  a work wheel that turns with the page, and a pixel avatar drawn in code from my photo. Every font, photo
+  a pixel-art room, and an avatar drawn in code from my photo. Every font, photo
   and image is credited below.
 
 credits:
@@ -50,6 +50,7 @@ credits:
   groups:
     font: Fonts
     photo: Photo
+    art: Paintings
     asset: Logos
     ai: AI
 
@@ -90,6 +91,10 @@ about:
       - label: Language
         items: English (B2)
   # V6 (CONTENT §6): logos from Simple Icons, keyed by these names (components/about/tool-icons.ts)
+  # v3 (R6): build-time GitHub calendar; {count} is filled in. Shown only if GitHub answers at build
+  github:
+    heading: GitHub
+    summary: "{count} contributions in the last year"
   tools:
     heading: Tools
     items: [Jira, Figma, Miro, React, Next.js, TypeScript, Supabase, Vercel, Claude]
@@ -116,6 +121,8 @@ microcopy:
   dock:
     label: Sections
     top: Back to top
+    # v3: the dock is there from the first screen; this is the hero's name in "Now: …"
+    intro: Intro
     clock:
       label: "Local time: Istanbul and Łódź"
       heading: My two cities

@@ -1,12 +1,9 @@
 import "@/components/cassette/shelf.css";
-import { DecorSlot } from "@/components/experience/DecorSlot";
+import { RoomShelf } from "@/components/experience/DecorSlot";
 import { cassetteSurface } from "@/components/cassette/cassette-colors";
 import { CassetteCover } from "@/components/cassette/CassetteCover";
-import { DrawnArrow } from "@/components/decor/DrawnArrow";
-import { ExperienceBoundary } from "@/components/experience/ExperienceBoundary";
-import { Emphasis } from "@/components/markdown/Emphasis";
-import { WorksWheel } from "@/components/works/WorksWheel";
 import type { ProjectView } from "@/lib/content";
+import { WaveText } from "@/components/markdown/WaveText";
 
 type ShelfProps = {
   heading: string;
@@ -26,38 +23,18 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
   return (
     <section id="work" aria-labelledby="work-heading" data-time="noon">
       <div className="relative mx-auto max-w-page px-(--gutter) py-24 md:py-32">
-        <DecorSlot name="work-left" side="left" />
-        <DecorSlot name="work-right" side="right" />
-        <h2
-          id="work-heading"
-          className="reveal font-display text-h1 font-black font-stretch-condensed"
-        >
-          <Emphasis text={heading} />
+        <h2 id="work-heading" className="font-display text-h1 font-black font-stretch-condensed">
+          <WaveText text={heading} />
         </h2>
-        {/* V5: a pen arrow from the heading down to the wheel, wide screens only */}
-        <DrawnArrow className="absolute top-24 right-(--gutter) hidden w-16 text-accent md:top-32 lg:block" />
 
-        {/* V4: the screenshots on a wheel (a strip or a grid where the wheel can't fit or shouldn't
-            move); the shelf below stays as the quick list of all seven tapes */}
-        <div className="mt-12 md:mt-16">
-          <ExperienceBoundary name="works-wheel">
-            <WorksWheel
-              openLabel={openLabel}
-              items={projects.map((project) => ({
-                slug: project.slug,
-                catalog: project.catalog,
-                title: project.study.title,
-                color: project.color,
-                image: project.cover?.image,
-              }))}
-            />
-          </ExperienceBoundary>
-        </div>
-
-        <ul className="shelf-list mt-12 flex flex-col gap-4 md:mt-16 lg:flex-row lg:items-end lg:gap-0">
-          {projects.map((project) => (
+        <ul
+          data-reveal=""
+          className="shelf-list land mt-12 flex flex-col gap-4 md:mt-16 lg:flex-row lg:items-end lg:gap-0"
+        >
+          {projects.map((project, index) => (
             <li
               key={project.slug}
+              style={{ ["--i" as string]: index }}
               data-featured={project.featured || undefined}
               className="shelf-item relative flex gap-4 rounded-md border border-line p-3 lg:border-0 lg:p-0"
             >
@@ -114,6 +91,8 @@ export function Shelf({ heading, projects, openLabel }: ShelfProps) {
             </li>
           ))}
         </ul>
+        {/* v3: the wall shelf beside the tapes: books, a globe, a camera, a plant and a lamp */}
+        <RoomShelf name="work-shelf" className="mt-16" />
       </div>
     </section>
   );

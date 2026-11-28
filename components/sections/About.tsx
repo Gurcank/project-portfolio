@@ -1,12 +1,14 @@
-import { Polaroids } from "@/components/about/Polaroids";
+import { GithubActivity } from "@/components/about/GithubActivity";
 import { ToolList } from "@/components/about/ToolList";
 import "@/components/sections/about.css";
 import { Fragment } from "react";
 
 import { CassetteChip } from "@/components/cassette/CassetteChip";
-import { DecorSlot, PatternSlot } from "@/components/experience/DecorSlot";
+import { DecorSlot, RoomShelf } from "@/components/experience/DecorSlot";
 import { AtaturkPortrait } from "@/components/respect/AtaturkPortrait";
 import { TurkishFlag } from "@/components/respect/TurkishFlag";
+import { WaveText } from "@/components/markdown/WaveText";
+import { readWords, wordCount } from "@/components/markdown/ReadText";
 import {
   parseStory,
   type Portrait,
@@ -21,14 +23,21 @@ type AboutProps = {
   projects: ProjectView[];
   openLabel: string;
   portrait?: Portrait;
+  /** The GitHub profile, for the build-time activity grid (v3) */
+  githubUrl: string;
 };
 
-/** Arrows in a note point at the chip; listeners don't need to hear "up arrow". */
+/**
+ * Arrows in a note point at the chip; listeners don't need to hear "up arrow". On a phone the note sits
+ * under its sentence, so "↑" is right; from lg it sits in the margin level with the chip, so it points
+ * across to it instead. Same glyph slot, no change to the words.
+ */
 function NoteText({ text }: { text: string }) {
   return text.split(/([↑↓←→])/).map((part, index) =>
     /^[↑↓←→]$/.test(part) ? (
       <span key={index} aria-hidden="true">
-        {part}
+        <span className="lg:hidden">{part}</span>
+        <span className="hidden lg:inline">{part === "↑" || part === "↓" ? "→" : part}</span>
       </span>
     ) : (
       part
@@ -80,25 +89,42 @@ function MarginNote({ text }: { text: string }) {
  * handwritten notes in the left margin, and on the right the Atatürk portrait with the flag in their
  * own fixed frame, apart from any decor (SPEC §6). Without a verified portrait the right column is empty.
  */
-export function About({ heading, about, projects, openLabel, portrait }: AboutProps) {
+export function About({ heading, about, projects, openLabel, portrait, githubUrl }: AboutProps) {
   const items = withNotes(parseStory(about.story), about.notes);
+
+  // Where each text piece starts in the story, so the brightening runs through it as one passage
+  const offsets = items.map((_, index) =>
+    items
+      .slice(0, index)
+      .reduce((sum, item) => (item.kind === "text" ? sum + wordCount(item.text) : sum), 0),
+  );
+  const storyTotal = items.reduce(
+    (sum, item) => (item.kind === "text" ? sum + wordCount(item.text) : sum),
+    0,
+  );
 
   return (
     <section id="about" aria-labelledby="about-heading" data-time="sunset">
       <div className="relative mx-auto grid max-w-page gap-12 px-(--gutter) pt-24 pb-32 md:pt-32 md:pb-48 lg:grid-cols-12 lg:gap-8">
-        <PatternSlot />
-        <DecorSlot name="about-left" side="left" />
+        <DecorSlot name="about-right" side="right" />
         <h2
           id="about-heading"
-          className="reveal font-display text-h1 font-black font-stretch-condensed lg:col-span-12"
+          className="font-display text-h1 font-black font-stretch-condensed lg:col-span-12"
         >
-          {heading}
+          <WaveText text={heading} />
         </h2>
 
         <div className="lg:col-span-6 lg:col-start-4">
           <p className="relative max-w-prose text-lead">
             {items.map((item, index) => {
-              if (item.kind === "text") return <Fragment key={index}>{item.text}</Fragment>;
+              if (item.kind === "text") {
+                // One passage: the brightening runs through the whole story, chips and notes aside
+                return (
+                  <Fragment key={index}>
+                    {readWords(item.text, offsets[index], storyTotal)}
+                  </Fragment>
+                );
+              }
               if (item.kind === "note") return <MarginNote key={index} text={item.text} />;
               const project = projects.find((tape) => tape.slug === item.slug);
               return project ? (
@@ -147,7 +173,10 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
             ))}
           </dl>
 
+          <GithubActivity profileUrl={githubUrl} copy={about.github} />
           <ToolList heading={about.tools.heading} items={about.tools.items} />
+          {/* v3: the records on a shelf, face out, with the player */}
+          <RoomShelf name="about-shelf" className="mt-16" />
         </div>
 
         {portrait && (
@@ -156,9 +185,6 @@ export function About({ heading, about, projects, openLabel, portrait }: AboutPr
             <TurkishFlag label={about.flagLabel} className="w-full rounded-sm" />
           </aside>
         )}
-
-        {/* A row of its own under the story, never beside the portrait and flag (SPEC §6) */}
-        <Polaroids projects={projects} />
       </div>
     </section>
   );

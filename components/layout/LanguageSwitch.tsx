@@ -8,6 +8,14 @@ type LanguageSwitchProps = {
   target: Locale;
   label: string;
   accessibleName: string;
+  /** "dock": a round pill inside the dark dock (v3, where the language switch now lives) */
+  variant?: "plain" | "dock";
+};
+
+const variants = {
+  plain:
+    "inline-flex min-h-12 min-w-12 items-center justify-center rounded-sm border border-ink font-mono text-label uppercase transition-colors duration-(--duration-fast) hover:bg-ink hover:text-paper",
+  dock: "inline-flex min-h-10 min-w-10 shrink-0 items-center justify-center rounded-full font-mono text-label uppercase transition-colors duration-(--duration-fast) hover:bg-paper hover:text-ink",
 };
 
 /**
@@ -15,7 +23,12 @@ type LanguageSwitchProps = {
  * so a shared `/#contact` or `/#atamap` lands on the same place in `/en` (ADR-03).
  * The two languages are separate root layouts, so this is a full page load either way.
  */
-export function LanguageSwitch({ target, label, accessibleName }: LanguageSwitchProps) {
+export function LanguageSwitch({
+  target,
+  label,
+  accessibleName,
+  variant = "plain",
+}: LanguageSwitchProps) {
   const href = localePath(target);
 
   function keepHash(event: MouseEvent<HTMLAnchorElement>) {
@@ -25,13 +38,7 @@ export function LanguageSwitch({ target, label, accessibleName }: LanguageSwitch
   }
 
   return (
-    <a
-      href={href}
-      hrefLang={target}
-      lang={target}
-      onClick={keepHash}
-      className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-sm border border-ink font-mono text-label uppercase transition-colors duration-(--duration-fast) hover:bg-ink hover:text-paper"
-    >
+    <a href={href} hrefLang={target} lang={target} onClick={keepHash} className={variants[variant]}>
       <span className="sr-only">{accessibleName}</span>
       <span aria-hidden="true">{label}</span>
     </a>

@@ -17,7 +17,7 @@ test.describe("intro", () => {
     const end = await page.evaluate(() => {
       const curtain = document
         .getAnimations()
-        .find((a) => (a as CSSAnimation).animationName === "intro-out") as CSSAnimation;
+        .find((a) => (a as CSSAnimation).animationName === "intro-crumple") as CSSAnimation;
       const timing = curtain.effect!.getComputedTiming();
       return Number(timing.endTime);
     });
