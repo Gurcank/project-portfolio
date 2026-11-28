@@ -1,11 +1,11 @@
 # PROGRESS
 
-## Durum: v3 "Oda" yerelde tamam, `slice/v3-room` dalında, commit onayı bekliyor. Canlıda V3–V9 (`bca9435`). Kullanıcıda: "Nasıl karar veririm" metni (çalışma kâğıdı), Umami ID, 30 sn testi, ekran okuyucu turu, IDDDergi adresi. PSI kota açılınca
+## Durum: v3 "Oda" canlıda (2026-11-28, `db49afc`). Kullanıcıda: "Nasıl karar veririm" metni (çalışma kâğıdı https://claude.ai/artifact/TJd4Wd4gT5DMnimHoSoRex), Umami ID, 30 sn testi, ekran okuyucu turu, IDDDergi adresi. PSI kota açılınca (2026-11-28 API yine 429)
 
-**Canlı:** https://gurcankaradag.vercel.app (V3–V9, commit `bca9435`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
-**Branch:** `slice/v3-room` (commit edilmedi).
+**Canlı:** https://gurcankaradag.vercel.app (v3, commit `db49afc`; eski `project-portfolio-theta-mocha.vercel.app` artık 404) · **Repo:** https://github.com/Gurcank/project-portfolio (public) · Vercel projesi `project-portfolio` (takım: gurcanks-projects), production branch `main`, Node 24.x.
+**Branch:** `main` (v3-room fast-forward ile merge edildi).
 
-### v3 · Oda (yerelde)
+### v3 · Oda (canlıda)
 
 - **Kullanıcı isteği (2026-11-28):** çarkı ve polaroidleri kaldır; gün geçişleri çok önceden başlayıp yumuşak aksın; desenleri ve el yazısı notları düzelt; yerleşimi yeniden düzenle; pixel art ana tema, raflarda kitaplar, aksesuarlar, tablolar (Yıldızlı Gece gibi), pixel albüm kapakları; footer dışındaki imleci değiştir; dock hep görünsün; yazılara landing; footer kalitesinde loading; hero masası bütünleşsin; "Nasıl karar veririm"i kullanıcı yazacak; geçmiş isteklerin denetimi. Kararlar (AskUserQuestion): özgün pixel plaklar, bölüme göre iz, oda duvarı boyunca yerleşim, Framer davranışı kendi kodumuzla.
 - **R1:** `components/works/*`, `DrawnArrow`, `Polaroids`, `SiteHeader`, Hakkımda deseni ve konturlar silindi; `data-js` ve analitikteki `"wheel"` kalktı. `DayGradient`: gün `<body>` üzerinde tek gradyan; duraklar bölüm kutularından ölçülür (açıktan açığa %60 → %40, gün batımı → akşam yalnız metinsiz dikişte; dikiş `h-24 md:h-48`, yin-yang ortasında). Script yoksa bantlar. Kenar notları bantlı yapışkan kâğıt (`--shadow-note`), masaüstünde "↑" yerine "→" (aynı glif yuvası). Krediler tek satırlık küçük liste. Dock her zaman (sunucuda da çizilir), `<header>` içinde, dil değiştirici dock'ta, hero adı "Giriş"/"Intro" (CONTENT §8). Colophon cümlesinde çark yerine "pixel art bir oda" (onaylı). Gren %4.
@@ -19,6 +19,8 @@
 - **Ağırlık:** ilk yük JS 236,4 → 235,7 KB gzip (−0,7; çark gitti). Ana sayfa HTML gzip 50,9 (canlı) → 56,6 KB (+5,7). Dekor parçası 11,2 KB (gzip 4,1).
 - **Testler:** yeni `v3-room.spec.ts` (11) ve d6'da gradyan kontrast örneklemesi (açıktan açığa üç geçiş, çeyrek adımlar, iki bölümün metin renkleri, AA). Güncellenenler: d1 (banner = dock'un header'ı, iki GitHub bağlantısı), d3 (uçuş testleri sayfa oturunca tıklar; renk testi `test.slow()`), d4 (kimlik satırı seçici), d5, d6 (dock hero'da, 375'te CTA'yı kapatmaz, J-card bölüm güncellenince açılır), d7, d8 (raflar, sağ kenarlar), d9 (masa sahnesi, imleç yazıda ok, linkte el, axe hareket bitince), d10 (`intro-crumple`), smoke, s17, v2-dock, v2-rest. Silinen: `v4-works-wheel.spec.ts`.
 - **Doğrulama (yerel):** `format:check`, `lint`, `typecheck`, `test` (109/109), `check:tokens` (115 dosya), `build`, `test:e2e` 184/184 (bir önceki tam koşuda d3 uçuş testi paralel yük altında bir kez düştü, tek başına ve sonraki tam koşuda geçti). Ekran görüntüleri `artifacts/v3-*`, `home-*`, `en-*`.
+- **Preview'da doğrulananlar (`db49afc`, paylaşım linkiyle):** TR/EN × 375/768/1280: dock her genişlikte `<header>` içinde, gün gradyanı devrede, "Bana yaz" ilk ekranda (375 × 667 dahil); raflarda 29 nesne ve 3 tablo yalnız 1280'de; GitHub ızgarası var; çark ve polaroid yok; taşma 0, CSP ihlali 0.
+- **Production'da doğrulananlar (2026-11-28):** aynı kontroller aynı sonuçla. PSI API 429.
 
 ### V3–V9 · Kalan v2 dilimleri (canlıda)
 
